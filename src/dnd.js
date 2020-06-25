@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import './dnd.css';
 
 const { useState } = React;
@@ -40,7 +39,7 @@ const character = {
       charisma: 34
     },
     modifier: (ability) => {
-      if(character.abilities.score[ability] == '--'){
+      if(character.abilities.score[ability] === '--'){
         return '--'
       }
       return Math.floor((character.abilities.score[ability] - 10) / 2)
@@ -149,16 +148,12 @@ const intMod = character.abilities.modifier('intelligence')
 const wisMod = character.abilities.modifier('wisdom')
 const chaMod = character.abilities.modifier('charisma')
 /******************************Character Info****************************/
-/**********************************Styles********************************/
-// TEXT
-const redText = {color: 'red'}
-const evenText = {fontFamily: 'monospace'}
-/**********************************Styles********************************/
 function Fight(props) {
   return (
     <div>FIGHT</div>
   )
 }
+
 function UseSpell(props) {
   const newArray = Object.values(character.magic.spells.zero).map(spell => spell)
   function spellList(level) {
@@ -184,6 +179,7 @@ function UseSpell(props) {
     </div>
   )
 }
+
 function Spellbook(props){
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
@@ -212,6 +208,18 @@ function PrepSpells(props) {
   function totalSpells(level, levelNum) {
     return character.magic.spellsPerDay[level] + character.magic.bonusSpellsPerDay(levelNum)
   }
+  function spellCodeBlock(level, levelNum, levelRoman){
+    return (
+      <div className='spellItems'>
+        <div className='spellLevelWrapper'>
+          <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
+          <em className='remainingSpells'>{totalSpells(level, levelNum)} remaining today</em>
+        </div>
+        <p className='spellList'>{displaySpells(level)}</p>
+        <hr/>
+      </div>
+    )
+  }
   return (
     <>
       <div>
@@ -219,87 +227,26 @@ function PrepSpells(props) {
         <div className='spellItems'>
           <div className='spellLevelWrapper'>
             <h2 className='spellLevelHeader'>{casterType()}</h2>
-            <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
+            <em className='remainingSpells'>{totalSpells('zero', 0)} remaining today</em>
           </div>
           <p className='spellList'>{displaySpells('zero')}</p>
           <hr/>
         </div> {/*0*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level I</h2>
-            <em className='remainingSpells'>{totalSpells('one', 1)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('one')}</p>
-          <hr />
-        </div> {/*1*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level II</h2>
-            <em className='remainingSpells'>{totalSpells('two', 2)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('two')}</p>
-          <hr />
-        </div> {/*2*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level III</h2>
-            <em className='remainingSpells'>{totalSpells('three', 3)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('three')}</p>
-          <hr />
-        </div> {/*3*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level IV</h2>
-            <em className='remainingSpells'>{totalSpells('four', 4)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('four')}</p>
-          <hr />
-        </div> {/*4*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level V</h2>
-            <em className='remainingSpells'>{totalSpells('five', 5)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('five')}</p>
-          <hr />
-        </div> {/*5*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level VI</h2>
-            <em className='remainingSpells'>{totalSpells('six', 6)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('six')}</p>
-          <hr />
-        </div> {/*6*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level VII</h2>
-            <em className='remainingSpells'>{totalSpells('seven', 7)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('seven')}</p>
-          <hr />
-        </div> {/*7*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level VIII</h2>
-            <em className='remainingSpells'>{totalSpells('eight', 8)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('eight')}</p>
-          <hr />
-        </div> {/*8*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level IX</h2>
-            <em className='remainingSpells'>{totalSpells('nine', 9)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('nine')}</p>
-        </div> {/*9*/}
+        {spellCodeBlock('one', 1, 'I')}
+        {spellCodeBlock('two', 2, 'II')}
+        {spellCodeBlock('three', 3, 'III')}
+        {spellCodeBlock('four', 4, 'IV')}
+        {spellCodeBlock('five', 5, 'V')}
+        {spellCodeBlock('six', 6, 'VI')}
+        {spellCodeBlock('seven', 7, 'VII')}
+        {spellCodeBlock('eight', 8, 'VIII')}
+        {spellCodeBlock('nine', 9, 'IX')}
       </div>
     </div>
     </>
   )
 }
+
 function ClassSkillsListItem(props){
   return <li className='skills'>{props.classSkills}{props.skillPoints}</li>
 }
@@ -336,10 +283,7 @@ function Skills(props) {
         {skillsBlock}{classSkillsBlock}
       </ul>
     </>
-  );
-} //SKILLS
-
-
+  );}
 
 function KnownSpells(props){
   const [toggleInfo, setToggleInfo] = useState(false);
@@ -351,9 +295,7 @@ function KnownSpells(props){
   )
 }
 
-
-
-function Stats(props) {
+function Stats(props){
   return (
     <div>
       <div className='statsContainer'>
@@ -373,7 +315,8 @@ function Stats(props) {
     </div>
   );
 }
-function Spells(props) {
+
+function Spells(props){
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
@@ -394,6 +337,19 @@ function Spells(props) {
   function totalSpells(level, levelNum) {
     return character.magic.spellsPerDay[level] + character.magic.bonusSpellsPerDay(levelNum)
   }
+//condense spell block into function
+  function spellCodeBlock(level, levelNum, levelRoman){
+    return (
+      <div className='spellItems'>
+        <div className='spellLevelWrapper'>
+          <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
+          <em className='remainingSpells'>{totalSpells(level, levelNum)} remaining today</em>
+        </div>
+        <p className='spellList'>{displaySpells(level)}</p>
+        <hr/>
+      </div>
+    )
+  }
   return (
     <div>
       <div className='spellContainer'>
@@ -404,83 +360,22 @@ function Spells(props) {
           </div>
           <p className='spellList'>{displaySpells('zero')}</p>
           <hr/>
-        </div> {/*0*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level I</h2>
-            <em className='remainingSpells'>{totalSpells('one', 1)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('one')}</p>
-          <hr />
-        </div> {/*1*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level II</h2>
-            <em className='remainingSpells'>{totalSpells('two', 2)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('two')}</p>
-          <hr />
-        </div> {/*2*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level III</h2>
-            <em className='remainingSpells'>{totalSpells('three', 3)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('three')}</p>
-          <hr />
-        </div> {/*3*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level IV</h2>
-            <em className='remainingSpells'>{totalSpells('four', 4)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('four')}</p>
-          <hr />
-        </div> {/*4*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level V</h2>
-            <em className='remainingSpells'>{totalSpells('five', 5)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('five')}</p>
-          <hr />
-        </div> {/*5*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level VI</h2>
-            <em className='remainingSpells'>{totalSpells('six', 6)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('six')}</p>
-          <hr />
-        </div> {/*6*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level VII</h2>
-            <em className='remainingSpells'>{totalSpells('seven', 7)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('seven')}</p>
-          <hr />
-        </div> {/*7*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level VIII</h2>
-            <em className='remainingSpells'>{totalSpells('eight', 8)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('eight')}</p>
-          <hr />
-        </div> {/*8*/}
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>Level IX</h2>
-            <em className='remainingSpells'>{totalSpells('nine', 9)} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('nine')}</p>
-        </div> {/*9*/}
+        </div>
+        {spellCodeBlock('one', 1, 'I')}
+        {spellCodeBlock('two', 2, 'II')}
+        {spellCodeBlock('three', 3, 'III')}
+        {spellCodeBlock('four', 4, 'IV')}
+        {spellCodeBlock('five', 5, 'V')}
+        {spellCodeBlock('six', 6, 'VI')}
+        {spellCodeBlock('seven', 7, 'VII')}
+        {spellCodeBlock('eight', 8, 'VIII')}
+        {spellCodeBlock('nine', 9, 'IX')}
       </div>
     </div>
   );
 }
-function Items(props) {
+
+function Items(props){
   return (
     <div>
       <h1>Items</h1>
@@ -488,7 +383,8 @@ function Items(props) {
     </div>
   );
 }
-class Actions extends React.Component {
+
+class Actions extends React.Component{
   constructor(props){
     super(props)
     this.state = {
@@ -507,7 +403,7 @@ class Actions extends React.Component {
   }
 }
 
-function BasicInfo(props) {
+function BasicInfo(props){
 //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
 //display conditional more/less
@@ -547,18 +443,18 @@ function BasicInfo(props) {
       </div>
     );
 }
-function CharacterType(props) {
+function CharacterType(props){
   return(
     <span>{props.value} / </span>
   )
 }
-function CharacterClasses(props) {
+function CharacterClasses(props){
   return(
     <li>{props.value}</li>
   )
 }
 
-class MainDisplay extends React.Component {
+class MainDisplay extends React.Component{
   constructor(props){
     super(props)
     this.screenSwitch = this.screenSwitch.bind(this)
@@ -590,20 +486,29 @@ class MainDisplay extends React.Component {
   }
 }
 
-function Navbar(props) {
+function Navbar(props){
+  function navButtonCodeBlock(name){
+    return(
+      <button id={name}
+              onClick={props.click}
+              className={(props.display == name ? 'navbarItemsOn' : 'navbarItemsOff')}>
+                      {name.toUpperCase()}
+              </button>
+    )
+  }
   return (
     <div>
       <ul id='navbarContainer'>
-        <button id='stats' onClick={props.click} className={(props.display == 'stats' ? 'navbarItemsOn' : 'navbarItemsOff')}>Stats</button>
-        <button id='spells' onClick={props.click} className={(props.display == 'spells' ? 'navbarItemsOn' : 'navbarItemsOff')}>Spells</button>
-        <button id='items' onClick={props.click} className={(props.display == 'items' ? 'navbarItemsOn' : 'navbarItemsOff')}>Items</button>
-        <button id='actions' onClick={props.click} className={(props.display == 'actions' ? 'navbarItemsOn' : 'navbarItemsOff')}>Actions</button>
+        {navButtonCodeBlock('stats')}
+        {navButtonCodeBlock('spells')}
+        {navButtonCodeBlock('items')}
+        {navButtonCodeBlock('actions')}
       </ul>
     </div>
   );
 }
 
-class SwitchState extends React.Component {
+class SwitchState extends React.Component{
   constructor(props){
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -638,8 +543,7 @@ class SwitchState extends React.Component {
   }
 }
 
-
-class App extends React.Component {
+class App extends React.Component{
   constructor(props) {
     super(props)
   }
