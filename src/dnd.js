@@ -103,7 +103,7 @@ const character = {
       nine: ['Replicate Casting', 'Sphere of Ultimate Destruction']
     },
     spellbook: {
-      zero: ['Arcane Mark', 'Prestidigitation', 'Mage Hand', 'Resistance', 'Disrupt Undead', 'Touch of Fatigue', 'Mending', 'Message', 'Open/Close', 'Preserve Organ', 'No-Light', 'Slash Tongue', 'Silent Portal'],
+      zero: ['Arcane_Mark', 'Prestidigitation', 'Mage Hand', 'Resistance', 'Disrupt Undead', 'Touch of Fatigue', 'Mending', 'Message', 'Open/Close', 'Preserve Organ', 'No-Light', 'Slash Tongue', 'Silent Portal'],
       one: ['a'],
       two: ['a'],
       three: ['a'],
@@ -165,10 +165,6 @@ function UseSpell(props) {
         .join(' | ') + ' |'
     }
     return '| ' + character.magic.spells[level] + ' |'
-  }
-
-  function tryAgain(...x) {
-    return arguments
   }
   return (
     <div>
