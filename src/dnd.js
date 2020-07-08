@@ -31,12 +31,12 @@ const character = {
   alignment: 'Lawful-Good',
   abilities: {
     score: {
-      strength: 19,
-      dexterity: 35,
+      strength: 18,
+      dexterity: 24,
       constitution: '--',
-      intelligence: 14,
-      wisdom: 10,
-      charisma: 34
+      intelligence: 22,
+      wisdom: 17,
+      charisma: 35
     },
     modifier: (ability) => {
       if(character.abilities.score[ability] === '--'){
@@ -91,16 +91,16 @@ const character = {
       divine: false,
     },
     spells: {
-      zero: ['Mending', 'Arcane_Mark', 'Ghost Sound', 'Detect Magic', 'Mage Hand', 'Message', 'Light', 'Read Magic', 'Acid Splash', 'Lullaby', 'Know Direction', 'Open/Close', 'Prestidigitation'],
-      one: ['Silent Image', 'Disguise Self', 'Magic Missile', 'Mage Armor', 'Charm Person'],
-      two: ['Ghoul Touch', 'Arcane Lock', 'Knock', 'Alter Fortune', 'Scorching Ray'],
-      three: ['Shrink Item', 'Tiny Hut', 'Ray of Exhaustion', 'Explosive Runes'],
-      four: ['Resilient Sphere', 'Create Fetch', 'Dimension Door', 'Polymorph'],
-      five: ['Telekinesis', 'Sending', 'Passwall', 'Planar Binding, Lesser', 'Feeblemind'],
-      six: ['Disintigrate', 'Freezing Sphere', 'Planar Binding', 'Permanent Image'],
-      seven: ['Teleport Object', 'Stun Ray', 'Waves of Exhaustion'],
-      eight: ['Polymorph any Object', 'Horrid Wilting', 'Planar Binding, Greater', 'Last Judgment'],
-      nine: ['Replicate Casting', 'Sphere of Ultimate Destruction']
+      zero: ['Mending', 'Arcane_Mark', 'Ghost_Sound', 'Detect_Magic', 'Mage_Hand', 'Message', 'Light', 'Read Magic', 'Acid_Splash', 'Lullaby', 'Know_Direction', 'Open/Close', 'Prestidigitation'],
+      one: ['Silent_Image', 'Disguise_Self', 'Magic_Missile', 'Mage_Armor', 'Charm_Person'],
+      two: ['Ghoul_Touch', 'Arcane_Lock', 'Knock', 'Alter_Fortune', 'Scorching_Ray'],
+      three: ['Shrink_Item', 'Tiny_Hut', 'Ray_of_Exhaustion', 'Explosive_Runes'],
+      four: ['Resilient_Sphere', 'Create_Fetch', 'Dimension_Door', 'Polymorph'],
+      five: ['Telekinesis', 'Sending', 'Passwall', 'Planar_Binding,_Lesser', 'Feeblemind'],
+      six: ['Disintigrate', 'Freezing_Sphere', 'Planar_Binding', 'Permanent_Image'],
+      seven: ['Teleport_Object', 'Stun_Ray', 'Waves_of_Exhaustion'],
+      eight: ['Polymorph_any_Object', 'Horrid_Wilting', 'Planar_Binding,_Greater', 'Last_Judgment'],
+      nine: ['Replicate Casting', 'Sphere of Ultimate Destruction', 'Crushing_Hand']
     },
     spellbook: {
       zero: ['Arcane_Mark', 'Prestidigitation', 'Mage Hand', 'Resistance', 'Disrupt Undead', 'Touch of Fatigue', 'Mending', 'Message', 'Open/Close', 'Preserve Organ', 'No-Light', 'Slash Tongue', 'Silent Portal'],
@@ -124,11 +124,11 @@ const character = {
       six: 6,
       seven: 6,
       eight: 6,
-      nine: 4,
+      nine: 6,
     },
     bonusSpellsPerDay: (level) => {
       return Math.ceil((character.abilities.primaryModifier('charisma') - (level - 1)) / 4)
-    },
+    }, //formula needs fixing
     spellSave: () => {return Math.floor(10 + character.abilities.primaryModifier('charisma'))}
   },
   items: [
@@ -179,7 +179,7 @@ function UseSpell(props) {
 function Spellbook(props){
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
-  const formattedSpell = spell.replace('_', ' ')
+  const formattedSpell = spell.replace(/\_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell}</button>
@@ -284,32 +284,11 @@ function Skills(props) {
 function KnownSpells(props){
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
-  const formattedSpell = spell.replace('_', ' ')
+  const formattedSpell = spell.replace(/\_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell + ' \u221e'}</button>
   )
-}
-
-function Stats(props){
-  return (
-    <div>
-      <div className='statsContainer'>
-        <h1 id='abilitiesHeader'>Abilities</h1>
-        <div id='abilities'>
-          <p className='abilities'>STR: {str} | {strMod}</p>
-          <p className='abilities'>DEX: {dex} | {dexMod}</p>
-          <p className='abilities'>CON: {con} | {conMod}</p>
-          <p className='abilities'>INT: {int} | {intMod}</p>
-          <p className='abilities'>WIS: {wis} | {wisMod}</p>
-          <p className='abilities'>CHA: {cha} | {chaMod}</p>
-        </div>
-      </div>
-      <div className='skillsContainer'>
-        <Skills />
-      </div>
-    </div>
-  );
 }
 
 function Spells(props){
@@ -329,44 +308,65 @@ function Spells(props){
     );
     return spells;
   }
-//total castings per day
+  //total castings per day
   function totalSpells(level, levelNum) {
     return character.magic.spellsPerDay[level] + character.magic.bonusSpellsPerDay(levelNum)
   }
-//condense spell block into function
+  //condense spell block into function
   function spellCodeBlock(level, levelNum, levelRoman){
     return (
       <div className='spellItems'>
-        <div className='spellLevelWrapper'>
-          <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
-          <em className='remainingSpells'>{totalSpells(level, levelNum)} remaining today</em>
-        </div>
-        <p className='spellList'>{displaySpells(level)}</p>
-        <hr/>
+      <div className='spellLevelWrapper'>
+      <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
+      <em className='remainingSpells'>{totalSpells(level, levelNum)} remaining today</em>
+      </div>
+      <p className='spellList'>{displaySpells(level)}</p>
+      <hr/>
       </div>
     )
   }
   return (
     <div>
-      <div className='spellContainer'>
-        <div className='spellItems'>
-          <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>{casterType()}</h2>
-            <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
-          </div>
-          <p className='spellList'>{displaySpells('zero')}</p>
-          <hr/>
-        </div>
-        {spellCodeBlock('one', 1, 'I')}
-        {spellCodeBlock('two', 2, 'II')}
-        {spellCodeBlock('three', 3, 'III')}
-        {spellCodeBlock('four', 4, 'IV')}
-        {spellCodeBlock('five', 5, 'V')}
-        {spellCodeBlock('six', 6, 'VI')}
-        {spellCodeBlock('seven', 7, 'VII')}
-        {spellCodeBlock('eight', 8, 'VIII')}
-        {spellCodeBlock('nine', 9, 'IX')}
-      </div>
+    <div className='spellContainer'>
+    <div className='spellItems'>
+    <div className='spellLevelWrapper'>
+    <h2 className='spellLevelHeader'>{casterType()}</h2>
+    <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
+    </div>
+    <p className='spellList'>{displaySpells('zero')}</p>
+    <hr/>
+    </div>
+    {spellCodeBlock('one', 1, 'I')}
+    {spellCodeBlock('two', 2, 'II')}
+    {spellCodeBlock('three', 3, 'III')}
+    {spellCodeBlock('four', 4, 'IV')}
+    {spellCodeBlock('five', 5, 'V')}
+    {spellCodeBlock('six', 6, 'VI')}
+    {spellCodeBlock('seven', 7, 'VII')}
+    {spellCodeBlock('eight', 8, 'VIII')}
+    {spellCodeBlock('nine', 9, 'IX')}
+    </div>
+    </div>
+  );
+}
+
+function Stats(props){
+  return (
+    <div>
+    <div className='statsContainer'>
+    <h1 id='abilitiesHeader'>Abilities</h1>
+    <div id='abilities'>
+    <p className='abilities'>STR: {str} | {strMod}</p>
+    <p className='abilities'>DEX: {dex} | {dexMod}</p>
+    <p className='abilities'>CON: {con} | {conMod}</p>
+    <p className='abilities'>INT: {int} | {intMod}</p>
+    <p className='abilities'>WIS: {wis} | {wisMod}</p>
+    <p className='abilities'>CHA: {cha} | {chaMod}</p>
+    </div>
+    </div>
+    <div className='skillsContainer'>
+    <Skills />
+    </div>
     </div>
   );
 }
