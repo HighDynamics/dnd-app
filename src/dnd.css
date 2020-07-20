@@ -11,7 +11,7 @@ body {
 }
 
 #topWrapper{
-  height: 20vh;
+  height: 25vh;
 }
 #nameAndLevel {
   display: inline;
@@ -86,7 +86,8 @@ button:focus {
   color: white;
   border: none;
   height: 25px;
-  font-size: 17px
+  font-size: 17px;
+  width: 20vw;
 }
 .navbarItemsOff{
   background: rgba(100, 100, 100, .2);
@@ -94,7 +95,17 @@ button:focus {
   color: grey;
   border: none;
   height: 25px;
-  font-size: 17px
+  font-size: 17px;
+  width: 20vw
+}
+#statIcon{
+  pointer-events: none;
+}
+#spellIcon{
+  pointer-events: none;
+}
+#itemIcon{
+  pointer-events: none;
 }
 .spellLevelWrapper{
   text-align: center;

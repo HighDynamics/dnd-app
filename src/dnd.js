@@ -148,13 +148,7 @@ const intMod = character.abilities.modifier('intelligence')
 const wisMod = character.abilities.modifier('wisdom')
 const chaMod = character.abilities.modifier('charisma')
 /******************************Character Info****************************/
-function Fight(props) {
-  return (
-    <div>FIGHT</div>
-  )
-}
-
-function UseSpell(props) {
+const UseSpell = (props) => {
   const newArray = Object.values(character.magic.spells.zero).map(spell => spell)
   function spellList(level) {
     if (character.magic.spells[level].length == 0){
@@ -175,8 +169,7 @@ function UseSpell(props) {
     </div>
   )
 }
-
-function Spellbook(props){
+const Spellbook = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
   const formattedSpell = spell.replace(/\_/g, ' ')
@@ -185,7 +178,7 @@ function Spellbook(props){
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell}</button>
   )
 }
-function PrepSpells(props) {
+const PrepSpells = (props) => {
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
       return 'Cantrips & Orisons'
@@ -243,13 +236,13 @@ function PrepSpells(props) {
   )
 }
 
-function ClassSkillsListItem(props){
+const ClassSkillsListItem = (props) => {
   return <li className='skills'>{props.classSkills}{props.skillPoints}</li>
 }
-function SkillsListItem(props){
+const SkillsListItem = (props) => {
   return <li className='skills'>{props.skills}{props.skillPoints}</li>
 }
-function Skills(props) {
+const Skills = (props) =>  {
   let skillsBlock = Object.keys(character.skills).map((skill) =>
     (
       <div className='skillBorderTwo'>
@@ -281,7 +274,7 @@ function Skills(props) {
     </>
   );}
 
-function KnownSpells(props){
+const KnownSpells = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
   const formattedSpell = spell.replace(/\_/g, ' ')
@@ -291,7 +284,10 @@ function KnownSpells(props){
   )
 }
 
-function Spells(props){
+const AbilitySelector = (props) => {
+
+}
+const Spells = (props) => {
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
@@ -327,30 +323,30 @@ function Spells(props){
   }
   return (
     <div>
-    <div className='spellContainer'>
-    <div className='spellItems'>
-    <div className='spellLevelWrapper'>
-    <h2 className='spellLevelHeader'>{casterType()}</h2>
-    <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
-    </div>
-    <p className='spellList'>{displaySpells('zero')}</p>
-    <hr/>
-    </div>
-    {spellCodeBlock('one', 1, 'I')}
-    {spellCodeBlock('two', 2, 'II')}
-    {spellCodeBlock('three', 3, 'III')}
-    {spellCodeBlock('four', 4, 'IV')}
-    {spellCodeBlock('five', 5, 'V')}
-    {spellCodeBlock('six', 6, 'VI')}
-    {spellCodeBlock('seven', 7, 'VII')}
-    {spellCodeBlock('eight', 8, 'VIII')}
-    {spellCodeBlock('nine', 9, 'IX')}
-    </div>
+      <div className='spellContainer'>
+        <div className='spellItems'>
+          <div className='spellLevelWrapper'>
+            <h2 className='spellLevelHeader'>{casterType()}</h2>
+            <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
+          </div>
+          <p className='spellList'>{displaySpells('zero')}</p>
+          <hr/>
+        </div>
+        {spellCodeBlock('one', 1, 'I')}
+        {spellCodeBlock('two', 2, 'II')}
+        {spellCodeBlock('three', 3, 'III')}
+        {spellCodeBlock('four', 4, 'IV')}
+        {spellCodeBlock('five', 5, 'V')}
+        {spellCodeBlock('six', 6, 'VI')}
+        {spellCodeBlock('seven', 7, 'VII')}
+        {spellCodeBlock('eight', 8, 'VIII')}
+        {spellCodeBlock('nine', 9, 'IX')}
+      </div>
     </div>
   );
 }
 
-function Stats(props){
+const Stats = (props) => {
   return (
     <div>
     <div className='statsContainer'>
@@ -371,7 +367,7 @@ function Stats(props){
   );
 }
 
-function Items(props){
+const Items = (props) => {
   return (
     <div>
       <h1>Items</h1>
@@ -399,7 +395,7 @@ class Actions extends React.Component{
   }
 }
 
-function BasicInfo(props){
+const BasicInfo = (props) => {
 //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
 //display conditional more/less
@@ -439,117 +435,75 @@ function BasicInfo(props){
       </div>
     );
 }
-function CharacterType(props){
+const CharacterType = (props) => {
   return(
     <span>{props.value} / </span>
   )
 }
-function CharacterClasses(props){
+const CharacterClasses = (props) => {
   return(
     <li>{props.value}</li>
   )
 }
 
-class MainDisplay extends React.Component{
-  constructor(props){
-    super(props)
-    this.screenSwitch = this.screenSwitch.bind(this)
-  }
-  screenSwitch(props) {
-    switch(this.props.display) {
+const MainDisplay = (props) => {
+  function screenSwitch(display) {
+    switch(display) {
       case 'stats':
         return <Stats />
       case 'spells':
         return <Spells />
       case 'items':
         return <Items />
-      case 'actions':
-        return <Actions click={this.props.click}/>
-      case '4':
-        return <PrepSpells />
-      case '5':
-        return <UseSpell />
-      case '6':
-        return <Fight />
     }
   }
-  render() {
+
     return(
       <div>
-        {this.screenSwitch()}
+        {screenSwitch(props.display)}
       </div>
     );
-  }
+
 }
 
-function Navbar(props){
-  function navButtonCodeBlock(name){
+const Navbar = (props) => {
+  const statIcon = <i id='statIcon' className="far fa-chart-bar"></i>;
+  const spellIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
+  const itemIcon = <i id='itemIcon' className="fas fa-scroll"></i>;
+  function navButtonCodeBlock(name, icon){
     return(
       <button id={name}
-              onClick={props.click}
+              onClick={() => props.setDisplay(name)}
               className={(props.display == name ? 'navbarItemsOn' : 'navbarItemsOff')}>
-                      {name.toUpperCase()}
-              </button>
+                      {icon}
+      </button>
     )
   }
   return (
     <div>
       <ul id='navbarContainer'>
-        {navButtonCodeBlock('stats')}
-        {navButtonCodeBlock('spells')}
-        {navButtonCodeBlock('items')}
-        {navButtonCodeBlock('actions')}
+        {navButtonCodeBlock('stats', statIcon)}
+        {navButtonCodeBlock('spells', spellIcon)}
+        {navButtonCodeBlock('items', itemIcon)}
       </ul>
     </div>
   );
 }
-
-class SwitchState extends React.Component{
-  constructor(props){
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-    this.state = {
-      selection: ''
-    }
-  }
-  componentDidMount() {
-    this.setState({
-      selection: 'stats'
-    })
-  }
-  handleClick(event) {
-    const id = event.target.id
-    this.setState({
-      selection: id
-    })
-  }
-
-  render() {
-    return(
+const App = () => {
+  const [display, setDisplay] = useState('stats')
+  return (
+    <div id='appWrapper'>
       <div>
         <div id='topWrapper'>
           <BasicInfo />
-          <Navbar display={this.state.selection} click={this.handleClick} />
+          <Navbar display={display} setDisplay={setDisplay} />
         </div>
         <div id='mainContent'>
-          <MainDisplay display={this.state.selection} click={this.handleClick} />
+          <MainDisplay display={display} setDisplay={setDisplay} />
         </div>
       </div>
-    )
-  }
-}
-
-class App extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    return (
-      <div id='appWrapper'>
-          <SwitchState />
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default App
