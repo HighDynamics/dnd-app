@@ -84,7 +84,22 @@ const character = {
     knowledgePlanes: 8,
     haha: 'haha'
   },
+  characterAbilities: [
+    'Light_Ray', 'Paralyzing_Touch', 'Positive_Energy_Touch', 'Turn_Undead'
+  ],
   magic: {
+    slas: {
+      zero: '',
+      one: ['Chill_Touch', 'Floating_Disk'],
+      two: ['Command_Undead', 'Acid_Arrow'],
+      three: ['Vampiric_Touch', 'Phantom_Steed'],
+      four: ['Affliction', 'Enervation'],
+      five: ['Mage\'s_Faithful_Hound', 'Wall_of_Force'],
+      six: ['Contingency'],
+      seven: '',
+      eight: '',
+      nine: '',
+    },
     spellcaster: true,
     type: {
       arcane: true,
@@ -148,6 +163,76 @@ const intMod = character.abilities.modifier('intelligence')
 const wisMod = character.abilities.modifier('wisdom')
 const chaMod = character.abilities.modifier('charisma')
 /******************************Character Info****************************/
+const KnownSLAs = (props) => {
+  const [toggleInfo, setToggleInfo] = useState(false);
+  const spell = props.value
+  const formattedSpell = spell.replace(/\_/g, ' ')
+  const buttonAndSpellClass = 'spellButtons ' + spell
+  return(
+    <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell + ' \u221e'}</button>
+  )
+}
+const SLAs = (props) => {
+  //cantrips or orisons? or both?
+  function casterType() {
+    if (character.magic.type.arcane && character.magic.type.divine){
+      return 'Cantrips & Orisons'
+    } else if (character.magic.type.divine){
+      return 'Orisons'
+    } else if (character.magic.type.arcane){
+      return 'Cantrips'
+    }
+  }
+  function displaySLAs(level){
+    const slas = Object.values(character.magic.slas[level]).map(
+      (s) => <KnownSLAs key={s} value={s} />
+    );
+    return slas;
+  }
+  //condense SLA code block into function
+  function spellCodeBlock(level, levelNum, levelRoman){
+    return (
+      <div className='spellItems'>
+        <div className='spellLevelWrapper'>
+          <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
+        </div>
+        <p className='spellList'>{displaySLAs(level)}</p>
+        <hr/>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <div className='spellContainer'>
+        <div className='spellItems'>
+          <div className='spellLevelWrapper'>
+            <h2 className='spellLevelHeader'>{casterType()}</h2>
+          </div>
+          <p className='spellList'>{displaySLAs('zero')}</p>
+          <hr/>
+        </div>
+        {spellCodeBlock('one', 1, 'I')}
+        {spellCodeBlock('two', 2, 'II')}
+        {spellCodeBlock('three', 3, 'III')}
+        {spellCodeBlock('four', 4, 'IV')}
+        {spellCodeBlock('five', 5, 'V')}
+        {spellCodeBlock('six', 6, 'VI')}
+        {spellCodeBlock('seven', 7, 'VII')}
+        {spellCodeBlock('eight', 8, 'VIII')}
+        {spellCodeBlock('nine', 9, 'IX')}
+      </div>
+    </div>
+  );
+}
+
+const Abilities = (props) => {
+  return(
+    <>
+      Abilities()
+    </>
+  )
+}
+
 const UseSpell = (props) => {
   const newArray = Object.values(character.magic.spells.zero).map(spell => spell)
   function spellList(level) {
@@ -285,7 +370,36 @@ const KnownSpells = (props) => {
 }
 
 const AbilitySelector = (props) => {
-
+  const [display, setDisplay] = useState('spells')
+  function selection(display){
+    switch(display){
+      case 'Spells':
+        return <Spells />
+      case 'Abilites':
+        return <Abilities />
+      case 'SLAs':
+        return <SLAs />
+    }
+  }
+  function navButtonCodeBlock(name){
+    return(
+      <button id={name}
+              onClick={() => setDisplay(name)}
+              className={(display == name ? 'navbarItemsOn' : 'navbarItemsOff')}>
+          {name}
+      </button>
+    )
+  }
+  return(
+    <div>
+      <ul id='abilitySelector' className='navbarContainer'>
+        {navButtonCodeBlock('Spells')}
+        {navButtonCodeBlock('Abilities')}
+        {navButtonCodeBlock('SLAs')}
+      </ul>
+      {selection(display)}
+    </div>
+  )
 }
 const Spells = (props) => {
   //cantrips or orisons? or both?
@@ -376,25 +490,6 @@ const Items = (props) => {
   );
 }
 
-class Actions extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      action: 'default'
-    }
-  }
-  render() {
-    return (
-      <div>
-        <button id='4' onClick={this.props.click}>Prep Spells</button>
-        <button id='5' onClick={this.props.click}>Use Spell</button>
-        <button>Full Rest</button>
-        <button id='6' onClick={this.props.click}>Fight</button>
-      </div>
-    );
-  }
-}
-
 const BasicInfo = (props) => {
 //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
@@ -455,6 +550,8 @@ const MainDisplay = (props) => {
         return <Spells />
       case 'items':
         return <Items />
+      case 'ability':
+        return <AbilitySelector />
     }
   }
 
@@ -468,7 +565,7 @@ const MainDisplay = (props) => {
 
 const Navbar = (props) => {
   const statIcon = <i id='statIcon' className="far fa-chart-bar"></i>;
-  const spellIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
+  const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
   const itemIcon = <i id='itemIcon' className="fas fa-scroll"></i>;
   function navButtonCodeBlock(name, icon){
     return(
@@ -481,9 +578,9 @@ const Navbar = (props) => {
   }
   return (
     <div>
-      <ul id='navbarContainer'>
+      <ul className='navbarContainer'>
         {navButtonCodeBlock('stats', statIcon)}
-        {navButtonCodeBlock('spells', spellIcon)}
+        {navButtonCodeBlock('ability', abilityIcon)}
         {navButtonCodeBlock('items', itemIcon)}
       </ul>
     </div>
