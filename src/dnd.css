@@ -60,7 +60,7 @@ button:focus {
   padding-right: 5px;
 }
 
-#navbarContainer{
+.navbarContainer{
   background: radial-gradient(circle, rgba(0,0,0,1) 49%, rgba(0,0,0,0) 90%);
   box-shadow: inset -0px 5px 10px black,
               inset 0px -5px 10px black,
@@ -106,6 +106,12 @@ button:focus {
 }
 #itemIcon{
   pointer-events: none;
+}
+#abilitySelector{
+  width: 80vw;
+  position: fixed;
+  margin-left: 10vw;
+  margin-top: 0vh;
 }
 .spellLevelWrapper{
   text-align: center;
