@@ -371,17 +371,26 @@ const PassiveAbilities = (props) => {
 }
 const AbilityScores = (props) => {
   const roll = useContext(TossDice)
+  function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod){
+    return(
+    <p className='abilityScores'>
+      {/*button appears on same line*/}
+      <button onClick={() => roll(rollDice(20, abilityMod))}>roll</button>
+      {abilityString}: {abilityScore} | {abilityMod}
+    </p>
+    )
+  }
   return (
     <div>
     <div className='statsContainer'>
     <h1 id='abilityScoresHeader'>Abilities</h1>
     <div id='abilityScores'>
-    <p className='abilityScores'>STR: {str} | {strMod}</p> <button onClick={() => roll(rollDice(20, strMod))}>roll</button>
-    <p className='abilityScores'>DEX: {dex} | {dexMod}</p>
-    <p className='abilityScores'>CON: {con} | {conMod}</p>
-    <p className='abilityScores'>INT: {int} | {intMod}</p>
-    <p className='abilityScores'>WIS: {wis} | {wisMod}</p>
-    <p className='abilityScores'>CHA: {cha} | {chaMod}</p>
+      {abilityScoreCodeBlock('STR', str, strMod)}
+      {abilityScoreCodeBlock('DEX', dex, dexMod)}
+      {abilityScoreCodeBlock('CON', con, conMod)}
+      {abilityScoreCodeBlock('INT', int, intMod)}
+      {abilityScoreCodeBlock('WIS', wis, wisMod)}
+      {abilityScoreCodeBlock('CHA', cha, chaMod)}
     </div>
     </div>
     </div>
