@@ -6,9 +6,7 @@ const { useState, useContext } = React;
 function rollDice(size, mod){
   const dice = Math.floor((Math.random() * size) +1)
   const result =
-    `${dice} + ${mod}\n
-    _________\n
-    ${dice + mod}`;
+    `${dice} + ${mod} = \n ${dice + mod}`;
   return result
 }
 const TossDice = React.createContext(null)
@@ -43,7 +41,7 @@ function spellSave(){
 const ItemsHeld = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const item = props.value
-  const formattedItem = item.replace(/\_/g, ' ')
+  const formattedItem = item.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + item
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedItem}</button>
@@ -71,7 +69,7 @@ const Items = (props) => {
 const KnownSLAs = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
-  const formattedSpell = spell.replace(/\_/g, ' ')
+  const formattedSpell = spell.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell}</button>
@@ -133,7 +131,7 @@ const SLAs = (props) => {
 const KnownActiveAbilities = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const ability = props.value
-  const formattedAbility = ability.replace(/\_/g, ' ')
+  const formattedAbility = ability.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + ability
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedAbility}</button>
@@ -155,7 +153,7 @@ const ActiveAbilities = (props) => {
   )
 }
 
-const UseSpell = (props) => {
+/*const UseSpell = (props) => {
   const newArray = Object.values(character.magic.spells.zero).map(spell => spell)
   function spellList(level) {
     if (character.magic.spells[level].length == 0){
@@ -175,7 +173,7 @@ const UseSpell = (props) => {
       ))}</p>
     </div>
   )
-}
+} */
 const Spellbook = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
@@ -245,7 +243,7 @@ const PrepSpells = (props) => {
 const KnownSpells = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
-  const formattedSpell = spell.replace(/\_/g, ' ')
+  const formattedSpell = spell.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell + ' \u221e'}</button>
@@ -320,13 +318,15 @@ const AbilitySelector = (props) => {
         return <ActiveAbilities />
       case 'SLAs':
         return <SLAs />
+      default:
+        return <Spells />
     }
   }
   function navButtonCodeBlock(name){
     return(
       <button id={name}
               onClick={() => setDisplay(name)}
-              className={(display == name ? 'navbarItemsOn' : 'navbarItemsOff')}>
+              className={(display === name ? 'navbarItemsOn' : 'navbarItemsOff')}>
           {name}
       </button>
     )
@@ -348,7 +348,7 @@ const AbilitySelector = (props) => {
 const KnownPassiveAbilities = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const ability = props.value
-  const formattedAbility = ability.replace(/\_/g, ' ')
+  const formattedAbility = ability.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + ability
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedAbility}</button>
@@ -357,7 +357,7 @@ const KnownPassiveAbilities = (props) => {
 const PassiveAbilities = (props) => {
   function displayAbilities(){
     const abilities = Object.values(character.characterAbilities.passive).map(
-      (s) => <KnownActiveAbilities key={s} value={s} />
+      (s) => <KnownPassiveAbilities key={s} value={s} />
     );
     return abilities;
   }
@@ -400,7 +400,7 @@ const SkillsListItem = (props) => {
   // store props to make code simpler
   const skills = props.skills
   // replace underscore with space and store
-  let formattedSkill = skills[0].replace(/\_/g, ' ');
+  let formattedSkill = skills[0].replace(/_/g, ' ');
   // update variable replacing (Know)ledge with :
   formattedSkill = formattedSkill.replace(/ledge/g, ':')
   // store skill points separately
@@ -455,13 +455,15 @@ const StatsSelector = (props) => {
         return <AbilityScores />
       case 'Passive':
         return <PassiveAbilities />
+      default:
+        return <Skills />
     }
   }
   function navButtonCodeBlock(name){
     return(
       <button id={name}
               onClick={() => setDisplay(name)}
-              className={(display == name ? 'navbarItemsOn' : 'navbarItemsOff')}>
+              className={(display === name ? 'navbarItemsOn' : 'navbarItemsOff')}>
           {name}
       </button>
     )
@@ -509,7 +511,7 @@ const BasicInfo = (props) => {
               <em id='moreLess'>{moreLess()}</em>
             </button>
 
-          {toggle == true &&
+          {toggle === true &&
             <div id='characterInfo'>
               <div id='characterType'>type: <br /> {type}</div>
               <ul id='classList'>class: <br /> {classList}</ul>
@@ -546,12 +548,15 @@ const MainDisplay = (props) => {
         return <AbilitySelector />
       case 'items':
         return <Items />
+      default:
+        return <StatsSelector />
     }
   }
 
     return(
       <div>
         {screenSwitch(props.display)}
+        <div id='bottomSpacer'></div>
       </div>
     );
 
@@ -582,7 +587,7 @@ const Navbar = (props) => {
 }
 const App = () => {
   const [display, setDisplay] = useState('stats')
-  const [rollResult, setRollResult] = useState('Good luck, today')
+  const [rollResult, setRollResult] = useState('Good luck,\n' + character.name)
   return (
     <div id='appWrapper'>
       <div>
