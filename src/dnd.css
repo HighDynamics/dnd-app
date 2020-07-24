@@ -1,4 +1,8 @@
+html, body {
+  overflow-y: hidden;
+}
 body {
+  position: relative;
   margin: 0;
   background-image: url(http://hdwpro.com/wp-content/uploads/2015/12/Texture-Background.jpg);
   background-size: 100% 100%;
@@ -20,11 +24,10 @@ body {
     flex-direction: row;
 }
 #hpacWrapper{
-  outline: 1px solid red;
-  width: 45vw;
+  width: 50vw;
+  outline: 1px solid white;
 }
 #diceRollResult{
-  outline: 1px solid blue;
   width: 55vw;
   height: auto;
   text-align: center;
@@ -98,7 +101,6 @@ button:focus {
     align-items: center;
   padding-left: 0;
   height: 2rem;
-  outline: 1px solid green;
 }
 .navbarItemsOn{
   background: rgba(255, 255, 255, .2);
@@ -216,4 +218,7 @@ hr {
 
 .Arcane_Mark{
   color: blue
+}
+#bottomSpacer{
+  height: 5vh;
 }
