@@ -13,6 +13,24 @@ body {
 #topWrapper{
   height: 25vh;
 }
+#HPACDiceWrapper{
+  outline: 1px solid white;
+  margin-bottom: -2vh;
+  display: flex;
+    flex-direction: row;
+}
+#hpacWrapper{
+  outline: 1px solid red;
+  width: 45vw;
+}
+#diceRollResult{
+  outline: 1px solid blue;
+  width: 55vw;
+  height: 14vh;
+  text-align: center;
+  margin: auto;
+  white-space: pre-wrap;
+}
 #nameAndLevel {
   display: inline;
   color: white;
@@ -107,11 +125,24 @@ button:focus {
 #itemIcon{
   pointer-events: none;
 }
+#statsSelector{
+  width: 80vw;
+  position: fixed;
+  margin-top: 0;
+  margin-left: 10vw;
+}
+#statsDisplay{
+  padding-top: 4vh;
+}
 #abilitySelector{
   width: 80vw;
   position: fixed;
+  margin-top: 0;
   margin-left: 10vw;
-  margin-top: 0vh;
+}
+#abilityDisplay{
+  margin: auto;
+  padding-top: 5vh
 }
 .spellLevelWrapper{
   text-align: center;
@@ -135,8 +166,34 @@ hr {
   height: 75vh;
   overflow: auto;
 }
-
-.abilities{
+#skillsHeader{
+  text-align: center;
+}
+#skillsWrapper{
+  margin-left: -11vw;
+  margin-right: 1vw;
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.skills{
+  flex-basis: 46vw;
+  font-size: .85rem;
+  outline: 1px solid grey;
+  text-align: center;
+}
+.skillPoints{
+  color: rgb(251,130,121);
+}
+.classSkills{
+  color: rgb(247, 205, 136);
+}
+#abilityScoresHeader{
+  text-align: center;
+}
+#abilityScores{
+  margin-left: 20vw;
+  font-size: 2rem;
   font-family: monospace
 }
 
