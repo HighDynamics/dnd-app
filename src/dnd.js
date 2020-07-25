@@ -1,16 +1,35 @@
 import React from 'react';
 import './dnd.css';
 import { character } from './Arn_Hachem.js'
-const { useState, useContext } = React;
+const { useState, useContext, useEffect } = React;
+document.title = character.name;
 
-function rollDice(size, mod){
+
+function rollDice(size, mod, use){
   const dice = Math.floor((Math.random() * size) +1)
+  function edgeRollClassAssignment(dice){
+    if(dice === 1){
+      return 'natOne'
+    }else if(dice === 20){
+      return 'natTwenty'
+    }else{
+      return null
+    }
+  }
   const result =
-    `${dice} + ${mod} = \n ${dice + mod}`;
+  <span>
+    <span id='rollUse'>{use}</span>
+    <div id='rollTopLine'>
+      <span id='rollTotal' className={edgeRollClassAssignment(dice)}>{dice}</span> <span id='modTotal'> + {mod} =</span>
+    </div>
+    <p id='rollModTotal'>{dice + mod}</p>
+  </span>
   return result
 }
 const TossDice = React.createContext(null)
 const ReadDice = React.createContext(null)
+const GetSetDisplay = React.createContext(null)
+const GetSetDisplayTwo = React.createContext(null)
 /******************************Character Info****************************/
 const str = character.abilities.score.strength
 const dex = character.abilities.score.dexterity
@@ -177,13 +196,14 @@ const ActiveAbilities = (props) => {
 const Spellbook = (props) => {
   const [toggleInfo, setToggleInfo] = useState(false);
   const spell = props.value
-  const formattedSpell = spell.replace(/\_/g, ' ')
+  const formattedSpell = spell.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
   return(
     <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell}</button>
   )
 }
 const PrepSpells = (props) => {
+  const setDisplay = useContext(GetSetDisplay)
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
       return 'Cantrips & Orisons'
@@ -217,6 +237,9 @@ const PrepSpells = (props) => {
   return (
     <>
       <div>
+        <button id='returnToSpells' onClick={() => setDisplay('Spells')}>
+          <i class="fas fa-arrow-left"></i>
+        </button>
       <div className='spellContainer'>
         <div className='spellItems'>
           <div className='spellLevelWrapper'>
@@ -250,6 +273,7 @@ const KnownSpells = (props) => {
   )
 }
 const Spells = (props) => {
+  const [display, setDisplay] = useContext(GetSetDisplay);
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
@@ -285,12 +309,15 @@ const Spells = (props) => {
   }
   return (
     <div>
-    <div className='spellContainer'>
-    <div className='spellItems'>
-    <div className='spellLevelWrapper'>
-    <h2 className='spellLevelHeader'>{casterType()}</h2>
-    <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
-    </div>
+      <button id='prepSpellsButton' onClick={() => setDisplay('Prep')}>
+        <i class="fas fa-book"></i><span>PREP</span>
+      </button>
+      <div className='spellContainer'>
+        <div className='spellItems'>
+          <div className='spellLevelWrapper'>
+            <h2 id='levelZeroHeader' className='spellLevelHeader'>{casterType()}</h2>
+            <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
+          </div>
     <p className='spellList'>{displaySpells('zero')}</p>
     <hr/>
     </div>
@@ -309,24 +336,12 @@ const Spells = (props) => {
 }
 
 const AbilitySelector = (props) => {
-  const [display, setDisplay] = useState('Spells')
-  function selection(display){
-    switch(display){
-      case 'Spells':
-        return <Spells />
-      case 'Abilities':
-        return <ActiveAbilities />
-      case 'SLAs':
-        return <SLAs />
-      default:
-        return <Spells />
-    }
-  }
+  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo)
   function navButtonCodeBlock(name){
     return(
       <button id={name}
-              onClick={() => setDisplay(name)}
-              className={(display === name ? 'navbarItemsOn' : 'navbarItemsOff')}>
+              onClick={() => setDisplayTwo(name)}
+              className={(displayTwo === name ? 'navbarItemsOn' : 'navbarItemsOff')}>
           {name}
       </button>
     )
@@ -338,9 +353,6 @@ const AbilitySelector = (props) => {
         {navButtonCodeBlock('Abilities')}
         {navButtonCodeBlock('SLAs')}
       </ul>
-      <div id='abilityDisplay'>
-        {selection(display)}
-      </div>
     </div>
   )
 }
@@ -375,16 +387,16 @@ const AbilityScores = (props) => {
     return(
     <p className='abilityScores'>
       {/*button appears on same line*/}
-      <button onClick={() => roll(rollDice(20, abilityMod))}>roll</button>
+      <button className='rollAbility' onClick={() => roll(rollDice(20, abilityMod, abilityString))}>roll</button>
       {abilityString}: {abilityScore} | {abilityMod}
     </p>
     )
   }
   return (
     <div>
-    <div className='statsContainer'>
+    <div id='statsContainer'>
     <h1 id='abilityScoresHeader'>Abilities</h1>
-    <div id='abilityScores'>
+    <div id='abilityScoresWrapper'>
       {abilityScoreCodeBlock('STR', str, strMod)}
       {abilityScoreCodeBlock('DEX', dex, dexMod)}
       {abilityScoreCodeBlock('CON', con, conMod)}
@@ -397,6 +409,7 @@ const AbilityScores = (props) => {
   );
 }
 const SkillsListItem = (props) => {
+  const roll = useContext(TossDice);
   // store props to make code simpler
   const skills = props.skills
   // replace underscore with space and store
@@ -408,16 +421,17 @@ const SkillsListItem = (props) => {
   // confirm class skill to add css class
   function findClassSkills(skill){
     if(character.classSkills.hasOwnProperty(skill)){
-      return ' classSkills'
+      return 'classSkills'
     }else{
       return ''
     }
   }
-  console.log(findClassSkills(skills[0]))
   return (
-    <li className={`skills${findClassSkills(skills[0])}`}>
+    <button
+      className={`skills ${findClassSkills(skills[0])} ${skills[0]}`}
+      onClick={() => roll(rollDice(20, skillPoints, formattedSkill))}>
       {formattedSkill} | <span className='skillPoints'>{skillPoints}</span>
-    </li>
+    </button>
   )
 }
 const Skills = (props) =>  {
@@ -446,24 +460,12 @@ return(
   </>
 );}
 const StatsSelector = (props) => {
-  const [display, setDisplay] = useState('Skills')
-  function selection(display){
-    switch(display){
-      case 'Skills':
-        return <Skills />
-      case 'Scores':
-        return <AbilityScores />
-      case 'Passive':
-        return <PassiveAbilities />
-      default:
-        return <Skills />
-    }
-  }
+  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
   function navButtonCodeBlock(name){
     return(
       <button id={name}
-              onClick={() => setDisplay(name)}
-              className={(display === name ? 'navbarItemsOn' : 'navbarItemsOff')}>
+              onClick={() => setDisplayTwo(name)}
+              className={(displayTwo === name ? 'navbarItemsOn' : 'navbarItemsOff')}>
           {name}
       </button>
     )
@@ -475,9 +477,9 @@ const StatsSelector = (props) => {
         {navButtonCodeBlock('Scores')}
         {navButtonCodeBlock('Passive')}
       </ul>
-      <div id='statsDisplay'>
+    {/*  <div id='statsDisplay'>
         {selection(display)}
-      </div>
+      </div>   */}
     </div>
   )
 }
@@ -522,7 +524,7 @@ const BasicInfo = (props) => {
               <p id='hp'>hp: {health}</p>
               <p id='ac'>ac: {character.armorClass.ac.total}</p>
             </div>
-            <span id='diceRollResult'>{result}</span>
+            <div id='diceRollResultWrapper'>{result}</div>
           </div>
         </div>
       </div>
@@ -540,36 +542,70 @@ const CharacterClasses = (props) => {
 }
 
 const MainDisplay = (props) => {
-  function screenSwitch(display) {
+  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
+  function screenSwitch(display){
     switch(display) {
-      case 'stats':
-        return <StatsSelector />
-      case 'ability':
-        return <AbilitySelector />
-      case 'items':
+      case 'Skills':
+        return <Skills />
+      case 'Scores':
+        return <AbilityScores />
+      case 'Passive':
+        return <PassiveAbilities />
+      case 'Spells':
+        return <Spells />
+      case 'Abilities':
+        return <ActiveAbilities />
+      case 'SLAs':
+        return <SLAs />
+      case 'Prep':
+        return <PrepSpells />
+      case 'Items':
         return <Items />
       default:
-        return <StatsSelector />
+        return <Skills />
     }
   }
 
     return(
       <div>
-        {screenSwitch(props.display)}
-        <div id='bottomSpacer'></div>
+        <div id='mainContent'>{screenSwitch(displayTwo)}</div>
       </div>
     );
 
 }
-
+const SecondaryNavbar = (props) => {
+  function navSwitch(display){
+    switch(display){
+      case 'stats':
+        return <StatsSelector />
+      case 'ability':
+        return <AbilitySelector />
+      case null:
+        return null
+      default:
+        return <StatsSelector />
+    }
+  }
+  return(
+      <>
+        <div id='secondaryNavbar'>{navSwitch(props.display)}</div>
+      </>
+  )
+}
 const Navbar = (props) => {
   const statIcon = <i id='statIcon' className="far fa-chart-bar"></i>;
   const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
   const itemIcon = <i id='itemIcon' className="fas fa-scroll"></i>;
-  function navButtonCodeBlock(name, icon){
+  function setBothDisplays(name, secondaryName){
+    props.setDisplay(name);
+    if(secondaryName !== null){
+      props.setDisplayTwo(secondaryName)
+    }
+  }
+  function navButtonCodeBlock(name, icon, secondaryName){
     return(
       <button id={name}
-              onClick={() => props.setDisplay(name)}
+              onClick={() => setBothDisplays(name, secondaryName)}
               className={(props.display == name ? 'navbarItemsOn' : 'navbarItemsOff')}>
                       {icon}
       </button>
@@ -577,16 +613,17 @@ const Navbar = (props) => {
   }
   return (
     <div>
-      <ul className='navbarContainer'>
-        {navButtonCodeBlock('stats', statIcon)}
-        {navButtonCodeBlock('ability', abilityIcon)}
-        {navButtonCodeBlock('items', itemIcon)}
+      <ul id='primaryNavbar' className='navbarContainer'>
+        {navButtonCodeBlock('stats', statIcon, 'Skills')}
+        {navButtonCodeBlock('ability', abilityIcon, 'Spells')}
+        {navButtonCodeBlock(null, itemIcon, 'Items')}
       </ul>
     </div>
   );
 }
 const App = () => {
   const [display, setDisplay] = useState('stats')
+  const [displayTwo, setDisplayTwo] = useState('Skills')
   const [rollResult, setRollResult] = useState('Good luck,\n' + character.name)
   return (
     <div id='appWrapper'>
@@ -595,13 +632,19 @@ const App = () => {
           <ReadDice.Provider value={rollResult}>
             <BasicInfo />
           </ReadDice.Provider>
-          <Navbar display={display} setDisplay={setDisplay} />
+          <Navbar display={display} setDisplay={setDisplay} setDisplayTwo={setDisplayTwo} />
+          <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+            <SecondaryNavbar display={display}/>
+          </GetSetDisplayTwo.Provider>
         </div>
-        <div id='mainContent'>
-          <TossDice.Provider value={setRollResult}>
-            <MainDisplay display={display} setDisplay={setDisplay} />
-          </TossDice.Provider>
-        </div>
+        <GetSetDisplay.Provider value={[display, setDisplay]}>
+        <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+            <TossDice.Provider value={setRollResult}>
+              <MainDisplay />
+            </TossDice.Provider>
+        </GetSetDisplayTwo.Provider>
+        </GetSetDisplay.Provider>
+        <div id='bottomSpacer'></div>
       </div>
     </div>
   )

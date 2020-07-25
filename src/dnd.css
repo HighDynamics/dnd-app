@@ -1,4 +1,4 @@
-html, body {
+html body{
   overflow-y: hidden;
 }
 body {
@@ -20,6 +20,7 @@ body {
 #HPACDiceWrapper{
   outline: 1px solid white;
   margin-bottom: -2vh;
+  max-height: 85.05px;
   display: flex;
     flex-direction: row;
 }
@@ -27,12 +28,36 @@ body {
   width: 50vw;
   outline: 1px solid white;
 }
-#diceRollResult{
+#diceRollResultWrapper{
   width: 55vw;
   height: auto;
   text-align: center;
   margin: auto;
   white-space: pre-wrap;
+}
+#rollUse{
+  font-size: .80rem;
+}
+#rollTopLine{
+  height: 30px;
+  position: relative;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#rollTotal{
+  font-size: 30px;
+}
+#rollModTotal{
+  height: 30px;
+  font-size: 30px;
+  margin: auto;
+}
+.natTwenty{
+  color: green;
+}
+.natOne{
+  color: red;
 }
 #nameAndLevel {
   display: inline;
@@ -62,10 +87,11 @@ body {
     justify-content: space-between
 }
 button:focus {
-  box-shadow: 0 0 15px 5px violet;
-  -webkit-box-shadow: 0 0 15px 5px violet;
-  -moz-box-shadow: 0 0 15px 5px violet;
+  box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -webkit-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -moz-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
   outline: 0;
+  z-index: 2;
 }
 #characterInfo{
   background: rgba(255,255,255,1);
@@ -120,6 +146,17 @@ button:focus {
   font-size: 17px;
   width: 20vw
 }
+#primaryNavbar{
+  margin-bottom: 0;
+}
+#secondaryNavbar{
+  width: 80vw;
+  position: fixed;
+  margin-top: -13px;
+  left: 50%;
+    transform: translate(-50%);
+  z-index: 0;
+}
 #statIcon{
   pointer-events: none;
 }
@@ -129,34 +166,71 @@ button:focus {
 #itemIcon{
   pointer-events: none;
 }
-#statsSelector{
-  width: 80vw;
-  position: fixed;
-  margin-top: -13px;
-  left: 50%;
-    transform: translate(-50%);
-  z-index: 0;
+#statsContainer{
+  position: relative;
+  width: 100vw;
 }
 #statsDisplay{
   padding-top: 4vh;
+  margin: auto;
+  width: 100vw;
 }
-#abilitySelector{
-  width: 80vw;
-  position: fixed;
-  margin-top: -13px;
-  left: 50%;
-    transform: translate(-50%);
-  z-index: 0;
+#abilityScoresHeader{
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 0;
+}
+#abilityScoresWrapper{
+  position: absolute;
+  margin: auto;
+  width: 100vw;
+}
+.abilityScores{
+  position: relative;
+  width: auto;
+  margin-left: 15vw;
+  font-size: 2rem;
+  font-family: monospace;
+}
+.rollAbility{
+  border: none;
+  margin-right: 10px;
+  transform: translateY(-25%);
 }
 #abilityDisplay{
   margin: auto;
   padding-top: 5vh
+}
+#prepSpellsButton{
+  border: none;
+  background-color: rgba(231,144,249,.5);
+  color: black;
+  font-size: 3rem;
+  width: auto;
+  height: auto;
+  box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -webkit-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -moz-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  outline: 0;
+  z-index: 2;
+
+}
+#prepSpellsButton span{
+  position: absolute;
+  color: white;
+  font-size: .6rem;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  padding-top: 3px;
 }
 .spellLevelWrapper{
   text-align: center;
 }
 .spellLevelHeader{
   margin-bottom: 0;
+}
+#levelZeroHeader{
+  margin-top: -50px;
 }
 .remainingSpells {
   text-align: center;
@@ -171,24 +245,36 @@ hr {
 }
 
 #mainContent{
-  height: 75vh;
+  position: relative;
+  height: 70vh;
   overflow: auto;
+  margin-top: 5vh
 }
 #skillsHeader{
   text-align: center;
 }
+#skillsListWrapper{
+  padding: 0;
+  margin: auto;
+}
 #skillsWrapper{
-  margin-left: -11vw;
-  margin-right: 1vw;
+  width: 100vw;
   display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 .skills{
-  flex-basis: 46vw;
-  font-size: .85rem;
+  background: rgba(0, 0, 0, .5);
+  border: none;
+  color: white;
+  flex-basis: 49vw;
+  font-size: .80rem;
   outline: 1px solid grey;
   text-align: center;
+  white-space: nowrap;
+}
+.skills:focus{
+  background: rgba(44, 7, 50, .9)
 }
 .skillPoints{
   color: rgb(251,130,121);
@@ -196,15 +282,6 @@ hr {
 .classSkills{
   color: rgb(247, 205, 136);
 }
-#abilityScoresHeader{
-  text-align: center;
-}
-#abilityScores{
-  margin-left: 20vw;
-  font-size: 2rem;
-  font-family: monospace
-}
-
 .spellButtons{
   font-size: 14px;
   background: rgba(20, 30, 9, .6);
@@ -218,6 +295,10 @@ hr {
 
 .Arcane_Mark{
   color: blue
+}
+.Listen{
+  color: blue;
+  display: none;
 }
 #bottomSpacer{
   height: 5vh;
