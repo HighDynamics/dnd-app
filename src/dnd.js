@@ -1,7 +1,9 @@
 import React from 'react';
 import './dnd.css';
-import { character } from './Arn_Hachem.js'
+import {characters} from './characters'
 const { useState, useContext, useEffect } = React;
+
+const character = characters[0];
 document.title = character.name;
 
 

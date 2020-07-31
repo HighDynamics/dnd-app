@@ -1,4 +1,4 @@
-{
+export default {
   "name": "Arn Hachem",
   "type": ["human", "sanctified", "deathless", "spellstitched", "archlich"],
   "hitPoints": {
