@@ -30,6 +30,8 @@ const TossDice = React.createContext(null)
 const ReadDice = React.createContext(null)
 const GetSetDisplay = React.createContext(null)
 const GetSetDisplayTwo = React.createContext(null)
+const ToggleInfo = React.createContext(null)
+const Selection = React.createContext(null)
 /******************************Character Info****************************/
 const str = character.abilities.score.strength
 const dex = character.abilities.score.dexterity
@@ -50,15 +52,18 @@ const intMod = abilityModifier('intelligence')
 const wisMod = abilityModifier('wisdom')
 const chaMod = abilityModifier('charisma')
 let primaryModifier = chaMod
-function bonusSpellsPerDay(levelNum){
-  return Math.ceil((primaryModifier - (levelNum - 1)) / 4)
+function totalSpells(level, levelNum) {
+  function bonusSpellsPerDay(levelNum){
+    return Math.ceil((primaryModifier - (levelNum - 1)) / 4)
+  }
+  return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum)
 }
 function spellSave(){
   return Math.floor(10 + character.abilities.primaryModifier('charisma'))
 }
 /******************************Character Info****************************/
 const ItemsHeld = (props) => {
-  const [toggleInfo, setToggleInfo] = useState(false);
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const item = props.value
   const formattedItem = item.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + item
@@ -67,6 +72,7 @@ const ItemsHeld = (props) => {
   )
 }
 const Items = (props) => {
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   function displayItems(){
     const items = Object.values(character.items).map(
       (s) => <ItemsHeld key={s} value={s} />
@@ -86,7 +92,7 @@ const Items = (props) => {
 }
 
 const KnownSLAs = (props) => {
-  const [toggleInfo, setToggleInfo] = useState(false);
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const spell = props.value
   const formattedSpell = spell.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
@@ -95,6 +101,7 @@ const KnownSLAs = (props) => {
   )
 }
 const SLAs = (props) => {
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
@@ -157,6 +164,7 @@ const KnownActiveAbilities = (props) => {
   )
 }
 const ActiveAbilities = (props) => {
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   function displayAbilities(){
     const abilities = Object.values(character.characterAbilities.active).map(
       (s) => <KnownActiveAbilities key={s} value={s} />
@@ -171,30 +179,39 @@ const ActiveAbilities = (props) => {
     </div>
   )
 }
-
-/*const UseSpell = (props) => {
-  const newArray = Object.values(character.magic.spells.zero).map(spell => spell)
-  function spellList(level) {
-    if (character.magic.spells[level].length == 0){
-      return 'LEVEL UP FIRST'
-    }else if (Array.isArray(character.magic.spells[level])) {
-      return '| ' + Object.values(character.magic.spells[level]).map(x => (
-        <a href='#' key={x}>{x}</a>))
-        .join(' | ') + ' |'
-    }
-    return '| ' + character.magic.spells[level] + ' |'
+//getSpellLevel is non-functional - returns undefined
+const SpellInfo = (props) => {
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+  const [selection, setSelection] = useContext(Selection);
+  const formattedSpell = selection.replace(/_/g, ' ')
+  function getSpellLevel(selection){
+    Object.keys(character.magic.spells).forEach((level) => {
+      if(Object.values(character.magic.spells[level]).includes(selection)){
+        return level
+      }
+    })
   }
+  console.log(Object.keys(character.magic.spells))
+  console.log(Object.values(character.magic.spells.zero).includes(selection))
+  console.log(getSpellLevel(selection))
   return (
-    <div>
-      <h1>Level 1</h1>
-      <p>{Object.values(character.magic.spells.one).map(x => (
-        <a href='#'>{`${x}`}</a>
-      ))}</p>
+    <div id='spellInfo' className='infoSheet'>
+      <button id='useSpell'>Use Spell</button>
+      <button id='closeButton' onClick={() => setToggleInfo('Off')}>x</button>
+      <h3>{formattedSpell}</h3>
+      Level: {getSpellLevel(selection)}<br />
+      Components:<br />
+      Casting Time:<br />
+      Range:<br />
+      Target or Area:<br />
+      Duration:<br />
+      Saving Throw:<br />
+      SpellResistance:<br />
     </div>
   )
-} */
+}
 const Spellbook = (props) => {
-  const [toggleInfo, setToggleInfo] = useState(false);
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const spell = props.value
   const formattedSpell = spell.replace(/_/g, ' ')
   const buttonAndSpellClass = 'spellButtons ' + spell
@@ -203,7 +220,7 @@ const Spellbook = (props) => {
   )
 }
 const PrepSpells = (props) => {
-  const setDisplay = useContext(GetSetDisplay)
+  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo)
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
       return 'Cantrips & Orisons'
@@ -218,9 +235,6 @@ const PrepSpells = (props) => {
       (s) => <Spellbook key={s} value={s} />
     );
     return spells;
-  }
-  function totalSpells(level, levelNum) {
-    return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum)
   }
   function spellCodeBlock(level, levelNum, levelRoman){
     return (
@@ -237,13 +251,13 @@ const PrepSpells = (props) => {
   return (
     <>
       <div>
-        <button id='returnToSpells' onClick={() => setDisplay('Spells')}>
+        <button id='returnToSpells' onClick={() => setDisplayTwo('Spells')}>
           <i class="fas fa-arrow-left"></i>
         </button>
       <div className='spellContainer'>
         <div className='spellItems'>
           <div className='spellLevelWrapper'>
-            <h2 className='spellLevelHeader'>{casterType()}</h2>
+            <h2 id="levelZeroHeaderPrep" className='spellLevelHeader'>{casterType()}</h2>
             <em className='remainingSpells'>{totalSpells('zero', 0)} remaining today</em>
           </div>
           <p className='spellList'>{displaySpells('zero')}</p>
@@ -264,16 +278,22 @@ const PrepSpells = (props) => {
   )
 }
 const KnownSpells = (props) => {
-  const [toggleInfo, setToggleInfo] = useState(false);
-  const spell = props.value
-  const formattedSpell = spell.replace(/_/g, ' ')
-  const buttonAndSpellClass = 'spellButtons ' + spell
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+  const [selection, setSelection] = useContext(Selection);
+  const spell = props.value;
+  const formattedSpell = spell.replace(/_/g, ' ');
+  const buttonAndSpellClass = 'spellButtons ' + spell;
+  function displayInfo(spell){
+    setToggleInfo('Spell');
+    setSelection(spell);
+  }
   return(
-    <button className={buttonAndSpellClass} onClick={() => setToggleInfo(!toggleInfo)}>{formattedSpell + ' \u221e'}</button>
+    <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>{formattedSpell + ' \u221e'}</button>
   )
 }
 const Spells = (props) => {
-  const [display, setDisplay] = useContext(GetSetDisplay);
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
@@ -290,10 +310,6 @@ const Spells = (props) => {
     );
     return spells;
   }
-  //total castings per day
-  function totalSpells(level, levelNum) {
-    return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum)
-  }
   //condense spell block into function
   function spellCodeBlock(level, levelNum, levelRoman){
     return (
@@ -309,14 +325,14 @@ const Spells = (props) => {
   }
   return (
     <div>
-      <button id='prepSpellsButton' onClick={() => setDisplay('Prep')}>
+      <button id='prepSpellsButton' onClick={() => setDisplayTwo('Prep')}>
         <i class="fas fa-book"></i><span>PREP</span>
       </button>
       <div className='spellContainer'>
         <div className='spellItems'>
           <div className='spellLevelWrapper'>
             <h2 id='levelZeroHeader' className='spellLevelHeader'>{casterType()}</h2>
-            <em className='remainingSpells'>{character.magic.spellsPerDay.zero} remaining today</em>
+            <em className='remainingSpells'>{totalSpells('zero', 0)} remaining today</em>
           </div>
     <p className='spellList'>{displaySpells('zero')}</p>
     <hr/>
@@ -367,6 +383,7 @@ const KnownPassiveAbilities = (props) => {
   )
 }
 const PassiveAbilities = (props) => {
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   function displayAbilities(){
     const abilities = Object.values(character.characterAbilities.passive).map(
       (s) => <KnownPassiveAbilities key={s} value={s} />
@@ -542,7 +559,9 @@ const CharacterClasses = (props) => {
 }
 
 const MainDisplay = (props) => {
+  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
+  const [selection, setSelection] = useState('')
   function screenSwitch(display){
     switch(display) {
       case 'Skills':
@@ -565,10 +584,22 @@ const MainDisplay = (props) => {
         return <Skills />
     }
   }
-
+  function infoSheet(toggleInfo){
+    switch(toggleInfo){
+      case 'Spell':
+        return <SpellInfo />
+      case 'Off':
+        return null
+      default:
+        return null
+    }
+  }
     return(
       <div>
-        <div id='mainContent'>{screenSwitch(displayTwo)}</div>
+        <Selection.Provider value={[selection, setSelection]}>
+          <div id='infoSheet'>{infoSheet(toggleInfo)}</div>
+          <div id='mainContent'>{screenSwitch(displayTwo)}</div>
+        </Selection.Provider>
       </div>
     );
 
@@ -624,6 +655,7 @@ const Navbar = (props) => {
 const App = () => {
   const [display, setDisplay] = useState('stats')
   const [displayTwo, setDisplayTwo] = useState('Skills')
+  const [toggleInfo, setToggleInfo] = useState(false);
   const [rollResult, setRollResult] = useState('Good luck,\n' + character.name)
   return (
     <div id='appWrapper'>
@@ -639,9 +671,11 @@ const App = () => {
         </div>
         <GetSetDisplay.Provider value={[display, setDisplay]}>
         <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+          <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
             <TossDice.Provider value={setRollResult}>
               <MainDisplay />
             </TossDice.Provider>
+          </ToggleInfo.Provider>
         </GetSetDisplayTwo.Provider>
         </GetSetDisplay.Provider>
         <div id='bottomSpacer'></div>
