@@ -181,9 +181,12 @@ const ActiveAbilities = (props) => {
 }
 //getSpellLevel is non-functional - returns undefined
 const SpellInfo = (props) => {
+  //bring in react context
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
+  //edit string for render
   const formattedSpell = selection.replace(/_/g, ' ')
+  /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
   function getSpellLevel(selection){
     Object.keys(character.magic.spells).forEach((level) => {
       if(Object.values(character.magic.spells[level]).includes(selection)){
@@ -192,8 +195,12 @@ const SpellInfo = (props) => {
     })
   }
   console.log(Object.keys(character.magic.spells))
+  //'zero' 'one' 'two' 'three' 'four' 'five' 'six' 'seven' 'eight' 'nine'
   console.log(Object.values(character.magic.spells.zero).includes(selection))
+  //true
   console.log(getSpellLevel(selection))
+  //undefined
+  /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
   return (
     <div id='spellInfo' className='infoSheet'>
       <button id='useSpell'>Use Spell</button>
