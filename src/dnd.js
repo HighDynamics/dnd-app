@@ -26,8 +26,7 @@ function rollDice(size, mod, use){
   </span>
   return result
 }
-const TossDice = React.createContext(null)
-const ReadDice = React.createContext(null)
+const ReadTossDice = React.createContext(null)
 const GetSetDisplay = React.createContext(null)
 const GetSetDisplayTwo = React.createContext(null)
 const ToggleInfo = React.createContext(null)
@@ -179,28 +178,21 @@ const ActiveAbilities = (props) => {
     </div>
   )
 }
-//getSpellLevel is non-functional - returns undefined
 const SpellInfo = (props) => {
   //bring in react context
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
   //edit string for render
   const formattedSpell = selection.replace(/_/g, ' ')
-  /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
   function getSpellLevel(selection){
+    let foundLevel = null;
     Object.keys(character.magic.spells).forEach((level) => {
       if(Object.values(character.magic.spells[level]).includes(selection)){
-        return level
+        foundLevel = level;
       }
     })
+    return foundLevel;
   }
-  console.log(Object.keys(character.magic.spells))
-  //'zero' 'one' 'two' 'three' 'four' 'five' 'six' 'seven' 'eight' 'nine'
-  console.log(Object.values(character.magic.spells.zero).includes(selection))
-  //true
-  console.log(getSpellLevel(selection))
-  //undefined
-  /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
   return (
     <div id='spellInfo' className='infoSheet'>
       <button id='useSpell'>Use Spell</button>
@@ -406,7 +398,7 @@ const PassiveAbilities = (props) => {
   )
 }
 const AbilityScores = (props) => {
-  const roll = useContext(TossDice)
+  const roll = useContext(ReadTossDice)
   function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod){
     return(
     <p className='abilityScores'>
@@ -433,7 +425,7 @@ const AbilityScores = (props) => {
   );
 }
 const SkillsListItem = (props) => {
-  const roll = useContext(TossDice);
+  const roll = useContext(ReadTossDice);
   // store props to make code simpler
   const skills = props.skills
   // replace underscore with space and store
@@ -509,7 +501,7 @@ const StatsSelector = (props) => {
 }
 
 const BasicInfo = (props) => {
-  const result = useContext(ReadDice);
+  const result = useContext(ReadTossDice);
 //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
 //display conditional more/less
@@ -659,6 +651,7 @@ const Navbar = (props) => {
     </div>
   );
 }
+
 const App = () => {
   const [display, setDisplay] = useState('stats')
   const [displayTwo, setDisplayTwo] = useState('Skills')
@@ -668,9 +661,9 @@ const App = () => {
     <div id='appWrapper'>
       <div>
         <div id='topWrapper'>
-          <ReadDice.Provider value={rollResult}>
+          <ReadTossDice.Provider value={[rollResult, setRollResult]}>
             <BasicInfo />
-          </ReadDice.Provider>
+          </ReadTossDice.Provider>
           <Navbar display={display} setDisplay={setDisplay} setDisplayTwo={setDisplayTwo} />
           <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
             <SecondaryNavbar display={display}/>
@@ -679,9 +672,9 @@ const App = () => {
         <GetSetDisplay.Provider value={[display, setDisplay]}>
         <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
           <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
-            <TossDice.Provider value={setRollResult}>
+            <ReadTossDice.Provider value={[rollResult, setRollResult]}>
               <MainDisplay />
-            </TossDice.Provider>
+            </ReadTossDice.Provider>
           </ToggleInfo.Provider>
         </GetSetDisplayTwo.Provider>
         </GetSetDisplay.Provider>
