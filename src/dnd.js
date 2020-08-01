@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import useSWR from 'swr';
-import './dnd.css';
-import { character } from './Arn_Hachem.js'
-const { useState, useContext, useEffect } = React;
 
+import './dnd.css';
 
 function rollDice(size, mod, use){
   const dice = Math.floor((Math.random() * size) +1)
@@ -714,9 +712,12 @@ const App = (props) => {
 }
 
 const LoadApp = () => {
-  const {data: characters} = useSWR('/api/characters', () => Promise.resolve([character]))
-  return characters ? (
-    <App character={characters[0]} />
+  // Load data from the characters server endpoint
+  const {data} = useSWR('/api/characters')
+
+  // Before the data is loaded, it will be `undefined`
+  return data ? (
+    <App character={data.characters[0]} />
   ) : <>Loading...</>
 }
 
