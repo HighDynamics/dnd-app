@@ -1,4 +1,4 @@
-export let character = {
+export default {
   name: 'Arn Hachem',
   type: ['Human', 'Sanctified', 'Deathless', 'Spellstitched', 'Archlich'],
   hitPoints: {
