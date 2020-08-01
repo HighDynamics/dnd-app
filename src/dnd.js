@@ -1,4 +1,5 @@
 import React from 'react';
+import useSWR from 'swr';
 import './dnd.css';
 import { character } from './Arn_Hachem.js'
 const { useState, useContext, useEffect } = React;
@@ -713,7 +714,10 @@ const App = (props) => {
 }
 
 const LoadApp = () => {
-  return <App character={character} />
+  const {data: characters} = useSWR('/api/characters', () => Promise.resolve([character]))
+  return characters ? (
+    <App character={characters[0]} />
+  ) : <>Loading...</>
 }
 
 export default LoadApp
