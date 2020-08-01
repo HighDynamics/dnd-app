@@ -194,6 +194,9 @@ button:focus {
 }
 .rollAbility{
   border: none;
+  background: none;
+  color: white;
+  outline: 1px solid white;
   margin-right: 10px;
   transform: translateY(-25%);
 }

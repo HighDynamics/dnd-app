@@ -398,12 +398,12 @@ const PassiveAbilities = (props) => {
   )
 }
 const AbilityScores = (props) => {
-  const roll = useContext(ReadTossDice)
+  const [rollResult, setRollResult] = useContext(ReadTossDice)
   function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod){
     return(
     <p className='abilityScores'>
       {/*button appears on same line*/}
-      <button className='rollAbility' onClick={() => roll(rollDice(20, abilityMod, abilityString))}>roll</button>
+      <button className='rollAbility' onClick={() => setRollResult(rollDice(20, abilityMod, abilityString))}>roll</button>
       {abilityString}: {abilityScore} | {abilityMod}
     </p>
     )
@@ -425,7 +425,7 @@ const AbilityScores = (props) => {
   );
 }
 const SkillsListItem = (props) => {
-  const roll = useContext(ReadTossDice);
+  const [rollResult, setRollResult] = useContext(ReadTossDice);
   // store props to make code simpler
   const skills = props.skills
   // replace underscore with space and store
@@ -445,7 +445,7 @@ const SkillsListItem = (props) => {
   return (
     <button
       className={`skills ${findClassSkills(skills[0])} ${skills[0]}`}
-      onClick={() => roll(rollDice(20, skillPoints, formattedSkill))}>
+      onClick={() => setRollResult(rollDice(20, skillPoints, formattedSkill))}>
       {formattedSkill} | <span className='skillPoints'>{skillPoints}</span>
     </button>
   )
@@ -501,7 +501,7 @@ const StatsSelector = (props) => {
 }
 
 const BasicInfo = (props) => {
-  const result = useContext(ReadTossDice);
+  const [rollResult, setRollResult] = useContext(ReadTossDice);
 //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
 //display conditional more/less
@@ -540,7 +540,7 @@ const BasicInfo = (props) => {
               <p id='hp'>hp: {health}</p>
               <p id='ac'>ac: {character.armorClass.ac.total}</p>
             </div>
-            <div id='diceRollResultWrapper'>{result}</div>
+            <div id='diceRollResultWrapper'>{rollResult}</div>
           </div>
         </div>
       </div>
