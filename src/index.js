@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {SWRConfig} from 'swr';
 import './dnd.css';
 import App from './dnd';
 import * as serviceWorker from './serviceWorker';
+import { makeServer } from "./server"
+
+if (process.env.NODE_ENV === "development") {
+  makeServer({ environment: "development" })
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SWRConfig 
+      value={{
+        fetcher: (...args) => fetch(...args).then(res => res.json())
+      }}
+    >
+      <App />
+    </SWRConfig>
   </React.StrictMode>,
   document.getElementById('root')
 );

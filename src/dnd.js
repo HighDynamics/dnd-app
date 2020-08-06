@@ -1,9 +1,7 @@
-import React from 'react';
-import './dnd.css';
-import { character } from './Arn_Hachem.js'
-const { useState, useContext, useEffect } = React;
-document.title = character.name;
+import React, { useState, useContext, useEffect } from 'react';
+import useSWR from 'swr';
 
+import './dnd.css';
 
 function rollDice(size, mod, use){
   const dice = Math.floor((Math.random() * size) +1)
@@ -31,33 +29,23 @@ const GetSetDisplay = React.createContext(null)
 const GetSetDisplayTwo = React.createContext(null)
 const ToggleInfo = React.createContext(null)
 const Selection = React.createContext(null)
+const Character = React.createContext(null)
+const PrimaryModifier = React.createContext(null)
 /******************************Character Info****************************/
-const str = character.abilities.score.strength
-const dex = character.abilities.score.dexterity
-const con = character.abilities.score.constitution
-const int = character.abilities.score.intelligence
-const wis = character.abilities.score.wisdom
-const cha = character.abilities.score.charisma
-function abilityModifier(ability) {
+function abilityModifier(character, ability) {
   if(character.abilities.score[ability] === '--'){
     return '--'
   }
   return Math.floor((character.abilities.score[ability] - 10) / 2)
 }
-const strMod = abilityModifier('strength')
-const dexMod = abilityModifier('dexterity')
-const conMod = abilityModifier('constitution')
-const intMod = abilityModifier('intelligence')
-const wisMod = abilityModifier('wisdom')
-const chaMod = abilityModifier('charisma')
-let primaryModifier = chaMod
-function totalSpells(level, levelNum) {
+
+function totalSpells(character, primaryModifier, level, levelNum) {
   function bonusSpellsPerDay(levelNum){
     return Math.ceil((primaryModifier - (levelNum - 1)) / 4)
   }
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum)
 }
-function spellSave(){
+function spellSave(character){
   return Math.floor(10 + character.abilities.primaryModifier('charisma'))
 }
 /******************************Character Info****************************/
@@ -71,6 +59,7 @@ const ItemsHeld = (props) => {
   )
 }
 const Items = (props) => {
+  const character = useContext(Character)
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   function displayItems(){
     const items = Object.values(character.items).map(
@@ -100,6 +89,7 @@ const KnownSLAs = (props) => {
   )
 }
 const SLAs = (props) => {
+  const character = useContext(Character)
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   //cantrips or orisons? or both?
   function casterType() {
@@ -163,6 +153,7 @@ const KnownActiveAbilities = (props) => {
   )
 }
 const ActiveAbilities = (props) => {
+  const character = useContext(Character)
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   function displayAbilities(){
     const abilities = Object.values(character.characterAbilities.active).map(
@@ -180,6 +171,7 @@ const ActiveAbilities = (props) => {
 }
 const SpellInfo = (props) => {
   //bring in react context
+  const character = useContext(Character)
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
   //edit string for render
@@ -219,6 +211,8 @@ const Spellbook = (props) => {
   )
 }
 const PrepSpells = (props) => {
+  const character = useContext(Character)
+  const primaryModifier = useContext(PrimaryModifier)
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo)
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine){
@@ -240,7 +234,7 @@ const PrepSpells = (props) => {
       <div className='spellItems'>
         <div className='spellLevelWrapper'>
           <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
-          <em className='remainingSpells'>{totalSpells(level, levelNum)} remaining today</em>
+          <em className='remainingSpells'>{totalSpells(character, primaryModifier, level, levelNum)} remaining today</em>
         </div>
         <p className='spellList'>{displaySpells(level)}</p>
         <hr/>
@@ -251,13 +245,13 @@ const PrepSpells = (props) => {
     <>
       <div>
         <button id='returnToSpells' onClick={() => setDisplayTwo('Spells')}>
-          <i class="fas fa-arrow-left"></i>
+          <i className="fas fa-arrow-left"></i>
         </button>
       <div className='spellContainer'>
         <div className='spellItems'>
           <div className='spellLevelWrapper'>
             <h2 id="levelZeroHeaderPrep" className='spellLevelHeader'>{casterType()}</h2>
-            <em className='remainingSpells'>{totalSpells('zero', 0)} remaining today</em>
+            <em className='remainingSpells'>{totalSpells(character, primaryModifier, 'zero', 0)} remaining today</em>
           </div>
           <p className='spellList'>{displaySpells('zero')}</p>
           <hr/>
@@ -291,6 +285,8 @@ const KnownSpells = (props) => {
   )
 }
 const Spells = (props) => {
+  const character = useContext(Character)
+  const primaryModifier = useContext(PrimaryModifier)
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
   //cantrips or orisons? or both?
@@ -315,7 +311,7 @@ const Spells = (props) => {
       <div className='spellItems'>
       <div className='spellLevelWrapper'>
       <h2 className='spellLevelHeader'>Level {levelRoman}</h2>
-      <em className='remainingSpells'>{totalSpells(level, levelNum)} remaining today</em>
+      <em className='remainingSpells'>{totalSpells(character, primaryModifier, level, levelNum)} remaining today</em>
       </div>
       <p className='spellList'>{displaySpells(level)}</p>
       <hr/>
@@ -325,13 +321,13 @@ const Spells = (props) => {
   return (
     <div>
       <button id='prepSpellsButton' onClick={() => setDisplayTwo('Prep')}>
-        <i class="fas fa-book"></i><span>PREP</span>
+        <i className="fas fa-book"></i><span>PREP</span>
       </button>
       <div className='spellContainer'>
         <div className='spellItems'>
           <div className='spellLevelWrapper'>
             <h2 id='levelZeroHeader' className='spellLevelHeader'>{casterType()}</h2>
-            <em className='remainingSpells'>{totalSpells('zero', 0)} remaining today</em>
+            <em className='remainingSpells'>{totalSpells(character, primaryModifier, 'zero', 0)} remaining today</em>
           </div>
     <p className='spellList'>{displaySpells('zero')}</p>
     <hr/>
@@ -382,6 +378,7 @@ const KnownPassiveAbilities = (props) => {
   )
 }
 const PassiveAbilities = (props) => {
+  const character = useContext(Character)
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   function displayAbilities(){
     const abilities = Object.values(character.characterAbilities.passive).map(
@@ -397,7 +394,23 @@ const PassiveAbilities = (props) => {
     </div>
   )
 }
+
+
 const AbilityScores = (props) => {
+  const character = useContext(Character)
+  const str = character.abilities.score.strength
+  const dex = character.abilities.score.dexterity
+  const con = character.abilities.score.constitution
+  const int = character.abilities.score.intelligence
+  const wis = character.abilities.score.wisdom
+  const cha = character.abilities.score.charisma
+  const strMod = abilityModifier(character, 'strength')
+  const dexMod = abilityModifier(character, 'dexterity')
+  const conMod = abilityModifier(character, 'constitution')
+  const intMod = abilityModifier(character, 'intelligence')
+  const wisMod = abilityModifier(character, 'wisdom')
+  const chaMod = abilityModifier(character, 'charisma')
+
   const [rollResult, setRollResult] = useContext(ReadTossDice)
   function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod){
     return(
@@ -425,6 +438,7 @@ const AbilityScores = (props) => {
   );
 }
 const SkillsListItem = (props) => {
+  const character = useContext(Character)
   const [rollResult, setRollResult] = useContext(ReadTossDice);
   // store props to make code simpler
   const skills = props.skills
@@ -451,6 +465,7 @@ const SkillsListItem = (props) => {
   )
 }
 const Skills = (props) =>  {
+  const character = useContext(Character)
   //put character's skills into array as [key, value]
   let skillsArray = Object.keys(character.skills).map((skill) => {
     return [skill, character.skills[skill]]
@@ -501,6 +516,7 @@ const StatsSelector = (props) => {
 }
 
 const BasicInfo = (props) => {
+  const character = useContext(Character)
   const [rollResult, setRollResult] = useContext(ReadTossDice);
 //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
@@ -652,36 +668,57 @@ const Navbar = (props) => {
   );
 }
 
-const App = () => {
+const App = (props) => {
   const [display, setDisplay] = useState('stats')
   const [displayTwo, setDisplayTwo] = useState('Skills')
   const [toggleInfo, setToggleInfo] = useState(false);
-  const [rollResult, setRollResult] = useState('Good luck,\n' + character.name)
+  const [rollResult, setRollResult] = useState('Good luck,\n' + props.character.name)
+  const [primaryModifier, setPrimaryModifier] = useState(abilityModifier(props.character, 'charisma'))
+
+  useEffect(function setDocTitle() {
+    document.title = props.character.name;
+  }, [props.character])
+
   return (
-    <div id='appWrapper'>
-      <div>
-        <div id='topWrapper'>
-          <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-            <BasicInfo />
-          </ReadTossDice.Provider>
-          <Navbar display={display} setDisplay={setDisplay} setDisplayTwo={setDisplayTwo} />
-          <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-            <SecondaryNavbar display={display}/>
-          </GetSetDisplayTwo.Provider>
-        </div>
-        <GetSetDisplay.Provider value={[display, setDisplay]}>
-        <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-          <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
+    <Character.Provider value={props.character}>
+
+      <div id='appWrapper'>
+        <div>
+          <div id='topWrapper'>
             <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-              <MainDisplay />
+              <BasicInfo />
             </ReadTossDice.Provider>
-          </ToggleInfo.Provider>
-        </GetSetDisplayTwo.Provider>
-        </GetSetDisplay.Provider>
-        <div id='bottomSpacer'></div>
+            <Navbar display={display} setDisplay={setDisplay} setDisplayTwo={setDisplayTwo} />
+            <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+              <SecondaryNavbar display={display}/>
+            </GetSetDisplayTwo.Provider>
+          </div>
+          <GetSetDisplay.Provider value={[display, setDisplay]}>
+          <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+            <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
+              <ReadTossDice.Provider value={[rollResult, setRollResult]}>
+                <PrimaryModifier.Provider value={[primaryModifier, setPrimaryModifier]}>
+                  <MainDisplay />
+                </PrimaryModifier.Provider>
+              </ReadTossDice.Provider>
+            </ToggleInfo.Provider>
+          </GetSetDisplayTwo.Provider>
+          </GetSetDisplay.Provider>
+          <div id='bottomSpacer'></div>
+        </div>
       </div>
-    </div>
+    </Character.Provider>
   )
 }
 
-export default App
+const LoadApp = () => {
+  // Load data from the characters server endpoint
+  const {data} = useSWR('/api/characters')
+
+  // Before the data is loaded, it will be `undefined`
+  return data ? (
+    <App character={data.characters[0]} />
+  ) : <>Loading...</>
+}
+
+export default LoadApp
