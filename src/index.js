@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {SWRConfig} from 'swr';
-import './dnd.css';
-import App from './dnd';
+import './components/dnd.css';
+import App from './components/dnd';
 import * as serviceWorker from './serviceWorker';
 import { makeServer } from "./server"
 
@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "development") {
 
 ReactDOM.render(
   <React.StrictMode>
-    <SWRConfig 
+    <SWRConfig
       value={{
         fetcher: (...args) => fetch(...args).then(res => res.json())
       }}
