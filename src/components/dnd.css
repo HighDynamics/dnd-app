@@ -1,0 +1,342 @@
+html body{
+  overflow-y: hidden;
+}
+body {
+  position: relative;
+  margin: 0;
+  background-image: url(http://hdwpro.com/wp-content/uploads/2015/12/Texture-Background.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: white;
+}
+#appWrapper{
+  background: rgba(0,0,0,.5);
+  height: 100vh;
+}
+
+#topWrapper{
+  height: auto;
+}
+#HPACDiceWrapper{
+  outline: 1px solid white;
+  margin-bottom: -2vh;
+  max-height: 85.05px;
+  display: flex;
+    flex-direction: row;
+}
+#hpacWrapper{
+  width: 50vw;
+  outline: 1px solid white;
+}
+#diceRollResultWrapper{
+  width: 55vw;
+  height: auto;
+  text-align: center;
+  margin: auto;
+  white-space: pre-wrap;
+}
+#rollUse{
+  font-size: .80rem;
+}
+#rollTopLine{
+  height: 30px;
+  position: relative;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#rollTotal{
+  font-size: 30px;
+}
+#rollModTotal{
+  height: 30px;
+  font-size: 30px;
+  margin: auto;
+}
+.natTwenty{
+  color: green;
+}
+.natOne{
+  color: red;
+}
+#nameAndLevel {
+  display: inline;
+  color: white;
+  font-size: 20px;
+  margin-top: 0px
+}
+#characterType{
+  padding-right: 5px;
+}
+.moreButtonOff {
+  background: rgba(255,255,255,.2);
+  color: white;
+  border: 1px solid white;
+  height: 25px;
+  width: 100vw;
+  display: flex;
+    justify-content: space-between;
+}
+.moreButtonOn {
+  background-color: rgba(255,255,255,.2);
+  color: white;
+  border: 1px solid white;
+  height: 25px;
+  width: 100vw;
+  display: flex;
+    justify-content: space-between
+}
+button:focus {
+  box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -webkit-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -moz-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  outline: 0;
+  z-index: 2;
+}
+#characterInfo{
+  background: rgba(255,255,255,1);
+  color: black;
+  text-align: right;
+  width: 75vw;
+  position: fixed;
+    left: 25vw;
+    top: 25px;
+    z-index: 1;
+}
+#classList{
+  list-style-type: none;
+  padding-right: 5px;
+}
+
+.navbarContainer{
+  background: black;
+  box-shadow: inset -0px 5px 10px black,
+              inset 0px -5px 10px black,
+              0px 2px 4px 2px black,
+              0px -2px 4px 2px black;
+  -webkit-box-shadow: inset -0px 5px 10px black,
+              inset 0px -5px 10px black,
+              0px 2px 4px 2px black,
+              0px -2px 4px 2px black;
+  -moz-box-shadow: inset -0px 5px 10px black,
+              inset 0px -5px 10px black,
+              0px 2px 4px 2px black,
+              0px -2px 4px 2px black;
+  display: flex;
+    justify-content: space-around;
+    align-items: center;
+  padding-left: 0;
+  height: 2rem;
+}
+.navbarItemsOn{
+  background: rgba(255, 255, 255, .2);
+  border-radius: 20%;
+  color: white;
+  border: none;
+  height: 25px;
+  font-size: 17px;
+  width: 20vw;
+}
+.navbarItemsOff{
+  background: rgba(100, 100, 100, .2);
+  border-radius: 20%;
+  color: grey;
+  border: none;
+  height: 25px;
+  font-size: 17px;
+  width: 20vw
+}
+#primaryNavbar{
+  margin-bottom: 0;
+}
+#secondaryNavbar{
+  width: 80vw;
+  position: fixed;
+  margin-top: -13px;
+  left: 50%;
+    transform: translate(-50%);
+  z-index: 0;
+}
+#statIcon{
+  pointer-events: none;
+}
+#spellIcon{
+  pointer-events: none;
+}
+#itemIcon{
+  pointer-events: none;
+}
+#statsContainer{
+  position: relative;
+  width: 100vw;
+}
+#statsDisplay{
+  padding-top: 4vh;
+  margin: auto;
+  width: 100vw;
+}
+#abilityScoresHeader{
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 0;
+}
+#abilityScoresWrapper{
+  position: absolute;
+  margin: auto;
+  width: 100vw;
+}
+.abilityScores{
+  position: relative;
+  width: auto;
+  margin-left: 15vw;
+  font-size: 2rem;
+  font-family: monospace;
+}
+.rollAbility{
+  border: none;
+  background: none;
+  color: white;
+  outline: 1px solid white;
+  margin-right: 10px;
+  transform: translateY(-25%);
+}
+#abilityDisplay{
+  margin: auto;
+  padding-top: 5vh
+}
+#prepSpellsButton{
+  border: none;
+  margin-top: 2vh;
+  background-color: rgba(231,144,249,.5);
+  color: black;
+  font-size: 2.5rem;
+  width: auto;
+  height: auto;
+  box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -webkit-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  -moz-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  outline: 0;
+  z-index: 2;
+
+}
+#prepSpellsButton span{
+  position: absolute;
+  color: white;
+  font-size: .5rem;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  padding-top: 3px;
+}
+#returnToSpells{
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1.5rem;
+}
+.spellLevelWrapper{
+  text-align: center;
+}
+.spellLevelHeader{
+  margin-bottom: 0;
+}
+#levelZeroHeader{
+  margin-top: -50px;
+}
+#levelZeroHeaderPrep{
+  margin-top: -20px;
+}
+.remainingSpells {
+  text-align: center;
+}
+.spellList{
+  text-align: center;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+}
+
+#mainContent{
+  position: relative;
+  height: 70vh;
+  overflow: auto;
+  margin-top: 5vh;
+  z-index: 0;
+}
+#skillsHeader{
+  text-align: center;
+}
+#skillsListWrapper{
+  padding: 0;
+  margin: auto;
+}
+#skillsWrapper{
+  width: 100vw;
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.skills{
+  background: rgba(0, 0, 0, .5);
+  border: none;
+  color: white;
+  flex-basis: 49vw;
+  font-size: .80rem;
+  outline: 1px solid grey;
+  text-align: center;
+  white-space: nowrap;
+}
+.skills:focus{
+  background: rgba(44, 7, 50, .9)
+}
+.skillPoints{
+  color: rgb(251,130,121);
+}
+.classSkills{
+  color: rgb(247, 205, 136);
+}
+.spellButtons{
+  font-size: 14px;
+  background: rgba(20, 30, 9, .6);
+  color: white;
+  border: none;
+  margin: 3px;
+  box-shadow: 0 0 3px;
+  -webkit-box-shadow: 0 0 3px;
+  -moz-box-shadow: 0 0 3px;
+}
+.infoSheet{
+  z-index: 5;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  height: 66vh;
+  width: 96vw;
+  position: fixed;
+  background-color: rgba(249,249,250,.90);
+  outline: 5px solid rgb(238,193,246);
+  overflow: auto;
+  color: black;
+}
+#closeButton{
+  border: none;
+  outline: 1px solid black;
+  background: none;
+  font-size: 1.5rem;
+  height: 2rem;
+  width: 2rem;
+  text-align: center;
+  float: right;
+  margin: 2vw;
+}
+.Arcane_Mark{
+  color: blue
+}
+.Listen{
+  display: none;
+}
+#bottomSpacer{
+  height: 5vh;
+}
