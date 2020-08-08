@@ -26,9 +26,8 @@ const KnownSpells = props => {
 };
 const Spells = props => {
   const character = useContext(Character);
-  const primaryModifier = useContext(PrimaryModifier);
+  const [primaryModifier] = useContext(PrimaryModifier);
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
-  console.log(primaryModifier);
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine) {
