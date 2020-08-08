@@ -6,9 +6,8 @@ import App from './components/dnd';
 import * as serviceWorker from './serviceWorker';
 import { makeServer } from "./server"
 
-if (process.env.NODE_ENV === "development") {
-  makeServer({ environment: "development" })
-}
+// Whenever it is time for a real server, this should be removed.
+makeServer({ environment: "development" })
 
 ReactDOM.render(
   <React.StrictMode>
