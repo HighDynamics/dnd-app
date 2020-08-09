@@ -1,4 +1,4 @@
-html body{
+html body {
   overflow-y: hidden;
 }
 body {
@@ -9,127 +9,121 @@ body {
   background-repeat: no-repeat;
   color: white;
 }
-#appWrapper{
-  background: rgba(0,0,0,.5);
+#appWrapper {
+  background: rgba(0, 0, 0, 0.5);
   height: 100vh;
 }
 
-#topWrapper{
+#topWrapper {
   height: auto;
 }
-#HPACDiceWrapper{
+#HPACDiceWrapper {
   outline: 1px solid white;
   margin-bottom: -2vh;
   max-height: 85.05px;
   display: flex;
-    flex-direction: row;
+  flex-direction: row;
 }
-#hpacWrapper{
+#hpacWrapper {
   width: 50vw;
   outline: 1px solid white;
 }
-#diceRollResultWrapper{
+#diceRollResultWrapper {
   width: 55vw;
   height: auto;
   text-align: center;
   margin: auto;
   white-space: pre-wrap;
 }
-#rollUse{
-  font-size: .80rem;
+#rollUse {
+  font-size: 0.8rem;
 }
-#rollTopLine{
+#rollTopLine {
   height: 30px;
   position: relative;
   display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
-#rollTotal{
+#rollTotal {
   font-size: 30px;
 }
-#rollModTotal{
+#rollModTotal {
   height: 30px;
   font-size: 30px;
   margin: auto;
 }
-.natTwenty{
+.natTwenty {
   color: green;
 }
-.natOne{
+.natOne {
   color: red;
 }
 #nameAndLevel {
   display: inline;
   color: white;
   font-size: 20px;
-  margin-top: 0px
+  margin-top: 0px;
 }
-#characterType{
+#characterType {
   padding-right: 5px;
 }
 .moreButtonOff {
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
   border: 1px solid white;
   height: 25px;
   width: 100vw;
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
 }
 .moreButtonOn {
-  background-color: rgba(255,255,255,.2);
+  background-color: rgba(255, 255, 255, 0.2);
   color: white;
   border: 1px solid white;
   height: 25px;
   width: 100vw;
   display: flex;
-    justify-content: space-between
+  justify-content: space-between;
 }
 button:focus {
-  box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
-  -webkit-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
-  -moz-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
+  -webkit-box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
+  -moz-box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
   outline: 0;
   z-index: 2;
 }
-#characterInfo{
-  background: rgba(255,255,255,1);
+#characterInfo {
+  background: rgba(255, 255, 255, 1);
   color: black;
   text-align: right;
   width: 75vw;
   position: fixed;
-    left: 25vw;
-    top: 25px;
-    z-index: 1;
+  left: 25vw;
+  top: 25px;
+  z-index: 1;
 }
-#classList{
+#classList {
   list-style-type: none;
   padding-right: 5px;
 }
 
-.navbarContainer{
+.navbarContainer {
   background: black;
-  box-shadow: inset -0px 5px 10px black,
-              inset 0px -5px 10px black,
-              0px 2px 4px 2px black,
-              0px -2px 4px 2px black;
-  -webkit-box-shadow: inset -0px 5px 10px black,
-              inset 0px -5px 10px black,
-              0px 2px 4px 2px black,
-              0px -2px 4px 2px black;
-  -moz-box-shadow: inset -0px 5px 10px black,
-              inset 0px -5px 10px black,
-              0px 2px 4px 2px black,
-              0px -2px 4px 2px black;
+  box-shadow: inset -0px 5px 10px black, inset 0px -5px 10px black,
+    0px 2px 4px 2px black, 0px -2px 4px 2px black;
+  -webkit-box-shadow: inset -0px 5px 10px black, inset 0px -5px 10px black,
+    0px 2px 4px 2px black, 0px -2px 4px 2px black;
+  -moz-box-shadow: inset -0px 5px 10px black, inset 0px -5px 10px black,
+    0px 2px 4px 2px black, 0px -2px 4px 2px black;
   display: flex;
-    justify-content: space-around;
-    align-items: center;
+  justify-content: space-around;
+  align-items: center;
   padding-left: 0;
   height: 2rem;
 }
-.navbarItemsOn{
-  background: rgba(255, 255, 255, .2);
+.navbarItemsOn {
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 20%;
   color: white;
   border: none;
@@ -137,62 +131,62 @@ button:focus {
   font-size: 17px;
   width: 20vw;
 }
-.navbarItemsOff{
-  background: rgba(100, 100, 100, .2);
+.navbarItemsOff {
+  background: rgba(100, 100, 100, 0.2);
   border-radius: 20%;
   color: grey;
   border: none;
   height: 25px;
   font-size: 17px;
-  width: 20vw
+  width: 20vw;
 }
-#primaryNavbar{
+#primaryNavbar {
   margin-bottom: 0;
 }
-#secondaryNavbar{
+#secondaryNavbar {
   width: 80vw;
   position: fixed;
   margin-top: -13px;
   left: 50%;
-    transform: translate(-50%);
+  transform: translate(-50%);
   z-index: 0;
 }
-#statIcon{
+#statIcon {
   pointer-events: none;
 }
-#spellIcon{
+#spellIcon {
   pointer-events: none;
 }
-#itemIcon{
+#itemIcon {
   pointer-events: none;
 }
-#statsContainer{
+#statsContainer {
   position: relative;
   width: 100vw;
 }
-#statsDisplay{
+#statsDisplay {
   padding-top: 4vh;
   margin: auto;
   width: 100vw;
 }
-#abilityScoresHeader{
+#abilityScoresHeader {
   text-align: center;
   margin-top: 2vh;
   margin-bottom: 0;
 }
-#abilityScoresWrapper{
+#abilityScoresWrapper {
   position: absolute;
   margin: auto;
   width: 100vw;
 }
-.abilityScores{
+.abilityScores {
   position: relative;
   width: auto;
   margin-left: 15vw;
   font-size: 2rem;
   font-family: monospace;
 }
-.rollAbility{
+.rollAbility {
   border: none;
   background: none;
   color: white;
@@ -200,105 +194,109 @@ button:focus {
   margin-right: 10px;
   transform: translateY(-25%);
 }
-#abilityDisplay{
+#abilityDisplay {
   margin: auto;
-  padding-top: 5vh
+  padding-top: 5vh;
 }
-#prepSpellsButton{
+#prepSpellsButton {
   border: none;
   margin-top: 2vh;
-  background-color: rgba(231,144,249,.5);
+  background-color: rgba(231, 144, 249, 0.5);
   color: black;
   font-size: 2.5rem;
-  width: auto;
+  width: 3.5rem;
   height: auto;
-  box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
-  -webkit-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
-  -moz-box-shadow: 0 0 15px 5px rgba(231,144,249,.72);
+  box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
+  -webkit-box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
+  -moz-box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
   outline: 0;
   z-index: 2;
-
 }
-#prepSpellsButton span{
+#prepSpellsButton span {
   position: absolute;
   color: white;
-  font-size: .5rem;
+  font-size: 0.5rem;
   writing-mode: vertical-rl;
   text-orientation: upright;
   padding-top: 3px;
 }
-#returnToSpells{
+#returnToSpells {
   border: none;
   background: none;
   color: white;
   font-size: 1.5rem;
 }
-.spellLevelWrapper{
+.spellLevelWrapper {
   text-align: center;
 }
-.spellLevelHeader{
+.spellLevelHeader {
   margin-bottom: 0;
 }
-#levelZeroHeader{
+#levelZeroHeader {
   margin-top: -50px;
 }
-#levelZeroHeaderPrep{
+#levelZeroHeaderPrep {
   margin-top: -20px;
 }
 .remainingSpells {
   text-align: center;
 }
-.spellList{
+.spellList {
   text-align: center;
 }
 hr {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.75), rgba(0, 0, 0, 0));
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(255, 255, 255, 0.75),
+    rgba(0, 0, 0, 0)
+  );
 }
 
-#mainContent{
+#mainContent {
   position: relative;
   height: 70vh;
   overflow: auto;
   margin-top: 5vh;
   z-index: 0;
 }
-#skillsHeader{
+#skillsHeader {
   text-align: center;
 }
-#skillsListWrapper{
+#skillsListWrapper {
   padding: 0;
   margin: auto;
 }
-#skillsWrapper{
+#skillsWrapper {
   width: 100vw;
   display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.skills{
-  background: rgba(0, 0, 0, .5);
+.skills {
+  background: rgba(0, 0, 0, 0.5);
   border: none;
   color: white;
   flex-basis: 49vw;
-  font-size: .80rem;
+  font-size: 0.8rem;
   outline: 1px solid grey;
   text-align: center;
   white-space: nowrap;
 }
-.skills:focus{
-  background: rgba(44, 7, 50, .9)
+.skills:focus {
+  background: rgba(44, 7, 50, 0.9);
 }
-.skillPoints{
-  color: rgb(251,130,121);
+.skillPoints {
+  color: rgb(251, 130, 121);
 }
-.classSkills{
+.classSkills {
   color: rgb(247, 205, 136);
 }
-.spellButtons{
+.spellButtons {
   font-size: 14px;
-  background: rgba(20, 30, 9, .6);
+  background: rgba(20, 30, 9, 0.6);
   color: white;
   border: none;
   margin: 3px;
@@ -306,7 +304,7 @@ hr {
   -webkit-box-shadow: 0 0 3px;
   -moz-box-shadow: 0 0 3px;
 }
-.infoSheet{
+.infoSheet {
   z-index: 5;
   margin-left: 2vw;
   margin-right: 2vw;
@@ -315,12 +313,12 @@ hr {
   height: 66vh;
   width: 96vw;
   position: fixed;
-  background-color: rgba(249,249,250,.90);
-  outline: 5px solid rgb(238,193,246);
+  background-color: rgba(249, 249, 250, 0.9);
+  outline: 5px solid rgb(238, 193, 246);
   overflow: auto;
   color: black;
 }
-#closeButton{
+#closeButton {
   border: none;
   outline: 1px solid black;
   background: none;
@@ -331,12 +329,12 @@ hr {
   float: right;
   margin: 2vw;
 }
-.Arcane_Mark{
-  color: blue
+.Arcane_Mark {
+  color: blue;
 }
-.Listen{
+.Listen {
   display: none;
 }
-#bottomSpacer{
+#bottomSpacer {
   height: 5vh;
 }

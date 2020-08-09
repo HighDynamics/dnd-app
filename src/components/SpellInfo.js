@@ -1,6 +1,21 @@
 import React, { useContext } from "react";
 import { Character, ToggleInfo, Selection } from "./dnd.js";
+import Compendium from "../spells/spell-compendium.js";
 
+const CompendiumSpell = props => {
+  function removeNameKey(input) {
+    if (input == "name:") {
+      return "";
+    } else {
+      return input;
+    }
+  }
+  return (
+    <div>
+      {removeNameKey(props.property + ":")} {props.value}
+    </div>
+  );
+};
 const SpellInfo = props => {
   //bring in react context
   const character = useContext(Character);
@@ -17,29 +32,25 @@ const SpellInfo = props => {
     });
     return foundLevel;
   }
+  const matchedSpell = Compendium.spells.find(({ name }) => name === selection);
+  function displayCompendiumInfo(spellObject) {
+    const spellKeys = Object.keys(spellObject);
+    const compendiumInfo = spellKeys.map(key => {
+      return (
+        <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
+      );
+    });
+    return compendiumInfo;
+  }
   return (
     <div id="spellInfo" className="infoSheet">
       <button id="useSpell">Use Spell</button>
       <button id="closeButton" onClick={() => setToggleInfo("Off")}>
         x
       </button>
-      <h3>{formattedSpell}</h3>
-      Level: {getSpellLevel(selection)}
-      <br />
-      Components:
-      <br />
-      Casting Time:
-      <br />
-      Range:
-      <br />
-      Target or Area:
-      <br />
-      Duration:
-      <br />
-      Saving Throw:
-      <br />
-      SpellResistance:
-      <br />
+      {matchedSpell !== undefined && (
+        <div>{displayCompendiumInfo(matchedSpell)}</div>
+      )}
     </div>
   );
 };
