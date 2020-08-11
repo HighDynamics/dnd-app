@@ -90,7 +90,6 @@ const Spells = props => {
         {spellCodeBlock("seven", 7, "VII")}
         {spellCodeBlock("eight", 8, "VIII")}
         {spellCodeBlock("nine", 9, "IX")}
-        <div className="bottomGradient"></div>
       </div>
     </div>
   );
