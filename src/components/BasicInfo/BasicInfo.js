@@ -1,6 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Character, ReadTossDice } from "./dnd.js";
+import { Character, ReadTossDice } from "../dnd.js";
+import "./BasicInfo.css";
 
+const CharacterType = props => {
+  return <span>{props.value} / </span>;
+};
+const CharacterClasses = props => {
+  return <li>{props.value}</li>;
+};
 const BasicInfo = props => {
   const character = useContext(Character);
   const [rollResult] = useContext(ReadTossDice);
@@ -55,12 +62,6 @@ const BasicInfo = props => {
       </div>
     </div>
   );
-};
-const CharacterType = props => {
-  return <span>{props.value} / </span>;
-};
-const CharacterClasses = props => {
-  return <li>{props.value}</li>;
 };
 
 export default BasicInfo;

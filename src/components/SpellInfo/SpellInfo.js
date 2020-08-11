@@ -1,18 +1,31 @@
 import React, { useContext } from "react";
-import { Character, ToggleInfo, Selection } from "./dnd.js";
-import Compendium from "../spells/spell-compendium.js";
+import { Character, ToggleInfo, Selection } from "../dnd.js";
+import Compendium from "../../spells/spell-compendium.js";
+import "./SpellInfo.css";
 
 const CompendiumSpell = props => {
-  function removeNameKey(input) {
-    if (input == "name:") {
-      return "";
-    } else {
-      return input;
+  const property = props.property;
+  const value = props.value;
+  function formatProperty(input) {
+    switch (input) {
+      case "name:":
+      case "type:":
+        return "";
+        break;
+      case "description:":
+        return <hr id="spellSheetHR" />;
+        break;
+      default:
+        const spacedProperty = input.replace(/([A-Z])/g, " $1").trim();
+        return spacedProperty;
     }
   }
+  const formattedValue = value.replace(/_/g, " ");
+
   return (
-    <div>
-      {removeNameKey(props.property + ":")} {props.value}
+    <div className="infoSheetContent" id={property}>
+      <span className="property">{formatProperty(property + ":")} </span>
+      <span className="value">{formattedValue}</span>
     </div>
   );
 };

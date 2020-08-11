@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import useSWR from "swr";
 
-import * as Navbar from "./Navbars.js";
-import BasicInfo from "./BasicInfo.js";
-import MainDisplay from "./MainDisplay.js";
+import * as Navbar from "./Navbars/Navbars.js";
+import BasicInfo from "./BasicInfo/BasicInfo.js";
+import MainDisplay from "./MainDisplay/MainDisplay.js";
 
 import "./dnd.css";
 
@@ -99,7 +99,6 @@ const App = props => {
               </ToggleInfo.Provider>
             </GetSetDisplayTwo.Provider>
           </GetSetDisplay.Provider>
-          <div id="bottomSpacer"></div>
         </div>
       </div>
     </Character.Provider>

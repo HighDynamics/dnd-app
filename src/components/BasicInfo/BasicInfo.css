@@ -1,0 +1,59 @@
+#nameAndLevel {
+  display: inline;
+  color: white;
+  font-size: 20px;
+  margin-top: 0px;
+}
+#characterType {
+  padding-right: 5px;
+}
+.moreButtonOff {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+  height: 25px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+.moreButtonOn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+  height: 25px;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+#HPACDiceWrapper {
+  outline: 1px solid white;
+  max-height: 85.05px;
+  display: flex;
+  flex-direction: row;
+}
+#hpacWrapper {
+  width: 50vw;
+  outline: 1px solid white;
+}
+#diceRollResultWrapper {
+  width: 55vw;
+  height: auto;
+  text-align: center;
+  margin: auto;
+  white-space: pre-wrap;
+}
+#characterInfo {
+  background: rgba(255, 255, 255, 1);
+  color: black;
+  text-align: right;
+  width: 75vw;
+  position: fixed;
+  left: 25vw;
+  top: 25px;
+  z-index: 1;
+}
+#classList {
+  list-style-type: none;
+  padding-right: 5px;
+}

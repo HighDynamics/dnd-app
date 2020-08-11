@@ -1,0 +1,62 @@
+.navbarContainer {
+  background: black;
+  box-shadow: inset -0px 5px 10px black, inset 0px -5px 10px black,
+    0px 2px 4px 2px black, 0px -2px 4px 2px black;
+  -webkit-box-shadow: inset -0px 5px 10px black, inset 0px -5px 10px black,
+    0px 2px 4px 2px black, 0px -2px 4px 2px black;
+  -moz-box-shadow: inset -0px 5px 10px black, inset 0px -5px 10px black,
+    0px 2px 4px 2px black, 0px -2px 4px 2px black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 0;
+  height: 2rem;
+}
+.navbarItemsOn {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20%;
+  color: white;
+  border: none;
+  height: 25px;
+  font-size: 17px;
+  width: 20vw;
+}
+.navbarItemsOff {
+  background: rgba(100, 100, 100, 0.2);
+  border-radius: 20%;
+  color: grey;
+  border: none;
+  height: 25px;
+  font-size: 17px;
+  width: 20vw;
+}
+#primaryNavbar {
+  position: relative;
+  margin-top: 1vh;
+}
+#secondaryNavbar {
+  width: 80vw;
+  position: relative;
+  margin-top: -13px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 0;
+}
+#statIcon {
+  pointer-events: none;
+}
+#spellIcon {
+  pointer-events: none;
+}
+#itemIcon {
+  pointer-events: none;
+}
+#statsDisplay {
+  padding-top: 4vh;
+  margin: auto;
+  width: 100vw;
+}
+#abilityDisplay {
+  margin: auto;
+  padding-top: 5vh;
+}

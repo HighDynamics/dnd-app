@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { GetSetDisplayTwo } from "./dnd.js";
+import { GetSetDisplayTwo } from "../dnd.js";
+import "./Navbars.css";
 
 const AbilitySelector = props => {
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);

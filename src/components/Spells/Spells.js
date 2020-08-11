@@ -6,7 +6,8 @@ import {
   GetSetDisplayTwo,
   PrimaryModifier,
   totalSpells
-} from "./dnd.js";
+} from "../dnd.js";
+import "./Spells.css";
 
 const KnownSpells = props => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
@@ -89,6 +90,7 @@ const Spells = props => {
         {spellCodeBlock("seven", 7, "VII")}
         {spellCodeBlock("eight", 8, "VIII")}
         {spellCodeBlock("nine", 9, "IX")}
+        <div className="bottomGradient"></div>
       </div>
     </div>
   );

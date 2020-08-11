@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Character, ReadTossDice, abilityModifier, rollDice } from "./dnd.js";
+import { Character, ReadTossDice, abilityModifier, rollDice } from "../dnd.js";
+import "./AbilityScores.css";
 
 const AbilityScores = props => {
   const character = useContext(Character);

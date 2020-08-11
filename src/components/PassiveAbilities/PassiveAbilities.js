@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Character, ToggleInfo } from "./dnd.js";
+import { Character, ToggleInfo } from "../dnd.js";
 
 const KnownPassiveAbilities = props => {
   const [toggleInfo, setToggleInfo] = useState(false);

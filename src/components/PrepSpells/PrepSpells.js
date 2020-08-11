@@ -5,7 +5,8 @@ import {
   PrimaryModifier,
   GetSetDisplayTwo,
   totalSpells
-} from "./dnd.js";
+} from "../dnd.js";
+import "./PrepSpells.css";
 
 const Spellbook = props => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);

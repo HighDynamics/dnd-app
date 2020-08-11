@@ -1,0 +1,33 @@
+#skillsHeader {
+  text-align: center;
+}
+#skillsListWrapper {
+  padding: 0;
+  margin: auto;
+  list-style: none;
+}
+#skillsWrapper {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.skills {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  flex-basis: 49vw;
+  font-size: 0.8rem;
+  outline: 1px solid grey;
+  text-align: center;
+  white-space: nowrap;
+}
+.skills:focus {
+  background: rgba(44, 7, 50, 0.9);
+}
+.skillPoints {
+  color: rgb(251, 130, 121);
+}
+.classSkills {
+  color: rgb(247, 205, 136);
+}

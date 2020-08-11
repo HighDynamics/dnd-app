@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Character, ReadTossDice, rollDice } from "./dnd.js";
+import { Character, ReadTossDice, rollDice } from "../dnd.js";
+import "./Skills.css";
 
 const SkillsListItem = props => {
   const character = useContext(Character);
@@ -46,7 +47,7 @@ const Skills = props => {
   return (
     <>
       <h1 id="skillsHeader">Skills</h1>
-      <ul id="skillsListWrapper" style={{ listStyleType: "none" }}>
+      <ul id="skillsListWrapper">
         <div id="skillsWrapper">{skillsBlock}</div>
       </ul>
     </>

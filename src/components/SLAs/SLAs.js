@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ToggleInfo, Character } from "./dnd.js";
+import { ToggleInfo, Character } from "../dnd.js";
 
 const KnownSLAs = props => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
