@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Modal } from "../Modal/Modal";
 import { Character, ToggleInfo, Selection, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
 
@@ -28,7 +29,8 @@ const CompendiumSpell = (props) => {
     </div>
   );
 };
-const SpellInfo = (props) => {
+
+const SpellInfo = () => {
   //bring in react context
   const compendium = useContext(Compendium);
   const character = useContext(Character);
@@ -55,16 +57,15 @@ const SpellInfo = (props) => {
     });
     return compendiumInfo;
   }
+
   return (
-    <div id="spellInfo" className="infoSheet">
+    <Modal onClose={() => setToggleInfo("Off")}>
       <button id="useSpell">Use Spell</button>
-      <button id="closeButton" onClick={() => setToggleInfo("Off")}>
-        x
-      </button>
+
       {matchedSpell !== undefined && (
         <div>{displayCompendiumInfo(matchedSpell)}</div>
       )}
-    </div>
+    </Modal>
   );
 };
 

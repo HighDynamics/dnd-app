@@ -17,31 +17,6 @@
 #type {
   text-align: center;
 }
-.infoSheet {
-  z-index: 5;
-  margin-left: 2vw;
-  margin-right: 2vw;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  height: 66vh;
-  width: 96vw;
-  position: fixed;
-  background-color: rgba(249, 249, 250, 0.9);
-  outline: 5px solid rgb(238, 193, 246);
-  overflow: auto;
-  color: black;
-}
-#closeButton {
-  border: none;
-  position: fixed;
-  outline: 1px solid black;
-  background: none;
-  font-size: 1.5rem;
-  height: 2rem;
-  width: 2rem;
-  text-align: center;
-  right: 2vw;
-}
 #useSpell {
   position: fixed;
 }
