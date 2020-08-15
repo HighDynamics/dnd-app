@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { Character, ToggleInfo, Selection } from "../dnd.js";
-import Compendium from "../../spells/spell-compendium.js";
+import { Character, ToggleInfo, Selection, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
 
-const CompendiumSpell = props => {
+const CompendiumSpell = (props) => {
   const property = props.property;
   const value = props.value;
   function formatProperty(input) {
@@ -29,8 +28,9 @@ const CompendiumSpell = props => {
     </div>
   );
 };
-const SpellInfo = props => {
+const SpellInfo = (props) => {
   //bring in react context
+  const compendium = useContext(Compendium);
   const character = useContext(Character);
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection] = useContext(Selection);
@@ -38,17 +38,17 @@ const SpellInfo = props => {
   const formattedSpell = selection.replace(/_/g, " ");
   function getSpellLevel(selection) {
     let foundLevel = null;
-    Object.keys(character.magic.spells).forEach(level => {
+    Object.keys(character.magic.spells).forEach((level) => {
       if (Object.values(character.magic.spells[level]).includes(selection)) {
         foundLevel = level;
       }
     });
     return foundLevel;
   }
-  const matchedSpell = Compendium.spells.find(({ name }) => name === selection);
+  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
   function displayCompendiumInfo(spellObject) {
     const spellKeys = Object.keys(spellObject);
-    const compendiumInfo = spellKeys.map(key => {
+    const compendiumInfo = spellKeys.map((key) => {
       return (
         <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
       );

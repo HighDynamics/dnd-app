@@ -38,6 +38,7 @@ export const GetSetDisplayTwo = React.createContext(null);
 export const ToggleInfo = React.createContext(null);
 export const Selection = React.createContext(null);
 export const Character = React.createContext(null);
+export const Compendium = React.createContext(null);
 export const PrimaryModifier = React.createContext(null);
 /******************************Character functions****************************/
 export function abilityModifier(character, ability) {
@@ -53,7 +54,7 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
 }
 /******************************Character functions****************************/
-const App = props => {
+const App = (props) => {
   const [display, setDisplay] = useState("stats");
   const [displayTwo, setDisplayTwo] = useState("Skills");
   const [toggleInfo, setToggleInfo] = useState(false);
@@ -71,46 +72,56 @@ const App = props => {
   );
   return (
     <Character.Provider value={props.character}>
-      <div id="appWrapper">
-        <div>
-          <div id="topWrapper">
-            <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-              <BasicInfo />
-            </ReadTossDice.Provider>
-            <Navbar.PrimaryNavbar
-              display={display}
-              setDisplay={setDisplay}
-              setDisplayTwo={setDisplayTwo}
-            />
-            <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-              <Navbar.SecondaryNavbar display={display} />
-            </GetSetDisplayTwo.Provider>
+      <Compendium.Provider value={props.compendium}>
+        <div id="appWrapper">
+          <div>
+            <div id="topWrapper">
+              <ReadTossDice.Provider value={[rollResult, setRollResult]}>
+                <BasicInfo />
+              </ReadTossDice.Provider>
+              <Navbar.PrimaryNavbar
+                display={display}
+                setDisplay={setDisplay}
+                setDisplayTwo={setDisplayTwo}
+              />
+              <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+                <Navbar.SecondaryNavbar display={display} />
+              </GetSetDisplayTwo.Provider>
+            </div>
+            <GetSetDisplay.Provider value={[display, setDisplay]}>
+              <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+                <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
+                  <ReadTossDice.Provider value={[rollResult, setRollResult]}>
+                    <PrimaryModifier.Provider
+                      value={[primaryModifier, setPrimaryModifier]}
+                    >
+                      <MainDisplay />
+                    </PrimaryModifier.Provider>
+                  </ReadTossDice.Provider>
+                </ToggleInfo.Provider>
+              </GetSetDisplayTwo.Provider>
+            </GetSetDisplay.Provider>
           </div>
-          <GetSetDisplay.Provider value={[display, setDisplay]}>
-            <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-              <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
-                <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-                  <PrimaryModifier.Provider
-                    value={[primaryModifier, setPrimaryModifier]}
-                  >
-                    <MainDisplay />
-                  </PrimaryModifier.Provider>
-                </ReadTossDice.Provider>
-              </ToggleInfo.Provider>
-            </GetSetDisplayTwo.Provider>
-          </GetSetDisplay.Provider>
         </div>
-      </div>
+      </Compendium.Provider>
     </Character.Provider>
   );
 };
 
 const LoadApp = () => {
   // Load data from the characters server endpoint
-  const { data } = useSWR("/api/characters");
+  const { data: charactersResponse } = useSWR("/api/characters");
+  const { data: spellsResponse } = useSWR("/api/spells");
+
+  if (!(spellsResponse && charactersResponse)) return <>Loading...</>;
+
+  const { spells } = spellsResponse;
+  const { characters } = charactersResponse;
+
+  const compendium = { spells };
 
   // Before the data is loaded, it will be `undefined`
-  return data ? <App character={data.characters[0]} /> : <>Loading...</>;
+  return <App character={characters[0]} compendium={compendium} />;
 };
 
 export default LoadApp;

@@ -1,5 +1,6 @@
 import { Server, Model, RestSerializer } from "miragejs"
 import characters from './characters'
+import spells from './spells'
 
 export function makeServer({ environment = "test" } = {}) {
   let server = new Server({
@@ -7,6 +8,7 @@ export function makeServer({ environment = "test" } = {}) {
 
     models: {
       character: Model,
+      spell: Model,
     },
 
     serializers: {
@@ -16,6 +18,7 @@ export function makeServer({ environment = "test" } = {}) {
     seeds(server) {
       // set up all the starting data
       characters.forEach(char => server.create("character", char))
+      spells.forEach(spell => server.create("spell", spell))
     },
 
     routes() {
@@ -25,6 +28,10 @@ export function makeServer({ environment = "test" } = {}) {
 
       this.get("/characters", (schema) => {
         return schema.characters.all()
+      })
+
+      this.get("/spells", (schema) => {
+        return schema.spells.all()
       })
     },
   })
