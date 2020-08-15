@@ -27,7 +27,7 @@ export default {
     score: {
       strength: 18,
       dexterity: 24,
-      constitution: "--",
+      constitution: null,
       intelligence: 22,
       wisdom: 17,
       charisma: 35

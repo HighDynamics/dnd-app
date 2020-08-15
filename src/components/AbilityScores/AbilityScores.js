@@ -2,7 +2,11 @@ import React, { useContext } from "react";
 import { Character, ReadTossDice, abilityModifier, rollDice } from "../dnd.js";
 import "./AbilityScores.css";
 
-const AbilityScores = props => {
+function renderAbilityScore(score) {
+  return typeof score === "number" ? score : "None";
+}
+
+const AbilityScores = (props) => {
   const character = useContext(Character);
   const str = character.abilities.score.strength;
   const dex = character.abilities.score.dexterity;
@@ -28,7 +32,8 @@ const AbilityScores = props => {
         >
           roll
         </button>
-        {abilityString}: {abilityScore} | {abilityMod}
+        {abilityString}: {renderAbilityScore(abilityScore)} |{" "}
+        {renderAbilityScore(abilityMod)}
       </p>
     );
   }

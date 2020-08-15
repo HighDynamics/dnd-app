@@ -42,10 +42,8 @@ export const Compendium = React.createContext(null);
 export const PrimaryModifier = React.createContext(null);
 /******************************Character functions****************************/
 export function abilityModifier(character, ability) {
-  if (character.abilities.score[ability] === "--") {
-    return "--";
-  }
-  return Math.floor((character.abilities.score[ability] - 10) / 2);
+  const score = character.abilities.score[ability];
+  return !score ? score : Math.floor((score - 10) / 2);
 }
 export function totalSpells(character, primaryModifier, level, levelNum) {
   function bonusSpellsPerDay(levelNum) {
