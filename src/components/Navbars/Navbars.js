@@ -2,53 +2,44 @@ import React, { useContext } from "react";
 import { GetSetDisplayTwo } from "../dnd.js";
 import "./Navbars.css";
 
-const AbilitySelector = props => {
+function NavButtonCodeBlock(props) {
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
-  function navButtonCodeBlock(name) {
-    return (
-      <button
-        id={name}
-        onClick={() => setDisplayTwo(name)}
-        className={displayTwo === name ? "navbarItemsOn" : "navbarItemsOff"}
-      >
-        {name}
-      </button>
-    );
-  }
+  return (
+    <button
+      id={props.name}
+      onClick={() => setDisplayTwo(props.name)}
+      className={displayTwo === props.name ? "navbarItemsOn" : "navbarItemsOff"}
+    >
+      {props.name}
+    </button>
+  );
+}
+
+const AbilitySelector = () => {
   return (
     <div>
       <ul id="abilitySelector" className="navbarContainer">
-        {navButtonCodeBlock("Spells")}
-        {navButtonCodeBlock("Abilities")}
-        {navButtonCodeBlock("SLAs")}
+        <NavButtonCodeBlock name={"Spells"} />
+        <NavButtonCodeBlock name={"Abilities"} />
+        <NavButtonCodeBlock name={"SLAs"} />
       </ul>
     </div>
   );
 };
-const StatsSelector = props => {
-  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
-  function navButtonCodeBlock(name) {
-    return (
-      <button
-        id={name}
-        onClick={() => setDisplayTwo(name)}
-        className={displayTwo === name ? "navbarItemsOn" : "navbarItemsOff"}
-      >
-        {name}
-      </button>
-    );
-  }
+
+const StatsSelector = () => {
   return (
     <div>
       <ul id="statsSelector" className="navbarContainer">
-        {navButtonCodeBlock("Skills")}
-        {navButtonCodeBlock("Scores")}
-        {navButtonCodeBlock("Passive")}
+        <NavButtonCodeBlock name={"Skills"} />
+        <NavButtonCodeBlock name={"Scores"} />
+        <NavButtonCodeBlock name={"Passive"} />
       </ul>
     </div>
   );
 };
-const SecondaryNavbar = props => {
+
+const SecondaryNavbar = (props) => {
   function navSwitch(display) {
     switch (display) {
       case "stats":
@@ -67,7 +58,7 @@ const SecondaryNavbar = props => {
     </>
   );
 };
-const PrimaryNavbar = props => {
+const PrimaryNavbar = (props) => {
   const statIcon = <i id="statIcon" className="far fa-chart-bar"></i>;
   const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
   const itemIcon = <i id="itemIcon" className="fas fa-scroll"></i>;
