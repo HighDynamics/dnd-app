@@ -5,27 +5,28 @@ import {
   Selection,
   GetSetDisplayTwo,
   PrimaryModifier,
-  totalSpells
+  totalSpells,
 } from "../dnd.js";
 import "./Spells.css";
 
-const KnownSpells = props => {
+const KnownSpells = (props) => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
   const spell = props.value;
-  const formattedSpell = spell.replace(/_/g, " ");
-  const buttonAndSpellClass = "spellButtons " + spell;
+  const formattedClass = spell.replace(/\W/g, "");
+  const buttonAndSpellClass = "spellButtons " + formattedClass;
   function displayInfo(spell) {
     setToggleInfo("Spell");
     setSelection(spell);
   }
   return (
     <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
-      {formattedSpell + " \u221e"}
+      {spell + " \u221e"}
     </button>
   );
 };
-const Spells = props => {
+
+const Spells = (props) => {
   const character = useContext(Character);
   const [primaryModifier] = useContext(PrimaryModifier);
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
@@ -40,10 +41,9 @@ const Spells = props => {
     }
   }
   function displaySpells(level) {
-    const spells = Object.values(character.magic.spells[level]).map(s => (
+    return Object.values(character.magic.spells[level]).map((s) => (
       <KnownSpells key={s} value={s} />
     ));
-    return spells;
   }
   //condense spell block into function
   function spellCodeBlock(level, levelNum, levelRoman) {
