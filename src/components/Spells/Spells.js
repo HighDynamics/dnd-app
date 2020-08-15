@@ -9,7 +9,7 @@ import {
 } from "../dnd.js";
 import "./Spells.css";
 
-const KnownSpells = (props) => {
+const KnownSpell = (props) => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
   const spell = props.value;
@@ -26,41 +26,62 @@ const KnownSpells = (props) => {
   );
 };
 
+const KnownSpells = (props) => {
+  return Object.values(props.character.magic.spells[props.level]).map((s) => (
+    <KnownSpell key={s} value={s} />
+  ));
+};
+
+const CasterType = (props) => {
+  const character = props.character;
+  if (character.magic.type.arcane && character.magic.type.divine) {
+    return "Cantrips & Orisons";
+  } else if (character.magic.type.divine) {
+    return "Orisons";
+  } else if (character.magic.type.arcane) {
+    return "Cantrips";
+  }
+};
+
+const romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+const numStrings = [
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
+
+function SpellCodeBlock(props) {
+  const { levelNum } = props;
+  const levelRoman = romans[levelNum - 1];
+  const level = numStrings[levelNum - 1];
+  return (
+    <div className="spellItems">
+      <div className="spellLevelWrapper">
+        <h2 className="spellLevelHeader">Level {levelRoman}</h2>
+        <em className="remainingSpells">
+          {totalSpells(props.character, props.primaryModifier, level, levelNum)}{" "}
+          remaining today
+        </em>
+      </div>
+      <p className="spellList">
+        <KnownSpells level={level} character={props.character} />
+      </p>
+      <hr />
+    </div>
+  );
+}
+
 const Spells = (props) => {
   const character = useContext(Character);
   const [primaryModifier] = useContext(PrimaryModifier);
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
-  //cantrips or orisons? or both?
-  function casterType() {
-    if (character.magic.type.arcane && character.magic.type.divine) {
-      return "Cantrips & Orisons";
-    } else if (character.magic.type.divine) {
-      return "Orisons";
-    } else if (character.magic.type.arcane) {
-      return "Cantrips";
-    }
-  }
-  function displaySpells(level) {
-    return Object.values(character.magic.spells[level]).map((s) => (
-      <KnownSpells key={s} value={s} />
-    ));
-  }
-  //condense spell block into function
-  function spellCodeBlock(level, levelNum, levelRoman) {
-    return (
-      <div className="spellItems">
-        <div className="spellLevelWrapper">
-          <h2 className="spellLevelHeader">Level {levelRoman}</h2>
-          <em className="remainingSpells">
-            {totalSpells(character, primaryModifier, level, levelNum)} remaining
-            today
-          </em>
-        </div>
-        <p className="spellList">{displaySpells(level)}</p>
-        <hr />
-      </div>
-    );
-  }
+
   return (
     <div>
       <button id="prepSpellsButton" onClick={() => setDisplayTwo("Prep")}>
@@ -71,25 +92,26 @@ const Spells = (props) => {
         <div className="spellItems">
           <div className="spellLevelWrapper">
             <h2 id="levelZeroHeader" className="spellLevelHeader">
-              {casterType()}
+              <CasterType character={character} />
             </h2>
             <em className="remainingSpells">
               {totalSpells(character, primaryModifier, "zero", 0)} remaining
               today
             </em>
           </div>
-          <p className="spellList">{displaySpells("zero")}</p>
+          <p className="spellList">
+            <KnownSpells level="zero" character={character} />
+          </p>
           <hr />
         </div>
-        {spellCodeBlock("one", 1, "I")}
-        {spellCodeBlock("two", 2, "II")}
-        {spellCodeBlock("three", 3, "III")}
-        {spellCodeBlock("four", 4, "IV")}
-        {spellCodeBlock("five", 5, "V")}
-        {spellCodeBlock("six", 6, "VI")}
-        {spellCodeBlock("seven", 7, "VII")}
-        {spellCodeBlock("eight", 8, "VIII")}
-        {spellCodeBlock("nine", 9, "IX")}
+        {romans.map((_, i) => (
+          <SpellCodeBlock
+            key={i + 1}
+            levelNum={i + 1}
+            character={character}
+            primaryModifier={primaryModifier}
+          />
+        ))}
       </div>
     </div>
   );
