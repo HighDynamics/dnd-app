@@ -52,7 +52,7 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
 }
 /******************************Character functions****************************/
-const App = (props) => {
+const App = props => {
   const [display, setDisplay] = useState("stats");
   const [displayTwo, setDisplayTwo] = useState("Skills");
   const [toggleInfo, setToggleInfo] = useState(false);

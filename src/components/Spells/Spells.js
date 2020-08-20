@@ -58,19 +58,23 @@ const numStrings = [
 
 const SpellCodeBlock = props => {
   const { levelNum } = props;
+  const { character } = props;
+  const { primaryModifier } = props;
+  const { innateSpellsCast } = props;
+  const { preparedSpells } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
+  const remainingSpells =
+    totalSpells(character, primaryModifier, level, levelNum) -
+    (innateSpellsCast[level].length + preparedSpells[level].length);
   return (
     <div className="spellItems">
       <div className="spellLevelWrapper">
         <h2 className="spellLevelHeader">Level {levelRoman}</h2>
-        <em className="remainingSpells">
-          {totalSpells(props.character, props.primaryModifier, level, levelNum)}{" "}
-          remaining today
-        </em>
+        <em className="remainingSpells">{remainingSpells} remaining today</em>
       </div>
       <p className="spellList">
-        <KnownSpells level={level} character={props.character} />
+        <KnownSpells level={level} character={character} />
       </p>
       <hr />
     </div>
@@ -81,7 +85,11 @@ const Spells = props => {
   const character = useContext(Character);
   const [primaryModifier] = useContext(PrimaryModifier);
   const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
-
+  const innateSpellsCast = props.innateSpellsCast;
+  const preparedSpells = props.preparedSpells;
+  const remainingSpells =
+    totalSpells(character, primaryModifier, "zero", 0) -
+    (innateSpellsCast.zero.length + preparedSpells.zero.length);
   return (
     <div>
       <button id="prepSpellsButton" onClick={() => setDisplayTwo("Prep")}>
@@ -95,8 +103,7 @@ const Spells = props => {
               <CasterType character={character} />
             </h2>
             <em className="remainingSpells">
-              {totalSpells(character, primaryModifier, "zero", 0)} remaining
-              today
+              {remainingSpells} remaining today
             </em>
           </div>
           <p className="spellList">
@@ -110,6 +117,8 @@ const Spells = props => {
             levelNum={i + 1}
             character={character}
             primaryModifier={primaryModifier}
+            innateSpellsCast={innateSpellsCast}
+            preparedSpells={preparedSpells}
           />
         ))}
       </div>

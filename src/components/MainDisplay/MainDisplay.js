@@ -18,6 +18,31 @@ const MainDisplay = props => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [displayTwo] = useContext(GetSetDisplayTwo);
   const [selection, setSelection] = useState("");
+  //for use in child components
+  const [innateSpellsCast, castSpell] = useState({
+    zero: [],
+    one: [],
+    two: [],
+    three: [],
+    four: [],
+    five: [],
+    six: [],
+    seven: [],
+    eight: [],
+    nine: []
+  });
+  const [preparedSpells, prepareSpell] = useState({
+    zero: [],
+    one: [],
+    two: [],
+    three: [],
+    four: [],
+    five: [],
+    six: [],
+    seven: [],
+    eight: [],
+    nine: []
+  });
   function screenSwitch(display) {
     switch (display) {
       case "Skills":
@@ -27,13 +52,23 @@ const MainDisplay = props => {
       case "Passive":
         return <PassiveAbilities />;
       case "Spells":
-        return <Spells />;
+        return (
+          <Spells
+            innateSpellsCast={innateSpellsCast}
+            preparedSpells={preparedSpells}
+          />
+        );
       case "Abilities":
         return <ActiveAbilities />;
       case "SLAs":
         return <SLAs />;
       case "Prep":
-        return <PrepSpells />;
+        return (
+          <PrepSpells
+            innateSpellsCast={innateSpellsCast}
+            preparedSpells={preparedSpells}
+          />
+        );
       case "Items":
         return <Items />;
       default:
@@ -43,7 +78,13 @@ const MainDisplay = props => {
   function infoSheet(toggleInfo) {
     switch (toggleInfo) {
       case "Spell":
-        return <SpellInfo />;
+        return (
+          <SpellInfo
+            innateSpellsCast={innateSpellsCast}
+            castSpell={castSpell}
+            prepareSpell={prepareSpell}
+          />
+        );
       case "Off":
         return null;
       default:

@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
 import { Modal } from "../Modal/Modal";
-import { Character, ToggleInfo, Selection, Compendium } from "../dnd.js";
+import {
+  Character,
+  ToggleInfo,
+  Selection,
+  Compendium,
+  GetSetDisplayTwo
+} from "../dnd.js";
 import "./SpellInfo.css";
 
-const CompendiumSpell = (props) => {
+const CompendiumSpell = props => {
   const property = props.property;
   const value = props.value;
   function formatProperty(input) {
@@ -30,17 +36,21 @@ const CompendiumSpell = (props) => {
   );
 };
 
-const SpellInfo = () => {
+const SpellInfo = props => {
   //bring in react context
   const compendium = useContext(Compendium);
   const character = useContext(Character);
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection] = useContext(Selection);
+  const [displayTwo] = useContext(GetSetDisplayTwo);
+  const innateSpellsCast = props.innateSpellsCast;
+  const castSpell = props.castSpell;
+  const prepareSpell = props.prepareSpell;
   //edit string for render
   const formattedSpell = selection.replace(/_/g, " ");
   function getSpellLevel(selection) {
     let foundLevel = null;
-    Object.keys(character.magic.spells).forEach((level) => {
+    Object.keys(character.magic.spells).forEach(level => {
       if (Object.values(character.magic.spells[level]).includes(selection)) {
         foundLevel = level;
       }
@@ -50,7 +60,7 @@ const SpellInfo = () => {
   const matchedSpell = compendium.spells.find(({ name }) => name === selection);
   function displayCompendiumInfo(spellObject) {
     const spellKeys = Object.keys(spellObject);
-    const compendiumInfo = spellKeys.map((key) => {
+    const compendiumInfo = spellKeys.map(key => {
       return (
         <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
       );
@@ -60,8 +70,19 @@ const SpellInfo = () => {
 
   return (
     <Modal onClose={() => setToggleInfo("Off")}>
-      <button id="useSpell">Use Spell</button>
-
+      {displayTwo == "Prep" ? (
+        <button id="prepSpell" className="confirmSpellButton">
+          Prep Spell
+        </button>
+      ) : (
+        <button
+          id="castSpell"
+          className="confirmSpellButton"
+          onClick={() => castSpell(innateSpellsCast.zero.concat(selection))}
+        >
+          Cast Spell
+        </button>
+      )}
       {matchedSpell !== undefined && (
         <div>{displayCompendiumInfo(matchedSpell)}</div>
       )}
