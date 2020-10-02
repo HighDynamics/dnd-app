@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { diceRollState } from "../../recoilState.js";
-import { Character, ReadTossDice, abilityModifier, rollDice } from "../dnd.js";
+import { Character, abilityModifier, rollDice } from "../dnd.js";
 import "./AbilityScores.css";
 
 function renderAbilityScore(score) {

@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
+import { useSetRecoilState } from "recoil";
+
+import { mainContentState } from "../../recoilState.js";
 import {
   Character,
   ToggleInfo,
   Selection,
-  GetSetDisplayTwo,
   PrimaryModifier,
-  totalSpells
+  totalSpells,
 } from "../dnd.js";
 import "./Spells.css";
 
-const KnownSpell = props => {
+const KnownSpell = (props) => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
   const spell = props.value;
@@ -26,13 +28,13 @@ const KnownSpell = props => {
   );
 };
 
-const KnownSpells = props => {
-  return Object.values(props.character.magic.spells[props.level]).map(s => (
+const KnownSpells = (props) => {
+  return Object.values(props.character.magic.spells[props.level]).map((s) => (
     <KnownSpell key={s} value={s} />
   ));
 };
 
-const CasterType = props => {
+const CasterType = (props) => {
   const character = props.character;
   if (character.magic.type.arcane && character.magic.type.divine) {
     return "Cantrips & Orisons";
@@ -53,20 +55,21 @@ const numStrings = [
   "six",
   "seven",
   "eight",
-  "nine"
+  "nine",
 ];
 
-const SpellCodeBlock = props => {
+const SpellCodeBlock = (props) => {
   const { levelNum } = props;
   const { character } = props;
   const { primaryModifier } = props;
-  const { innateSpellsCast } = props;
-  const { preparedSpells } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
-  const remainingSpells =
-    totalSpells(character, primaryModifier, level, levelNum) -
-    (innateSpellsCast[level].length + preparedSpells[level].length);
+  const remainingSpells = totalSpells(
+    character,
+    primaryModifier,
+    level,
+    levelNum
+  );
   return (
     <div className="spellItems">
       <div className="spellLevelWrapper">
@@ -81,18 +84,14 @@ const SpellCodeBlock = props => {
   );
 };
 
-const Spells = props => {
+const Spells = (props) => {
   const character = useContext(Character);
   const [primaryModifier] = useContext(PrimaryModifier);
-  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
-  const innateSpellsCast = props.innateSpellsCast;
-  const preparedSpells = props.preparedSpells;
-  const remainingSpells =
-    totalSpells(character, primaryModifier, "zero", 0) -
-    (innateSpellsCast.zero.length + preparedSpells.zero.length);
+  const setMainContent = useSetRecoilState(mainContentState);
+  const remainingSpells = totalSpells(character, primaryModifier, "zero", 0);
   return (
     <div>
-      <button id="prepSpellsButton" onClick={() => setDisplayTwo("Prep")}>
+      <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
         <i className="fas fa-book"></i>
         <span>PREP</span>
       </button>
@@ -117,8 +116,6 @@ const Spells = props => {
             levelNum={i + 1}
             character={character}
             primaryModifier={primaryModifier}
-            innateSpellsCast={innateSpellsCast}
-            preparedSpells={preparedSpells}
           />
         ))}
       </div>

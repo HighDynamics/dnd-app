@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
+import { useSetRecoilState } from "recoil";
+
+import { mainContentState } from "../../recoilState.js";
 import {
   ToggleInfo,
   Character,
   Selection,
   PrimaryModifier,
-  GetSetDisplayTwo,
-  totalSpells
+  totalSpells,
 } from "../dnd.js";
 import "./PrepSpells.css";
 
-const KnownSpell = props => {
+const KnownSpell = (props) => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
   const [selection, setSelection] = useContext(Selection);
   const spell = props.value;
@@ -26,13 +28,13 @@ const KnownSpell = props => {
   );
 };
 
-const Spellbook = props => {
-  return Object.values(props.character.magic.spellbook[props.level]).map(s => (
-    <KnownSpell key={s} value={s} />
-  ));
+const Spellbook = (props) => {
+  return Object.values(
+    props.character.magic.spellbook[props.level]
+  ).map((s) => <KnownSpell key={s} value={s} />);
 };
 
-const CasterType = props => {
+const CasterType = (props) => {
   const character = props.character;
   if (character.magic.type.arcane && character.magic.type.divine) {
     return "Cantrips & Orisons";
@@ -53,10 +55,10 @@ const numStrings = [
   "six",
   "seven",
   "eight",
-  "nine"
+  "nine",
 ];
 
-const SpellCodeBlock = props => {
+const SpellCodeBlock = (props) => {
   const { levelNum } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
@@ -76,15 +78,15 @@ const SpellCodeBlock = props => {
     </div>
   );
 };
-const PrepSpells = props => {
+const PrepSpells = (props) => {
   const character = useContext(Character);
   const [primaryModifier] = useContext(PrimaryModifier);
-  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
+  const setMainContent = useSetRecoilState(mainContentState);
 
   return (
     <>
       <div>
-        <button id="returnToSpells" onClick={() => setDisplayTwo("Spells")}>
+        <button id="returnToSpells" onClick={() => setMainContent("Spells")}>
           <i className="fas fa-arrow-left"></i>
         </button>
         <div className="spellContainer">

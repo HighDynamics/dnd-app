@@ -33,9 +33,6 @@ export function rollDice(size, mod, use) {
   );
   return result;
 }
-export const ReadTossDice = React.createContext(null);
-export const GetSetDisplay = React.createContext(null);
-export const GetSetDisplayTwo = React.createContext(null);
 export const ToggleInfo = React.createContext(null);
 export const Selection = React.createContext(null);
 export const Character = React.createContext(null);
@@ -54,12 +51,7 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
 }
 /******************************Character functions****************************/
 const App = (props) => {
-  const [display, setDisplay] = useState("stats");
-  const [displayTwo, setDisplayTwo] = useState("Skills");
   const [toggleInfo, setToggleInfo] = useState(false);
-  const [rollResult, setRollResult] = useState(
-    "Good luck,\n" + props.character.name
-  );
   const [primaryModifier, setPrimaryModifier] = useState(
     abilityModifier(props.character, "charisma")
   );
@@ -76,31 +68,17 @@ const App = (props) => {
           <div id="appWrapper">
             <div>
               <div id="topWrapper">
-                <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-                  <BasicInfo />
-                </ReadTossDice.Provider>
-                <Navbar.PrimaryNavbar
-                  display={display}
-                  setDisplay={setDisplay}
-                  setDisplayTwo={setDisplayTwo}
-                />
-                <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-                  <Navbar.SecondaryNavbar display={display} />
-                </GetSetDisplayTwo.Provider>
+                <BasicInfo />
+                <Navbar.PrimaryNavbar />
+                <Navbar.SecondaryNavbar />
               </div>
-              <GetSetDisplay.Provider value={[display, setDisplay]}>
-                <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-                  <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
-                    <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-                      <PrimaryModifier.Provider
-                        value={[primaryModifier, setPrimaryModifier]}
-                      >
-                        <MainDisplay />
-                      </PrimaryModifier.Provider>
-                    </ReadTossDice.Provider>
-                  </ToggleInfo.Provider>
-                </GetSetDisplayTwo.Provider>
-              </GetSetDisplay.Provider>
+              <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
+                <PrimaryModifier.Provider
+                  value={[primaryModifier, setPrimaryModifier]}
+                >
+                  <MainDisplay />
+                </PrimaryModifier.Provider>
+              </ToggleInfo.Provider>
             </div>
           </div>
         </Compendium.Provider>

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useRecoilValue } from "recoil";
 
 import Items from "../Items/Items.js";
 import SLAs from "../SLAs/SLAs.js";
@@ -10,39 +11,15 @@ import PassiveAbilities from "../PassiveAbilities/PassiveAbilities.js";
 import AbilityScores from "../AbilityScores/AbilityScores.js";
 import Skills from "../Skills/Skills.js";
 
-import { ToggleInfo, GetSetDisplayTwo, Selection } from "../dnd.js";
+import { mainContentState } from "../../recoilState.js";
+import { ToggleInfo, Selection } from "../dnd.js";
 
 import "./MainDisplay.css";
 
-const MainDisplay = props => {
+const MainDisplay = (props) => {
   const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
-  const [displayTwo] = useContext(GetSetDisplayTwo);
+  const mainContent = useRecoilValue(mainContentState);
   const [selection, setSelection] = useState("");
-  //for use in child components
-  const [innateSpellsCast, castSpell] = useState({
-    zero: [],
-    one: [],
-    two: [],
-    three: [],
-    four: [],
-    five: [],
-    six: [],
-    seven: [],
-    eight: [],
-    nine: []
-  });
-  const [preparedSpells, prepareSpell] = useState({
-    zero: [],
-    one: [],
-    two: [],
-    three: [],
-    four: [],
-    five: [],
-    six: [],
-    seven: [],
-    eight: [],
-    nine: []
-  });
   function screenSwitch(display) {
     switch (display) {
       case "Skills":
@@ -52,23 +29,13 @@ const MainDisplay = props => {
       case "Passive":
         return <PassiveAbilities />;
       case "Spells":
-        return (
-          <Spells
-            innateSpellsCast={innateSpellsCast}
-            preparedSpells={preparedSpells}
-          />
-        );
+        return <Spells />;
       case "Abilities":
         return <ActiveAbilities />;
       case "SLAs":
         return <SLAs />;
       case "Prep":
-        return (
-          <PrepSpells
-            innateSpellsCast={innateSpellsCast}
-            preparedSpells={preparedSpells}
-          />
-        );
+        return <PrepSpells />;
       case "Items":
         return <Items />;
       default:
@@ -78,13 +45,7 @@ const MainDisplay = props => {
   function infoSheet(toggleInfo) {
     switch (toggleInfo) {
       case "Spell":
-        return (
-          <SpellInfo
-            innateSpellsCast={innateSpellsCast}
-            castSpell={castSpell}
-            prepareSpell={prepareSpell}
-          />
-        );
+        return <SpellInfo />;
       case "Off":
         return null;
       default:
@@ -97,7 +58,7 @@ const MainDisplay = props => {
         <hr />
         <div id="infoSheet">{infoSheet(toggleInfo)}</div>
         <div id="mainContent">
-          {screenSwitch(displayTwo)}
+          {screenSwitch(mainContent)}
           <div className="bottomGradient"></div>
         </div>
       </Selection.Provider>

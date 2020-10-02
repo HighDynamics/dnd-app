@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useRecoilValue } from "recoil";
-import { diceRollState } from "../../recoilState.js";
 
+import { diceRollState } from "../../recoilState.js";
 import { Character } from "../dnd.js";
 import "./BasicInfo.css";
 

@@ -1,19 +1,23 @@
 import React, { useContext } from "react";
-import { GetSetDisplayTwo } from "../dnd.js";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+
+import { mainContentState, secondaryNavbarState } from "../../recoilState.js";
 import "./Navbars.css";
 
-function NavButtonCodeBlock(props) {
-  const [displayTwo, setDisplayTwo] = useContext(GetSetDisplayTwo);
+const NavButtonCodeBlock = (props) => {
+  const [mainContent, setMainContent] = useRecoilState(mainContentState);
   return (
     <button
       id={props.name}
-      onClick={() => setDisplayTwo(props.name)}
-      className={displayTwo === props.name ? "navbarItemsOn" : "navbarItemsOff"}
+      onClick={() => setMainContent(props.name)}
+      className={
+        mainContent === props.name ? "navbarItemsOn" : "navbarItemsOff"
+      }
     >
       {props.name}
     </button>
   );
-}
+};
 
 const AbilitySelector = () => {
   return (
@@ -40,6 +44,7 @@ const StatsSelector = () => {
 };
 
 const SecondaryNavbar = (props) => {
+  const secondaryNavbar = useRecoilValue(secondaryNavbarState);
   function navSwitch(display) {
     switch (display) {
       case "stats":
@@ -54,18 +59,22 @@ const SecondaryNavbar = (props) => {
   }
   return (
     <>
-      <div id="secondaryNavbar">{navSwitch(props.display)}</div>
+      <div id="secondaryNavbar">{navSwitch(secondaryNavbar)}</div>
     </>
   );
 };
 const PrimaryNavbar = (props) => {
+  const [secondaryNavbar, setSecondaryNavbar] = useRecoilState(
+    secondaryNavbarState
+  );
+  const setMainContent = useSetRecoilState(mainContentState);
   const statIcon = <i id="statIcon" className="far fa-chart-bar"></i>;
   const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
   const itemIcon = <i id="itemIcon" className="fas fa-scroll"></i>;
   function setBothDisplays(name, secondaryName) {
-    props.setDisplay(name);
+    setSecondaryNavbar(name);
     if (secondaryName !== null) {
-      props.setDisplayTwo(secondaryName);
+      setMainContent(secondaryName);
     }
   }
   function navButtonCodeBlock(name, icon, secondaryName) {
@@ -73,7 +82,9 @@ const PrimaryNavbar = (props) => {
       <button
         id={name}
         onClick={() => setBothDisplays(name, secondaryName)}
-        className={props.display === name ? "navbarItemsOn" : "navbarItemsOff"}
+        className={
+          secondaryNavbar === name ? "navbarItemsOn" : "navbarItemsOff"
+        }
       >
         {icon}
       </button>
