@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { mainContentState } from "../../recoilState.js";
+import {
+  mainContentState,
+  toggleInfoState,
+  selectionState,
+} from "../../recoilState.js";
 import { Modal } from "../Modal/Modal";
-import { Character, ToggleInfo, Selection, Compendium } from "../dnd.js";
+import { Character, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
 
 const CompendiumSpell = (props) => {
@@ -14,10 +18,8 @@ const CompendiumSpell = (props) => {
       case "name:":
       case "type:":
         return "";
-        break;
       case "description:":
         return <hr id="spellSheetHR" />;
-        break;
       default:
         const spacedProperty = input.replace(/([A-Z])/g, " $1").trim();
         return spacedProperty;
@@ -37,8 +39,8 @@ const SpellInfo = (props) => {
   //bring in react context
   const compendium = useContext(Compendium);
   const character = useContext(Character);
-  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
-  const [selection] = useContext(Selection);
+  const setToggleInfo = useSetRecoilState(toggleInfoState);
+  const selection = useRecoilValue(selectionState);
   const mainContent = useRecoilValue(mainContentState);
   //edit string for render
   const formattedSpell = selection.replace(/_/g, " ");
@@ -64,7 +66,7 @@ const SpellInfo = (props) => {
 
   return (
     <Modal onClose={() => setToggleInfo("Off")}>
-      {mainContent == "Prep" ? (
+      {mainContent === "Prep" ? (
         <button id="prepSpell" className="confirmSpellButton">
           Prep Spell
         </button>

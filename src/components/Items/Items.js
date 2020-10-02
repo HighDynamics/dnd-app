@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
-import { Character, ToggleInfo } from "../dnd.js";
+import { useRecoilState } from "recoil";
 
-const ItemsHeld = props => {
-  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+import { toggleInfoState } from "../../recoilState.js";
+import { Character } from "../dnd.js";
+
+const ItemsHeld = (props) => {
+  const [toggleInfo, setToggleInfo] = useRecoilState(toggleInfoState);
   const item = props.value;
   const formattedItem = item.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + item;
@@ -15,10 +18,10 @@ const ItemsHeld = props => {
     </button>
   );
 };
-const Items = props => {
+const Items = (props) => {
   const character = useContext(Character);
   function displayItems() {
-    const items = Object.values(character.items).map(s => (
+    const items = Object.values(character.items).map((s) => (
       <ItemsHeld key={s} value={s} />
     ));
     return items;

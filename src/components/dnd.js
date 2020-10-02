@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useSWR from "swr";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, atom } from "recoil";
 
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
@@ -33,8 +33,6 @@ export function rollDice(size, mod, use) {
   );
   return result;
 }
-export const ToggleInfo = React.createContext(null);
-export const Selection = React.createContext(null);
 export const Character = React.createContext(null);
 export const Compendium = React.createContext(null);
 export const PrimaryModifier = React.createContext(null);
@@ -51,9 +49,8 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
 }
 /******************************Character functions****************************/
 const App = (props) => {
-  const [toggleInfo, setToggleInfo] = useState(false);
   const [primaryModifier, setPrimaryModifier] = useState(
-    abilityModifier(props.character, "charisma")
+    abilityModifier(props.character, props.character.abilities.primary)
   );
   useEffect(
     function setDocTitle() {
@@ -72,13 +69,11 @@ const App = (props) => {
                 <Navbar.PrimaryNavbar />
                 <Navbar.SecondaryNavbar />
               </div>
-              <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
-                <PrimaryModifier.Provider
-                  value={[primaryModifier, setPrimaryModifier]}
-                >
-                  <MainDisplay />
-                </PrimaryModifier.Provider>
-              </ToggleInfo.Provider>
+              <PrimaryModifier.Provider
+                value={[primaryModifier, setPrimaryModifier]}
+              >
+                <MainDisplay />
+              </PrimaryModifier.Provider>
             </div>
           </div>
         </Compendium.Provider>

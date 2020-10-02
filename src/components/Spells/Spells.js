@@ -1,19 +1,17 @@
 import React, { useContext } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { mainContentState } from "../../recoilState.js";
 import {
-  Character,
-  ToggleInfo,
-  Selection,
-  PrimaryModifier,
-  totalSpells,
-} from "../dnd.js";
+  mainContentState,
+  toggleInfoState,
+  selectionState,
+} from "../../recoilState.js";
+import { Character, PrimaryModifier, totalSpells } from "../dnd.js";
 import "./Spells.css";
 
 const KnownSpell = (props) => {
-  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
-  const [selection, setSelection] = useContext(Selection);
+  const setToggleInfo = useSetRecoilState(toggleInfoState);
+  const setSelection = useSetRecoilState(selectionState);
   const spell = props.value;
   const formattedClass = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;

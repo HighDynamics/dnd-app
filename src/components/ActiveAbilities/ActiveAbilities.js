@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
-import { ToggleInfo, Character } from "../dnd.js";
+import { useRecoilState } from "recoil";
 
-const KnownActiveAbilities = props => {
-  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+import { toggleInfoState } from "../../recoilState.js";
+import { Character } from "../dnd.js";
+
+const KnownActiveAbilities = (props) => {
+  const [toggleInfo, setToggleInfo] = useRecoilState(toggleInfoState);
   const ability = props.value;
   const formattedAbility = ability.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + ability;
@@ -15,12 +18,12 @@ const KnownActiveAbilities = props => {
     </button>
   );
 };
-const ActiveAbilities = props => {
+const ActiveAbilities = (props) => {
   const character = useContext(Character);
   function displayAbilities() {
     const abilities = Object.values(
       character.characterAbilities.active
-    ).map(s => <KnownActiveAbilities key={s} value={s} />);
+    ).map((s) => <KnownActiveAbilities key={s} value={s} />);
     return abilities;
   }
   return (

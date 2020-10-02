@@ -6,7 +6,7 @@ import { Character, abilityModifier, rollDice } from "../dnd.js";
 import "./AbilityScores.css";
 
 function renderAbilityScore(score) {
-  return typeof score === "number" ? score : "None";
+  return typeof score === "number" ? score : "--";
 }
 
 const AbilityScores = (props) => {

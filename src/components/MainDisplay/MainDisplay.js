@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { useRecoilValue } from "recoil";
 
 import Items from "../Items/Items.js";
@@ -11,15 +11,13 @@ import PassiveAbilities from "../PassiveAbilities/PassiveAbilities.js";
 import AbilityScores from "../AbilityScores/AbilityScores.js";
 import Skills from "../Skills/Skills.js";
 
-import { mainContentState } from "../../recoilState.js";
-import { ToggleInfo, Selection } from "../dnd.js";
+import { mainContentState, toggleInfoState } from "../../recoilState.js";
 
 import "./MainDisplay.css";
 
 const MainDisplay = (props) => {
-  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+  const toggleInfo = useRecoilValue(toggleInfoState);
   const mainContent = useRecoilValue(mainContentState);
-  const [selection, setSelection] = useState("");
   function screenSwitch(display) {
     switch (display) {
       case "Skills":
@@ -54,14 +52,12 @@ const MainDisplay = (props) => {
   }
   return (
     <div>
-      <Selection.Provider value={[selection, setSelection]}>
-        <hr />
-        <div id="infoSheet">{infoSheet(toggleInfo)}</div>
-        <div id="mainContent">
-          {screenSwitch(mainContent)}
-          <div className="bottomGradient"></div>
-        </div>
-      </Selection.Provider>
+      <hr />
+      <div id="infoSheet">{infoSheet(toggleInfo)}</div>
+      <div id="mainContent">
+        {screenSwitch(mainContent)}
+        <div className="bottomGradient"></div>
+      </div>
     </div>
   );
 };

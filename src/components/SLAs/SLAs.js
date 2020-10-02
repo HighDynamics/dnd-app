@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
-import { ToggleInfo, Character } from "../dnd.js";
+import { useRecoilState } from "recoil";
 
-const KnownSLAs = props => {
-  const [toggleInfo, setToggleInfo] = useContext(ToggleInfo);
+import { toggleInfoState } from "../../recoilState.js";
+import { Character } from "../dnd.js";
+
+const KnownSLAs = (props) => {
+  const [toggleInfo, setToggleInfo] = useRecoilState(toggleInfoState);
   const spell = props.value;
   const formattedSpell = spell.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + spell;
@@ -15,7 +18,7 @@ const KnownSLAs = props => {
     </button>
   );
 };
-const SLAs = props => {
+const SLAs = (props) => {
   const character = useContext(Character);
   //cantrips or orisons? or both?
   function casterType() {
@@ -28,7 +31,7 @@ const SLAs = props => {
     }
   }
   function displaySLAs(level) {
-    const slas = Object.values(character.magic.slas[level]).map(s => (
+    const slas = Object.values(character.magic.slas[level]).map((s) => (
       <KnownSLAs key={s} value={s} />
     ));
     return slas;

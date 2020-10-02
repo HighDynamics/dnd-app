@@ -32,6 +32,7 @@ export default {
       wisdom: 17,
       charisma: 35,
     },
+    primary: "charisma",
   },
   speed: 30,
   level: "20",
