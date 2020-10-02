@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import useSWR from "swr";
+import { RecoilRoot } from "recoil";
 
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
@@ -52,7 +53,7 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
 }
 /******************************Character functions****************************/
-const App = props => {
+const App = (props) => {
   const [display, setDisplay] = useState("stats");
   const [displayTwo, setDisplayTwo] = useState("Skills");
   const [toggleInfo, setToggleInfo] = useState(false);
@@ -69,40 +70,42 @@ const App = props => {
     [props.character]
   );
   return (
-    <Character.Provider value={props.character}>
-      <Compendium.Provider value={props.compendium}>
-        <div id="appWrapper">
-          <div>
-            <div id="topWrapper">
-              <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-                <BasicInfo />
-              </ReadTossDice.Provider>
-              <Navbar.PrimaryNavbar
-                display={display}
-                setDisplay={setDisplay}
-                setDisplayTwo={setDisplayTwo}
-              />
-              <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-                <Navbar.SecondaryNavbar display={display} />
-              </GetSetDisplayTwo.Provider>
+    <RecoilRoot>
+      <Character.Provider value={props.character}>
+        <Compendium.Provider value={props.compendium}>
+          <div id="appWrapper">
+            <div>
+              <div id="topWrapper">
+                <ReadTossDice.Provider value={[rollResult, setRollResult]}>
+                  <BasicInfo />
+                </ReadTossDice.Provider>
+                <Navbar.PrimaryNavbar
+                  display={display}
+                  setDisplay={setDisplay}
+                  setDisplayTwo={setDisplayTwo}
+                />
+                <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+                  <Navbar.SecondaryNavbar display={display} />
+                </GetSetDisplayTwo.Provider>
+              </div>
+              <GetSetDisplay.Provider value={[display, setDisplay]}>
+                <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
+                  <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
+                    <ReadTossDice.Provider value={[rollResult, setRollResult]}>
+                      <PrimaryModifier.Provider
+                        value={[primaryModifier, setPrimaryModifier]}
+                      >
+                        <MainDisplay />
+                      </PrimaryModifier.Provider>
+                    </ReadTossDice.Provider>
+                  </ToggleInfo.Provider>
+                </GetSetDisplayTwo.Provider>
+              </GetSetDisplay.Provider>
             </div>
-            <GetSetDisplay.Provider value={[display, setDisplay]}>
-              <GetSetDisplayTwo.Provider value={[displayTwo, setDisplayTwo]}>
-                <ToggleInfo.Provider value={[toggleInfo, setToggleInfo]}>
-                  <ReadTossDice.Provider value={[rollResult, setRollResult]}>
-                    <PrimaryModifier.Provider
-                      value={[primaryModifier, setPrimaryModifier]}
-                    >
-                      <MainDisplay />
-                    </PrimaryModifier.Provider>
-                  </ReadTossDice.Provider>
-                </ToggleInfo.Provider>
-              </GetSetDisplayTwo.Provider>
-            </GetSetDisplay.Provider>
           </div>
-        </div>
-      </Compendium.Provider>
-    </Character.Provider>
+        </Compendium.Provider>
+      </Character.Provider>
+    </RecoilRoot>
   );
 };
 

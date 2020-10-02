@@ -1,16 +1,19 @@
 import React, { useState, useContext } from "react";
-import { Character, ReadTossDice } from "../dnd.js";
+import { useRecoilValue } from "recoil";
+import { diceRollState } from "../../recoilState.js";
+
+import { Character } from "../dnd.js";
 import "./BasicInfo.css";
 
-const CharacterType = props => {
+const CharacterType = (props) => {
   return <span>{props.value} / </span>;
 };
-const CharacterClasses = props => {
+const CharacterClasses = (props) => {
   return <li>{props.value}</li>;
 };
-const BasicInfo = props => {
+const BasicInfo = (props) => {
   const character = useContext(Character);
-  const [rollResult] = useContext(ReadTossDice);
+  const rollResult = useRecoilValue(diceRollState);
   //toggle for 'more' button
   const [toggle, setToggle] = useState(false);
   //display conditional more/less
@@ -25,8 +28,8 @@ const BasicInfo = props => {
     character.hitPoints.total -
     character.hitPoints.damage +
     character.hitPoints.temporaryHitPoints;
-  const type = character.type.map(t => <CharacterType key={t} value={t} />);
-  const classList = character.class.map(c => (
+  const type = character.type.map((t) => <CharacterType key={t} value={t} />);
+  const classList = character.class.map((c) => (
     <CharacterClasses key={c} value={c} />
   ));
   return (

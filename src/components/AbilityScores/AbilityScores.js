@@ -1,4 +1,7 @@
 import React, { useContext } from "react";
+import { useSetRecoilState } from "recoil";
+
+import { diceRollState } from "../../recoilState.js";
 import { Character, ReadTossDice, abilityModifier, rollDice } from "../dnd.js";
 import "./AbilityScores.css";
 
@@ -21,7 +24,7 @@ const AbilityScores = (props) => {
   const wisMod = abilityModifier(character, "wisdom");
   const chaMod = abilityModifier(character, "charisma");
 
-  const [rollResult, setRollResult] = useContext(ReadTossDice);
+  const setRollResult = useSetRecoilState(diceRollState);
   function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod) {
     return (
       <p className="abilityScores">
