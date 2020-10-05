@@ -3,22 +3,71 @@ import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import {
   mainContentState,
-  toggleInfoState,
+  modalTypeState,
   selectionState,
   innateSpellsCastState,
   preppedSpellsState,
+  preppedSpellsCastState,
 } from "../../recoilState.js";
 import { Character, PrimaryModifier, totalSpells } from "../dnd.js";
 import "./Spells.css";
 
+const PreppedSpellCast = (props) => {
+  const spell = props.value;
+  const setModalType = useSetRecoilState(modalTypeState);
+  const setSelection = useSetRecoilState(selectionState);
+  const formattedSpellName = spell.replace(/\W/g, "");
+  const buttonAndSpellClass = "spellButtons disabled " + formattedSpellName;
+  function displayInfo(spell) {
+    setModalType("UsedPrepped");
+    setSelection(spell);
+  }
+  return (
+    <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
+      {spell}
+    </button>
+  );
+};
+
+const PreppedSpellsCast = (props) => {
+  const { levelNum, preppedSpellsCast } = props;
+  return preppedSpellsCast[levelNum].map((psc) => (
+    <PreppedSpellCast key={psc} value={psc} />
+  ));
+};
+
+const PreppedSpell = (props) => {
+  const spell = props.value;
+  const setModalType = useSetRecoilState(modalTypeState);
+  const setSelection = useSetRecoilState(selectionState);
+  const formattedSpellName = spell.replace(/\W/g, "");
+  const buttonAndSpellClass = "spellButtons " + formattedSpellName;
+  function displayInfo(spell) {
+    setModalType("CastPrepped");
+    setSelection(spell);
+  }
+  return (
+    <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
+      {spell}
+    </button>
+  );
+};
+
+const PreppedSpells = (props) => {
+  const { levelNum, preppedSpells } = props;
+  return preppedSpells[levelNum].map((ps) => (
+    <PreppedSpell key={ps} value={ps} />
+  ));
+};
+
 const KnownSpell = (props) => {
-  const setToggleInfo = useSetRecoilState(toggleInfoState);
+  const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const spell = props.value;
   const formattedClass = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;
   function displayInfo(spell) {
-    setToggleInfo("Spell");
+    setModalType("Cast");
     setSelection(spell);
   }
   return (
@@ -59,23 +108,41 @@ const numStrings = [
 ];
 
 const SpellCodeBlock = (props) => {
-  const { levelNum } = props;
-  const { character } = props;
-  const { primaryModifier } = props;
-  const { innateSpellsCast } = props;
-  const { preppedSpells } = props;
+  const {
+    levelNum,
+    character,
+    primaryModifier,
+    innateSpellsCast,
+    preppedSpells,
+    preppedSpellsCast,
+  } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
   const remainingSpells =
     totalSpells(character, primaryModifier, level, levelNum) -
     innateSpellsCast[levelNum].length -
-    preppedSpells[levelNum].length;
+    preppedSpells[levelNum].length -
+    preppedSpellsCast[levelNum].length;
   return (
     <div className="spellItems">
       <div className="spellLevelWrapper">
         <h2 className="spellLevelHeader">Level {levelRoman}</h2>
         <em className="remainingSpells">{remainingSpells} remaining today</em>
       </div>
+      {preppedSpells[levelNum].length >= 1 ||
+      preppedSpellsCast[levelNum].length >= 1 ? (
+        <>
+          <p className="preppedSpells">
+            Prepped:{" "}
+            <PreppedSpells levelNum={levelNum} preppedSpells={preppedSpells} />
+            <PreppedSpellsCast
+              levelNum={levelNum}
+              preppedSpellsCast={preppedSpellsCast}
+            />
+          </p>
+          <hr className="shortHR" />
+        </>
+      ) : null}
       <p className="spellList">
         <KnownSpells level={level} character={character} />
       </p>
@@ -90,10 +157,12 @@ const Spells = (props) => {
   const setMainContent = useSetRecoilState(mainContentState);
   const innateSpellsCast = useRecoilValue(innateSpellsCastState);
   const preppedSpells = useRecoilValue(preppedSpellsState);
+  const preppedSpellsCast = useRecoilValue(preppedSpellsCastState);
   const remainingSpells =
     totalSpells(character, primaryModifier, "zero", 0) -
     innateSpellsCast[0].length -
-    preppedSpells[0].length;
+    preppedSpells[0].length -
+    preppedSpellsCast[0].length;
   return (
     <div>
       <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
@@ -110,6 +179,19 @@ const Spells = (props) => {
               {remainingSpells} remaining today
             </em>
           </div>
+          {preppedSpells[0].length >= 1 || preppedSpellsCast[0].length >= 1 ? (
+            <>
+              <p className="preppedSpells">
+                Prepped:{" "}
+                <PreppedSpells levelNum={0} preppedSpells={preppedSpells} />
+                <PreppedSpellsCast
+                  levelNum={0}
+                  preppedSpellsCast={preppedSpellsCast}
+                />
+              </p>
+              <hr className="shortHR" />
+            </>
+          ) : null}
           <p className="spellList">
             <KnownSpells level="zero" character={character} />
           </p>
@@ -123,6 +205,7 @@ const Spells = (props) => {
             primaryModifier={primaryModifier}
             innateSpellsCast={innateSpellsCast}
             preppedSpells={preppedSpells}
+            preppedSpellsCast={preppedSpellsCast}
           />
         ))}
       </div>

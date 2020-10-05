@@ -87,3 +87,9 @@ hr {
   -webkit-box-shadow: 0 0 3px;
   -moz-box-shadow: 0 0 3px;
 }
+.disabled {
+  color: grey;
+  box-shadow: 0 0 0px;
+  -webkit-box-shadow: 0 0 0px;
+  -moz-box-shadow: 0 0 0px;
+}

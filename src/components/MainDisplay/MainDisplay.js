@@ -11,12 +11,12 @@ import PassiveAbilities from "../PassiveAbilities/PassiveAbilities.js";
 import AbilityScores from "../AbilityScores/AbilityScores.js";
 import Skills from "../Skills/Skills.js";
 
-import { mainContentState, toggleInfoState } from "../../recoilState.js";
+import { mainContentState, modalTypeState } from "../../recoilState.js";
 
 import "./MainDisplay.css";
 
 const MainDisplay = (props) => {
-  const toggleInfo = useRecoilValue(toggleInfoState);
+  const modalType = useRecoilValue(modalTypeState);
   const mainContent = useRecoilValue(mainContentState);
   function screenSwitch(display) {
     switch (display) {
@@ -40,9 +40,12 @@ const MainDisplay = (props) => {
         return <Skills />;
     }
   }
-  function infoSheet(toggleInfo) {
-    switch (toggleInfo) {
-      case "Spell":
+  function infoSheet(modalType) {
+    switch (modalType) {
+      case "Cast":
+      case "Prep":
+      case "CastPrepped":
+      case "UsedPrepped":
         return <SpellInfo />;
       case "Off":
         return null;
@@ -53,7 +56,7 @@ const MainDisplay = (props) => {
   return (
     <div>
       <hr />
-      <div id="infoSheet">{infoSheet(toggleInfo)}</div>
+      <div id="infoSheet">{infoSheet(modalType)}</div>
       <div id="mainContent">
         {screenSwitch(mainContent)}
         <div className="bottomGradient"></div>

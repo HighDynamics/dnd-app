@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import { useRecoilState } from "recoil";
 
-import { toggleInfoState } from "../../recoilState.js";
+import { modalTypeState } from "../../recoilState.js";
 import { Character } from "../dnd.js";
 
 const KnownActiveAbilities = (props) => {
-  const [toggleInfo, setToggleInfo] = useRecoilState(toggleInfoState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
   const ability = props.value;
   const formattedAbility = ability.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + ability;
   return (
     <button
       className={buttonAndSpellClass}
-      onClick={() => setToggleInfo(!toggleInfo)}
+      onClick={() => setModalType(!modalType)}
     >
       {formattedAbility}
     </button>
