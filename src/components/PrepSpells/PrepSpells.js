@@ -3,7 +3,7 @@ import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import {
   mainContentState,
-  toggleInfoState,
+  modalTypeState,
   selectionState,
   innateSpellsCastState,
   preppedSpellsState,
@@ -12,13 +12,13 @@ import { Character, PrimaryModifier, totalSpells } from "../dnd.js";
 import "./PrepSpells.css";
 
 const KnownSpell = (props) => {
-  const setToggleInfo = useSetRecoilState(toggleInfoState);
+  const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const spell = props.value;
   const formattedClass = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;
   function displayInfo(spell) {
-    setToggleInfo("Spell");
+    setModalType("Prep");
     setSelection(spell);
   }
   return (

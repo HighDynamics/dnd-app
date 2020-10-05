@@ -13,9 +13,9 @@ export const secondaryNavbarState = atom({
   key: "secondaryNavbarDisplayState",
   default: "stats",
 });
-export const toggleInfoState = atom({
-  key: "toggleInfoState",
-  default: false,
+export const modalTypeState = atom({
+  key: "modalTypeState",
+  default: "Off",
 });
 export const selectionState = atom({
   key: "selectionState",
@@ -27,5 +27,9 @@ export const innateSpellsCastState = atom({
 });
 export const preppedSpellsState = atom({
   key: "preppedSpellsState",
+  default: [[], [], [], [], [], [], [], [], [], []],
+});
+export const preppedSpellsCastState = atom({
+  key: "preppedSpellsCastState",
   default: [[], [], [], [], [], [], [], [], [], []],
 });

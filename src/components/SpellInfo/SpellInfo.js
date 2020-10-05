@@ -3,12 +3,19 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 
 import {
   mainContentState,
-  toggleInfoState,
+  modalTypeState,
   selectionState,
   preppedSpellsState,
   innateSpellsCastState,
+  preppedSpellsCastState,
 } from "../../recoilState.js";
 import { Modal } from "../Modal/Modal";
+import {
+  CastingSpell,
+  PreppingSpell,
+  CastingPreppedSpell,
+  UsedPreppedSpell,
+} from "../Modal/ModalContent/ModalContent";
 import { Character, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
 
@@ -41,18 +48,19 @@ const SpellInfo = (props) => {
   //bring in react/recoil context
   const compendium = useContext(Compendium);
   const character = useContext(Character);
-  const setToggleInfo = useSetRecoilState(toggleInfoState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
   const selection = useRecoilValue(selectionState);
   const mainContent = useRecoilValue(mainContentState);
   const [innateSpellsCast, setInnateSpellsCast] = useRecoilState(
     innateSpellsCastState
   );
   const [preppedSpells, setPreppedSpells] = useRecoilState(preppedSpellsState);
-  //edit string for render
-  const formattedSpell = selection.replace(/_/g, " ");
-  function getSpellLevel(selection, innateOrPrep) {
+  const [preppedSpellsCast, setPreppedSpellsCast] = useRecoilState(
+    preppedSpellsCastState
+  );
+  function getSpellLevel(selection, innatePrepOrPrepped) {
     let foundLevel = null;
-    if (innateOrPrep === "innate") {
+    if (innatePrepOrPrepped === "innate") {
       Object.keys(character.magic.spells).forEach((level) => {
         if (Object.values(character.magic.spells[level]).includes(selection)) {
           foundLevel = level;
@@ -91,43 +99,97 @@ const SpellInfo = (props) => {
     eight: 8,
     nine: 9,
   };
-  function addUsedSpell(selection, innateOrPrep) {
-    const levelString = getSpellLevel(selection, innateOrPrep);
+  function addUsedSpell(selection, innatePrepOrPrepped) {
+    const levelString = getSpellLevel(selection, innatePrepOrPrepped);
     //assign a number from string
     const level = lvlConversion[levelString];
-    if (innateOrPrep === "innate") {
+    if (innatePrepOrPrepped === "innate") {
       const newArray = innateSpellsCast.map((s) => Object.assign([], s));
       newArray[level].push(selection);
       setInnateSpellsCast(newArray);
-    } else {
+    } else if (innatePrepOrPrepped === "prep") {
       const newArray = preppedSpells.map((s) => Object.assign([], s));
       newArray[level].push(selection);
       setPreppedSpells(newArray);
+    } else {
+      const newArray = preppedSpellsCast.map((s) => Object.assign([], s));
+      newArray[level].push(selection);
+      setPreppedSpellsCast(newArray);
+    }
+  }
+  function removeUsedSpell(selection, innatePrepOrPrepped) {
+    const levelString = getSpellLevel(selection, innatePrepOrPrepped);
+    //assign a number from string
+    const level = lvlConversion[levelString];
+    if (innatePrepOrPrepped === "innate") {
+      const newArray = innateSpellsCast.map((s) => Object.assign([], s));
+      const used = newArray[level].findIndex((item) => {
+        return item === selection;
+      });
+      newArray[level].splice(used, 1);
+      setInnateSpellsCast(newArray);
+    } else if (innatePrepOrPrepped === "prep") {
+      const newArray = preppedSpells.map((s) => Object.assign([], s));
+      const used = newArray[level].findIndex((item) => {
+        return item === selection;
+      });
+      newArray[level].splice(used, 1);
+      setPreppedSpells(newArray);
+    } else {
+      const newArray = preppedSpellsCast.map((s) => Object.assign([], s));
+      const used = newArray[level].findIndex((item) => {
+        return item === selection;
+      });
+      newArray[level].splice(used, 1);
+      setPreppedSpellsCast(newArray);
+    }
+  }
+  function chooseModal(modalType) {
+    switch (modalType) {
+      case "Prep":
+        return (
+          <PreppingSpell
+            selection={selection}
+            addUsedSpell={addUsedSpell}
+            removeUsedSpell={removeUsedSpell}
+            displayCompendiumInfo={displayCompendiumInfo}
+            matchedSpell={matchedSpell}
+          />
+        );
+      case "Cast":
+        return (
+          <CastingSpell
+            selection={selection}
+            addUsedSpell={addUsedSpell}
+            removeUsedSpell={removeUsedSpell}
+            displayCompendiumInfo={displayCompendiumInfo}
+            matchedSpell={matchedSpell}
+          />
+        );
+      case "CastPrepped":
+        return (
+          <CastingPreppedSpell
+            selection={selection}
+            addUsedSpell={addUsedSpell}
+            removeUsedSpell={removeUsedSpell}
+            displayCompendiumInfo={displayCompendiumInfo}
+            matchedSpell={matchedSpell}
+          />
+        );
+      case "UsedPrepped":
+        return (
+          <UsedPreppedSpell
+            selection={selection}
+            addUsedSpell={addUsedSpell}
+            removeUsedSpell={removeUsedSpell}
+            displayCompendiumInfo={displayCompendiumInfo}
+            matchedSpell={matchedSpell}
+          />
+        );
     }
   }
   return (
-    <Modal onClose={() => setToggleInfo("Off")}>
-      {mainContent === "Prep" ? (
-        <button
-          id="prepSpell"
-          className="confirmSpellButton"
-          onClick={() => addUsedSpell(selection, "prep")}
-        >
-          Prep Spell
-        </button>
-      ) : (
-        <button
-          id="castSpell"
-          className="confirmSpellButton"
-          onClick={() => addUsedSpell(selection, "innate")}
-        >
-          Cast Spell
-        </button>
-      )}
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
-    </Modal>
+    <Modal onClose={() => setModalType("Off")}>{chooseModal(modalType)}</Modal>
   );
 };
 
