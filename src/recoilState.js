@@ -1,8 +1,5 @@
 import { atom } from "recoil";
-<<<<<<< HEAD
-=======
 import { abilityModifier } from "./components/dnd.js";
->>>>>>> recordSpellsCast
 
 export const diceRollState = atom({
   key: "diceRollState",
@@ -24,14 +21,11 @@ export const selectionState = atom({
   key: "selectionState",
   default: "",
 });
-<<<<<<< HEAD
-=======
-export const innateSpellsCastState = {
+export const innateSpellsCastState = atom({
   key: "innateSpellsCastState",
-  default: [],
-};
-export const preppedSpellsState = {
+  default: [[], [], [], [], [], [], [], [], [], []],
+});
+export const preppedSpellsState = atom({
   key: "preppedSpellsState",
-  default: [],
-};
->>>>>>> recordSpellsCast
+  default: [[], [], [], [], [], [], [], [], [], []],
+});

@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import {
   mainContentState,
   toggleInfoState,
   selectionState,
+  innateSpellsCastState,
+  preppedSpellsState,
 } from "../../recoilState.js";
 import { Character, PrimaryModifier, totalSpells } from "../dnd.js";
 import "./Spells.css";
@@ -60,14 +62,14 @@ const SpellCodeBlock = (props) => {
   const { levelNum } = props;
   const { character } = props;
   const { primaryModifier } = props;
+  const { innateSpellsCast } = props;
+  const { preppedSpells } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
-  const remainingSpells = totalSpells(
-    character,
-    primaryModifier,
-    level,
-    levelNum
-  );
+  const remainingSpells =
+    totalSpells(character, primaryModifier, level, levelNum) -
+    innateSpellsCast[levelNum].length -
+    preppedSpells[levelNum].length;
   return (
     <div className="spellItems">
       <div className="spellLevelWrapper">
@@ -86,7 +88,12 @@ const Spells = (props) => {
   const character = useContext(Character);
   const [primaryModifier] = useContext(PrimaryModifier);
   const setMainContent = useSetRecoilState(mainContentState);
-  const remainingSpells = totalSpells(character, primaryModifier, "zero", 0);
+  const innateSpellsCast = useRecoilValue(innateSpellsCastState);
+  const preppedSpells = useRecoilValue(preppedSpellsState);
+  const remainingSpells =
+    totalSpells(character, primaryModifier, "zero", 0) -
+    innateSpellsCast[0].length -
+    preppedSpells[0].length;
   return (
     <div>
       <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
@@ -114,6 +121,8 @@ const Spells = (props) => {
             levelNum={i + 1}
             character={character}
             primaryModifier={primaryModifier}
+            innateSpellsCast={innateSpellsCast}
+            preppedSpells={preppedSpells}
           />
         ))}
       </div>
