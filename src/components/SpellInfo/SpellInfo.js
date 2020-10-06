@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import {
   mainContentState,
@@ -8,6 +8,7 @@ import {
   preppedSpellsState,
   innateSpellsCastState,
   preppedSpellsCastState,
+  makeGetNewSpellStateFromSpellAndLevel,
 } from "../../recoilState.js";
 import { Modal } from "../Modal/Modal";
 import {
@@ -18,28 +19,6 @@ import {
 } from "../Modal/ModalContent/ModalContent";
 import { Character, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
-
-// recoil's code
-
-// function setNewValue(valueOrGetNewStateFunction) {
-//   if (typeof valueOrGetNewStateFunction === "function") {
-//     internalState = valueOrGetNewStateFunction(internalState);
-//   } else internalState = valueOrGetNewStateFunction;
-// }
-
-// perfect for use in recoil utils
-function makeGetNewSpellStateFromSpellAndLevel(spell_, level_) {
-  var chosenSpell = spell_;
-  var level = level_;
-
-  return function getNewStateForSpells(spells) {
-    const newSpells = JSON.parse(JSON.stringify(spells));
-    newSpells[level].push(chosenSpell);
-    return newSpells;
-  };
-}
-
-////////////
 
 const CompendiumSpell = (props) => {
   const property = props.property;

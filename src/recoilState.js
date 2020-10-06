@@ -21,6 +21,9 @@ export const selectionState = atom({
   key: "selectionState",
   default: "",
 });
+
+/// new file
+
 export const innateSpellsCastState = atom({
   key: "innateSpellsCastState",
   default: [[], [], [], [], [], [], [], [], [], []],
@@ -33,3 +36,24 @@ export const preppedSpellsCastState = atom({
   key: "preppedSpellsCastState",
   default: [[], [], [], [], [], [], [], [], [], []],
 });
+
+// recoil's code
+
+// function setNewValue(valueOrGetNewStateFunction) {
+//   if (typeof valueOrGetNewStateFunction === "function") {
+//     internalState = valueOrGetNewStateFunction(internalState);
+//   } else internalState = valueOrGetNewStateFunction;
+// }
+
+////////////
+
+export function makeGetNewSpellStateFromSpellAndLevel(spell_, level_) {
+  var chosenSpell = spell_;
+  var level = level_;
+
+  return function getNewStateForSpells(spells) {
+    const newSpells = JSON.parse(JSON.stringify(spells));
+    newSpells[level].push(chosenSpell);
+    return newSpells;
+  };
+}
