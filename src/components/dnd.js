@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
-import { RecoilRoot, atom } from "recoil";
+import { RecoilRoot, atom, useSetRecoilState } from "recoil";
 
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
@@ -49,36 +49,45 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
 }
 /******************************Character functions****************************/
 const App = (props) => {
+  const { character, compendium } = props;
   const [primaryModifier, setPrimaryModifier] = useState(
     abilityModifier(props.character, props.character.abilities.primary)
   );
+
+  const setCompState = useSetRecoilState(compendiumState);
+  const setCharState = useSetRecoilState(charState);
+
+  useEffect(function () {
+    setCompState(compendium);
+    setCharState(character);
+  });
+
   useEffect(
     function setDocTitle() {
       document.title = props.character.name;
     },
     [props.character]
   );
+
   return (
-    <RecoilRoot>
-      <Character.Provider value={props.character}>
-        <Compendium.Provider value={props.compendium}>
-          <div id="appWrapper">
-            <div>
-              <div id="topWrapper">
-                <BasicInfo />
-                <Navbar.PrimaryNavbar />
-                <Navbar.SecondaryNavbar />
-              </div>
-              <PrimaryModifier.Provider
-                value={[primaryModifier, setPrimaryModifier]}
-              >
-                <MainDisplay />
-              </PrimaryModifier.Provider>
+    <Character.Provider value={props.character}>
+      <Compendium.Provider value={props.compendium}>
+        <div id="appWrapper">
+          <div>
+            <div id="topWrapper">
+              <BasicInfo />
+              <Navbar.PrimaryNavbar />
+              <Navbar.SecondaryNavbar />
             </div>
+            <PrimaryModifier.Provider
+              value={[primaryModifier, setPrimaryModifier]}
+            >
+              <MainDisplay />
+            </PrimaryModifier.Provider>
           </div>
-        </Compendium.Provider>
-      </Character.Provider>
-    </RecoilRoot>
+        </div>
+      </Compendium.Provider>
+    </Character.Provider>
   );
 };
 
@@ -95,7 +104,11 @@ const LoadApp = () => {
   const compendium = { spells };
 
   // Before the data is loaded, it will be `undefined`
-  return <App character={characters[0]} compendium={compendium} />;
+  return (
+    <RecoilRoot>
+      <App character={characters[0]} compendium={compendium} />
+    </RecoilRoot>
+  );
 };
 
 export default LoadApp;

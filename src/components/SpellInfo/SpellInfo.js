@@ -19,6 +19,28 @@ import {
 import { Character, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
 
+// recoil's code
+
+// function setNewValue(valueOrGetNewStateFunction) {
+//   if (typeof valueOrGetNewStateFunction === "function") {
+//     internalState = valueOrGetNewStateFunction(internalState);
+//   } else internalState = valueOrGetNewStateFunction;
+// }
+
+// perfect for use in recoil utils
+function makeGetNewSpellStateFromSpellAndLevel(spell_, level_) {
+  var chosenSpell = spell_;
+  var level = level_;
+
+  return function getNewStateForSpells(spells) {
+    const newSpells = JSON.parse(JSON.stringify(spells));
+    newSpells[level].push(chosenSpell);
+    return newSpells;
+  };
+}
+
+////////////
+
 const CompendiumSpell = (props) => {
   const property = props.property;
   const value = props.value;
@@ -99,24 +121,25 @@ const SpellInfo = (props) => {
     eight: 8,
     nine: 9,
   };
+
   function addUsedSpell(selection, innatePrepOrPrepped) {
     const levelString = getSpellLevel(selection, innatePrepOrPrepped);
     //assign a number from string
     const level = lvlConversion[levelString];
+    const deriveNewState = makeGetNewSpellStateFromSpellAndLevel(
+      selection,
+      level
+    );
+
     if (innatePrepOrPrepped === "innate") {
-      const newArray = innateSpellsCast.map((s) => Object.assign([], s));
-      newArray[level].push(selection);
-      setInnateSpellsCast(newArray);
+      setInnateSpellsCast(deriveNewState);
     } else if (innatePrepOrPrepped === "prep") {
-      const newArray = preppedSpells.map((s) => Object.assign([], s));
-      newArray[level].push(selection);
-      setPreppedSpells(newArray);
+      setPreppedSpells(deriveNewState);
     } else {
-      const newArray = preppedSpellsCast.map((s) => Object.assign([], s));
-      newArray[level].push(selection);
-      setPreppedSpellsCast(newArray);
+      setPreppedSpellsCast(deriveNewState);
     }
   }
+
   function removeUsedSpell(selection, innatePrepOrPrepped) {
     const levelString = getSpellLevel(selection, innatePrepOrPrepped);
     //assign a number from string
