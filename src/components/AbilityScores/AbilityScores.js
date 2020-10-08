@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { diceRollState } from "../../recoilState.js";
-import { Character, abilityModifier, rollDice } from "../dnd.js";
+import { diceRollState, characterState } from "../../recoilState.js";
+import { abilityModifier, rollDice } from "../dnd.js";
 import "./AbilityScores.css";
 
 function renderAbilityScore(score) {
@@ -10,7 +10,7 @@ function renderAbilityScore(score) {
 }
 
 const AbilityScores = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   const str = character.abilities.score.strength;
   const dex = character.abilities.score.dexterity;
   const con = character.abilities.score.constitution;

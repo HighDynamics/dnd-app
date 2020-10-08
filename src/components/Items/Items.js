@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { modalTypeState } from "../../recoilState.js";
-import { Character } from "../dnd.js";
+import { modalTypeState, characterState } from "../../recoilState.js";
 
 const ItemsHeld = (props) => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -19,7 +18,7 @@ const ItemsHeld = (props) => {
   );
 };
 const Items = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   function displayItems() {
     const items = Object.values(character.items).map((s) => (
       <ItemsHeld key={s} value={s} />

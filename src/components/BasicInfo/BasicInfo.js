@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useRecoilValue } from "recoil";
 
-import { diceRollState } from "../../recoilState.js";
-import { Character } from "../dnd.js";
+import { diceRollState, characterState } from "../../recoilState.js";
 import "./BasicInfo.css";
 
 const CharacterType = (props) => {
@@ -12,7 +11,7 @@ const CharacterClasses = (props) => {
   return <li>{props.value}</li>;
 };
 const BasicInfo = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   const rollResult = useRecoilValue(diceRollState);
   //toggle for 'more' button
   const [toggle, setToggle] = useState(false);

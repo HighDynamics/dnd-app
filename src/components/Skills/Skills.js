@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { diceRollState } from "../../recoilState.js";
-import { Character, rollDice } from "../dnd.js";
+import { diceRollState, characterState } from "../../recoilState.js";
+import { rollDice } from "../dnd.js";
 import "./Skills.css";
 
 const SkillsListItem = (props) => {
-  const character = useContext(Character);
+  const character = props.character;
   const setRollResult = useSetRecoilState(diceRollState);
   // store props to make code simpler
   const skills = props.skills;
@@ -34,7 +34,7 @@ const SkillsListItem = (props) => {
   );
 };
 const Skills = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   //put character's skills into array as [key, value]
   let skillsArray = Object.keys(character.skills).map((skill) => {
     return [skill, character.skills[skill]];
@@ -47,7 +47,7 @@ const Skills = (props) => {
   let allSkills = [...skillsArray, ...classSkillsArray].sort();
   // pass skills to child component
   const skillsBlock = allSkills.map((s) => (
-    <SkillsListItem key={s} skills={s} />
+    <SkillsListItem key={s} skills={s} character={character} />
   ));
   return (
     <>
