@@ -1,4 +1,5 @@
-import { atom } from "recoil";
+import React, { useState } from "react";
+import { atom, useSetRecoilState } from "recoil";
 import { abilityModifier } from "./components/dnd.js";
 
 export const diceRollState = atom({
@@ -21,15 +22,17 @@ export const selectionState = atom({
   key: "selectionState",
   default: "",
 });
+
+export const emptySpellsArray = [[], [], [], [], [], [], [], [], [], []];
 export const innateSpellsCastState = atom({
   key: "innateSpellsCastState",
-  default: [[], [], [], [], [], [], [], [], [], []],
+  default: emptySpellsArray,
 });
 export const preppedSpellsState = atom({
   key: "preppedSpellsState",
-  default: [[], [], [], [], [], [], [], [], [], []],
+  default: emptySpellsArray,
 });
 export const preppedSpellsCastState = atom({
   key: "preppedSpellsCastState",
-  default: [[], [], [], [], [], [], [], [], [], []],
+  default: emptySpellsArray,
 });

@@ -7,25 +7,6 @@
 #characterType {
   padding-right: 5px;
 }
-.moreButtonOff {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid white;
-  height: 25px;
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-}
-.moreButtonOn {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid white;
-  height: 25px;
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-}
-
 #HPACDiceWrapper {
   outline: 1px solid white;
   max-height: 85.05px;
@@ -42,18 +23,4 @@
   text-align: center;
   margin: auto;
   white-space: pre-wrap;
-}
-#characterInfo {
-  background: rgba(255, 255, 255, 1);
-  color: black;
-  text-align: right;
-  width: 75vw;
-  position: fixed;
-  left: 25vw;
-  top: 25px;
-  z-index: 1;
-}
-#classList {
-  list-style-type: none;
-  padding-right: 5px;
 }
