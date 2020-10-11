@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useSWR from "swr";
-import { RecoilRoot, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
   primaryModifierState,
@@ -53,43 +53,17 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
 }
 /******************************Character functions****************************/
-const App = (props) => {
-  const setCharacter = useSetRecoilState(characterState);
-  const setCompendium = useSetRecoilState(compendiumState);
-  const setPrimaryModifier = useSetRecoilState(primaryModifierState);
+const App = () => {
+  const character = useRecoilValue(characterState);
   useEffect(
     function setDocTitle() {
-      document.title = props.character.name;
+      document.title = character.name;
     },
-    [props.character]
+    [character]
   );
-  useEffect(() => {
-    setCharacter(props.character);
-  }, [props.character]);
-  /* Have also tried:
-  useEffect(() => {
-    setCharacter(JSON.parse(props.character));
-  }, [props.character]);
-
-  //&&&&&&&//
-
-  useEffect(() => {
-    setCharacter(JSON.parse(JSON.stringify(props.character)));
-  }, [props.character]);
-
-  */
-  useEffect(() => {
-    setCompendium(props.compendium);
-  }, [props.compendium]);
-  useEffect(() => {
-    setPrimaryModifier(
-      abilityModifier(props.character, props.character.abilities.primary)
-    );
-  }, [props.character.abilities.primary]);
 
   return (
     <>
-      {" "}
       <div id="appWrapper">
         <div>
           <div id="topWrapper">
@@ -109,19 +83,48 @@ const LoadApp = () => {
   const { data: charactersResponse } = useSWR("/api/characters");
   const { data: spellsResponse } = useSWR("/api/spells");
 
-  if (!(spellsResponse && charactersResponse)) return <>Loading...</>;
-
-  const { spells } = spellsResponse;
-  const { characters } = charactersResponse;
-
-  const compendium = { spells };
-
-  // Before the data is loaded, it will be `undefined`
-  return (
-    <RecoilRoot>
-      <App character={characters[0]} compendium={compendium} />
-    </RecoilRoot>
+  const [character, setCharacter] = useRecoilState(characterState);
+  const [compendium, setCompendium] = useRecoilState(compendiumState);
+  const [primaryModifier, setPrimaryModifier] = useRecoilState(
+    primaryModifierState
   );
+
+  // Before the data is loaded, it will be `undefined`. So inside `useEffect`
+  // hooks below, make sure the data exists.
+
+  useEffect(
+    function setFirstCharacterFromServer() {
+      if (charactersResponse) {
+        setCharacter(charactersResponse.characters[0]);
+      }
+    },
+    [charactersResponse, setCharacter]
+  );
+
+  useEffect(
+    function setCompendiumFromServerSpells() {
+      if (spellsResponse) {
+        setCompendium({ spells: spellsResponse.spells });
+      }
+    },
+    [spellsResponse, setCompendium]
+  );
+
+  useEffect(
+    function setPrimaryModifierWhenCharacterChanges() {
+      if (character) {
+        setPrimaryModifier(
+          abilityModifier(character, character.abilities.primary)
+        );
+      }
+    },
+    [character, setPrimaryModifier]
+  );
+
+  // Wait until all data has been flushed through Recoil and values exist.
+  if (!(character && compendium && primaryModifier)) return <>Loading...</>;
+
+  return <App />;
 };
 
 export default LoadApp;

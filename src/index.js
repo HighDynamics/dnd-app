@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { RecoilRoot } from "recoil";
 import {SWRConfig} from 'swr';
 import './components/dnd.css';
 import App from './components/dnd';
@@ -11,13 +12,15 @@ makeServer({ environment: "development" })
 
 ReactDOM.render(
   <React.StrictMode>
-    <SWRConfig
-      value={{
-        fetcher: (...args) => fetch(...args).then(res => res.json())
-      }}
-    >
-      <App />
-    </SWRConfig>
+    <RecoilRoot>
+      <SWRConfig
+        value={{
+          fetcher: (...args) => fetch(...args).then(res => res.json())
+        }}
+      >
+        <App />
+      </SWRConfig>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 );
