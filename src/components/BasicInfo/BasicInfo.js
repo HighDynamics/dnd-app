@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useRecoilValue } from "recoil";
 
 import { diceRollState, characterState } from "../../recoilState.js";
@@ -8,9 +8,7 @@ import "./BasicInfo.css";
 const BasicInfo = (props) => {
   const character = useRecoilValue(characterState);
   const rollResult = useRecoilValue(diceRollState);
-  //toggle for 'more' button
-  const [toggle, setToggle] = useState(false);
-  //display conditional more/less
+  const welcome = rollResult ? rollResult : "Good Luck,\n" + character.name;
   const health =
     character.hitPoints.total -
     character.hitPoints.damage +
@@ -23,7 +21,7 @@ const BasicInfo = (props) => {
           <p id="hp">hp: {health}</p>
           <p id="ac">ac: {character.armorClass.ac.total}</p>
         </div>
-        <div id="diceRollResultWrapper">{rollResult}</div>
+        <div id="diceRollResultWrapper">{welcome}</div>
       </div>
     </div>
   );

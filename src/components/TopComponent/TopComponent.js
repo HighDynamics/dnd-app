@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import {
-  emptySpellsCast,
   innateSpellsCastState,
   preppedSpellsState,
   preppedSpellsCastState,
   emptySpellsArray,
   characterState,
 } from "../../recoilState.js";
-import { Character } from "../dnd.js";
 import "./TopComponent.css";
 
 const CharacterType = (props) => {

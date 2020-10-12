@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import React from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import {
-  mainContentState,
   modalTypeState,
   selectionState,
   preppedSpellsState,
@@ -11,6 +10,7 @@ import {
   characterState,
   compendiumState,
 } from "../../recoilState.js";
+import { clone } from "../../utilities/utilities.js";
 import { Modal } from "../Modal/Modal";
 import {
   CastingSpell,
@@ -51,7 +51,6 @@ const SpellInfo = (props) => {
   const character = useRecoilValue(characterState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const selection = useRecoilValue(selectionState);
-  const mainContent = useRecoilValue(mainContentState);
   const [innateSpellsCast, setInnateSpellsCast] = useRecoilState(
     innateSpellsCastState
   );
@@ -105,15 +104,15 @@ const SpellInfo = (props) => {
     //assign a number from string
     const level = lvlConversion[levelString];
     if (innatePrepOrPrepped === "innate") {
-      const newArray = innateSpellsCast.map((s) => Object.assign([], s));
+      const newArray = clone(innateSpellsCast);
       newArray[level].push(selection);
       setInnateSpellsCast(newArray);
     } else if (innatePrepOrPrepped === "prep") {
-      const newArray = preppedSpells.map((s) => Object.assign([], s));
+      const newArray = clone(preppedSpells);
       newArray[level].push(selection);
       setPreppedSpells(newArray);
     } else {
-      const newArray = preppedSpellsCast.map((s) => Object.assign([], s));
+      const newArray = clone(preppedSpellsCast);
       newArray[level].push(selection);
       setPreppedSpellsCast(newArray);
     }
@@ -123,21 +122,21 @@ const SpellInfo = (props) => {
     //assign a number from string
     const level = lvlConversion[levelString];
     if (innatePrepOrPrepped === "innate") {
-      const newArray = innateSpellsCast.map((s) => Object.assign([], s));
+      const newArray = clone(innateSpellsCast);
       const used = newArray[level].findIndex((item) => {
         return item === selection;
       });
       newArray[level].splice(used, 1);
       setInnateSpellsCast(newArray);
     } else if (innatePrepOrPrepped === "prep") {
-      const newArray = preppedSpells.map((s) => Object.assign([], s));
+      const newArray = clone(preppedSpells);
       const used = newArray[level].findIndex((item) => {
         return item === selection;
       });
       newArray[level].splice(used, 1);
       setPreppedSpells(newArray);
     } else {
-      const newArray = preppedSpellsCast.map((s) => Object.assign([], s));
+      const newArray = clone(preppedSpellsCast);
       const used = newArray[level].findIndex((item) => {
         return item === selection;
       });
@@ -187,6 +186,8 @@ const SpellInfo = (props) => {
             matchedSpell={matchedSpell}
           />
         );
+      default:
+        return null;
     }
   }
   return (

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import useSWR from "swr";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
   primaryModifierState,
   characterState,
   compendiumState,
-  diceRollState,
 } from "../recoilState.js";
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
@@ -39,9 +38,6 @@ export function rollDice(size, mod, use) {
   );
   return result;
 }
-export const Character = React.createContext(null);
-export const Compendium = React.createContext(null);
-export const PrimaryModifier = React.createContext(null);
 /******************************Character functions****************************/
 export function abilityModifier(character, ability) {
   const score = character.abilities.score[ability];
@@ -56,8 +52,6 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
 /******************************Character functions****************************/
 const App = () => {
   const character = useRecoilValue(characterState);
-  const setRoll = useSetRecoilState(diceRollState);
-  setRoll("Good Luck,\n" + character.name);
   useEffect(
     function setDocTitle() {
       document.title = character.name;

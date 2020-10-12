@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -11,7 +11,7 @@ import {
   primaryModifierState,
   characterState,
 } from "../../recoilState.js";
-import { Character, totalSpells } from "../dnd.js";
+import { totalSpells } from "../dnd.js";
 import "./Spells.css";
 
 const PreppedSpellCast = (props) => {

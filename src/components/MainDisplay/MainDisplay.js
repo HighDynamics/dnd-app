@@ -16,7 +16,6 @@ import { mainContentState, modalTypeState } from "../../recoilState.js";
 import "./MainDisplay.css";
 
 const MainDisplay = (props) => {
-  const character = props.character;
   const modalType = useRecoilValue(modalTypeState);
   const mainContent = useRecoilValue(mainContentState);
   function screenSwitch(display) {

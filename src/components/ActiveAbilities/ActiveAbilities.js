@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { modalTypeState, characterState } from "../../recoilState.js";
