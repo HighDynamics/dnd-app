@@ -9,6 +9,7 @@ import {
   preppedSpellsState,
   preppedSpellsCastState,
   primaryModifierState,
+  characterState,
 } from "../../recoilState.js";
 import { Character, totalSpells } from "../dnd.js";
 import "./Spells.css";
@@ -153,7 +154,7 @@ const SpellCodeBlock = (props) => {
 };
 
 const Spells = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   const primaryModifier = useRecoilValue(primaryModifierState);
   const setMainContent = useSetRecoilState(mainContentState);
   const innateSpellsCast = useRecoilValue(innateSpellsCastState);
