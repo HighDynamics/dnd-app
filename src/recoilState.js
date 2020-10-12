@@ -1,10 +1,23 @@
-import React, { useState } from "react";
-import { atom, useSetRecoilState } from "recoil";
-import { abilityModifier } from "./components/dnd.js";
+import { atom } from "recoil";
+
+export const compendiumState = atom({
+  key: "compendiumState",
+  default: null,
+});
+
+export const characterState = atom({
+  key: "characterState",
+  default: null,
+});
+
+export const primaryModifierState = atom({
+  key: "primaryModifierState",
+  default: null,
+});
 
 export const diceRollState = atom({
   key: "diceRollState",
-  default: "Good luck, \n",
+  default: "",
 });
 export const mainContentState = atom({
   key: "mainContentState",

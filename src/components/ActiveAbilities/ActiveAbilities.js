@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { modalTypeState } from "../../recoilState.js";
-import { Character } from "../dnd.js";
+import { modalTypeState, characterState } from "../../recoilState.js";
 
 const KnownActiveAbilities = (props) => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -19,7 +18,7 @@ const KnownActiveAbilities = (props) => {
   );
 };
 const ActiveAbilities = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   function displayAbilities() {
     const abilities = Object.values(
       character.characterAbilities.active

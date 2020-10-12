@@ -8,6 +8,8 @@ import {
   preppedSpellsState,
   innateSpellsCastState,
   preppedSpellsCastState,
+  characterState,
+  compendiumState,
 } from "../../recoilState.js";
 import { Modal } from "../Modal/Modal";
 import {
@@ -16,7 +18,6 @@ import {
   CastingPreppedSpell,
   UsedPreppedSpell,
 } from "../Modal/ModalContent/ModalContent";
-import { Character, Compendium } from "../dnd.js";
 import "./SpellInfo.css";
 
 const CompendiumSpell = (props) => {
@@ -46,8 +47,8 @@ const CompendiumSpell = (props) => {
 
 const SpellInfo = (props) => {
   //bring in react/recoil context
-  const compendium = useContext(Compendium);
-  const character = useContext(Character);
+  const compendium = useRecoilValue(compendiumState);
+  const character = useRecoilValue(characterState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const selection = useRecoilValue(selectionState);
   const mainContent = useRecoilValue(mainContentState);

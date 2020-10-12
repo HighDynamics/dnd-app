@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { useSetRecoilState } from "recoil";
+import React, { useState } from "react";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import {
   emptySpellsCast,
@@ -7,6 +7,7 @@ import {
   preppedSpellsState,
   preppedSpellsCastState,
   emptySpellsArray,
+  characterState,
 } from "../../recoilState.js";
 import { Character } from "../dnd.js";
 import "./TopComponent.css";
@@ -19,7 +20,7 @@ const CharacterClasses = (props) => {
 };
 
 const TopComponent = (props) => {
-  const character = useContext(Character);
+  const character = useRecoilValue(characterState);
   const [toggle, setToggle] = useState(false);
   const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);
   const setpreppedSpells = useSetRecoilState(preppedSpellsState);

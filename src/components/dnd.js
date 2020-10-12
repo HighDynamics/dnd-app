@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useSWR from "swr";
-import { RecoilRoot, atom } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
+import {
+  primaryModifierState,
+  characterState,
+  compendiumState,
+  diceRollState,
+} from "../recoilState.js";
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
 import MainDisplay from "./MainDisplay/MainDisplay.js";
@@ -48,37 +54,30 @@ export function totalSpells(character, primaryModifier, level, levelNum) {
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
 }
 /******************************Character functions****************************/
-const App = (props) => {
-  const [primaryModifier, setPrimaryModifier] = useState(
-    abilityModifier(props.character, props.character.abilities.primary)
-  );
+const App = () => {
+  const character = useRecoilValue(characterState);
+  const setRoll = useSetRecoilState(diceRollState);
+  setRoll("Good Luck,\n" + character.name);
   useEffect(
     function setDocTitle() {
-      document.title = props.character.name;
+      document.title = character.name;
     },
-    [props.character]
+    [character]
   );
+
   return (
-    <RecoilRoot>
-      <Character.Provider value={props.character}>
-        <Compendium.Provider value={props.compendium}>
-          <div id="appWrapper">
-            <div>
-              <div id="topWrapper">
-                <BasicInfo />
-                <Navbar.PrimaryNavbar />
-                <Navbar.SecondaryNavbar />
-              </div>
-              <PrimaryModifier.Provider
-                value={[primaryModifier, setPrimaryModifier]}
-              >
-                <MainDisplay />
-              </PrimaryModifier.Provider>
-            </div>
+    <>
+      <div id="appWrapper">
+        <div>
+          <div id="topWrapper">
+            <BasicInfo />
+            <Navbar.PrimaryNavbar />
+            <Navbar.SecondaryNavbar />
           </div>
-        </Compendium.Provider>
-      </Character.Provider>
-    </RecoilRoot>
+          <MainDisplay />
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -87,15 +86,48 @@ const LoadApp = () => {
   const { data: charactersResponse } = useSWR("/api/characters");
   const { data: spellsResponse } = useSWR("/api/spells");
 
-  if (!(spellsResponse && charactersResponse)) return <>Loading...</>;
+  const [character, setCharacter] = useRecoilState(characterState);
+  const [compendium, setCompendium] = useRecoilState(compendiumState);
+  const [primaryModifier, setPrimaryModifier] = useRecoilState(
+    primaryModifierState
+  );
 
-  const { spells } = spellsResponse;
-  const { characters } = charactersResponse;
+  // Before the data is loaded, it will be `undefined`. So inside `useEffect`
+  // hooks below, make sure the data exists.
 
-  const compendium = { spells };
+  useEffect(
+    function setFirstCharacterFromServer() {
+      if (charactersResponse) {
+        setCharacter(charactersResponse.characters[0]);
+      }
+    },
+    [charactersResponse, setCharacter]
+  );
 
-  // Before the data is loaded, it will be `undefined`
-  return <App character={characters[0]} compendium={compendium} />;
+  useEffect(
+    function setCompendiumFromServerSpells() {
+      if (spellsResponse) {
+        setCompendium({ spells: spellsResponse.spells });
+      }
+    },
+    [spellsResponse, setCompendium]
+  );
+
+  useEffect(
+    function setPrimaryModifierWhenCharacterChanges() {
+      if (character) {
+        setPrimaryModifier(
+          abilityModifier(character, character.abilities.primary)
+        );
+      }
+    },
+    [character, setPrimaryModifier]
+  );
+
+  // Wait until all data has been flushed through Recoil and values exist.
+  if (!(character && compendium && primaryModifier)) return <>Loading...</>;
+
+  return <App />;
 };
 
 export default LoadApp;
