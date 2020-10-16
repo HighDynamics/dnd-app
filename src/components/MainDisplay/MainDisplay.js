@@ -5,6 +5,7 @@ import Items from "../Items/Items.js";
 import SLAs from "../SLAs/SLAs.js";
 import ActiveAbilities from "../ActiveAbilities/ActiveAbilities.js";
 import SpellInfo from "../SpellInfo/SpellInfo.js";
+import HPACInfo from "../HPACInfo/HPACInfo.js";
 import PrepSpells from "../PrepSpells/PrepSpells.js";
 import Spells from "../Spells/Spells.js";
 import PassiveAbilities from "../PassiveAbilities/PassiveAbilities.js";
@@ -47,6 +48,8 @@ const MainDisplay = (props) => {
       case "CastPrepped":
       case "UsedPrepped":
         return <SpellInfo />;
+      case "HPAC":
+        return <HPACInfo />;
       case "Off":
         return null;
       default:
@@ -57,10 +60,7 @@ const MainDisplay = (props) => {
     <div>
       <hr />
       <div id="infoSheet">{infoSheet(modalType)}</div>
-      <div id="mainContent">
-        {screenSwitch(mainContent)}
-        <div className="bottomGradient"></div>
-      </div>
+      <div id="mainContent">{screenSwitch(mainContent)}</div>
     </div>
   );
 };

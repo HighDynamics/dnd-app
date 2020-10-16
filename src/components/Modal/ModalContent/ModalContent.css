@@ -1,0 +1,30 @@
+.HPACHeading {
+  text-align: center;
+  margin: auto;
+  margin-top: 2rem;
+}
+.defenseHeading {
+  margin-top: 1px;
+}
+.inputAndButton {
+  display: inline;
+  float: right;
+}
+.numberInput {
+  width: 4rem;
+  margin-right: 1px;
+}
+li {
+  padding: 2px;
+  list-style: none;
+}
+.currentAC,
+.currentHP {
+  text-decoration: underline;
+}
+.redText {
+  color: red;
+}
+.greenText {
+  color: green;
+}

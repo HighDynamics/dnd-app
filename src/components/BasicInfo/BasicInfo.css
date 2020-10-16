@@ -12,10 +12,36 @@
   max-height: 85.05px;
   display: flex;
   flex-direction: row;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 #hpacWrapper {
   width: 50vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   outline: 1px solid white;
+}
+.scores {
+  flex-grow: 2;
+  text-align: left;
+  font-size: 2rem;
+  margin-left: 2%;
+}
+#hp {
+  margin-bottom: 0;
+}
+#ac {
+  margin-top: 0;
+}
+.HPACButton {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  flex-grow: 1;
+}
+.HPACMore {
+  font-size: 2rem;
 }
 #diceRollResultWrapper {
   width: 55vw;

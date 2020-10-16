@@ -107,14 +107,17 @@ const SpellInfo = (props) => {
       const newArray = clone(innateSpellsCast);
       newArray[level].push(selection);
       setInnateSpellsCast(newArray);
+      setModalType("Off");
     } else if (innatePrepOrPrepped === "prep") {
       const newArray = clone(preppedSpells);
       newArray[level].push(selection);
       setPreppedSpells(newArray);
+      setModalType("Off");
     } else {
       const newArray = clone(preppedSpellsCast);
       newArray[level].push(selection);
       setPreppedSpellsCast(newArray);
+      setModalType("Off");
     }
   }
   function removeUsedSpell(selection, innatePrepOrPrepped) {
@@ -135,6 +138,7 @@ const SpellInfo = (props) => {
       });
       newArray[level].splice(used, 1);
       setPreppedSpells(newArray);
+      setModalType("Off");
     } else {
       const newArray = clone(preppedSpellsCast);
       const used = newArray[level].findIndex((item) => {

@@ -3,15 +3,12 @@ export default {
   type: ["Human", "Sanctified", "Deathless", "Spellstitched", "Archlich"],
   hitPoints: {
     dieSize: 12,
-    total: 255,
-    damage: 0,
-    temporaryHitPoints: 0,
+    total: 321,
   },
   armorClass: {
     ac: {
-      total: 37,
-      armor: 6,
-      shield: 0,
+      armor: 5,
+      shield: 4,
       dexterity: 12,
       size: 0,
       naturalArmor: 5,
@@ -20,6 +17,34 @@ export default {
     },
     touch: 22,
     flatFooted: 23,
+  },
+  defense: {
+    damageReduction: 15,
+    spellResistance: 27,
+    energyResistance: {
+      acid: 0,
+      cold: null,
+      electricity: null,
+      fire: 0,
+      sonic: 0,
+    },
+    saves: {
+      fortitude: {
+        base: 16,
+        magic: 0,
+        misc: 6,
+      },
+      reflex: {
+        base: 10,
+        magic: 0,
+        misc: 6,
+      },
+      will: {
+        base: 18,
+        magic: 7,
+        misc: 6,
+      },
+    },
   },
   size: "Medium",
   alignment: "Lawful-Good",
@@ -34,16 +59,17 @@ export default {
     },
     primary: "charisma",
   },
-  speed: 30,
+  speed: 40,
   level: "20",
   class: [
     "Sorcerer(1)",
     "Mindtender(2)",
     "Fleshwarper(2)",
-    "Malconvoker(7)",
+    "Malconvoker(8)",
     "Binder(1)",
     "Bard(1)",
     "Master Of Masks(5)",
+    "Voidcaller(1)",
   ],
   skills: {
     Balance: 12,

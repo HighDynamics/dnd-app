@@ -10,6 +10,16 @@ export const characterState = atom({
   default: null,
 });
 
+export const damageState = atom({
+  key: "damageState",
+  default: 0,
+});
+
+export const temporaryHitPointsState = atom({
+  key: "temporaryHitPointsState",
+  default: 0,
+});
+
 export const primaryModifierState = atom({
   key: "primaryModifierState",
   default: null,

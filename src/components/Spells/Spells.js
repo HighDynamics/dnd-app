@@ -161,7 +161,7 @@ const Spells = (props) => {
   const preppedSpells = useRecoilValue(preppedSpellsState);
   const preppedSpellsCast = useRecoilValue(preppedSpellsCastState);
   const remainingSpells =
-    totalSpells(character, primaryModifier, "zero", 0) -
+    character.magic.spellsPerDay.zero -
     innateSpellsCast[0].length -
     preppedSpells[0].length -
     preppedSpellsCast[0].length;
