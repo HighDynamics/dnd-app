@@ -37,7 +37,6 @@
 #secondaryNavbar {
   width: 80vw;
   position: relative;
-  margin-top: -13px;
   left: 50%;
   transform: translate(-50%);
   z-index: 0;

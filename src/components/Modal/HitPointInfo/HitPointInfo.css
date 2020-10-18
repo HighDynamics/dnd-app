@@ -1,0 +1,14 @@
+.inputAndButton {
+  display: inline;
+  float: right;
+}
+.numberInput {
+  width: 4rem;
+  margin-right: 1px;
+}
+.redText {
+  color: red;
+}
+.greenText {
+  color: green;
+}

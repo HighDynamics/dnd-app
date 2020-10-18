@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 
 import {
   innateSpellsCastState,
@@ -7,6 +7,7 @@ import {
   preppedSpellsCastState,
   emptySpellsArray,
   characterState,
+  damageState,
 } from "../../recoilState.js";
 import "./TopComponent.css";
 
@@ -23,10 +24,18 @@ const TopComponent = (props) => {
   const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);
   const setpreppedSpells = useSetRecoilState(preppedSpellsState);
   const setPreppedSpellsCast = useSetRecoilState(preppedSpellsCastState);
+  const [damage, setDamage] = useRecoilState(damageState);
   function resetAllSpells() {
     setInnateSpellsCast(emptySpellsArray);
     setpreppedSpells(emptySpellsArray);
     setPreppedSpellsCast(emptySpellsArray);
+  }
+  function healDamageOnRest() {
+    setDamage(Math.max(0, damage - character.level));
+  }
+  function fullRest() {
+    resetAllSpells();
+    healDamageOnRest();
   }
   const type = character.type.map((t) => <CharacterType key={t} value={t} />);
   const classList = character.class.map((c) => (
@@ -42,7 +51,7 @@ const TopComponent = (props) => {
           {character.name} ({character.level})
         </h1>
         <em id="moreLess">
-          <i className="fas fa-bars"></i>
+          <i className="fas fa-angle-double-down"></i>
         </em>
       </button>
 
@@ -54,7 +63,7 @@ const TopComponent = (props) => {
           <ul id="classList">
             class: <br /> {classList}
           </ul>
-          <button className="fullRestButton" onClick={() => resetAllSpells()}>
+          <button className="fullRestButton" onClick={() => fullRest()}>
             Full Rest
           </button>
         </div>

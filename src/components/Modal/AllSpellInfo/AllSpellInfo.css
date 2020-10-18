@@ -1,0 +1,17 @@
+.HPACHeading {
+  text-align: center;
+  margin: auto;
+  margin-top: 2rem;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  padding: 2px;
+  list-style: none;
+}
+.underline {
+  text-decoration: underline;
+  margin: 0;
+}

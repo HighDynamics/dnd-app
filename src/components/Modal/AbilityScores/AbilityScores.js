@@ -1,13 +1,9 @@
 import React from "react";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { diceRollState, characterState } from "../../recoilState.js";
-import { abilityModifier, rollDice } from "../dnd.js";
+import { characterState, diceRollState } from "../../../recoilState";
+import { abilityModifier, rollDice } from "../../dnd";
 import "./AbilityScores.css";
-
-function renderAbilityScore(score) {
-  return typeof score === "number" ? score : "--";
-}
 
 const AbilityScores = (props) => {
   const character = useRecoilValue(characterState);
@@ -23,8 +19,10 @@ const AbilityScores = (props) => {
   const intMod = abilityModifier(character, "intelligence");
   const wisMod = abilityModifier(character, "wisdom");
   const chaMod = abilityModifier(character, "charisma");
-
   const setRollResult = useSetRecoilState(diceRollState);
+  function renderAbilityScore(score) {
+    return typeof score === "number" ? score : "--";
+  }
   function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod) {
     return (
       <p className="abilityScores">
@@ -41,20 +39,17 @@ const AbilityScores = (props) => {
     );
   }
   return (
-    <div>
-      <div id="statsContainer">
-        <h1 id="abilityScoresHeader">Abilities</h1>
-        <div id="abilityScoresWrapper">
-          {abilityScoreCodeBlock("STR", str, strMod)}
-          {abilityScoreCodeBlock("DEX", dex, dexMod)}
-          {abilityScoreCodeBlock("CON", con, conMod)}
-          {abilityScoreCodeBlock("INT", int, intMod)}
-          {abilityScoreCodeBlock("WIS", wis, wisMod)}
-          {abilityScoreCodeBlock("CHA", cha, chaMod)}
-        </div>
+    <>
+      <h2 className="abilityScoresHeader">Abilities</h2>
+      <div id="abilityScoresWrapper">
+        {abilityScoreCodeBlock("STR", str, strMod)}
+        {abilityScoreCodeBlock("DEX", dex, dexMod)}
+        {abilityScoreCodeBlock("CON", con, conMod)}
+        {abilityScoreCodeBlock("INT", int, intMod)}
+        {abilityScoreCodeBlock("WIS", wis, wisMod)}
+        {abilityScoreCodeBlock("CHA", cha, chaMod)}
       </div>
-    </div>
+    </>
   );
 };
-
 export default AbilityScores;

@@ -17,7 +17,7 @@ import {
   PreppingSpell,
   CastingPreppedSpell,
   UsedPreppedSpell,
-} from "../Modal/ModalContent/ModalContent";
+} from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
 
 const CompendiumSpell = (props) => {

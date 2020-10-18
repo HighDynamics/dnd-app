@@ -6,20 +6,19 @@ export default {
     total: 321,
   },
   armorClass: {
-    ac: {
-      armor: 5,
-      shield: 4,
-      dexterity: 12,
-      size: 0,
-      naturalArmor: 5,
-      deflection: 4,
-      misc: 0,
-    },
-    touch: 22,
-    flatFooted: 23,
+    armor: 5,
+    shield: 4,
+    dexterity: 12,
+    size: 0,
+    naturalArmor: 5,
+    deflection: 4,
+    misc: 0,
   },
   defense: {
-    damageReduction: 15,
+    damageReduction: {
+      amount: 15,
+      weakness: "bludgeoning, chaotic",
+    },
     spellResistance: 27,
     energyResistance: {
       acid: 0,
@@ -60,7 +59,7 @@ export default {
     primary: "charisma",
   },
   speed: 40,
-  level: "20",
+  level: 20,
   class: [
     "Sorcerer(1)",
     "Mindtender(2)",

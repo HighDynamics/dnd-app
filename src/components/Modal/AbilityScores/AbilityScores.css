@@ -1,0 +1,19 @@
+.abilityScoresHeader {
+  margin: auto;
+  text-align: right;
+  font-size: 1.5rem;
+}
+.abilityScores {
+  position: relative;
+  width: auto;
+  margin-left: 15vw;
+  font-size: 1.5rem;
+  font-family: monospace;
+}
+.rollAbility {
+  border: none;
+  background: none;
+  outline: 1px solid black;
+  margin-right: 10px;
+  transform: translateY(-25%);
+}

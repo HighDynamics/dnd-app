@@ -1,15 +1,18 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import Items from "../Items/Items.js";
 import SLAs from "../SLAs/SLAs.js";
+import { Modal } from "../Modal/Modal";
 import ActiveAbilities from "../ActiveAbilities/ActiveAbilities.js";
 import SpellInfo from "../SpellInfo/SpellInfo.js";
-import HPACInfo from "../HPACInfo/HPACInfo.js";
+import AbilityScores from "../Modal/AbilityScores/AbilityScores";
+import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
+import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
+import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
 import PrepSpells from "../PrepSpells/PrepSpells.js";
 import Spells from "../Spells/Spells.js";
 import PassiveAbilities from "../PassiveAbilities/PassiveAbilities.js";
-import AbilityScores from "../AbilityScores/AbilityScores.js";
 import Skills from "../Skills/Skills.js";
 
 import { mainContentState, modalTypeState } from "../../recoilState.js";
@@ -17,7 +20,7 @@ import { mainContentState, modalTypeState } from "../../recoilState.js";
 import "./MainDisplay.css";
 
 const MainDisplay = (props) => {
-  const modalType = useRecoilValue(modalTypeState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
   const mainContent = useRecoilValue(mainContentState);
   function screenSwitch(display) {
     switch (display) {
@@ -48,8 +51,20 @@ const MainDisplay = (props) => {
       case "CastPrepped":
       case "UsedPrepped":
         return <SpellInfo />;
-      case "HPAC":
-        return <HPACInfo />;
+      case "HP":
+        return (
+          <Modal onClose={() => setModalType("Off")}>
+            <HitPointInfo />
+            <AbilityScores />
+          </Modal>
+        );
+      case "Defense":
+        return (
+          <Modal onClose={() => setModalType("Off")}>
+            <ArmorClassInfo />
+            <DefenseInfo />
+          </Modal>
+        );
       case "Off":
         return null;
       default:

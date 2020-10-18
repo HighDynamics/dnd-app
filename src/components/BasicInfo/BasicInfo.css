@@ -18,8 +18,9 @@
 #hpacWrapper {
   width: 50vw;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   outline: 1px solid white;
 }
 .scores {
@@ -28,20 +29,18 @@
   font-size: 2rem;
   margin-left: 2%;
 }
-#hp {
-  margin-bottom: 0;
-}
-#ac {
-  margin-top: 0;
-}
 .HPACButton {
   background-color: inherit;
   color: inherit;
   border: none;
-  flex-grow: 1;
+  font-size: 2rem;
+}
+.HPACButton:focus {
+  background-color: rgba(94, 94, 94, 1);
+  border-radius: 20%;
 }
 .HPACMore {
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 #diceRollResultWrapper {
   width: 55vw;

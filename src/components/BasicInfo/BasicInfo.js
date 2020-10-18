@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
   diceRollState,
@@ -13,23 +13,35 @@ import TopComponent from "../TopComponent/TopComponent.js";
 import "./BasicInfo.css";
 
 const BasicInfo = (props) => {
+  //get the stuff
   const character = useRecoilValue(characterState);
   const rollResult = useRecoilValue(diceRollState);
   const damage = useRecoilValue(damageState);
   const temporaryHitPoints = useRecoilValue(temporaryHitPointsState);
-  const [modalType, setModalType] = useRecoilState(modalTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
+  //starts as welcome, changes to dice roll
   const welcome = rollResult ? rollResult : "Good Luck,\n" + character.name;
+  //store HitPoints in variable
   const currentHP = character.hitPoints.total + temporaryHitPoints - damage;
+  //imported from utilities
   const currentAC = getAC(character);
   const textColorClass = textClassToGreenOrRed(
     currentHP,
     character.hitPoints.total
   );
   function toggleModal(modalType) {
-    if (modalType === "Off") {
-      setModalType("HPAC");
-    } else {
-      setModalType("Off");
+    switch (modalType) {
+      case !"Off":
+        setModalType("Off");
+        break;
+      case "HP":
+        setModalType(modalType);
+        break;
+      case "Defense":
+        setModalType(modalType);
+        break;
+      default:
+        setModalType("Off");
     }
   }
   return (
@@ -37,13 +49,13 @@ const BasicInfo = (props) => {
       <TopComponent />
       <div id="HPACDiceWrapper">
         <div id="hpacWrapper">
-          <div className="scores">
-            <p id="hp">
-              hp: <span className={textColorClass}>{currentHP}</span>
-            </p>
-            <p id="ac">ac: {currentAC}</p>
-          </div>
-          <button className="HPACButton" onClick={() => toggleModal(modalType)}>
+          <button className="HPACButton" onClick={() => toggleModal("HP")}>
+            <i className="fas fa-heart"></i>{" "}
+            <span className={textColorClass}>{currentHP}</span>{" "}
+            <i className="fas fa-angle-double-down HPACMore"></i>
+          </button>
+          <button className="HPACButton" onClick={() => toggleModal("Defense")}>
+            <i className="fas fa-shield-alt"></i> {currentAC + " "}
             <i className="fas fa-angle-double-down HPACMore"></i>
           </button>
         </div>

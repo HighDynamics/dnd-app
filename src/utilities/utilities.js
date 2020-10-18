@@ -2,7 +2,7 @@ export function clone(object) {
   return JSON.parse(JSON.stringify(object));
 }
 export function getAC(character) {
-  const ac = character.armorClass.ac;
+  const ac = character.armorClass;
   return (
     10 +
     ac.armor +
@@ -22,4 +22,11 @@ export function textClassToGreenOrRed(current, expected) {
   } else {
     return null;
   }
+}
+export function camelCaseToTitleCase(item) {
+  //add spaces between words
+  let string = item.replace(/[A-Z]/g, (x) => " " + x);
+  //capitalize first letter
+  string = string.charAt(0).toUpperCase() + string.slice(1);
+  return string;
 }
