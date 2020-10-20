@@ -4,3 +4,7 @@
   overflow: auto;
   z-index: 0;
 }
+.underNavbar {
+  margin-bottom: 0;
+  height: 2px;
+}

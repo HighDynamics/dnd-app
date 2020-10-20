@@ -13,31 +13,6 @@ import MainDisplay from "./MainDisplay/MainDisplay.js";
 
 import "./dnd.css";
 
-export function rollDice(size, mod, use) {
-  const roll = Math.floor(Math.random() * size + 1);
-  function edgeRollClassAssignment(roll) {
-    if (roll === 1 && size === 20) {
-      return "natOne";
-    } else if (roll === 20 && size === 20) {
-      return "natTwenty";
-    } else {
-      return null;
-    }
-  }
-  const result = (
-    <span>
-      <span id="rollUse">{use}</span>
-      <div id="rollTopLine">
-        <span id="rollTotal" className={edgeRollClassAssignment(roll)}>
-          {roll}
-        </span>{" "}
-        <span id="modTotal"> + {mod} =</span>
-      </div>
-      <p id="rollModTotal">{roll + mod}</p>
-    </span>
-  );
-  return result;
-}
 /******************************Character functions****************************/
 export function abilityModifier(character, ability) {
   const score = character.abilities.score[ability];

@@ -1,0 +1,13 @@
+.currentAC {
+  text-align: center;
+  margin: auto;
+  text-decoration: underline;
+}
+.armorClassItemsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+}

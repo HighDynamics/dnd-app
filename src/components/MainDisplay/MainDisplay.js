@@ -73,7 +73,7 @@ const MainDisplay = (props) => {
   }
   return (
     <div>
-      <hr />
+      <hr className="underNavbar" />
       <div id="infoSheet">{infoSheet(modalType)}</div>
       <div id="mainContent">{screenSwitch(mainContent)}</div>
     </div>

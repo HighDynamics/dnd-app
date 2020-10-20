@@ -16,6 +16,7 @@
   background: rgba(0, 0, 0, 0.5);
   border: none;
   color: white;
+  height: 22px;
   flex-basis: 49vw;
   font-size: 0.8rem;
   outline: 1px solid grey;

@@ -2,7 +2,8 @@ import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { characterState, diceRollState } from "../../../recoilState";
-import { abilityModifier, rollDice } from "../../dnd";
+import { abilityModifier } from "../../dnd";
+import { rollDice } from "../../../utilities/utilities";
 import "./AbilityScores.css";
 
 const AbilityScores = (props) => {
@@ -31,7 +32,7 @@ const AbilityScores = (props) => {
           className="rollAbility"
           onClick={() => setRollResult(rollDice(20, abilityMod, abilityString))}
         >
-          roll
+          <i className="fas fa-dice-d20"></i>
         </button>
         {abilityString}: {renderAbilityScore(abilityScore)} |{" "}
         {renderAbilityScore(abilityMod)}

@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { diceRollState, characterState } from "../../recoilState.js";
-import { rollDice } from "../dnd.js";
+import { rollDice } from "../../utilities/utilities";
 import "./Skills.css";
 
 const SkillsListItem = (props) => {

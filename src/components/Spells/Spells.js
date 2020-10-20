@@ -117,6 +117,7 @@ const SpellCodeBlock = (props) => {
     innateSpellsCast,
     preppedSpells,
     preppedSpellsCast,
+    getDifficultyClass,
   } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
@@ -128,7 +129,9 @@ const SpellCodeBlock = (props) => {
   return (
     <div className="spellItems">
       <div className="spellLevelWrapper">
-        <h2 className="spellLevelHeader">Level {levelRoman}</h2>
+        <h2 className="spellLevelHeader">
+          Level {levelRoman} (DC {getDifficultyClass(levelNum)})
+        </h2>
         <em className="remainingSpells">{remainingSpells} remaining today</em>
       </div>
       {preppedSpells[levelNum].length >= 1 ||
@@ -165,6 +168,10 @@ const Spells = (props) => {
     innateSpellsCast[0].length -
     preppedSpells[0].length -
     preppedSpellsCast[0].length;
+  function getDifficultyClass(levelNum) {
+    return 10 + levelNum + primaryModifier;
+  }
+
   return (
     <div>
       <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
@@ -175,7 +182,7 @@ const Spells = (props) => {
         <div className="spellItems">
           <div className="spellLevelWrapper">
             <h2 id="levelZeroHeader" className="spellLevelHeader">
-              <CasterType character={character} />
+              <CasterType character={character} /> (DC {getDifficultyClass(0)})
             </h2>
             <em className="remainingSpells">
               {remainingSpells} remaining today
@@ -208,6 +215,7 @@ const Spells = (props) => {
             innateSpellsCast={innateSpellsCast}
             preppedSpells={preppedSpells}
             preppedSpellsCast={preppedSpellsCast}
+            getDifficultyClass={getDifficultyClass}
           />
         ))}
       </div>
