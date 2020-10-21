@@ -28,7 +28,10 @@ export function rollDice(size, mod, use) {
   );
   return result;
 }
-
+export function getAbilityMod(character, ability) {
+  const score = character.abilities.score[ability];
+  return !score ? score : Math.floor((score - 10) / 2);
+}
 export function getAC(character) {
   const ac = character.armorClass;
   return (
