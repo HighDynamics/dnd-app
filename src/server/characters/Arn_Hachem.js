@@ -370,22 +370,37 @@ export default {
   },
   characterAbilities: {
     active: [
-      "Light_Ray",
-      "Paralyzing_Touch",
-      "Positive_Energy_Touch",
-      "Turn_Undead",
+      { name: "Light_Ray", type: "supernatural" },
+      { name: "Paralyzing_Touch", type: "supernatural" },
+      { name: "Positive_Energy_Touch", type: "supernatural" },
+      { name: "Turn_Undead", type: "supernatural" },
     ],
-    passive: ["Aura_Of_Menace"],
+    passive: [{ name: "Aura_Of_Menace", type: "supernatural" }],
   },
   magic: {
     slas: {
       zero: "",
-      one: ["Chill Touch", "Floating Disk"],
-      two: ["Command Undead", "Acid Arrow"],
-      three: ["Vampiric Touch", "Phantom Steed"],
-      four: ["Affliction", "Enervation"],
-      five: ["Mage's Faithful Hound", "Wall Of Force"],
-      six: ["Contingency"],
+      one: [
+        { name: "Chill Touch", uses: 4, frequency: "day" },
+        { name: "Floating Disk", uses: 4, frequency: "day" },
+      ],
+      two: [
+        { name: "Command Undead", uses: 4, frequency: "day" },
+        { name: "Acid Arrow", uses: 4, frequency: "day" },
+      ],
+      three: [
+        { name: "Vampiric Touch", uses: 2, frequency: "day" },
+        { name: "Phantom Steed", uses: 2, frequency: "day" },
+      ],
+      four: [
+        { name: "Affliction", uses: 2, frequency: "day" },
+        { name: "Enervation", uses: 2, frequency: "day" },
+      ],
+      five: [
+        { name: "Mage's Faithful Hound", uses: 2, frequency: "day" },
+        { name: "Wall Of Force", uses: 2, frequency: "day" },
+      ],
+      six: [{ name: "Contingency", uses: 1, frequency: "day" }],
       seven: "",
       eight: "",
       nine: "",
