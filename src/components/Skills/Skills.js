@@ -16,7 +16,6 @@ const SkillsListItem = (props) => {
   const skillPoints =
     skill[1] + getAbilityMod(character, character.skills[skill[0]].ability);
   // confirm class skill to add css class
-  console.log(character.skills[skill[0]].classSkill);
   function renderClassSkillsClassName(skill) {
     if (character.skills[skill].classSkill) {
       return "classSkills";
@@ -29,7 +28,9 @@ const SkillsListItem = (props) => {
       className={`skills ${renderClassSkillsClassName(skill[0])} ${skill[0]}`}
       onClick={() => setRollResult(rollDice(20, skillPoints, formattedSkill))}
     >
-      {formattedSkill} | <span className="skillPoints">{skillPoints}</span>
+      <i className="fas fa-dice-d20 skillDice" style={{ float: "left" }}></i>{" "}
+      {formattedSkill} | <span className="skillPoints">{skillPoints}</span>{" "}
+      <i className="fas fa-dice-d20 skillDice" style={{ float: "right" }}></i>
     </button>
   );
 };

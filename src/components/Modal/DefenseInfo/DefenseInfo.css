@@ -1,5 +1,6 @@
 .defenseHeading {
   margin: auto;
+  text-align: center;
 }
 .damageReduction,
 .spellResistance {
@@ -25,7 +26,9 @@
   text-align: center;
   font-size: 0.85rem;
   border: none;
-  outline: 1px solid grey;
+  background-color: rgba(57, 18, 70, 0.8);
+  color: white;
+  outline: 2px solid black;
 }
 .savesBreakdownContainer {
   display: flex;

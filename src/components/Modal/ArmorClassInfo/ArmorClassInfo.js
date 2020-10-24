@@ -21,7 +21,7 @@ const ArmorClassInfo = (props) => {
   ).map((item, i) => <ArmorClassItem key={i} value={item} />);
   return (
     <>
-      <h2 className="HPACHeading">Armor Class</h2>
+      <h2 className="ACHeading">Armor Class</h2>
       <div>
         <p className="currentAC">Total: {currentAC}</p>
         <ul className="armorClassItemsContainer">{armorClassItems}</ul>

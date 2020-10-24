@@ -18,7 +18,7 @@
   color: white;
   height: 22px;
   flex-basis: 49vw;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   outline: 1px solid grey;
   text-align: center;
   white-space: nowrap;
@@ -31,4 +31,7 @@
 }
 .classSkills {
   color: rgb(247, 205, 136);
+}
+.skillDice {
+  font-size: 0.5rem;
 }

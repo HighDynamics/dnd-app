@@ -1,6 +1,6 @@
 .abilityScoresHeader {
   margin: auto;
-  text-align: right;
+  text-align: center;
   font-size: 1.5rem;
 }
 .abilityScores {
@@ -12,8 +12,8 @@
 }
 .rollAbility {
   border: none;
-  background: none;
-  outline: 1px solid black;
+  background-color: rgba(57, 18, 70, 0.8);
+  color: white;
+  outline: 2px solid black;
   margin-right: 10px;
-  transform: translateY(-25%);
 }

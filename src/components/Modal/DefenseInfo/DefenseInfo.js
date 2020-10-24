@@ -101,7 +101,7 @@ const DefenseInfo = (props) => {
   }
   return (
     <>
-      <h2 className="HPACHeading defenseHeading">Defense</h2>
+      <h2 className="defenseHeading">Defense</h2>
       <div>
         <p className="damageReduction">
           <strong>Damage Reduction:</strong> {defense.damageReduction.amount} /

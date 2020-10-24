@@ -1,7 +1,10 @@
-.HPACHeading {
-  text-align: center;
-  margin: auto;
-  margin-top: 2rem;
+.confirmSpellButton {
+  border: none;
+  background-color: rgba(57, 18, 70, 0.8);
+  color: white;
+  outline: 2px solid black;
+  margin-top: 2px;
+  margin-left: 2px;
 }
 ul {
   margin: 0;

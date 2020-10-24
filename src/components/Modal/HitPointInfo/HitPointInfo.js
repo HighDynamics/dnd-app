@@ -43,7 +43,7 @@ const HitPointInfo = (props) => {
   }
   return (
     <div>
-      <h2 className="HPACHeading HPHeading">Hit Points</h2>
+      <h2 className="HPHeading">Hit Points</h2>
       <ul>
         <li className={"currentHP " + textColorClass}>Current: {currentHP}</li>
         <li>
@@ -55,8 +55,18 @@ const HitPointInfo = (props) => {
               value={damageInput}
               onChange={handleDamageChange}
             />
-            <button onClick={() => handleDamageSubmit("add")}>+</button>
-            <button onClick={() => handleDamageSubmit("subtract")}>-</button>
+            <button
+              className="plusMinusButton"
+              onClick={() => handleDamageSubmit("add")}
+            >
+              +
+            </button>
+            <button
+              className="plusMinusButton"
+              onClick={() => handleDamageSubmit("subtract")}
+            >
+              -
+            </button>
           </div>
         </li>
         <li>
@@ -68,8 +78,18 @@ const HitPointInfo = (props) => {
               value={tempHPInput}
               onChange={handleTempHPChange}
             />
-            <button onClick={() => handleTempHPSubmit("add")}>+</button>
-            <button onClick={() => handleTempHPSubmit("subtract")}>-</button>
+            <button
+              className="plusMinusButton"
+              onClick={() => handleTempHPSubmit("add")}
+            >
+              +
+            </button>
+            <button
+              className="plusMinusButton"
+              onClick={() => handleTempHPSubmit("subtract")}
+            >
+              -
+            </button>
           </div>
         </li>
       </ul>
