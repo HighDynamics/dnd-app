@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import Items from "../Items/Items.js";
 import SLAs from "../SLAs/SLAs.js";
 import { Modal } from "../Modal/Modal";
-import ActiveAbilities from "../ActiveAbilities/ActiveAbilities.js";
+import ActiveAndPassiveAbilities from "../ActiveAndPassiveAbilities/ActiveAndPassiveAbilities.js";
 import SpellInfo from "../SpellInfo/SpellInfo.js";
 import AbilityScores from "../Modal/AbilityScores/AbilityScores";
 import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
@@ -12,8 +12,11 @@ import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
 import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
 import PrepSpells from "../PrepSpells/PrepSpells.js";
 import Spells from "../Spells/Spells.js";
-import PassiveAbilities from "../PassiveAbilities/PassiveAbilities.js";
 import Skills from "../Skills/Skills.js";
+import Attacks from "../Attacks/Attacks";
+import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
+import SLAInfo from "../Modal/SLAInfo/SLAInfo";
+import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 
 import { mainContentState, modalTypeState } from "../../recoilState.js";
 
@@ -28,12 +31,12 @@ const MainDisplay = (props) => {
         return <Skills />;
       case "Scores":
         return <AbilityScores />;
-      case "Passive":
-        return <PassiveAbilities />;
+      case "Attacks":
+        return <Attacks />;
       case "Spells":
         return <Spells />;
       case "Abilities":
-        return <ActiveAbilities />;
+        return <ActiveAndPassiveAbilities />;
       case "SLAs":
         return <SLAs />;
       case "Prep":
@@ -63,6 +66,24 @@ const MainDisplay = (props) => {
           <Modal onClose={() => setModalType("Off")}>
             <ArmorClassInfo />
             <DefenseInfo />
+          </Modal>
+        );
+      case "Abilities":
+        return (
+          <Modal onClose={() => setModalType("Off")}>
+            <AbilityInfo />
+          </Modal>
+        );
+      case "SLA":
+        return (
+          <Modal onClose={() => setModalType("Off")}>
+            <SLAInfo />
+          </Modal>
+        );
+      case "Item":
+        return (
+          <Modal onClose={() => setModalType("Off")}>
+            <ItemInfo />
           </Modal>
         );
       case "Off":

@@ -1,17 +1,17 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { modalTypeState, characterState } from "../../recoilState.js";
 
 const ItemsHeld = (props) => {
-  const [modalType, setModalType] = useRecoilState(modalTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
   const item = props.value;
   const formattedItem = item.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + item;
   return (
     <button
       className={buttonAndSpellClass}
-      onClick={() => setModalType(!modalType)}
+      onClick={() => setModalType("Item")}
     >
       {formattedItem}
     </button>

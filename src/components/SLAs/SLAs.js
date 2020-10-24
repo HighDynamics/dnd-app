@@ -1,18 +1,15 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { modalTypeState, characterState } from "../../recoilState.js";
 
 const KnownSLAs = (props) => {
-  const [modalType, setModalType] = useRecoilState(modalTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
   const spell = props.value;
   const formattedSpell = spell.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + spell;
   return (
-    <button
-      className={buttonAndSpellClass}
-      onClick={() => setModalType(!modalType)}
-    >
+    <button className={buttonAndSpellClass} onClick={() => setModalType("SLA")}>
       {formattedSpell}
     </button>
   );
@@ -36,36 +33,40 @@ const SLAs = (props) => {
     return slas;
   }
   //condense SLA code block into function
-  function spellCodeBlock(level, levelNum, levelRoman) {
-    return (
-      <div className="spellItems">
-        <div className="spellLevelWrapper">
-          <h2 className="spellLevelHeader">Level {levelRoman}</h2>
+  function SLACodeBlock(level, levelNum, levelRoman) {
+    if (Array.isArray(character.magic.slas[level])) {
+      return (
+        <div className="spellItems">
+          <div className="spellLevelWrapper">
+            <h2 className="spellLevelHeader">Level {levelRoman}</h2>
+          </div>
+          <p className="spellList">{displaySLAs(level)}</p>
+          <hr />
         </div>
-        <p className="spellList">{displaySLAs(level)}</p>
-        <hr />
-      </div>
-    );
+      );
+    }
   }
   return (
     <div>
       <div className="spellContainer">
-        <div className="spellItems">
-          <div className="spellLevelWrapper">
-            <h2 className="spellLevelHeader">{casterType()}</h2>
+        {Array.isArray(character.magic.slas.zero) ? (
+          <div className="spellItems">
+            <div className="spellLevelWrapper">
+              <h2 className="spellLevelHeader">{casterType()}</h2>
+            </div>
+            <p className="spellList">{displaySLAs("zero")}</p>
+            <hr />
           </div>
-          <p className="spellList">{displaySLAs("zero")}</p>
-          <hr />
-        </div>
-        {spellCodeBlock("one", 1, "I")}
-        {spellCodeBlock("two", 2, "II")}
-        {spellCodeBlock("three", 3, "III")}
-        {spellCodeBlock("four", 4, "IV")}
-        {spellCodeBlock("five", 5, "V")}
-        {spellCodeBlock("six", 6, "VI")}
-        {spellCodeBlock("seven", 7, "VII")}
-        {spellCodeBlock("eight", 8, "VIII")}
-        {spellCodeBlock("nine", 9, "IX")}
+        ) : null}
+        {SLACodeBlock("one", 1, "I")}
+        {SLACodeBlock("two", 2, "II")}
+        {SLACodeBlock("three", 3, "III")}
+        {SLACodeBlock("four", 4, "IV")}
+        {SLACodeBlock("five", 5, "V")}
+        {SLACodeBlock("six", 6, "VI")}
+        {SLACodeBlock("seven", 7, "VII")}
+        {SLACodeBlock("eight", 8, "VIII")}
+        {SLACodeBlock("nine", 9, "IX")}
       </div>
     </div>
   );
