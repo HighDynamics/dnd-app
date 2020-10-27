@@ -2,25 +2,26 @@ import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { characterState, diceRollState } from "../../../recoilState";
-import { abilityModifier } from "../../dnd";
-import { rollDice } from "../../../utilities/utilities";
+import { roll20, getAbilityMod } from "../../../utilities/utilities";
 import "./AbilityScores.css";
 
 const AbilityScores = (props) => {
   const character = useRecoilValue(characterState);
-  const str = character.abilities.score.strength;
-  const dex = character.abilities.score.dexterity;
-  const con = character.abilities.score.constitution;
-  const int = character.abilities.score.intelligence;
-  const wis = character.abilities.score.wisdom;
-  const cha = character.abilities.score.charisma;
-  const strMod = abilityModifier(character, "strength");
-  const dexMod = abilityModifier(character, "dexterity");
-  const conMod = abilityModifier(character, "constitution");
-  const intMod = abilityModifier(character, "intelligence");
-  const wisMod = abilityModifier(character, "wisdom");
-  const chaMod = abilityModifier(character, "charisma");
   const setRollResult = useSetRecoilState(diceRollState);
+  const abilityScore = character.abilities.score;
+  const modifier = getAbilityMod(character);
+  const str = abilityScore.strength;
+  const dex = abilityScore.dexterity;
+  const con = abilityScore.constitution;
+  const int = abilityScore.intelligence;
+  const wis = abilityScore.wisdom;
+  const cha = abilityScore.charisma;
+  const strMod = modifier("strength");
+  const dexMod = modifier("dexterity");
+  const conMod = modifier("constitution");
+  const intMod = modifier("intelligence");
+  const wisMod = modifier("wisdom");
+  const chaMod = modifier("charisma");
   function renderAbilityScore(score) {
     return typeof score === "number" ? score : "--";
   }
@@ -30,7 +31,7 @@ const AbilityScores = (props) => {
         {/*button appears on same line*/}
         <button
           className="rollAbility"
-          onClick={() => setRollResult(rollDice(20, abilityMod, abilityString))}
+          onClick={() => setRollResult(roll20(abilityMod, abilityString))}
         >
           <i className="fas fa-dice-d20"></i>
         </button>

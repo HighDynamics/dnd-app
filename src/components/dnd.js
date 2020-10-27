@@ -7,6 +7,7 @@ import {
   characterState,
   compendiumState,
 } from "../recoilState.js";
+import { getAbilityMod } from "../utilities/utilities";
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
 import MainDisplay from "./MainDisplay/MainDisplay.js";
@@ -14,10 +15,6 @@ import MainDisplay from "./MainDisplay/MainDisplay.js";
 import "./dnd.css";
 
 /******************************Character functions****************************/
-export function abilityModifier(character, ability) {
-  const score = character.abilities.score[ability];
-  return !score ? score : Math.floor((score - 10) / 2);
-}
 export function totalSpells(character, primaryModifier, level, levelNum) {
   function bonusSpellsPerDay(levelNum) {
     return Math.ceil((primaryModifier - (levelNum - 1)) / 4);
@@ -60,6 +57,7 @@ const LoadApp = () => {
   const [primaryModifier, setPrimaryModifier] = useRecoilState(
     primaryModifierState
   );
+  const abilityMod = getAbilityMod(character);
 
   // Before the data is loaded, it will be `undefined`. So inside `useEffect`
   // hooks below, make sure the data exists.
@@ -85,12 +83,10 @@ const LoadApp = () => {
   useEffect(
     function setPrimaryModifierWhenCharacterChanges() {
       if (character) {
-        setPrimaryModifier(
-          abilityModifier(character, character.abilities.primary)
-        );
+        setPrimaryModifier(abilityMod(character.abilities.primary));
       }
     },
-    [character, setPrimaryModifier]
+    [character, setPrimaryModifier, abilityMod]
   );
 
   // Wait until all data has been flushed through Recoil and values exist.

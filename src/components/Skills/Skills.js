@@ -2,19 +2,19 @@ import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { diceRollState, characterState } from "../../recoilState.js";
-import { rollDice, getAbilityMod } from "../../utilities/utilities";
+import { roll20, getAbilityMod } from "../../utilities/utilities";
 import "./Skills.css";
 
 const SkillsListItem = (props) => {
   const { character, skill } = props;
+  const abilityMod = getAbilityMod(character);
   const setRollResult = useSetRecoilState(diceRollState);
   // replace underscore with space and store
   let formattedSkill = skill[0].replace(/_/g, " ");
   // update variable replacing (Know)ledge with :
   formattedSkill = formattedSkill.replace(/ledge/g, ":");
   // store skill points separately, add modifier
-  const skillPoints =
-    skill[1] + getAbilityMod(character, character.skills[skill[0]].ability);
+  const skillPoints = skill[1] + abilityMod(character.skills[skill[0]].ability);
   // confirm class skill to add css class
   function renderClassSkillsClassName(skill) {
     if (character.skills[skill].classSkill) {
@@ -26,7 +26,7 @@ const SkillsListItem = (props) => {
   return (
     <button
       className={`skills ${renderClassSkillsClassName(skill[0])} ${skill[0]}`}
-      onClick={() => setRollResult(rollDice(20, skillPoints, formattedSkill))}
+      onClick={() => setRollResult(roll20(skillPoints, formattedSkill))}
     >
       <i className="fas fa-dice-d20 skillDice" style={{ float: "left" }}></i>{" "}
       {formattedSkill} | <span className="skillPoints">{skillPoints}</span>{" "}

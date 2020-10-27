@@ -2,8 +2,11 @@ import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { characterState, diceRollState } from "../../../recoilState";
-import { camelCaseToTitleCase, rollDice } from "../../../utilities/utilities";
-import { abilityModifier } from "../../dnd";
+import {
+  camelCaseToTitleCase,
+  roll20,
+  getAbilityMod,
+} from "../../../utilities/utilities";
 import "./DefenseInfo.css";
 
 const EnergyResistanceItem = (props) => {
@@ -51,9 +54,10 @@ const DefenseInfo = (props) => {
   const character = useRecoilValue(characterState);
   const setRoll = useSetRecoilState(diceRollState);
   const defense = character.defense;
-  const conMod = abilityModifier(character, "constitution");
-  const dexMod = abilityModifier(character, "dexterity");
-  const wisMod = abilityModifier(character, "wisdom");
+  const getMod = getAbilityMod(character);
+  const conMod = getMod("constitution");
+  const dexMod = getMod("dexterity");
+  const wisMod = getMod("wisdom");
   const fortSave = getSavesTotalValue("fortitude");
   const refSave = getSavesTotalValue("reflex");
   const willSave = getSavesTotalValue("will");
@@ -115,7 +119,7 @@ const DefenseInfo = (props) => {
           <div className="fortitudeSaveContainer">
             <button
               className="fortitudeSaveButton"
-              onClick={() => setRoll(rollDice(20, fortSave, "Fortitude"))}
+              onClick={() => setRoll(roll20(fortSave, "Fortitude"))}
             >
               Fortitude: {fortSave} <i className="fas fa-dice-d20"></i>
             </button>
@@ -127,7 +131,7 @@ const DefenseInfo = (props) => {
           <div className="reflexSaveContainer">
             <button
               className="reflexSaveButton"
-              onClick={() => setRoll(rollDice(20, refSave, "Reflex"))}
+              onClick={() => setRoll(roll20(refSave, "Reflex"))}
             >
               Reflex: {refSave} <i className="fas fa-dice-d20"></i>
             </button>
@@ -139,7 +143,7 @@ const DefenseInfo = (props) => {
           <div className="willSaveContainer">
             <button
               className="willSaveButton"
-              onClick={() => setRoll(rollDice(20, willSave, "Will"))}
+              onClick={() => setRoll(roll20(willSave, "Will"))}
             >
               Will: {willSave} <i className="fas fa-dice-d20"></i>
             </button>
