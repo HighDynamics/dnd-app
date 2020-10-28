@@ -59,3 +59,7 @@ export const preppedSpellsCastState = atom({
   key: "preppedSpellsCastState",
   default: emptySpellsArray,
 });
+export const slaState = atom({
+  key: "slaState",
+  default: [],
+});

@@ -1,19 +1,61 @@
 import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { modalTypeState, characterState } from "../../recoilState.js";
+import {
+  modalTypeState,
+  characterState,
+  selectionState,
+} from "../../recoilState.js";
+
+const romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+const numStrings = [
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
 
 const KnownSLAs = (props) => {
   const setModalType = useSetRecoilState(modalTypeState);
-  const spell = props.value;
-  const formattedSpell = spell.replace(/_/g, " ");
-  const buttonAndSpellClass = "spellButtons " + spell;
+  const setSelection = useSetRecoilState(selectionState);
+  const { name, uses, frequency } = props;
+  const formattedName = name.replace(/_/g, " ");
+  const buttonAndSpellClass = "spellButtons " + name;
+  function displayInfo(modalDestination) {
+    setSelection(name);
+    setModalType(modalDestination);
+  }
   return (
-    <button className={buttonAndSpellClass} onClick={() => setModalType("SLA")}>
-      {formattedSpell}
+    <button className={buttonAndSpellClass} onClick={() => displayInfo("SLA")}>
+      {formattedName} {uses}/{frequency}
     </button>
   );
 };
+const SLACodeBlock = (props) => {
+  const { levelNum, character, displaySLAs } = props;
+  const levelRoman = romans[levelNum - 1];
+  const level = numStrings[levelNum - 1];
+
+  return (
+    <>
+      {Array.isArray(character.magic.slas[level]) ? (
+        <div className="spellItems">
+          <div className="spellLevelWrapper">
+            <h2 className="spellLevelHeader">Level {levelRoman}</h2>
+          </div>
+          <p className="spellList">{displaySLAs(level)}</p>
+          <hr />
+        </div>
+      ) : null}
+    </>
+  );
+};
+
 const SLAs = (props) => {
   const character = useRecoilValue(characterState);
   //cantrips or orisons? or both?
@@ -28,23 +70,14 @@ const SLAs = (props) => {
   }
   function displaySLAs(level) {
     const slas = Object.values(character.magic.slas[level]).map((s) => (
-      <KnownSLAs key={s} value={s} />
+      <KnownSLAs
+        key={s.name}
+        name={s.name}
+        uses={s.uses}
+        frequency={s.frequency}
+      />
     ));
     return slas;
-  }
-  //condense SLA code block into function
-  function SLACodeBlock(level, levelNum, levelRoman) {
-    if (Array.isArray(character.magic.slas[level])) {
-      return (
-        <div className="spellItems">
-          <div className="spellLevelWrapper">
-            <h2 className="spellLevelHeader">Level {levelRoman}</h2>
-          </div>
-          <p className="spellList">{displaySLAs(level)}</p>
-          <hr />
-        </div>
-      );
-    }
   }
   return (
     <div>
@@ -58,15 +91,14 @@ const SLAs = (props) => {
             <hr />
           </div>
         ) : null}
-        {SLACodeBlock("one", 1, "I")}
-        {SLACodeBlock("two", 2, "II")}
-        {SLACodeBlock("three", 3, "III")}
-        {SLACodeBlock("four", 4, "IV")}
-        {SLACodeBlock("five", 5, "V")}
-        {SLACodeBlock("six", 6, "VI")}
-        {SLACodeBlock("seven", 7, "VII")}
-        {SLACodeBlock("eight", 8, "VIII")}
-        {SLACodeBlock("nine", 9, "IX")}
+        {romans.map((_, i) => (
+          <SLACodeBlock
+            key={i + 1}
+            levelNum={i + 1}
+            character={character}
+            displaySLAs={displaySLAs}
+          />
+        ))}
       </div>
     </div>
   );
