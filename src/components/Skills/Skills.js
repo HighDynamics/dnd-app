@@ -1,5 +1,6 @@
 import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
+import { mutate } from "swr";
 
 import { diceRollState, characterState } from "../../recoilState.js";
 import { roll20, getAbilityMod } from "../../utilities/utilities";
@@ -23,10 +24,23 @@ const SkillsListItem = (props) => {
       return "";
     }
   }
+
+  const handleClick = () => {
+    if (formattedSkill === "Intimidate") {
+      // Give character intimidating name
+      fetch("/api/characters/1", {
+        method: "PATCH",
+        body: JSON.stringify({ name: "Arn Hatchet" }),
+      }).then(() => {
+        mutate("/api/characters");
+      });
+    }
+    setRollResult(roll20(skillPoints, formattedSkill));
+  };
   return (
     <button
       className={`skills ${renderClassSkillsClassName(skill[0])} ${skill[0]}`}
-      onClick={() => setRollResult(roll20(skillPoints, formattedSkill))}
+      onClick={handleClick}
     >
       <i className="fas fa-dice-d20 skillDice" style={{ float: "left" }}></i>{" "}
       {formattedSkill} | <span className="skillPoints">{skillPoints}</span>{" "}

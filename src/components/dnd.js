@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import useSWR from "swr";
+import React, { useEffect, useState } from "react";
+import useSWR, { mutate } from "swr";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -51,6 +51,9 @@ const LoadApp = () => {
   // Load data from the characters server endpoint
   const { data: charactersResponse } = useSWR("/api/characters");
   const { data: spellsResponse } = useSWR("/api/spells");
+  const { data: itemsResponse } = useSWR("/api/items");
+
+  const [hasGreateAxe, setHasGreatAxe] = useState(false);
 
   const [character, setCharacter] = useRecoilState(characterState);
   const [compendium, setCompendium] = useRecoilState(compendiumState);
@@ -72,6 +75,30 @@ const LoadApp = () => {
   );
 
   useEffect(
+    function supplyGreatAxe() {
+      if (itemsResponse) {
+        const ga = { name: "Great Axe", level: 3 };
+        if (itemsResponse.items.some((item) => item.name === "Great Axe")) {
+          setHasGreatAxe(true);
+        } else {
+          fetch("api/items/new", {
+            method: "POST",
+            body: JSON.stringify(ga),
+          }).then(() =>
+            mutate("/api/items", {
+              ...itemsResponse,
+              items: [...itemsResponse.items, ga],
+            })
+          );
+        }
+      }
+    },
+    [itemsResponse]
+  );
+
+  useEffect(function refetchData() {});
+
+  useEffect(
     function setCompendiumFromServerSpells() {
       if (spellsResponse) {
         setCompendium({ spells: spellsResponse.spells });
@@ -90,7 +117,10 @@ const LoadApp = () => {
   );
 
   // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && compendium && primaryModifier)) return <>Loading...</>;
+  if (!(character && compendium && primaryModifier && hasGreateAxe))
+    return <>Loading...</>;
+
+  console.log(itemsResponse);
 
   return <App />;
 };
