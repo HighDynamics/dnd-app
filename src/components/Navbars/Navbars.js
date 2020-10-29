@@ -37,6 +37,7 @@ const StatsSelector = () => {
       <ul id="statsSelector" className="navbarContainer">
         <NavButtonCodeBlock name={"Skills"} />
         <NavButtonCodeBlock name={"Attacks"} />
+        <NavButtonCodeBlock name={"More"} />
       </ul>
     </div>
   );

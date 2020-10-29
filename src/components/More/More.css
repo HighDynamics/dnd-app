@@ -1,0 +1,19 @@
+.editHeading {
+  text-align: center;
+  margin: auto;
+  margin-top: 2%;
+}
+.buttonList {
+  display: flex;
+  flex-wrap: wrap;
+}
+.moreButton {
+  background: rgba(50, 50, 50, 0.9);
+  border-radius: 20%;
+  color: white;
+  margin-top: 2%;
+  border: none;
+  height: 25px;
+  font-size: 17px;
+  width: 50vw;
+}

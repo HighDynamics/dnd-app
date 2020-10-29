@@ -14,6 +14,14 @@ import PrepSpells from "../PrepSpells/PrepSpells.js";
 import Spells from "../Spells/Spells.js";
 import Skills from "../Skills/Skills.js";
 import Attacks from "../Attacks/Attacks";
+import More from "../More/More";
+import EditSkills from "../Edit/EditSkills/EditSkills";
+import EditAbilities from "../Edit/EditAbilities/EditAbilities";
+import EditMagic from "../Edit/EditMagic/EditMagic";
+import EditAttacks from "../Edit/EditAttacks/EditAttacks";
+import EditItems from "../Edit/EditItems/EditItems";
+import EditCharacter from "../Edit/EditCharacter/EditCharacter";
+import AddCharacter from "../AddCharacter/AddCharacter";
 import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
 import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
@@ -33,6 +41,8 @@ const MainDisplay = (props) => {
         return <AbilityScores />;
       case "Attacks":
         return <Attacks />;
+      case "More":
+        return <More />;
       case "Spells":
         return <Spells />;
       case "Abilities":
@@ -43,6 +53,20 @@ const MainDisplay = (props) => {
         return <PrepSpells />;
       case "Items":
         return <Items />;
+      case "EditSkills":
+        return <EditSkills />;
+      case "EditAbilities":
+        return <EditAbilities />;
+      case "EditMagic":
+        return <EditMagic />;
+      case "EditAttacks":
+        return <EditAttacks />;
+      case "EditItems":
+        return <EditItems />;
+      case "EditCharacter":
+        return <EditCharacter />;
+      case "AddCharacter":
+        return <AddCharacter />;
       default:
         return <Skills />;
     }
