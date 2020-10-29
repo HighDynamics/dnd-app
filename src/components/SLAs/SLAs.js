@@ -5,6 +5,7 @@ import {
   modalTypeState,
   characterState,
   selectionState,
+  slaState,
 } from "../../recoilState.js";
 
 const romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
@@ -23,6 +24,7 @@ const numStrings = [
 const KnownSLAs = (props) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
+  const usedSLAs = useRecoilValue(slaState);
   const { name, uses, frequency } = props;
   const formattedName = name.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + name;
@@ -30,9 +32,23 @@ const KnownSLAs = (props) => {
     setSelection(name);
     setModalType(modalDestination);
   }
+  function checkForMatch(name) {
+    return usedSLAs.findIndex((item) => {
+      return item.name === name;
+    });
+  }
+  function displayUsesLeft() {
+    let indexOfMatch = checkForMatch(formattedName);
+    if (indexOfMatch >= 0) {
+      const timesUsed = usedSLAs[indexOfMatch].uses;
+      return uses - timesUsed;
+    } else {
+      return uses;
+    }
+  }
   return (
     <button className={buttonAndSpellClass} onClick={() => displayInfo("SLA")}>
-      {formattedName} {uses}/{frequency}
+      {formattedName} {displayUsesLeft()}/{frequency}
     </button>
   );
 };
