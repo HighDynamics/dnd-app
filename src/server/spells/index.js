@@ -208,4 +208,20 @@ export default [
       "Prestidigitations are minor tricks that novice spellcasters use for practice.\nOnce cast, a prestidigitation spell enables you to perform simple magical effects for 1 hour.\nThe effects are minor and have severe limitations.\nA prestidigitation can slowly lift 1 pound of material.\nIt can color, clean, or soil items in a 1-foot cube each round.\nIt can chill, warm, or flavor 1 pound of nonliving material.\nIt cannot deal damage or affect the concentration of spellcasters.\nPrestidigitation can create small objects, but they look crude and artificial.\nThe materials created by a prestidigitation spell are extremely fragile, and they cannot be used as tools, weapons, or spell components.\nFinally, a prestidigitation lacks the power to duplicate any other spell effects.\nAny actual change to an object (beyond just moving, cleaning, or soiling it) persists only 1 hour.\nCharacters typically use prestidigitation spells to impress common folk, amuse children, and brighten dreary lives.\nCommon tricks with prestidigitations include producing tinklings of ethereal music, brightening faded flowers, creating glowing balls that float over your hand, generating puffs of wind to flicker candles, spicing up aromas and flavors of bland food, and making little whirlwinds to sweep dust under rugs.",
     source: "Player's Handbook",
   },
+  //Chill touch
+  {
+    name: "Chill Touch",
+    type: "Necromancy",
+    level: "Sor/Wiz 1",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature or creatures touched (up to one/level)",
+    duration: "Instantaneous",
+    savingThrow: "Fortitude partial or Will negates; see text",
+    spellResistance: "Yes",
+    description:
+      "A touch from your hand, which glows with blue energy, disrupts the life force of living creatures. Each touch channels negative energy that deals 1d6 points of damage. The touched creature also takes 1 point of Strength damage unless it makes a successful Fortitude saving throw. You can use this melee touch attack up to one time per level.\n\nAn undead creature you touch takes no damage of either sort, but it must make a successful Will saving throw or flee as if panicked for 1d4 rounds +1 round per caster level.",
+    source: "SRD",
+  },
 ];
