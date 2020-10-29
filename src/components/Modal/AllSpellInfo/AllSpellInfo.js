@@ -1,14 +1,14 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
+import { compendiumState } from "../../../recoilState";
+import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 
 export const CastingSpell = (props) => {
-  const {
-    selection,
-    matchedSpell,
-    addUsedSpell,
-    displayCompendiumInfo,
-  } = props;
+  const compendium = useRecoilValue(compendiumState);
+  const { selection, addUsedSpell } = props;
+  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
   return (
     <>
       <button
@@ -25,12 +25,10 @@ export const CastingSpell = (props) => {
   );
 };
 export const PreppingSpell = (props) => {
-  const {
-    selection,
-    matchedSpell,
-    addUsedSpell,
-    displayCompendiumInfo,
-  } = props;
+  const compendium = useRecoilValue(compendiumState);
+  const { selection, addUsedSpell } = props;
+  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
+
   return (
     <>
       <button
@@ -47,13 +45,10 @@ export const PreppingSpell = (props) => {
   );
 };
 export const CastingPreppedSpell = (props) => {
-  const {
-    selection,
-    matchedSpell,
-    addUsedSpell,
-    removeUsedSpell,
-    displayCompendiumInfo,
-  } = props;
+  const compendium = useRecoilValue(compendiumState);
+  const { selection, addUsedSpell, removeUsedSpell } = props;
+  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
+
   function disableSpell(selection) {
     addUsedSpell(selection, "PreppedCast");
     removeUsedSpell(selection, "prep");
@@ -81,13 +76,10 @@ export const CastingPreppedSpell = (props) => {
   );
 };
 export const UsedPreppedSpell = (props) => {
-  const {
-    selection,
-    matchedSpell,
-    addUsedSpell,
-    removeUsedSpell,
-    displayCompendiumInfo,
-  } = props;
+  const compendium = useRecoilValue(compendiumState);
+  const { selection, addUsedSpell, removeUsedSpell } = props;
+  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
+
   function disableSpell(selection) {
     addUsedSpell(selection, "preppedCast");
     removeUsedSpell(selection, "prep");

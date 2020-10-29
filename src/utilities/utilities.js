@@ -1,4 +1,5 @@
 import React from "react";
+import { CompendiumSpell } from "../components/SpellInfo/SpellInfo";
 
 function rollDice(size) {
   return (mod, use) => {
@@ -67,6 +68,15 @@ function camelCaseToTitleCase(item) {
   string = string.charAt(0).toUpperCase() + string.slice(1);
   return string;
 }
+function displayCompendiumInfo(matchedSpell) {
+  const spellKeys = Object.keys(matchedSpell);
+  const compendiumInfo = spellKeys.map((key) => {
+    return (
+      <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
+    );
+  });
+  return compendiumInfo;
+}
 
 export {
   textClassToGreenOrRed,
@@ -75,4 +85,5 @@ export {
   roll20,
   getAbilityMod,
   clone,
+  displayCompendiumInfo,
 };

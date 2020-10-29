@@ -8,7 +8,6 @@ import {
   innateSpellsCastState,
   preppedSpellsCastState,
   characterState,
-  compendiumState,
 } from "../../recoilState.js";
 import { clone } from "../../utilities/utilities.js";
 import { Modal } from "../Modal/Modal";
@@ -20,7 +19,7 @@ import {
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
 
-const CompendiumSpell = (props) => {
+export const CompendiumSpell = (props) => {
   const property = props.property;
   const value = props.value;
   function formatProperty(input) {
@@ -38,16 +37,19 @@ const CompendiumSpell = (props) => {
   const formattedValue = value.replace(/_/g, " ");
 
   return (
-    <div className="infoSheetContent" id={property}>
-      <span className="property">{formatProperty(property + ":")} </span>
-      <span className="value">{formattedValue}</span>
-    </div>
+    <>
+      {property !== "id" && (
+        <div className="infoSheetContent" id={property}>
+          <span className="property">{formatProperty(property + ":")} </span>
+          <span className="value">{formattedValue}</span>
+        </div>
+      )}
+    </>
   );
 };
 
 const SpellInfo = (props) => {
   //bring in react/recoil context
-  const compendium = useRecoilValue(compendiumState);
   const character = useRecoilValue(characterState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const selection = useRecoilValue(selectionState);
@@ -76,16 +78,6 @@ const SpellInfo = (props) => {
       });
     }
     return foundLevel;
-  }
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-  function displayCompendiumInfo(spellObject) {
-    const spellKeys = Object.keys(spellObject);
-    const compendiumInfo = spellKeys.map((key) => {
-      return (
-        <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
-      );
-    });
-    return compendiumInfo;
   }
   const lvlConversion = {
     zero: 0,
@@ -156,8 +148,6 @@ const SpellInfo = (props) => {
             selection={selection}
             addUsedSpell={addUsedSpell}
             removeUsedSpell={removeUsedSpell}
-            displayCompendiumInfo={displayCompendiumInfo}
-            matchedSpell={matchedSpell}
           />
         );
       case "Cast":
@@ -166,8 +156,6 @@ const SpellInfo = (props) => {
             selection={selection}
             addUsedSpell={addUsedSpell}
             removeUsedSpell={removeUsedSpell}
-            displayCompendiumInfo={displayCompendiumInfo}
-            matchedSpell={matchedSpell}
           />
         );
       case "CastPrepped":
@@ -176,8 +164,6 @@ const SpellInfo = (props) => {
             selection={selection}
             addUsedSpell={addUsedSpell}
             removeUsedSpell={removeUsedSpell}
-            displayCompendiumInfo={displayCompendiumInfo}
-            matchedSpell={matchedSpell}
           />
         );
       case "UsedPrepped":
@@ -186,8 +172,6 @@ const SpellInfo = (props) => {
             selection={selection}
             addUsedSpell={addUsedSpell}
             removeUsedSpell={removeUsedSpell}
-            displayCompendiumInfo={displayCompendiumInfo}
-            matchedSpell={matchedSpell}
           />
         );
       default:
