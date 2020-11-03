@@ -370,12 +370,12 @@ export default {
   },
   characterAbilities: {
     active: [
-      { name: "Light_Ray", type: "supernatural" },
-      { name: "Paralyzing_Touch", type: "supernatural" },
-      { name: "Positive_Energy_Touch", type: "supernatural" },
-      { name: "Turn_Undead", type: "supernatural" },
+      { name: "Light Ray", type: "supernatural" },
+      { name: "Paralyzing Touch", type: "supernatural" },
+      { name: "Positive Energy Touch", type: "supernatural" },
+      { name: "Turn Undead", type: "supernatural" },
     ],
-    passive: [{ name: "Aura_Of_Menace", type: "supernatural" }],
+    passive: [{ name: "Aura Of Menace", type: "supernatural" }],
   },
   magic: {
     slas: {

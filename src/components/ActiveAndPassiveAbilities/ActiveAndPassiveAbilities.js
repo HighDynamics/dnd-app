@@ -15,79 +15,50 @@ function formatType(type) {
   }
 }
 
-const KnownActiveAbilities = (props) => {
-  const setModalType = useSetRecoilState(modalTypeState);
-  const { ability, type } = props;
-  const formattedAbility = ability.replace(/_/g, " ");
-  const buttonAndSpellClass = "spellButtons " + ability;
-  return (
-    <button
-      className={buttonAndSpellClass}
-      onClick={() => setModalType("Abilities")}
-    >
-      {formattedAbility}
-      {formatType(type)}
-    </button>
-  );
-};
-const ActiveAbilities = (props) => {
-  const character = useRecoilValue(characterState);
-  function displayAbilities() {
-    const abilities = character.characterAbilities.active.map((a) => (
-      <KnownActiveAbilities key={a.name} ability={a.name} type={a.type} />
-    ));
+const nameToClassName = (name) => name.replace(/ /g, "_");
 
-    return abilities;
-  }
-  return (
-    <div className="spellContainer">
-      <div className="spellItems">
-        <p className="spellList">{displayAbilities()}</p>
-      </div>
-    </div>
-  );
-};
-const KnownPassiveAbilities = (props) => {
+const KnownAbility = (props) => {
   const setModalType = useSetRecoilState(modalTypeState);
-  const { ability, type } = props;
-  const formattedAbility = ability.replace(/_/g, " ");
-  const buttonAndSpellClass = "spellButtons " + ability;
+  const { name, type } = props;
+  const buttonAndSpellClass = "spellButtons " + nameToClassName(name);
   return (
     <button
       className={buttonAndSpellClass}
       onClick={() => setModalType("Abilities")}
     >
-      {formattedAbility}
-      {formatType(type)}
+      {name} {formatType(type)}
     </button>
   );
 };
-const PassiveAbilities = (props) => {
+
+/**
+ * @param {object} props
+ * @param {"passive"|"active"} props.type
+ */
+const Abilities = (props) => {
   const character = useRecoilValue(characterState);
-  function displayAbilities() {
-    const abilities = Object.values(
-      character.characterAbilities.passive
-    ).map((a) => (
-      <KnownPassiveAbilities key={a.name} ability={a.name} type={a.type} />
-    ));
-    return abilities;
-  }
+  const abilities = character.characterAbilities[props.type].map((a) => (
+    <KnownAbility key={a.name} name={a.name} type={a.type} />
+  ));
   return (
     <div className="spellContainer">
       <div className="spellItems">
-        <p className="spellList">{displayAbilities()}</p>
+        <p className="spellList">{abilities}</p>
       </div>
     </div>
   );
 };
-const ActiveAndPassiveAbilities = (props) => {
+
+const ActiveAndPassiveAbilities = () => {
   return (
     <>
       <h2 className="abilityHeader">Passive Abilities</h2>
-      <PassiveAbilities />
+      <Abilities type="passive" />
+
       <h2 className="abilityHeader">ActiveAbilities</h2>
-      <ActiveAbilities />
+      <Abilities type="active" />
     </>
   );
 };
+
 export default ActiveAndPassiveAbilities;
