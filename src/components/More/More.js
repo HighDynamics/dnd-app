@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { mainContentState } from "../../recoilState";
@@ -7,6 +7,7 @@ import "./More.css";
 
 const More = (props) => {
   const setMainContent = useSetRecoilState(mainContentState);
+  const [magicToggle, setMagicToggle] = useState(false);
   return (
     <>
       <h2 className="editHeading">Edit</h2>
@@ -25,10 +26,26 @@ const More = (props) => {
         </button>
         <button
           className="moreButton"
-          onClick={() => setMainContent("EditMagic")}
+          onClick={() => setMagicToggle(!magicToggle)}
         >
           Magic
         </button>
+        {magicToggle && (
+          <div className="subButtonContainer">
+            <button
+              className="subButton"
+              onClick={() => setMainContent("EditSpells")}
+            >
+              Spells
+            </button>
+            <button
+              className="subButton"
+              onClick={() => setMainContent("EditSLAs")}
+            >
+              SLAs
+            </button>
+          </div>
+        )}
         <button
           className="moreButton"
           onClick={() => setMainContent("EditAttacks")}

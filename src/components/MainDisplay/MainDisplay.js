@@ -17,7 +17,8 @@ import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
 import EditSkills from "../Edit/EditSkills/EditSkills";
 import EditAbilities from "../Edit/EditAbilities/EditAbilities";
-import EditMagic from "../Edit/EditMagic/EditMagic";
+import EditSpells from "../Edit/EditSpells/EditSpells";
+import EditSLAs from "../Edit/EditSLAs/EditSLAs";
 import EditAttacks from "../Edit/EditAttacks/EditAttacks";
 import EditItems from "../Edit/EditItems/EditItems";
 import EditCharacter from "../Edit/EditCharacter/EditCharacter";
@@ -57,8 +58,10 @@ const MainDisplay = (props) => {
         return <EditSkills />;
       case "EditAbilities":
         return <EditAbilities />;
-      case "EditMagic":
-        return <EditMagic />;
+      case "EditSpells":
+        return <EditSpells />;
+      case "EditSLAs":
+        return <EditSLAs />;
       case "EditAttacks":
         return <EditAttacks />;
       case "EditItems":
