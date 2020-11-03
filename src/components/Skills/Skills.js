@@ -9,23 +9,23 @@ const SkillsListItem = (props) => {
   const { character, skill } = props;
   const abilityMod = getAbilityMod(character);
   const setRollResult = useSetRecoilState(diceRollState);
-  // replace underscore with space and store
-  let formattedSkill = skill[0].replace(/_/g, " ");
+
   // update variable replacing (Know)ledge with :
-  formattedSkill = formattedSkill.replace(/ledge/g, ":");
+  let formattedSkill = skill.name.replace(/ledge/g, ":");
+
   // store skill points separately, add modifier
-  const skillPoints = skill[1] + abilityMod(character.skills[skill[0]].ability);
+  const skillPoints =
+    skill.ranks + skill.miscModifier + abilityMod(skill.ability);
+
   // confirm class skill to add css class
-  function renderClassSkillsClassName(skill) {
-    if (character.skills[skill].classSkill) {
-      return "classSkills";
-    } else {
-      return "";
-    }
+  function renderClassSkillsClassNames(skill) {
+    return (
+      skill.name.replace(/ /g, "_") + (skill.classSkill ? " classSkills" : "")
+    );
   }
   return (
     <button
-      className={`skills ${renderClassSkillsClassName(skill[0])} ${skill[0]}`}
+      className={`skills ${renderClassSkillsClassNames(skill)}`}
       onClick={() => setRollResult(roll20(skillPoints, formattedSkill))}
     >
       <i className="fas fa-dice-d20 skillDice" style={{ float: "left" }}></i>{" "}
@@ -34,24 +34,13 @@ const SkillsListItem = (props) => {
     </button>
   );
 };
-const Skills = (props) => {
+
+const Skills = () => {
   const character = useRecoilValue(characterState);
-  //store character's skills in [key, value] array
-  let skillArray = Object.keys(character.skills)
-    .filter((skill) => {
-      return character.skills[skill].display;
-    })
-    .map((skill) => {
-      const skillKeyValue = [
-        skill,
-        character.skills[skill].ranks + character.skills[skill].miscModifier,
-      ];
-      return skillKeyValue;
-    });
   // pass skills to child component
-  const skillsBlock = skillArray.map((s) => (
-    <SkillsListItem key={s} skill={s} character={character} />
-  ));
+  const skillsBlock = character.skills
+    .filter((skill) => skill.display)
+    .map((s) => <SkillsListItem key={s} skill={s} character={character} />);
   return (
     <>
       <h1 id="skillsHeader">Skills</h1>

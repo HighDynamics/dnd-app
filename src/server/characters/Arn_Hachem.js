@@ -70,8 +70,9 @@ export default {
     "Master Of Masks(5)",
     "Voidcaller(1)",
   ],
-  skills: {
-    Appraise: {
+  skills: [
+    {
+      name: "Appraise",
       ability: "intelligence",
       ranks: 0,
       miscModifier: 4,
@@ -79,7 +80,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Balance: {
+    {
+      name: "Balance",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 0,
@@ -87,7 +89,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Bluff: {
+    {
+      name: "Bluff",
       ability: "charisma",
       ranks: 24,
       miscModifier: 13,
@@ -95,7 +98,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Climb: {
+    {
+      name: "Climb",
       ability: "strength",
       ranks: 0,
       miscModifier: 0,
@@ -103,7 +107,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Concentration: {
+    {
+      name: "Concentration",
       ability: "charisma",
       ranks: 15,
       miscModifier: 0,
@@ -111,7 +116,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Craft_Tailor: {
+    {
+      name: "Craft Tailor",
       ability: "intelligence",
       ranks: 17,
       miscModifier: 0,
@@ -119,7 +125,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Decipher_Script: {
+    {
+      name: "Decipher Script",
       ability: "intelligence",
       ranks: 13,
       miscModifier: 0,
@@ -127,7 +134,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Diplomacy: {
+    {
+      name: "Diplomacy",
       ability: "charisma",
       ranks: 10,
       miscModifier: 12,
@@ -135,7 +143,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Disable_Device: {
+    {
+      name: "Disable Device",
       ability: "intelligence",
       ranks: 0,
       miscModifier: 0,
@@ -143,7 +152,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Diguise: {
+    {
+      name: "Diguise",
       ability: "charisma",
       ranks: 24,
       miscModifier: 9,
@@ -151,7 +161,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Escape_Artist: {
+    {
+      name: "Escape Artist",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 0,
@@ -159,7 +170,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Forgery: {
+    {
+      name: "Forgery",
       ability: "intelligence",
       ranks: 0,
       miscModifier: 0,
@@ -167,7 +179,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Gather_Information: {
+    {
+      name: "Gather Information",
       ability: "charisma",
       ranks: 0,
       miscModifier: 0,
@@ -175,7 +188,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Heal: {
+    {
+      name: "Heal",
       ability: "wisdom",
       ranks: 20,
       miscModifier: 0,
@@ -183,7 +197,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Hide: {
+    {
+      name: "Hide",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 13,
@@ -191,7 +206,8 @@ export default {
       armorCheck: true,
       display: false,
     },
-    Intimidate: {
+    {
+      name: "Intimidate",
       ability: "charisma",
       ranks: 1,
       miscModifier: 12,
@@ -199,7 +215,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Jump: {
+    {
+      name: "Jump",
       ability: "strength",
       ranks: 0,
       miscModifier: 0,
@@ -207,7 +224,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Knowledge_Arcana: {
+    {
+      name: "Knowledge Arcana",
       ability: "intelligence",
       ranks: 20,
       miscModifier: 0,
@@ -215,7 +233,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Knowledge_Dungeoneering: {
+    {
+      name: "Knowledge Dungeoneering",
       ability: "intelligence",
       ranks: 8,
       miscModifier: 0,
@@ -223,7 +242,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Knowledge_Religion: {
+    {
+      name: "Knowledge Religion",
       ability: "intelligence",
       ranks: 10,
       miscModifier: 0,
@@ -231,7 +251,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Knowledge_Planes: {
+    {
+      name: "Knowledge Planes",
       ability: "intelligence",
       ranks: 23,
       miscModifier: 0,
@@ -239,7 +260,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Knowledge_History: {
+    {
+      name: "Knowledge History",
       ability: "intelligence",
       ranks: 0,
       miscModifier: 0,
@@ -247,7 +269,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Listen: {
+    {
+      name: "Listen",
       ability: "wisdom",
       ranks: 0,
       miscModifier: 0,
@@ -255,7 +278,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Move_Silently: {
+    {
+      name: "Move Silently",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 0,
@@ -263,7 +287,8 @@ export default {
       armorCheck: true,
       display: false,
     },
-    Perception: {
+    {
+      name: "Perception",
       ability: "wisdom",
       ranks: 9,
       miscModifier: 16,
@@ -271,7 +296,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Perform_Acting: {
+    {
+      name: "Perform Acting",
       ability: "charisma",
       ranks: 20,
       miscModifier: 0,
@@ -279,7 +305,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Perform_Dancing: {
+    {
+      name: "Perform Dancing",
       ability: "charisma",
       ranks: 1,
       miscModifier: 0,
@@ -287,7 +314,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Ride: {
+    {
+      name: "Ride",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 0,
@@ -295,7 +323,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Search: {
+    {
+      name: "Search",
       ability: "intelligence",
       ranks: 0,
       miscModifier: 0,
@@ -303,7 +332,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    SenseMotive: {
+    {
+      name: "Sense Motive",
       ability: "wisdom",
       ranks: 6,
       miscModifier: 18,
@@ -311,7 +341,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Spellcraft: {
+    {
+      name: "Spellcraft",
       ability: "intelligence",
       ranks: 20,
       miscModifier: 2,
@@ -319,7 +350,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Spot: {
+    {
+      name: "Spot",
       ability: "wisdom",
       ranks: 0,
       miscModifier: 0,
@@ -327,7 +359,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Stealth: {
+    {
+      name: "Stealth",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 23,
@@ -335,7 +368,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Survival: {
+    {
+      name: "Survival",
       ability: "wisdom",
       ranks: 0,
       miscModifier: 0,
@@ -343,7 +377,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Swim: {
+    {
+      name: "Swim",
       ability: "strength",
       ranks: 0,
       miscModifier: 8,
@@ -351,7 +386,8 @@ export default {
       armorCheck: true,
       display: true,
     },
-    Use_Magic_Device: {
+    {
+      name: "Use Magic Device",
       ability: "charisma",
       ranks: 0,
       miscModifier: 2,
@@ -359,7 +395,8 @@ export default {
       armorCheck: false,
       display: true,
     },
-    Use_Rope: {
+    {
+      name: "Use Rope",
       ability: "dexterity",
       ranks: 0,
       miscModifier: 0,
@@ -367,7 +404,7 @@ export default {
       armorCheck: false,
       display: true,
     },
-  },
+  ],
   characterAbilities: {
     active: [
       { name: "Light Ray", type: "supernatural" },
