@@ -2,7 +2,11 @@ import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { diceRollState, characterState } from "../../recoilState.js";
-import { roll20, getAbilityMod } from "../../utilities/utilities";
+import {
+  roll20,
+  getAbilityMod,
+  sortObjectByProperty,
+} from "../../utilities/utilities";
 import "./Skills.css";
 
 const SkillsListItem = (props) => {
@@ -40,7 +44,9 @@ const Skills = () => {
   // pass skills to child component
   const skillsBlock = character.skills
     .filter((skill) => skill.display)
-    .map((s) => <SkillsListItem key={s} skill={s} character={character} />);
+    .map((s) => (
+      <SkillsListItem key={s.name} skill={s} character={character} />
+    ));
   return (
     <>
       <h1 id="skillsHeader">Skills</h1>

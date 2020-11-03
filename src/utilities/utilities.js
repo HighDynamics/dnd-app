@@ -33,6 +33,15 @@ function clone(object) {
   return JSON.parse(JSON.stringify(object));
 }
 const roll20 = rollDice(20);
+function displayCompendiumInfo(matchedSpell) {
+  const spellKeys = Object.keys(matchedSpell);
+  const compendiumInfo = spellKeys.map((key) => {
+    return (
+      <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
+    );
+  });
+  return compendiumInfo;
+}
 function getAbilityMod(character) {
   return (ability) => {
     const score = character.abilities.score[ability];
@@ -68,16 +77,12 @@ function camelCaseToTitleCase(item) {
   string = string.charAt(0).toUpperCase() + string.slice(1);
   return string;
 }
-function displayCompendiumInfo(matchedSpell) {
-  const spellKeys = Object.keys(matchedSpell);
-  const compendiumInfo = spellKeys.map((key) => {
-    return (
-      <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
-    );
-  });
-  return compendiumInfo;
-}
-
+const whiteSpaceToUnderscore = (string) => string.replace(/\s/g, "_");
+const sortObjectByProperty = (prop) => (a, b) => {
+  const propA = a.prop.toUpperCase();
+  const propB = b.prop.toUpperCase();
+  return propA > propB ? 1 : propB > propA ? -1 : 0;
+};
 export {
   textClassToGreenOrRed,
   camelCaseToTitleCase,
@@ -86,4 +91,6 @@ export {
   getAbilityMod,
   clone,
   displayCompendiumInfo,
+  whiteSpaceToUnderscore,
+  sortObjectByProperty,
 };
