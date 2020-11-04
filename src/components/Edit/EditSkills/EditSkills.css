@@ -17,17 +17,18 @@
 .formItemsContainer {
   background-color: rgba(249, 249, 250, 0.8);
   color: black;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
 }
-legend {
+.skillName {
   background-color: rgba(154, 130, 190, 1);
   border-radius: 20%;
   color: white;
-}
-.newSkillName {
-  background-color: rgba(154, 130, 190, 1);
-  border-radius: 20%;
-  color: white;
+  font-size: 1em;
+  padding: 0.2em 1em;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: -1rem;
+  top: -1rem;
 }
 .skillDetailContainer {
   display: flex;

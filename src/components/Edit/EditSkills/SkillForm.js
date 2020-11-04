@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import { mutate } from "swr";
 
-import { clone } from "../../../utilities/utilities";
+const blankSkill = {
+  classSkill: false,
+  ability: "strength",
+  ranks: 0,
+  miscModifier: 0,
+  display: true,
+  armorCheck: false,
+  name: "",
+};
 
-const NewSkillForm = (props) => {
-  const { character, newSkillForm, setNewSkillForm } = props;
-  const [classSkill, setClassSkill] = useState(false);
-  const [ability, setAbility] = useState("strength");
-  const [ranks, setRanks] = useState(0);
-  const [miscModifier, setMiscModifier] = useState(0);
-  const [display, setDisplay] = useState(true);
-  const [armorCheck, setArmorCheck] = useState(false);
-  const [name, setName] = useState("");
-  const handleChange = (e) => {
+const NewSkillForm = ({ initialSkill = blankSkill, onSubmit }) => {
+  const [classSkill, setClassSkill] = useState(initialSkill.classSkill);
+  const [ability, setAbility] = useState(initialSkill.ability);
+  const [ranks, setRanks] = useState(initialSkill.ranks);
+  const [miscModifier, setMiscModifier] = useState(initialSkill.miscModifier);
+  const [display, setDisplay] = useState(initialSkill.display);
+  const [armorCheck, setArmorCheck] = useState(initialSkill.armorCheck);
+  const [name, setName] = useState(initialSkill.name);
+
+  function handleChange(e) {
     switch (e.target.name) {
       case "ability":
         setAbility(e.target.value);
@@ -32,48 +39,44 @@ const NewSkillForm = (props) => {
       case "armorCheck":
         setArmorCheck(!armorCheck);
         break;
-      case "newSkillName":
+      case "skillName":
         setName(e.target.value);
         break;
       default:
         break;
     }
-  };
-  const handleSubmit = (e) => {
+  }
+
+  function handleSubmit(e) {
     e.preventDefault();
-    let updatedCharacter = clone(character);
 
-    updatedCharacter.skills.push({
-      name,
-      ability,
-      ranks,
-      miscModifier,
-      classSkill,
-      armorCheck,
-      display,
-    });
+    onSubmit(
+      {
+        name,
+        ability,
+        ranks,
+        miscModifier,
+        classSkill,
+        armorCheck,
+        display,
+      },
+      initialSkill
+    );
+  }
 
-    fetch("/api/characters/1", {
-      method: "PUT",
-      body: JSON.stringify(updatedCharacter),
-    }).then(() => {
-      mutate("/api/characters", { characters: [updatedCharacter] });
-    });
-
-    setNewSkillForm(!newSkillForm);
-  };
   return (
     <>
       <form onSubmit={handleSubmit}>
         <fieldset className="formItemsContainer">
           <input
-            className="newSkillName"
-            name="newSkillName"
+            className="skillName"
+            name="skillName"
             type="text"
             value={name}
             placeholder="New Skill Name"
             onChange={handleChange}
           />
+
           <div className="skillDetailContainer">
             <div className="skillDetailItem">
               <label htmlFor="ability">Ability:</label>
@@ -86,6 +89,7 @@ const NewSkillForm = (props) => {
                 <option value="charisma">charisma</option>
               </select>
             </div>
+
             <div className="skillDetailItem">
               <label htmlFor="classSkill">Class Skill:</label>
               <input
@@ -95,6 +99,7 @@ const NewSkillForm = (props) => {
                 onChange={handleChange}
               />
             </div>
+
             <div className="skillDetailItem">
               <label htmlFor="ranks">Ranks:</label>
               <input
@@ -106,6 +111,7 @@ const NewSkillForm = (props) => {
                 onChange={handleChange}
               />
             </div>
+
             <div className="skillDetailItem">
               <label htmlFor="armorCheck">Armor Check:</label>
               <input
@@ -115,6 +121,7 @@ const NewSkillForm = (props) => {
                 onChange={handleChange}
               />
             </div>
+
             <div className="skillDetailItem">
               <label htmlFor="miscModifier">Misc Modifier:</label>
               <input
@@ -126,6 +133,7 @@ const NewSkillForm = (props) => {
                 onChange={handleChange}
               />
             </div>
+
             <div className="skillDetailItem">
               <label htmlFor="display">Display:</label>
               <input
@@ -136,6 +144,7 @@ const NewSkillForm = (props) => {
               />
             </div>
           </div>
+
           <div className="updateCharacter">
             <input
               className="updateCharacterButton"
@@ -148,4 +157,5 @@ const NewSkillForm = (props) => {
     </>
   );
 };
+
 export default NewSkillForm;
