@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
 import { characterState, mainContentState } from "../../../recoilState";
-import { sortObjectByProperty } from "../../../utilities/utilities";
 import EditSkillForm from "./EditSkillForm";
 import NewSkillForm from "./NewSkillForm";
 import "./EditSkills.css";

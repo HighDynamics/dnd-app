@@ -78,11 +78,13 @@ function camelCaseToTitleCase(item) {
   return string;
 }
 const whiteSpaceToUnderscore = (string) => string.replace(/\s/g, "_");
+
 const sortObjectByProperty = (prop) => (a, b) => {
-  const propA = a.prop.toUpperCase();
-  const propB = b.prop.toUpperCase();
+  const propA = a[prop].toUpperCase();
+  const propB = b[prop].toUpperCase();
   return propA > propB ? 1 : propB > propA ? -1 : 0;
 };
+
 export {
   textClassToGreenOrRed,
   camelCaseToTitleCase,

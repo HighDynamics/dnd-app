@@ -2,11 +2,7 @@ import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { diceRollState, characterState } from "../../recoilState.js";
-import {
-  roll20,
-  getAbilityMod,
-  sortObjectByProperty,
-} from "../../utilities/utilities";
+import { roll20, getAbilityMod } from "../../utilities/utilities";
 import "./Skills.css";
 
 const SkillsListItem = (props) => {
