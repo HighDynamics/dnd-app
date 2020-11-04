@@ -4,21 +4,21 @@ import { mutate } from "swr";
 import { clone } from "../../../utilities/utilities";
 
 const NewSkillForm = (props) => {
-  const { character, setCharacter, newSkillForm, setNewSkillForm } = props;
-  const [isClassSkill, setIsClassSkill] = useState(false);
+  const { character, newSkillForm, setNewSkillForm } = props;
+  const [classSkill, setClassSkill] = useState(false);
   const [ability, setAbility] = useState("strength");
   const [ranks, setRanks] = useState(0);
   const [miscModifier, setMiscModifier] = useState(0);
   const [display, setDisplay] = useState(true);
   const [armorCheck, setArmorCheck] = useState(false);
-  const [newName, setNewName] = useState("new skill name");
+  const [name, setName] = useState("");
   const handleChange = (e) => {
     switch (e.target.name) {
       case "ability":
         setAbility(e.target.value);
         break;
       case "classSkill":
-        setIsClassSkill(!isClassSkill);
+        setClassSkill(!classSkill);
         break;
       case "display":
         setDisplay(!display);
@@ -33,7 +33,7 @@ const NewSkillForm = (props) => {
         setArmorCheck(!armorCheck);
         break;
       case "newSkillName":
-        setNewName(e.target.value);
+        setName(e.target.value);
         break;
       default:
         break;
@@ -42,23 +42,24 @@ const NewSkillForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let updatedCharacter = clone(character);
-    const newIndex = updatedCharacter.skills.length;
-    updatedCharacter.skills[newIndex] = {
-      name: newName,
-      ability: ability,
-      ranks: ranks,
-      miscModifier: miscModifier,
-      classSkill: isClassSkill,
-      armorCheck: armorCheck,
-      display: display,
-    };
-    setCharacter(updatedCharacter);
+
+    updatedCharacter.skills.push({
+      name,
+      ability,
+      ranks,
+      miscModifier,
+      classSkill,
+      armorCheck,
+      display,
+    });
+
     fetch("/api/characters/1", {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(updatedCharacter),
     }).then(() => {
-      mutate("/api/characters");
+      mutate("/api/characters", { characters: [updatedCharacter] });
     });
+
     setNewSkillForm(!newSkillForm);
   };
   return (
@@ -69,18 +70,14 @@ const NewSkillForm = (props) => {
             className="newSkillName"
             name="newSkillName"
             type="text"
-            value={newName}
+            value={name}
+            placeholder="New Skill Name"
             onChange={handleChange}
           />
           <div className="skillDetailContainer">
             <div className="skillDetailItem">
               <label htmlFor="ability">Ability:</label>
-              <select
-                name="ability"
-                size="1"
-                value={ability}
-                onChange={handleChange}
-              >
+              <select name="ability" value={ability} onChange={handleChange}>
                 <option value="strength">strength</option>
                 <option value="constitution">constitution</option>
                 <option value="dexterity">dexterity</option>
@@ -94,7 +91,7 @@ const NewSkillForm = (props) => {
               <input
                 type="checkbox"
                 name="classSkill"
-                defaultChecked={isClassSkill}
+                checked={classSkill}
                 onChange={handleChange}
               />
             </div>
@@ -114,7 +111,7 @@ const NewSkillForm = (props) => {
               <input
                 type="checkbox"
                 name="armorCheck"
-                defaultChecked={armorCheck}
+                checked={armorCheck}
                 onChange={handleChange}
               />
             </div>
@@ -134,8 +131,7 @@ const NewSkillForm = (props) => {
               <input
                 type="checkbox"
                 name="display"
-                value="display"
-                defaultChecked={display}
+                checked={display}
                 onChange={handleChange}
               />
             </div>

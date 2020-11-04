@@ -6,17 +6,12 @@ import EditSkillForm from "./EditSkillForm";
 import NewSkillForm from "./NewSkillForm";
 import "./EditSkills.css";
 
-const EditSkills = (props) => {
-  const [character, setCharacter] = useRecoilState(characterState);
+const EditSkills = () => {
+  const [character] = useRecoilState(characterState);
   const setMainContent = useSetRecoilState(mainContentState);
   const [newSkillForm, setNewSkillForm] = useState(false);
   const skillForm = character.skills.map((s, i) => (
-    <EditSkillForm
-      key={s.name}
-      skill={s}
-      character={character}
-      setCharacter={setCharacter}
-    />
+    <EditSkillForm key={s.name} skill={s} character={character} />
   ));
   return (
     <>
@@ -32,7 +27,6 @@ const EditSkills = (props) => {
       {newSkillForm && (
         <NewSkillForm
           character={character}
-          setCharacter={setCharacter}
           newSkillForm={newSkillForm}
           setNewSkillForm={setNewSkillForm}
         />

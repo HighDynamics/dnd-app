@@ -34,9 +34,11 @@ export function makeServer({ environment = "test" } = {}) {
         return schema.spells.all();
       });
 
-      this.post("/characters/:charId", (schema, request) => {
-        let attrs = JSON.parse(request.requestBody);
-        return { character: attrs };
+      this.put("/characters/:charId", (schema, request) => {
+        const character = schema.find("character", request.params.charId);
+        character.attrs = JSON.parse(request.requestBody);
+        character.save();
+        return { character };
       });
     },
   });

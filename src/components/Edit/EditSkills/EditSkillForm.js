@@ -4,8 +4,8 @@ import { mutate } from "swr";
 import { clone } from "../../../utilities/utilities";
 
 const EditSkillForm = (props) => {
-  const { skill, character, setCharacter, index } = props;
-  const [isClassSkill, setIsClassSkill] = useState(skill.classSkill);
+  const { skill, character } = props;
+  const [classSkill, setClassSkill] = useState(skill.classSkill);
   const [ability, setAbility] = useState(skill.ability);
   const [ranks, setRanks] = useState(skill.ranks);
   const [miscModifier, setMiscModifier] = useState(skill.miscModifier);
@@ -17,7 +17,7 @@ const EditSkillForm = (props) => {
         setAbility(e.target.value);
         break;
       case "classSkill":
-        setIsClassSkill(!isClassSkill);
+        setClassSkill(!classSkill);
         break;
       case "display":
         setDisplay(!display);
@@ -42,20 +42,19 @@ const EditSkillForm = (props) => {
       (s) => s.name === skill.name
     );
     updatedCharacter.skills[index] = {
-      name: skill.name,
-      ability: ability,
-      ranks: ranks,
-      miscModifier: miscModifier,
-      classSkill: isClassSkill,
-      armorCheck: armorCheck,
-      display: display,
+      ...skill,
+      ability,
+      ranks,
+      miscModifier,
+      classSkill,
+      armorCheck,
+      display,
     };
-    setCharacter(updatedCharacter);
     fetch("/api/characters/1", {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(updatedCharacter),
     }).then(() => {
-      mutate("/api/characters");
+      mutate("/api/characters", { characters: [updatedCharacter] });
     });
   };
   return (
@@ -66,12 +65,7 @@ const EditSkillForm = (props) => {
           <div className="skillDetailContainer">
             <div className="skillDetailItem">
               <label htmlFor="ability">Ability:</label>
-              <select
-                name="ability"
-                size="1"
-                value={ability}
-                onChange={handleChange}
-              >
+              <select name="ability" value={ability} onChange={handleChange}>
                 <option value="strength">strength</option>
                 <option value="constitution">constitution</option>
                 <option value="dexterity">dexterity</option>
@@ -86,7 +80,7 @@ const EditSkillForm = (props) => {
                 type="checkbox"
                 className="checkbox"
                 name="classSkill"
-                defaultChecked={isClassSkill}
+                checked={classSkill}
                 onChange={handleChange}
               />
             </div>
@@ -106,7 +100,7 @@ const EditSkillForm = (props) => {
               <input
                 type="checkbox"
                 name="armorCheck"
-                defaultChecked={armorCheck}
+                checked={armorCheck}
                 onChange={handleChange}
               />
             </div>
@@ -126,8 +120,7 @@ const EditSkillForm = (props) => {
               <input
                 type="checkbox"
                 name="display"
-                value="display"
-                defaultChecked={display}
+                checked={display}
                 onChange={handleChange}
               />
             </div>
