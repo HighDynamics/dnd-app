@@ -40,6 +40,7 @@ const Skills = () => {
   // pass skills to child component
   const skillsBlock = character.skills
     .filter((skill) => skill.display)
+    .sort((a, b) => (a.name > b.name ? 1 : -1))
     .map((s) => (
       <SkillsListItem key={s.name} skill={s} character={character} />
     ));
