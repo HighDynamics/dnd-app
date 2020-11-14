@@ -10,7 +10,7 @@ const blankSkill = {
   name: "",
 };
 
-const NewSkillForm = ({ initialSkill = blankSkill, onSubmit }) => {
+const SkillForm = ({ initialSkill = blankSkill, onSubmit }) => {
   const [classSkill, setClassSkill] = useState(initialSkill.classSkill);
   const [ability, setAbility] = useState(initialSkill.ability);
   const [ranks, setRanks] = useState(initialSkill.ranks);
@@ -158,4 +158,4 @@ const NewSkillForm = ({ initialSkill = blankSkill, onSubmit }) => {
   );
 };
 
-export default NewSkillForm;
+export default SkillForm;
