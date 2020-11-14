@@ -16,12 +16,17 @@ const CharacterType = (props) => {
   return <span>{props.value} / </span>;
 };
 const CharacterClasses = (props) => {
-  return <li>{props.value}</li>;
+  return (
+    <li>
+      {props.value.name}({props.value.level})
+    </li>
+  );
 };
 
 const TopComponent = (props) => {
   const character = useRecoilValue(characterState);
   const [toggle, setToggle] = useState(false);
+  const careerLevel = character.class.reduce((s, c) => s + c.level, 0);
   const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);
   const setpreppedSpells = useSetRecoilState(preppedSpellsState);
   const setPreppedSpellsCast = useSetRecoilState(preppedSpellsCastState);
@@ -34,7 +39,7 @@ const TopComponent = (props) => {
     setSLAs([]);
   }
   function healDamageOnRest() {
-    setDamage(Math.max(0, damage - character.level));
+    setDamage(Math.max(0, damage - careerLevel));
   }
   function fullRest() {
     resetAllSpells();
@@ -42,7 +47,7 @@ const TopComponent = (props) => {
   }
   const type = character.type.map((t) => <CharacterType key={t} value={t} />);
   const classList = character.class.map((c) => (
-    <CharacterClasses key={c} value={c} />
+    <CharacterClasses key={c.name} value={c} />
   ));
   return (
     <div className="topContainer">
@@ -51,7 +56,7 @@ const TopComponent = (props) => {
         onClick={() => setToggle(!toggle)}
       >
         <h1 id="nameAndLevel">
-          {character.name} ({character.level})
+          {character.name} ({Number(careerLevel)})
         </h1>
         <em id="moreLess">
           <i className="fas fa-angle-double-down"></i>
