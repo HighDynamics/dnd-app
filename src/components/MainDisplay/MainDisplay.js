@@ -21,7 +21,7 @@ import EditSpells from "../Edit/EditSpells/EditSpells";
 import EditSLAs from "../Edit/EditSLAs/EditSLAs";
 import EditAttacks from "../Edit/EditAttacks/EditAttacks";
 import EditItems from "../Edit/EditItems/EditItems";
-import EditCharacter from "../Edit/EditCharacter/EditCharacter";
+import EditCore from "../Edit/EditCore/EditCore";
 import AddCharacter from "../AddCharacter/AddCharacter";
 import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
 import SLAInfo from "../Modal/SLAInfo/SLAInfo";
@@ -66,8 +66,8 @@ const MainDisplay = (props) => {
         return <EditAttacks />;
       case "EditItems":
         return <EditItems />;
-      case "EditCharacter":
-        return <EditCharacter />;
+      case "EditCore":
+        return <EditCore />;
       case "AddCharacter":
         return <AddCharacter />;
       default:

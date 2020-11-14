@@ -14,6 +14,12 @@ const More = (props) => {
       <div className="buttonList">
         <button
           className="moreButton"
+          onClick={() => setMainContent("EditCore")}
+        >
+          Core
+        </button>
+        <button
+          className="moreButton"
           onClick={() => setMainContent("EditSkills")}
         >
           Skills
@@ -57,12 +63,6 @@ const More = (props) => {
           onClick={() => setMainContent("EditItems")}
         >
           Items
-        </button>
-        <button
-          className="moreButton"
-          onClick={() => setMainContent("EditCharacter")}
-        >
-          Character
         </button>
       </div>
       <hr></hr>
