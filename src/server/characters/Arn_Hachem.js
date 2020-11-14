@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export default {
   name: "Arn Hachem",
   type: ["Human", "Sanctified", "Deathless", "Spellstitched", "Archlich"],
@@ -59,16 +60,15 @@ export default {
     primary: "charisma",
   },
   speed: 40,
-  level: 20,
   class: [
-    "Sorcerer(1)",
-    "Mindtender(2)",
-    "Fleshwarper(2)",
-    "Malconvoker(8)",
-    "Binder(1)",
-    "Bard(1)",
-    "Master Of Masks(5)",
-    "Voidcaller(1)",
+    { name: "Sorcerer", level: 1 },
+    { name: "Mindtender", level: 2 },
+    { name: "Fleshwarper", level: 2 },
+    { name: "Malconvoker", level: 8 },
+    { name: "Binder", level: 1 },
+    { name: "Bard", level: 1 },
+    { name: "Master Of Masks", level: 5 },
+    { name: "Voidcaller", level: 1 },
   ],
   skills: [
     {
