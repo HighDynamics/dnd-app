@@ -1,5 +1,6 @@
 import React from "react";
 import { CompendiumSpell } from "../components/SpellInfo/SpellInfo";
+import { mutate } from "swr";
 
 function rollDice(size) {
   return (mod, use) => {
@@ -79,10 +80,13 @@ function camelCaseToTitleCase(item) {
 }
 const whiteSpaceToUnderscore = (string) => string.replace(/\s/g, "_");
 
-const sortObjectByProperty = (prop) => (a, b) => {
-  const propA = a[prop].toUpperCase();
-  const propB = b[prop].toUpperCase();
-  return propA > propB ? 1 : propB > propA ? -1 : 0;
+const persistCharacter = (updatedCharacter) => {
+  fetch("/api/characters/1", {
+    method: "PUT",
+    body: JSON.stringify(updatedCharacter),
+  }).then(() => {
+    mutate("/api/characters", { characters: [updatedCharacter] });
+  });
 };
 
 export {
@@ -94,5 +98,5 @@ export {
   clone,
   displayCompendiumInfo,
   whiteSpaceToUnderscore,
-  sortObjectByProperty,
+  persistCharacter,
 };

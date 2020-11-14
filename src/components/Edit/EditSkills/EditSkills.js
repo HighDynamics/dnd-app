@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { mutate } from "swr";
 
 import { characterState, mainContentState } from "../../../recoilState";
-import { clone } from "../../../utilities/utilities";
+import { clone, persistCharacter } from "../../../utilities/utilities";
 
 import SkillForm from "./SkillForm";
 import "./EditSkills.css";
@@ -12,15 +11,6 @@ const EditSkills = () => {
   const [character] = useRecoilState(characterState);
   const setMainContent = useSetRecoilState(mainContentState);
   const [newSkillForm, setNewSkillForm] = useState(false);
-
-  const persistCharacter = (updatedCharacter) => {
-    fetch("/api/characters/1", {
-      method: "PUT",
-      body: JSON.stringify(updatedCharacter),
-    }).then(() => {
-      mutate("/api/characters", { characters: [updatedCharacter] });
-    });
-  };
 
   const handleCreateSkill = (newSkill) => {
     let updatedCharacter = clone(character);
