@@ -1,0 +1,36 @@
+import React, { useState } from "react";
+import { useRecoilState } from "recoil";
+
+import { clone } from "../../../utilities/utilities";
+import { updatedCharacterState } from "../../../recoilState";
+
+import "./SpeedForm.css";
+
+const SpeedForm = (props) => {
+  const { speed } = props;
+  const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
+    updatedCharacterState
+  );
+  const [speedValue, setSpeedValue] = useState(speed);
+  const editedCharacter = clone(updatedCharacter);
+
+  function handleChange(e) {
+    setSpeedValue(e.target.value);
+    editedCharacter.speed = e.target.value;
+
+    setUpdatedCharacter(editedCharacter);
+  }
+
+  return (
+    <>
+      Speed:{" "}
+      <input
+        type="number"
+        className="input"
+        value={speedValue}
+        onChange={handleChange}
+      />{" "}
+    </>
+  );
+};
+export default SpeedForm;
