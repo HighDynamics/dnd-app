@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import useSWR from "swr";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
   primaryModifierState,
   characterState,
   compendiumState,
+  updatedCharacterState,
 } from "../recoilState.js";
-import { getAbilityMod } from "../utilities/utilities";
+import { getAbilityMod, clone } from "../utilities/utilities";
 import * as Navbar from "./Navbars/Navbars.js";
 import BasicInfo from "./BasicInfo/BasicInfo.js";
 import MainDisplay from "./MainDisplay/MainDisplay.js";
@@ -53,6 +54,7 @@ const LoadApp = () => {
   const { data: spellsResponse } = useSWR("/api/spells");
 
   const [character, setCharacter] = useRecoilState(characterState);
+  const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
   const [compendium, setCompendium] = useRecoilState(compendiumState);
   const [primaryModifier, setPrimaryModifier] = useRecoilState(
     primaryModifierState
@@ -66,9 +68,10 @@ const LoadApp = () => {
     function setFirstCharacterFromServer() {
       if (charactersResponse) {
         setCharacter(charactersResponse.characters[0]);
+        setUpdatedCharacter(charactersResponse.characters[0]);
       }
     },
-    [charactersResponse, setCharacter]
+    [charactersResponse, setCharacter, setUpdatedCharacter]
   );
 
   useEffect(

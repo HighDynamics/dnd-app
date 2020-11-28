@@ -9,6 +9,10 @@ export const characterState = atom({
   key: "characterState",
   default: null,
 });
+export const updatedCharacterState = atom({
+  key: "updatedCharacterState",
+  default: null,
+});
 
 export const damageState = atom({
   key: "damageState",
