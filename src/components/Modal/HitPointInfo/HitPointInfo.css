@@ -10,10 +10,6 @@
 .numberInput {
   width: 4rem;
   margin-right: 4px;
-  background-color: rgba(115, 63, 190, 1);
-  border: none;
-  color: white;
-  outline: 2px solid black;
 }
 .redText {
   color: red;

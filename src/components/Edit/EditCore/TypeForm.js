@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
 
-import { clone } from "../../../utilities/utilities";
-import { updatedCharacterState } from "../../../recoilState";
-
-const TypeForm = (props) => {
-  const { type, character } = props;
-  const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
-    updatedCharacterState
-  );
+const TypeForm = ({ type, character, handleEvent }) => {
   const [typeName, setTypeName] = useState(type);
-  const index = character.type.indexOf(type);
-  const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
-    setTypeName(e.target.value);
-    editedCharacter.type[index] = e.target.value;
+  const index = () => {
+    if (character.type.indexOf(type) !== -1) {
+      return character.type.indexOf(type);
+    } else {
+      return Object.keys(character.type).length;
+    }
+  };
 
-    setUpdatedCharacter(editedCharacter);
-  }
+  const handleChange = handleEvent(setTypeName, index());
 
   return (
     <>
       <input type="text" name="type" value={typeName} onChange={handleChange} />
+      <br />
     </>
   );
 };

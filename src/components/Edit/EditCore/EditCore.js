@@ -15,6 +15,7 @@ import SizeForm from "./SizeForm";
 import SpeedForm from "./SpeedForm";
 import HitPointsForm from "./HitPointsForm";
 import ArmorClassForm from "./ArmorClassForm";
+import SavesForm from "./SavesForm";
 import DefenseForm from "./DefenseForm";
 
 import "./EditCore.css";
@@ -23,15 +24,48 @@ const DefenseFormParent = ({ character }) => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
   );
+  const [spellResistanceValue, setSpellResistanceValue] = useState(
+    character.defense.spellResistance
+  );
   const editedCharacter = clone(updatedCharacter);
   const fieldPath = editedCharacter.defense;
-  const handleChange = (setterFunction, fieldPath) => (e) => {
+
+  const handleChange = (setterFunction) => (e) => {
     const value = e.target.value;
     setterFunction(value);
-    fieldPath = value;
+    switch (e.target.name) {
+      case "spellResistance":
+        fieldPath.spellResistance = Number(value);
+        break;
+      case "amount":
+        fieldPath.damageReduction.amount = Number(value);
+        break;
+      case "weakness":
+        fieldPath.damageReduction.weakness = value;
+        break;
+      case "acid":
+        fieldPath.energyResistance.acid = Number(value);
+        break;
+      case "cold":
+        fieldPath.energyResistance.cold = Number(value);
+        break;
+      case "electricity":
+        fieldPath.energyResistance.electricity = Number(value);
+        break;
+      case "fire":
+        fieldPath.energyResistance.fire = Number(value);
+        break;
+      case "sonic":
+        fieldPath.energyResistance.sonic = Number(value);
+        break;
+      default:
+        break;
+    }
     setUpdatedCharacter(editedCharacter);
-    console.log(editedCharacter.defense);
   };
+
+  const handleSpellResistanceChange = handleChange(setSpellResistanceValue);
+
   const damageReduction = Object.entries(character.defense.damageReduction).map(
     ([field, value]) => (
       <li>
@@ -40,85 +74,43 @@ const DefenseFormParent = ({ character }) => {
           field={field}
           value={value}
           handleEvent={handleChange}
-          fieldPath={fieldPath.damageReduction}
+          fieldPath="damageReduction"
         />
       </li>
     )
   );
-  const spellResistance = character.defense.spellResistance;
   const energyResistance = Object.entries(
     character.defense.energyResistance
-  ).map(([field, value]) => (
-    <li>
-      <DefenseForm
-        key={field}
-        field={field}
-        value={value}
-        handleEvent={handleChange}
-        fieldPath={fieldPath.energyResistance}
-      />
-    </li>
-  ));
-  const fortSave = Object.entries(character.defense.saves.fortitude).map(
-    ([field, value]) => (
+  ).map(([field, value]) => {
+    const renderedValue = value === null ? "immune" : value;
+    return (
       <li>
         <DefenseForm
           key={field}
           field={field}
-          value={value}
+          value={renderedValue}
           handleEvent={handleChange}
-          fieldPath={fieldPath.saves.fortitude}
+          fieldPath="energyResistance"
         />
       </li>
-    )
-  );
-  const reflexSave = Object.entries(character.defense.saves.reflex).map(
-    ([field, value]) => (
-      <li>
-        <DefenseForm
-          key={field}
-          field={field}
-          value={value}
-          handleEvent={handleChange}
-          fieldPath={fieldPath.saves.reflex}
-        />
-      </li>
-    )
-  );
-  const willSave = Object.entries(character.defense.saves.will).map(
-    ([field, value]) => (
-      <li>
-        <DefenseForm
-          key={field}
-          field={field}
-          value={value}
-          handleEvent={handleChange}
-          fieldPath={fieldPath.saves.will}
-        />
-      </li>
-    )
-  );
+    );
+  });
 
   return (
     <>
       <fieldset>
-        <legend>Saves</legend>
-        <div className="savesContainer">
-          <div className="savesItem">
-            Fortitude: <ul>{fortSave}</ul>
-          </div>
-          <div className="savesItem">
-            Reflex: <ul>{reflexSave}</ul>
-          </div>
-          <div className="savesItem">
-            Will: <ul>{willSave}</ul>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset>
         <legend>Defense</legend>
         <div className="defenseContainer">
-          <div className="defenseItem">Spell Resistance: {spellResistance}</div>
+          <div className="defenseItem">
+            Spell Resistance{" "}
+            <input
+              className="numberInput"
+              type="number"
+              name="spellResistance"
+              value={spellResistanceValue}
+              onChange={handleSpellResistanceChange}
+            />
+          </div>
           <div className="defenseItem">
             Damage Reduction: <ul>{damageReduction}</ul>
           </div>
@@ -128,6 +120,88 @@ const DefenseFormParent = ({ character }) => {
         </div>
       </fieldset>
     </>
+  );
+};
+
+const SavesFormParent = ({ character }) => {
+  const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
+    updatedCharacterState
+  );
+  const editedCharacter = clone(updatedCharacter);
+  const fieldPath = editedCharacter.defense.saves;
+  const handleChange = (setterFunction, fieldParent) => (e) => {
+    const value = e.target.value;
+    setterFunction(value);
+    switch (e.target.name) {
+      case "base":
+        fieldPath[fieldParent].base = Number(value);
+        break;
+      case "magic":
+        fieldPath[fieldParent].magic = Number(value);
+        break;
+      case "misc":
+        fieldPath[fieldParent].misc = Number(value);
+        break;
+      default:
+        break;
+    }
+    setUpdatedCharacter(editedCharacter);
+  };
+
+  const fortSave = Object.entries(character.defense.saves.fortitude).map(
+    ([field, value]) => (
+      <li>
+        <SavesForm
+          key={field + "Fortitude"}
+          field={field}
+          value={value}
+          handleEvent={handleChange}
+          fieldParent="fortitude"
+        />
+      </li>
+    )
+  );
+  const reflexSave = Object.entries(character.defense.saves.reflex).map(
+    ([field, value]) => (
+      <li>
+        <SavesForm
+          key={field + "Reflex"}
+          field={field}
+          value={value}
+          handleEvent={handleChange}
+          fieldParent="reflex"
+        />
+      </li>
+    )
+  );
+  const willSave = Object.entries(character.defense.saves.will).map(
+    ([field, value]) => (
+      <li>
+        <SavesForm
+          key={field + "Will"}
+          field={field}
+          value={value}
+          handleEvent={handleChange}
+          fieldParent="will"
+        />
+      </li>
+    )
+  );
+  return (
+    <fieldset>
+      <legend>Saves</legend>
+      <div className="savesContainer">
+        <div className="savesItem">
+          Fortitude: <ul>{fortSave}</ul>
+        </div>
+        <div className="savesItem">
+          Reflex: <ul>{reflexSave}</ul>
+        </div>
+        <div className="savesItem">
+          Will: <ul>{willSave}</ul>
+        </div>
+      </div>
+    </fieldset>
   );
 };
 
@@ -159,14 +233,37 @@ const HitPointsFormParent = ({ character }) => {
 };
 
 const TypesFormParent = ({ character }) => {
+  const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
+    updatedCharacterState
+  );
+  const editedCharacter = clone(updatedCharacter);
+
+  const handleChange = (setterFunction, index) => (e) => {
+    const value = e.target.value;
+    setterFunction(value);
+    editedCharacter.type[index] = value;
+    setUpdatedCharacter(editedCharacter);
+  };
+
+  const handleNewType = (e) => {
+    editedCharacter.type.push("");
+    setUpdatedCharacter(editedCharacter);
+  };
+
   const type = character.type.map((value) => (
-    <TypeForm key={value} type={value} character={character} />
+    <TypeForm
+      key={value}
+      type={value}
+      character={character}
+      handleEvent={handleChange}
+    />
   ));
 
   return (
     <fieldset>
       <legend>Types</legend>
       {type}
+      <button onClick={handleNewType}>New Type</button>
     </fieldset>
   );
 };
@@ -247,6 +344,7 @@ const EditCore = (props) => {
         <TypesFormParent character={character} />
         <HitPointsFormParent character={character} />
         <ArmorClassFormParent character={character} />
+        <SavesFormParent character={character} />
         <DefenseFormParent character={character} />
         <input type="submit" />
       </form>

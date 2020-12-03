@@ -20,7 +20,7 @@ const ClassForm = ({ classItem = newClass, character, handleEvent }) => {
     <>
       Class:{" "}
       <input
-        className="classTitle"
+        className="textInput"
         type="text"
         name="classTitle"
         value={classTitle}
@@ -28,7 +28,7 @@ const ClassForm = ({ classItem = newClass, character, handleEvent }) => {
       />{" "}
       Level:{" "}
       <input
-        className="classLevel"
+        className="numberInput"
         type="number"
         name="level"
         value={classLevel}

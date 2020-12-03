@@ -5,23 +5,42 @@ import { camelCaseToTitleCase } from "../../../utilities/utilities";
 import "./DefenseForm.css";
 
 const DefenseForm = ({ field, value, handleEvent, fieldPath }) => {
-  const [fieldValue, setFieldValue] = useState(value);
+  const [fieldValue, setFieldValue] = useState(value === "immune" ? 0 : value);
+  const [immunity, setImmunity] = useState(value === "immune" ? true : false);
   const fieldTitle = camelCaseToTitleCase(field);
-  const handleChange = handleEvent(setFieldValue, fieldPath.field);
+  const handleChange = handleEvent(setFieldValue);
   return (
     <>
-      {fieldTitle}{" "}
-      {typeof value === "number" && (
+      {fieldTitle}:{" "}
+      {field === "weakness" && (
         <input
-          className="numberInput"
-          type="number"
+          type="text"
+          className="textInput"
+          name={field}
           value={fieldValue}
           onChange={handleChange}
         />
       )}
-      {typeof value !== "number" && (
-        <input type="text" value={fieldValue} onChange={handleChange} />
+      {field !== "weakness" && (
+        <input
+          className={"numberInput" + (immunity ? " disabledInput" : "")}
+          name={field}
+          type="number"
+          value={fieldValue}
+          onChange={handleChange}
+          disabled={immunity}
+        />
       )}
+      {fieldPath === "energyResistance" ? (
+        <>
+          <span>immune</span>
+          <input
+            type="checkbox"
+            checked={immunity}
+            onChange={() => setImmunity(!immunity)}
+          />{" "}
+        </>
+      ) : null}
       <br />
     </>
   );

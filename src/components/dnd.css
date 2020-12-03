@@ -93,3 +93,19 @@ hr {
   -webkit-box-shadow: 0 0 0px;
   -moz-box-shadow: 0 0 0px;
 }
+.textInput {
+  background-color: rgba(115, 63, 190, 1);
+  border: none;
+  color: white;
+  outline: 2px solid black;
+}
+.numberInput {
+  background-color: rgba(115, 63, 190, 1);
+  border: none;
+  color: white;
+  outline: 2px solid black;
+}
+.disabledInput {
+  background-color: rgba(126, 109, 150, 1);
+  color: black;
+}
