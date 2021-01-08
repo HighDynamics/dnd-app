@@ -50,7 +50,7 @@ const HitPointInfo = (props) => {
           Damage: {damage}{" "}
           <div className="inputAndButton">
             <input
-              className="numberInput"
+              className="numberInput shortNumber"
               type="number"
               value={damageInput}
               onChange={handleDamageChange}
@@ -73,7 +73,7 @@ const HitPointInfo = (props) => {
           Temporary: {tempHP}{" "}
           <div className="inputAndButton">
             <input
-              className="numberInput"
+              className="numberInput shortNumber"
               type="number"
               value={tempHPInput}
               onChange={handleTempHPChange}
