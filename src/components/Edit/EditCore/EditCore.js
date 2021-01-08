@@ -5,6 +5,7 @@ import {
   mainContentState,
   characterState,
   updatedCharacterState,
+  primaryModifierState,
 } from "../../../recoilState";
 
 import { clone, persistCharacter } from "../../../utilities/utilities";
@@ -17,6 +18,7 @@ import HitPointsForm from "./HitPointsForm";
 import ArmorClassForm from "./ArmorClassForm";
 import SavesForm from "./SavesForm";
 import DefenseForm from "./DefenseForm";
+import AbilityScoreForm from "./AbilityScoreForm";
 
 import "./EditCore.css";
 
@@ -233,6 +235,53 @@ const HitPointsFormParent = ({ character }) => {
   );
 };
 
+const AbilityScoreFormParent = ({ character }) => {
+  const primaryMod = character.abilities.primary;
+  const [primaryModifier, setPrimaryModifier] = useState(primaryMod);
+  const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
+    updatedCharacterState
+  );
+  const editedCharacter = clone(updatedCharacter);
+
+  const abilityScore = Object.entries(character.abilities.score).map(
+    ([field, value]) => {
+      if (value === null) {
+        value = 0;
+      }
+      return <AbilityScoreForm key={field} field={field} value={value} />;
+    }
+  );
+
+  function handleChange(e) {
+    setPrimaryModifier(e.target.value);
+    editedCharacter.abilities.primary = e.target.value;
+    setUpdatedCharacter(editedCharacter);
+  }
+  return (
+    <fieldset>
+      <legend>Ability Scores</legend>
+      <div className="abilityScoreFormContainer">{abilityScore}</div>
+      <br />
+      <div className="primaryModifier">
+        Primary Modifier:{" "}
+        <select
+          name="primaryModifier"
+          className="textInput"
+          value={primaryModifier}
+          onChange={handleChange}
+        >
+          <option value="strength">Strength</option>
+          <option value="dexterity">Dexterity</option>
+          <option value="constitution">Constitution</option>
+          <option value="intelligence">Intelligence</option>
+          <option value="wisdom">Wisdom</option>
+          <option value="charisma">Charisma</option>
+        </select>
+      </div>
+    </fieldset>
+  );
+};
+
 const TypesFormParent = ({ character }) => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
@@ -322,10 +371,13 @@ const EditCore = (props) => {
   const setMainContent = useSetRecoilState(mainContentState);
   const character = useRecoilValue(characterState);
   const updatedCharacter = useRecoilValue(updatedCharacterState);
-
   function handleSubmit(e) {
     e.preventDefault();
-
+    const primary = updatedCharacter.abilities.primary;
+    if (updatedCharacter.abilities.score[primary] === null) {
+      alert("Primary modifier can not be equal to 0");
+      return "Primary Modifier Error";
+    }
     persistCharacter(updatedCharacter);
   }
 
@@ -344,6 +396,7 @@ const EditCore = (props) => {
         <ClassFormParent character={character} />
         <TypesFormParent character={character} />
         <HitPointsFormParent character={character} />
+        <AbilityScoreFormParent character={character} />
         <ArmorClassFormParent character={character} />
         <SavesFormParent character={character} />
         <DefenseFormParent character={character} />

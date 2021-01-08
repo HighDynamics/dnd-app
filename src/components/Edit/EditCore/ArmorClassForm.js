@@ -28,7 +28,7 @@ const ArmorClassForm = (props) => {
       {fieldName}:{" "}
       <input
         type="number"
-        name="field"
+        name={field}
         className="numberInput twoDigit armorClassFormItemNumber"
         value={fieldValue}
         onChange={handleChange}
