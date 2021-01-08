@@ -46,7 +46,7 @@ const HitPointsForm = (props) => {
         <option value="10">10</option>
         <option value="12">12</option>
       </select>{" "}
-      HP:
+      HP:{" "}
       <input
         type="number"
         className="numberInput threeDigit"

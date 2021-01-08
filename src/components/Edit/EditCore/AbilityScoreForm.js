@@ -4,6 +4,8 @@ import { useRecoilState } from "recoil";
 import { clone, camelCaseToTitleCase } from "../../../utilities/utilities";
 import { updatedCharacterState } from "../../../recoilState";
 
+import "./AbilityScoreForm.css";
+
 const AbilityScoreForm = ({ field, value }) => {
   const [fieldValue, setFieldValue] = useState(value);
   const fieldName = camelCaseToTitleCase(field);
@@ -29,7 +31,7 @@ const AbilityScoreForm = ({ field, value }) => {
           type="number"
           name={field}
           value={fieldValue}
-          className="numberInput twoDigit"
+          className="numberInput twoDigit abilityScoreFormItemNumber"
           onChange={handleChange}
         />
       </div>

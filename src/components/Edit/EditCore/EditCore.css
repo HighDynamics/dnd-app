@@ -15,3 +15,8 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+.abilityScoreFormContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

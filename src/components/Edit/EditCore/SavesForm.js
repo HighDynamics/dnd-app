@@ -10,7 +10,7 @@ const SavesForm = ({ field, value, handleEvent, fieldParent }) => {
   const handleChange = handleEvent(setFieldValue, fieldParent);
   return (
     <>
-      {fieldName}{" "}
+      {fieldName}:{" "}
       <input
         name={field}
         className="numberInput twoDigit savesFormItemNumber"
