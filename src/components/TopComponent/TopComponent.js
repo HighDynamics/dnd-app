@@ -5,6 +5,7 @@ import {
   innateSpellsCastState,
   preppedSpellsState,
   preppedSpellsCastState,
+  slaState,
   emptySpellsArray,
   characterState,
   damageState,
@@ -24,11 +25,13 @@ const TopComponent = (props) => {
   const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);
   const setpreppedSpells = useSetRecoilState(preppedSpellsState);
   const setPreppedSpellsCast = useSetRecoilState(preppedSpellsCastState);
+  const setSLAs = useSetRecoilState(slaState);
   const [damage, setDamage] = useRecoilState(damageState);
   function resetAllSpells() {
     setInnateSpellsCast(emptySpellsArray);
     setpreppedSpells(emptySpellsArray);
     setPreppedSpellsCast(emptySpellsArray);
+    setSLAs([]);
   }
   function healDamageOnRest() {
     setDamage(Math.max(0, damage - character.level));
