@@ -15,7 +15,13 @@ const TypeForm = ({ type, character, handleEvent }) => {
 
   return (
     <>
-      <input type="text" name="type" value={typeName} onChange={handleChange} />
+      <input
+        type="text"
+        className="textInput"
+        name="type"
+        value={typeName}
+        onChange={handleChange}
+      />
       <br />
     </>
   );

@@ -32,10 +32,12 @@ const DefenseFormParent = ({ character }) => {
 
   const handleChange = (setterFunction) => (e) => {
     const value = e.target.value;
+    const field = e.target.name;
+    const type = e.target.type;
     setterFunction(value);
     switch (e.target.name) {
       case "spellResistance":
-        fieldPath.spellResistance = Number(value);
+        fieldPath[field] = Number(value);
         break;
       case "amount":
         fieldPath.damageReduction.amount = Number(value);
@@ -44,7 +46,11 @@ const DefenseFormParent = ({ character }) => {
         fieldPath.damageReduction.weakness = value;
         break;
       case "acid":
-        fieldPath.energyResistance.acid = Number(value);
+        if (e.target.checked === true) {
+          fieldPath.energyResistance.acid = null;
+        } else {
+          fieldPath.energyResistance.acid = Number(value);
+        }
         break;
       case "cold":
         fieldPath.energyResistance.cold = Number(value);
@@ -68,9 +74,8 @@ const DefenseFormParent = ({ character }) => {
 
   const damageReduction = Object.entries(character.defense.damageReduction).map(
     ([field, value]) => (
-      <li>
+      <li key={field}>
         <DefenseForm
-          key={field}
           field={field}
           value={value}
           handleEvent={handleChange}
@@ -84,9 +89,8 @@ const DefenseFormParent = ({ character }) => {
   ).map(([field, value]) => {
     const renderedValue = value === null ? "immune" : value;
     return (
-      <li>
+      <li key={field}>
         <DefenseForm
-          key={field}
           field={field}
           value={renderedValue}
           handleEvent={handleChange}
@@ -104,7 +108,7 @@ const DefenseFormParent = ({ character }) => {
           <div className="defenseItem">
             Spell Resistance{" "}
             <input
-              className="numberInput"
+              className="numberInput twoDigit"
               type="number"
               name="spellResistance"
               value={spellResistanceValue}
@@ -150,9 +154,8 @@ const SavesFormParent = ({ character }) => {
 
   const fortSave = Object.entries(character.defense.saves.fortitude).map(
     ([field, value]) => (
-      <li>
+      <li key={field + "Fortitude"}>
         <SavesForm
-          key={field + "Fortitude"}
           field={field}
           value={value}
           handleEvent={handleChange}
@@ -163,9 +166,8 @@ const SavesFormParent = ({ character }) => {
   );
   const reflexSave = Object.entries(character.defense.saves.reflex).map(
     ([field, value]) => (
-      <li>
+      <li key={field + "Reflex"}>
         <SavesForm
-          key={field + "Reflex"}
           field={field}
           value={value}
           handleEvent={handleChange}
@@ -176,9 +178,8 @@ const SavesFormParent = ({ character }) => {
   );
   const willSave = Object.entries(character.defense.saves.will).map(
     ([field, value]) => (
-      <li>
+      <li key={field + "Will"}>
         <SavesForm
-          key={field + "Will"}
           field={field}
           value={value}
           handleEvent={handleChange}
@@ -215,7 +216,7 @@ const ArmorClassFormParent = ({ character }) => {
   return (
     <fieldset>
       <legend>Armor Class</legend>
-      {armorClass}
+      <div className="armorClassFormContainer">{armorClass}</div>
     </fieldset>
   );
 };

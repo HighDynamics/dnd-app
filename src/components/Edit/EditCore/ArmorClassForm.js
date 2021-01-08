@@ -6,6 +6,8 @@ import { updatedCharacterState } from "../../../recoilState";
 
 import { camelCaseToTitleCase } from "../../../utilities/utilities";
 
+import "./ArmorClassForm.css";
+
 const ArmorClassForm = (props) => {
   const { field, value } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
@@ -22,16 +24,16 @@ const ArmorClassForm = (props) => {
     setUpdatedCharacter(editedCharacter);
   }
   return (
-    <>
+    <div className="armorClassFormItem">
       {fieldName}:{" "}
       <input
         type="number"
         name="field"
-        className="input"
+        className="numberInput twoDigit armorClassFormItemNumber"
         value={fieldValue}
         onChange={handleChange}
       />
-    </>
+    </div>
   );
 };
 export default ArmorClassForm;

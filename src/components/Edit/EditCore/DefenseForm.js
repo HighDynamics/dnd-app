@@ -21,9 +21,22 @@ const DefenseForm = ({ field, value, handleEvent, fieldPath }) => {
           onChange={handleChange}
         />
       )}
+      {fieldPath === "energyResistance" ? (
+        <div className="immunity">
+          <span>immune</span>
+          <input
+            type="checkbox"
+            name={field}
+            checked={immunity}
+            onChange={() => handleEvent(setImmunity(!immunity))}
+          />
+        </div>
+      ) : null}
       {field !== "weakness" && (
         <input
-          className={"numberInput" + (immunity ? " disabledInput" : "")}
+          className={
+            "numberInput twoDigit " + (immunity ? " disabledInput" : "")
+          }
           name={field}
           type="number"
           value={fieldValue}
@@ -31,16 +44,6 @@ const DefenseForm = ({ field, value, handleEvent, fieldPath }) => {
           disabled={immunity}
         />
       )}
-      {fieldPath === "energyResistance" ? (
-        <>
-          <span>immune</span>
-          <input
-            type="checkbox"
-            checked={immunity}
-            onChange={() => setImmunity(!immunity)}
-          />{" "}
-        </>
-      ) : null}
       <br />
     </>
   );

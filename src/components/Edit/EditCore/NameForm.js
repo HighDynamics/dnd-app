@@ -20,8 +20,13 @@ const NameForm = (props) => {
   return (
     <>
       <label>
-        Name:
-        <input type="text" value={nameField} onChange={handleChange} />
+        Name:{" "}
+        <input
+          type="text"
+          className="textInput"
+          value={nameField}
+          onChange={handleChange}
+        />
       </label>
     </>
   );

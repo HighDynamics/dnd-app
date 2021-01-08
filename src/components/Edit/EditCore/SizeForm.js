@@ -20,8 +20,13 @@ const SizeForm = (props) => {
   }
   return (
     <>
-      Size:
-      <select name="size" value={sizeName} onChange={handleChange}>
+      Size:{" "}
+      <select
+        name="size"
+        className="textInput"
+        value={sizeName}
+        onChange={handleChange}
+      >
         <option value="Fine">Fine</option>
         <option value="Diminutive">Diminutive</option>
         <option value="Tiny">Tiny</option>

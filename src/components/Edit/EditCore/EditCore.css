@@ -1,4 +1,17 @@
 .savesContainer {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.twoDigit {
+  width: 2rem;
+}
+.threeDigit {
+  width: 3rem;
+}
+
+.armorClassFormContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

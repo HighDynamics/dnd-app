@@ -1,3 +1,6 @@
-.input{
-width: 5vw
+.armorClassFormItem {
+  width: 50%;
+}
+.armorClassFormItemNumber {
+  float: right;
 }

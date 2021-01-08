@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { camelCaseToTitleCase } from "../../../utilities/utilities";
 
+import "./SavesForm.css";
+
 const SavesForm = ({ field, value, handleEvent, fieldParent }) => {
   const [fieldValue, setFieldValue] = useState(value);
   const fieldName = camelCaseToTitleCase(field);
@@ -11,7 +13,7 @@ const SavesForm = ({ field, value, handleEvent, fieldParent }) => {
       {fieldName}{" "}
       <input
         name={field}
-        className="numberInput"
+        className="numberInput twoDigit savesFormItemNumber"
         type="number"
         value={fieldValue}
         onChange={handleChange}

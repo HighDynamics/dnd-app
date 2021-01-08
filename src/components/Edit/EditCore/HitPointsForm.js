@@ -34,17 +34,22 @@ const HitPointsForm = (props) => {
   return (
     <>
       HD size:{" "}
-      <select name="dieSize" value={dieSizeNum} onChange={handleChange}>
+      <select
+        name="dieSize"
+        className="numberInput threeDigit"
+        value={dieSizeNum}
+        onChange={handleChange}
+      >
         <option value="4">4</option>
         <option value="6">6</option>
         <option value="8">8</option>
         <option value="10">10</option>
         <option value="12">12</option>
-      </select>
+      </select>{" "}
       HP:
       <input
         type="number"
-        className="hpInput"
+        className="numberInput threeDigit"
         name="hp"
         onChange={handleChange}
         value={hp}

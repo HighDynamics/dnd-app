@@ -26,7 +26,7 @@ const SpeedForm = (props) => {
       Speed:{" "}
       <input
         type="number"
-        className="input"
+        className="numberInput twoDigit"
         value={speedValue}
         onChange={handleChange}
       />{" "}

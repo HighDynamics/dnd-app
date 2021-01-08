@@ -28,7 +28,7 @@ const ClassForm = ({ classItem = newClass, character, handleEvent }) => {
       />{" "}
       Level:{" "}
       <input
-        className="numberInput"
+        className="numberInput twoDigit"
         type="number"
         name="level"
         value={classLevel}
