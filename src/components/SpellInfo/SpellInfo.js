@@ -19,9 +19,7 @@ import {
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
 
-export const CompendiumSpell = (props) => {
-  const property = props.property;
-  const value = props.value;
+export const CompendiumSpell = ({ property, value }) => {
   function formatProperty(input) {
     switch (input) {
       case "name:":

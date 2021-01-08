@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import {
   diceRollState,
@@ -18,7 +18,7 @@ const BasicInfo = (props) => {
   const rollResult = useRecoilValue(diceRollState);
   const damage = useRecoilValue(damageState);
   const temporaryHitPoints = useRecoilValue(temporaryHitPointsState);
-  const setModalType = useSetRecoilState(modalTypeState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
   //starts as welcome, changes to dice roll
   const welcome = rollResult ? rollResult : "Good Luck,\n" + character.name;
   //store HitPoints in variable
@@ -29,16 +29,17 @@ const BasicInfo = (props) => {
     currentHP,
     character.hitPoints.total
   );
-  function toggleModal(modalType) {
-    switch (modalType) {
-      case !"Off":
-        setModalType("Off");
-        break;
+  function toggleModal(modalInput) {
+    if (modalType === modalInput) {
+      setModalType("Off");
+      return "close modal";
+    }
+    switch (modalInput) {
       case "HP":
-        setModalType(modalType);
+        setModalType(modalInput);
         break;
       case "Defense":
-        setModalType(modalType);
+        setModalType(modalInput);
         break;
       default:
         setModalType("Off");
