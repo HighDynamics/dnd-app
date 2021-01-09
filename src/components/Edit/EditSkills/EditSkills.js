@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
 import { characterState, mainContentState } from "../../../recoilState";

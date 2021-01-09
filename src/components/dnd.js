@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useSWR from "swr";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 

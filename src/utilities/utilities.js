@@ -1,4 +1,3 @@
-import React from "react";
 import { CompendiumSpell } from "../components/SpellInfo/SpellInfo";
 import { mutate } from "swr";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const TypeForm = ({ type, character, handleEvent }) => {
   const [typeName, setTypeName] = useState(type);

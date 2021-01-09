@@ -1,5 +1,3 @@
-import React from "react";
-
 import { camelCaseToTitleCase } from "../../../utilities/utilities";
 
 import "./DefenseForm.css";

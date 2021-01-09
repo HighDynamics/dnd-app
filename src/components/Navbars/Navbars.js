@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { mainContentState, secondaryNavbarState } from "../../recoilState.js";

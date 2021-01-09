@@ -1,4 +1,3 @@
-import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { mainContentState } from "../../recoilState";

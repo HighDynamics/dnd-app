@@ -1,4 +1,3 @@
-import React from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { modalTypeState, characterState } from "../../recoilState.js";

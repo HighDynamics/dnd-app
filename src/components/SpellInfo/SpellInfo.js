@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 
 import {

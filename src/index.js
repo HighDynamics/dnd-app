@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { StrictMode } from "react";
+import { render } from "react-dom";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import "./components/dnd.css";
@@ -10,8 +10,8 @@ import { makeServer } from "./server";
 // Whenever it is time for a real server, this should be removed.
 makeServer({ environment: "development" });
 
-ReactDOM.render(
-  <React.StrictMode>
+render(
+  <StrictMode>
     <RecoilRoot>
       <SWRConfig
         value={{
@@ -21,7 +21,7 @@ ReactDOM.render(
         <LoadApp />
       </SWRConfig>
     </RecoilRoot>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById("root")
 );
 
