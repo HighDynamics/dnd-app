@@ -1,3 +1,5 @@
-import Arn from './Arn_Hachem'
+import Arn from "./Arn_Hachem";
 
-export default [Arn]
+const characters = [Arn];
+
+export default characters;

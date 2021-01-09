@@ -1,5 +1,4 @@
-// eslint-disable-next-line
-export default {
+const Arn = {
   name: "Arn Hachem",
   type: ["Human", "Sanctified", "Deathless", "Spellstitched", "Archlich"],
   hitPoints: {
@@ -556,3 +555,5 @@ export default {
     "GateBreaker Ballista Bolt",
   ],
 };
+
+export default Arn;
