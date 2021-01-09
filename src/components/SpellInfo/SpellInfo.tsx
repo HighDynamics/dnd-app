@@ -7,8 +7,8 @@ import {
   innateSpellsCastState,
   preppedSpellsCastState,
   characterState,
-} from "../../recoilState.js";
-import { clone } from "../../utilities/utilities.js";
+} from "../../recoilState";
+import { clone } from "../../utilities/utilities";
 import { Modal } from "../Modal/Modal";
 import {
   CastingSpell,

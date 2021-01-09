@@ -9,8 +9,8 @@ import {
   preppedSpellsCastState,
   primaryModifierState,
   characterState,
-} from "../../recoilState.js";
-import { totalSpells } from "../dnd.js";
+} from "../../recoilState";
+import { totalSpells } from "../dnd";
 import "./Spells.css";
 
 const PreppedSpellCast = (props) => {

@@ -1,17 +1,17 @@
 import { useRecoilValue, useRecoilState } from "recoil";
 
-import Items from "../Items/Items.js";
-import SLAs from "../SLAs/SLAs.js";
+import Items from "../Items/Items";
+import SLAs from "../SLAs/SLAs";
 import { Modal } from "../Modal/Modal";
-import ActiveAndPassiveAbilities from "../ActiveAndPassiveAbilities/ActiveAndPassiveAbilities.js";
-import SpellInfo from "../SpellInfo/SpellInfo.js";
+import ActiveAndPassiveAbilities from "../ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
+import SpellInfo from "../SpellInfo/SpellInfo";
 import AbilityScores from "../Modal/AbilityScores/AbilityScores";
 import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
 import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
 import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
-import PrepSpells from "../PrepSpells/PrepSpells.js";
-import Spells from "../Spells/Spells.js";
-import Skills from "../Skills/Skills.js";
+import PrepSpells from "../PrepSpells/PrepSpells";
+import Spells from "../Spells/Spells";
+import Skills from "../Skills/Skills";
 import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
 import EditSkills from "../Edit/EditSkills/EditSkills";
@@ -26,7 +26,7 @@ import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
 import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 
-import { mainContentState, modalTypeState } from "../../recoilState.js";
+import { mainContentState, modalTypeState } from "../../recoilState";
 
 import "./MainDisplay.css";
 

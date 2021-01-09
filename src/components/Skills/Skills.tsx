@@ -1,6 +1,6 @@
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { diceRollState, characterState } from "../../recoilState.js";
+import { diceRollState, characterState } from "../../recoilState";
 import { roll20, getAbilityMod } from "../../utilities/utilities";
 import "./Skills.css";
 

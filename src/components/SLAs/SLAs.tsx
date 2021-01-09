@@ -5,7 +5,7 @@ import {
   characterState,
   selectionState,
   slaState,
-} from "../../recoilState.js";
+} from "../../recoilState";
 
 const romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 const numStrings = [

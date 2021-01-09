@@ -6,9 +6,9 @@ import {
   damageState,
   temporaryHitPointsState,
   modalTypeState,
-} from "../../recoilState.js";
+} from "../../recoilState";
 import { getAC, textClassToGreenOrRed } from "../../utilities/utilities";
-import TopComponent from "../TopComponent/TopComponent.js";
+import TopComponent from "../TopComponent/TopComponent";
 import "./BasicInfo.css";
 
 const BasicInfo = (props) => {

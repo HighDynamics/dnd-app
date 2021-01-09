@@ -7,11 +7,11 @@ import {
   characterState,
   compendiumState,
   updatedCharacterState,
-} from "../recoilState.js";
+} from "../recoilState";
 import { getAbilityMod, clone } from "../utilities/utilities";
-import * as Navbar from "./Navbars/Navbars.js";
-import BasicInfo from "./BasicInfo/BasicInfo.js";
-import MainDisplay from "./MainDisplay/MainDisplay.js";
+import * as Navbar from "./Navbars/Navbars";
+import BasicInfo from "./BasicInfo/BasicInfo";
+import MainDisplay from "./MainDisplay/MainDisplay";
 
 import "./dnd.css";
 

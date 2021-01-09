@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
-import { mainContentState, secondaryNavbarState } from "../../recoilState.js";
+import { mainContentState, secondaryNavbarState } from "../../recoilState";
 import "./Navbars.css";
 
 const NavButtonCodeBlock = (props) => {

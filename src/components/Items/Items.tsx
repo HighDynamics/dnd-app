@@ -1,6 +1,6 @@
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import { modalTypeState, characterState } from "../../recoilState.js";
+import { modalTypeState, characterState } from "../../recoilState";
 
 const ItemsHeld = (props) => {
   const setModalType = useSetRecoilState(modalTypeState);

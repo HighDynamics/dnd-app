@@ -9,7 +9,7 @@ import {
   emptySpellsArray,
   characterState,
   damageState,
-} from "../../recoilState.js";
+} from "../../recoilState";
 import "./TopComponent.css";
 
 const CharacterType = (props) => {

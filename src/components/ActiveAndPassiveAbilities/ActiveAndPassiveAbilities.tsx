@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { modalTypeState, characterState } from "../../recoilState.js";
+import { modalTypeState, characterState } from "../../recoilState";
 import "./ActiveAndPassiveAbilities.css";
 
 function formatType(type) {
