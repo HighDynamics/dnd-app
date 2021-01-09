@@ -1,48 +1,54 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { camelCaseToTitleCase } from "../../../utilities/utilities";
 
 import "./DefenseForm.css";
 
 const DefenseForm = ({ field, value, handleEvent, fieldPath }) => {
-  const [fieldValue, setFieldValue] = useState(value === "immune" ? 0 : value);
-  const [immunity, setImmunity] = useState(value === "immune" ? true : false);
+  const fieldValue = value === null ? 0 : value;
+  const immunity = value === null ? true : false;
   const fieldTitle = camelCaseToTitleCase(field);
-  const handleChange = handleEvent(setFieldValue);
   return (
     <>
-      {fieldTitle}:{" "}
       {field === "weakness" && (
-        <input
-          type="text"
-          className="textInput"
-          name={field}
-          value={fieldValue}
-          onChange={handleChange}
-        />
+        <label>
+          {fieldTitle}:{" "}
+          <input
+            type="text"
+            className="textInput"
+            name={field}
+            value={fieldValue}
+            onChange={handleEvent}
+          />
+        </label>
       )}
       {fieldPath === "energyResistance" ? (
         <div className="immunity">
-          <span>immune</span>
-          <input
-            type="checkbox"
-            name={field}
-            checked={immunity}
-            onChange={() => handleEvent(setImmunity(!immunity))}
-          />
+          <label>
+            immune
+            <input
+              type="checkbox"
+              name={field}
+              checked={immunity}
+              onChange={handleEvent}
+            />
+          </label>
         </div>
       ) : null}
       {field !== "weakness" && (
-        <input
-          className={
-            "numberInput twoDigit " + (immunity ? " disabledInput" : "")
-          }
-          name={field}
-          type="number"
-          value={fieldValue}
-          onChange={handleChange}
-          disabled={immunity}
-        />
+        <label>
+          {fieldTitle}:{" "}
+          <input
+            className={
+              "numberInput twoDigit " + (immunity ? " disabledInput" : "")
+            }
+            name={field}
+            type="number"
+            value={fieldValue}
+            onChange={handleEvent}
+            disabled={immunity}
+          />
+        </label>
       )}
       <br />
     </>

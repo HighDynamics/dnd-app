@@ -5,7 +5,6 @@ import {
   mainContentState,
   characterState,
   updatedCharacterState,
-  primaryModifierState,
 } from "../../../recoilState";
 
 import { clone, persistCharacter } from "../../../utilities/utilities";
@@ -22,79 +21,71 @@ import AbilityScoreForm from "./AbilityScoreForm";
 
 import "./EditCore.css";
 
-const DefenseFormParent = ({ character }) => {
+const DefenseFormParent = () => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
-  );
-  const [spellResistanceValue, setSpellResistanceValue] = useState(
-    character.defense.spellResistance
   );
   const editedCharacter = clone(updatedCharacter);
   const fieldPath = editedCharacter.defense;
 
-  const handleChange = (setterFunction) => (e) => {
+  const handleChange = (e) => {
     const value = e.target.value;
     const field = e.target.name;
     const type = e.target.type;
-    setterFunction(value);
+
     switch (e.target.name) {
       case "spellResistance":
         fieldPath[field] = Number(value);
         break;
+
       case "amount":
         fieldPath.damageReduction.amount = Number(value);
         break;
       case "weakness":
         fieldPath.damageReduction.weakness = value;
         break;
+
       case "acid":
-        if (e.target.checked === true) {
-          fieldPath.energyResistance.acid = null;
+      case "cold":
+      case "electricity":
+      case "fire":
+      case "sonic":
+        if (type === "checkbox") {
+          fieldPath.energyResistance[e.target.name] = e.currentTarget.checked
+            ? null
+            : 0;
         } else {
-          fieldPath.energyResistance.acid = Number(value);
+          fieldPath.energyResistance[e.target.name] = Number(value);
         }
         break;
-      case "cold":
-        fieldPath.energyResistance.cold = Number(value);
-        break;
-      case "electricity":
-        fieldPath.energyResistance.electricity = Number(value);
-        break;
-      case "fire":
-        fieldPath.energyResistance.fire = Number(value);
-        break;
-      case "sonic":
-        fieldPath.energyResistance.sonic = Number(value);
-        break;
       default:
+        console.error(`Unknown field update. Name: ${field}`);
         break;
     }
     setUpdatedCharacter(editedCharacter);
   };
 
-  const handleSpellResistanceChange = handleChange(setSpellResistanceValue);
+  const damageReduction = Object.entries(
+    editedCharacter.defense.damageReduction
+  ).map(([field, value]) => (
+    <li key={field}>
+      <DefenseForm
+        field={field}
+        value={value}
+        handleEvent={handleChange}
+        fieldPath="damageReduction"
+      />
+    </li>
+  ));
 
-  const damageReduction = Object.entries(character.defense.damageReduction).map(
-    ([field, value]) => (
-      <li key={field}>
-        <DefenseForm
-          field={field}
-          value={value}
-          handleEvent={handleChange}
-          fieldPath="damageReduction"
-        />
-      </li>
-    )
-  );
   const energyResistance = Object.entries(
-    character.defense.energyResistance
+    editedCharacter.defense.energyResistance
   ).map(([field, value]) => {
-    const renderedValue = value === null ? "immune" : value;
     return (
       <li key={field}>
         <DefenseForm
           field={field}
-          value={renderedValue}
+          value={value}
           handleEvent={handleChange}
           fieldPath="energyResistance"
         />
@@ -108,14 +99,16 @@ const DefenseFormParent = ({ character }) => {
         <legend>Defense</legend>
         <div className="defenseContainer">
           <div className="defenseItem">
-            Spell Resistance{" "}
-            <input
-              className="numberInput twoDigit"
-              type="number"
-              name="spellResistance"
-              value={spellResistanceValue}
-              onChange={handleSpellResistanceChange}
-            />
+            <label>
+              Spell Resistance:{" "}
+              <input
+                className="numberInput twoDigit"
+                type="number"
+                name="spellResistance"
+                value={editedCharacter.defense.spellResistance}
+                onChange={handleChange}
+              />
+            </label>
           </div>
           <div className="defenseItem">
             Damage Reduction: <ul>{damageReduction}</ul>
@@ -399,7 +392,7 @@ const EditCore = (props) => {
         <AbilityScoreFormParent character={character} />
         <ArmorClassFormParent character={character} />
         <SavesFormParent character={character} />
-        <DefenseFormParent character={character} />
+        <DefenseFormParent />
         <input type="submit" />
       </form>
     </>
