@@ -1,10 +1,10 @@
 import { CompendiumSpell } from "../components/SpellInfo/SpellInfo";
 import { mutate } from "swr";
 
-function rollDice(size) {
-  return (mod, use) => {
+function rollDice(size: number) {
+  return (mod: number | null, use: string) => {
     const roll = Math.floor(Math.random() * size + 1);
-    function edgeRollClassAssignment(roll) {
+    function edgeRollClassAssignment(roll: number) {
       if (roll === 1 && size === 20) {
         return "natOne";
       } else if (roll === 20 && size === 20) {
@@ -29,12 +29,12 @@ function rollDice(size) {
   };
 }
 /* vvvvvvvvvvv EXPORT vvvvvvvvvvvvvv */
-function clone(object) {
+function clone<T>(object: T): T {
   return JSON.parse(JSON.stringify(object));
 }
 const roll20 = rollDice(20);
-function displayCompendiumInfo(matchedSpell) {
-  const spellKeys = Object.keys(matchedSpell);
+function displayCompendiumInfo(matchedSpell: ISpell) {
+  const spellKeys = Object.keys(matchedSpell) as Array<keyof ISpell>;
   const compendiumInfo = spellKeys.map((key) => {
     return (
       <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
@@ -42,13 +42,13 @@ function displayCompendiumInfo(matchedSpell) {
   });
   return compendiumInfo;
 }
-function getAbilityMod(character) {
-  return (ability) => {
+function getAbilityMod(character: ICharacter) {
+  return (ability: keyof ICharacter["abilities"]["score"]) => {
     const score = character.abilities.score[ability];
     return !score ? score : Math.floor((score - 10) / 2);
   };
 }
-function getAC(character) {
+function getAC(character: ICharacter) {
   const ac = character.armorClass;
   return (
     10 +
@@ -61,7 +61,7 @@ function getAC(character) {
     ac.size
   );
 }
-function textClassToGreenOrRed(current, expected) {
+function textClassToGreenOrRed(current: number, expected: number) {
   if (current > expected) {
     return "greenText";
   } else if (current < expected) {
@@ -70,16 +70,16 @@ function textClassToGreenOrRed(current, expected) {
     return null;
   }
 }
-function camelCaseToTitleCase(item) {
+function camelCaseToTitleCase(item: string) {
   //add spaces between words
   let string = item.replace(/[A-Z]/g, (x) => " " + x);
   //capitalize first letter
   string = string.charAt(0).toUpperCase() + string.slice(1);
   return string;
 }
-const whiteSpaceToUnderscore = (string) => string.replace(/\s/g, "_");
+const whiteSpaceToUnderscore = (string: string) => string.replace(/\s/g, "_");
 
-const persistCharacter = (updatedCharacter) => {
+const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
   fetch("/api/characters/1", {
     method: "PUT",
     body: JSON.stringify(updatedCharacter),

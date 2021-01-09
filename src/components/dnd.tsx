@@ -7,8 +7,9 @@ import {
   characterState,
   compendiumState,
   updatedCharacterState,
+  InitialRecoilState,
 } from "../recoilState";
-import { getAbilityMod, clone } from "../utilities/utilities";
+import { getAbilityMod } from "../utilities/utilities";
 import * as Navbar from "./Navbars/Navbars";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import MainDisplay from "./MainDisplay/MainDisplay";
@@ -16,8 +17,13 @@ import MainDisplay from "./MainDisplay/MainDisplay";
 import "./dnd.css";
 
 /******************************Character functions****************************/
-export function totalSpells(character, primaryModifier, level, levelNum) {
-  function bonusSpellsPerDay(levelNum) {
+export function totalSpells(
+  character: ICharacter,
+  primaryModifier: number,
+  level: keyof ICharacter["magic"]["spellsPerDay"],
+  levelNum: number
+) {
+  function bonusSpellsPerDay(levelNum: number) {
     return Math.ceil((primaryModifier - (levelNum - 1)) / 4);
   }
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
@@ -50,10 +56,17 @@ const App = () => {
 
 const LoadApp = () => {
   // Load data from the characters server endpoint
-  const { data: charactersResponse } = useSWR("/api/characters");
-  const { data: spellsResponse } = useSWR("/api/spells");
+  const { data: charactersResponse } = useSWR<IServer.GetCharacters.Response>(
+    "/api/characters"
+  );
+  const { data: spellsResponse } = useSWR<IServer.GetSpells.Response>(
+    "/api/spells"
+  );
 
-  const [character, setCharacter] = useRecoilState(characterState);
+  const [
+    character,
+    setCharacter,
+  ]: InitialRecoilState<ICharacter> = useRecoilState(characterState);
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
   const [compendium, setCompendium] = useRecoilState(compendiumState);
   const [primaryModifier, setPrimaryModifier] = useRecoilState(

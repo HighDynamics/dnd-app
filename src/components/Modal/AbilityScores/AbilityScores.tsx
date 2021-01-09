@@ -21,10 +21,14 @@ const AbilityScores = (props) => {
   const intMod = modifier("intelligence");
   const wisMod = modifier("wisdom");
   const chaMod = modifier("charisma");
-  function renderAbilityScore(score) {
+  function renderAbilityScore(score: number | null) {
     return typeof score === "number" ? score : "--";
   }
-  function abilityScoreCodeBlock(abilityString, abilityScore, abilityMod) {
+  function abilityScoreCodeBlock(
+    abilityString: string,
+    abilityScore: number | null,
+    abilityMod: number | null
+  ) {
     return (
       <p className="abilityScores">
         {/*button appears on same line*/}

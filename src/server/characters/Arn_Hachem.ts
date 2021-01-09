@@ -56,7 +56,13 @@ const Arn = {
       wisdom: 17,
       charisma: 35,
     },
-    primary: "charisma",
+    primary: "charisma" as
+      | "strength"
+      | "dexterity"
+      | "constitution"
+      | "intelligence"
+      | "wisdom"
+      | "charisma",
   },
   speed: 40,
   class: [

@@ -45,3 +45,19 @@ export function makeServer({ environment = "test" } = {}) {
 
   return server;
 }
+
+declare global {
+  namespace IServer {
+    namespace GetCharacters {
+      type Response = { characters: ICharacter[] };
+    }
+    namespace PutCharacter {
+      type Request = ICharacter;
+      type Response = { character: ICharacter };
+    }
+
+    namespace GetSpells {
+      type Response = { spells: ISpell[] };
+    }
+  }
+}
