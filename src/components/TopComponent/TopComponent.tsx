@@ -12,10 +12,12 @@ import {
 } from "../../recoilState";
 import "./TopComponent.css";
 
-const CharacterType = (props) => {
+const CharacterType = (props: { value: React.ReactNode }) => {
   return <span>{props.value} / </span>;
 };
-const CharacterClasses = (props) => {
+const CharacterClasses = (props: {
+  value: { name: React.ReactNode; level: React.ReactNode };
+}) => {
   return (
     <li>
       {props.value.name}({props.value.level})

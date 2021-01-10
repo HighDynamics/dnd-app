@@ -4,7 +4,7 @@ import { characterState } from "../../../recoilState";
 import { camelCaseToTitleCase, getAC } from "../../../utilities/utilities";
 import "./ArmorClassInfo.css";
 
-const ArmorClassItem = (props) => {
+const ArmorClassItem = (props: { value: [string, number] }) => {
   const item = props.value;
   return (
     <li className="armorClassItem">

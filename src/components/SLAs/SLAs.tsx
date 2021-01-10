@@ -6,8 +6,19 @@ import {
   selectionState,
   slaState,
 } from "../../recoilState";
+import type { ModalType } from "../../recoilState";
 
-const romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+const romans = [
+  "I",
+  "II",
+  "III",
+  "IV",
+  "V",
+  "VI",
+  "VII",
+  "VIII",
+  "IX",
+] as const;
 const numStrings = [
   "one",
   "two",
@@ -18,20 +29,24 @@ const numStrings = [
   "seven",
   "eight",
   "nine",
-];
+] as const;
 
-const KnownSLAs = (props) => {
+const KnownSLAs = (props: {
+  name: string;
+  uses: number;
+  frequency: string;
+}) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const usedSLAs = useRecoilValue(slaState);
   const { name, uses, frequency } = props;
   const formattedName = name.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + name;
-  function displayInfo(modalDestination) {
+  function displayInfo(modalDestination: ModalType) {
     setSelection(name);
     setModalType(modalDestination);
   }
-  function checkForMatch(name) {
+  function checkForMatch(name: string) {
     return usedSLAs.findIndex((item) => {
       return item.name === name;
     });
@@ -51,7 +66,11 @@ const KnownSLAs = (props) => {
     </button>
   );
 };
-const SLACodeBlock = (props) => {
+const SLACodeBlock = (props: {
+  levelNum: number;
+  character: ICharacter;
+  displaySLAs: (level: typeof numStrings[number]) => React.ReactNode;
+}) => {
   const { levelNum, character, displaySLAs } = props;
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
@@ -83,7 +102,7 @@ const SLAs = (props) => {
       return "Cantrips";
     }
   }
-  function displaySLAs(level) {
+  function displaySLAs(level: keyof typeof character.magic.slas) {
     const slas = Object.values(character.magic.slas[level]).map((s) => (
       <KnownSLAs
         key={s.name}

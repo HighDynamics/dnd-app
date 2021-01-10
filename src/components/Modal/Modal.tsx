@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import "./Modal.css";
 
-export const Modal = (props) => {
+type DivProps = React.PropsWithoutRef<JSX.IntrinsicElements["div"]>;
+
+export const Modal = (
+  props: DivProps & { onClose: React.MouseEventHandler }
+) => {
   const { onClose, children, ...rest } = props;
 
   useEffect(function blockBodyScrolling() {

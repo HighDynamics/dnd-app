@@ -4,7 +4,10 @@ import { compendiumState } from "../../../recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 
-export const CastingSpell = (props) => {
+export const CastingSpell = (props: {
+  selection: string;
+  addUsedSpell: (selection: string, type: "innate") => void;
+}) => {
   const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell } = props;
   const matchedSpell = compendium.spells.find(({ name }) => name === selection);
@@ -23,7 +26,10 @@ export const CastingSpell = (props) => {
     </>
   );
 };
-export const PreppingSpell = (props) => {
+export const PreppingSpell = (props: {
+  selection: string;
+  addUsedSpell: (selection: string, type: "prep") => void;
+}) => {
   const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell } = props;
   const matchedSpell = compendium.spells.find(({ name }) => name === selection);
@@ -43,12 +49,16 @@ export const PreppingSpell = (props) => {
     </>
   );
 };
-export const CastingPreppedSpell = (props) => {
+export const CastingPreppedSpell = (props: {
+  selection: string;
+  addUsedSpell: (selection: string, type: "PreppedCast") => void;
+  removeUsedSpell: (selection: string, type: "prep") => void;
+}) => {
   const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell, removeUsedSpell } = props;
   const matchedSpell = compendium.spells.find(({ name }) => name === selection);
 
-  function disableSpell(selection) {
+  function disableSpell(selection: string) {
     addUsedSpell(selection, "PreppedCast");
     removeUsedSpell(selection, "prep");
   }
@@ -74,12 +84,16 @@ export const CastingPreppedSpell = (props) => {
     </>
   );
 };
-export const UsedPreppedSpell = (props) => {
+export const UsedPreppedSpell = (props: {
+  selection: string;
+  addUsedSpell: (selection: string, type: "preppedCast") => void;
+  removeUsedSpell: (selection: string, type: "prep") => void;
+}) => {
   const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell, removeUsedSpell } = props;
   const matchedSpell = compendium.spells.find(({ name }) => name === selection);
 
-  function disableSpell(selection) {
+  function disableSpell(selection: string) {
     addUsedSpell(selection, "preppedCast");
     removeUsedSpell(selection, "prep");
   }

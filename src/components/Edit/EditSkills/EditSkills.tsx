@@ -12,7 +12,7 @@ const EditSkills = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const [newSkillForm, setNewSkillForm] = useState(false);
 
-  const handleCreateSkill = (newSkill) => {
+  const handleCreateSkill = (newSkill: ICharacter.Skill) => {
     let updatedCharacter = clone(character);
 
     updatedCharacter.skills.push(newSkill);
@@ -21,7 +21,10 @@ const EditSkills = () => {
     setNewSkillForm(!newSkillForm);
   };
 
-  const handleUpdateSkill = (updatedSkill, originalSkill) => {
+  const handleUpdateSkill = (
+    updatedSkill: ICharacter.Skill,
+    originalSkill: ICharacter.Skill
+  ) => {
     let updatedCharacter = clone(character);
 
     const index = character.skills.indexOf(originalSkill);

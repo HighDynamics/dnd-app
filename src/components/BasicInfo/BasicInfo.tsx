@@ -28,7 +28,7 @@ const BasicInfo = (props) => {
     currentHP,
     character.hitPoints.total
   );
-  function toggleModal(modalInput) {
+  function toggleModal(modalInput: string) {
     if (modalType === modalInput) {
       setModalType("Off");
       return "close modal";

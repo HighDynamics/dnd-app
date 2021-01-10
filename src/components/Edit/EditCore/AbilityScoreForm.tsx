@@ -6,7 +6,13 @@ import { updatedCharacterState } from "../../../recoilState";
 
 import "./AbilityScoreForm.css";
 
-const AbilityScoreForm = ({ field, value }) => {
+const AbilityScoreForm = ({
+  field,
+  value,
+}: {
+  field: keyof ICharacter["abilities"]["score"];
+  value: number;
+}) => {
   const [fieldValue, setFieldValue] = useState(value);
   const fieldName = camelCaseToTitleCase(field);
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
@@ -14,7 +20,7 @@ const AbilityScoreForm = ({ field, value }) => {
   );
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     setFieldValue(e.target.value);
     if (e.target.value > 0) {
       editedCharacter.abilities.score[field] = Number(e.target.value);

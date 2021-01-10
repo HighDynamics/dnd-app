@@ -6,7 +6,7 @@ import { updatedCharacterState } from "../../../recoilState";
 
 import "./SpeedForm.css";
 
-const SpeedForm = (props) => {
+const SpeedForm = (props: { speed: number }) => {
   const { speed } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
@@ -14,7 +14,7 @@ const SpeedForm = (props) => {
   const [speedValue, setSpeedValue] = useState(speed);
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     setSpeedValue(e.target.value);
     editedCharacter.speed = e.target.value;
 

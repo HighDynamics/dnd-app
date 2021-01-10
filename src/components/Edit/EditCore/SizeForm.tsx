@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { clone } from "../../../utilities/utilities";
 import { updatedCharacterState } from "../../../recoilState";
 
-const SizeForm = (props) => {
+const SizeForm = (props: { size: string }) => {
   const { size } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
@@ -12,7 +12,7 @@ const SizeForm = (props) => {
   const [sizeName, setSizeName] = useState(size);
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     setSizeName(e.target.value);
     editedCharacter.size = e.target.value;
 

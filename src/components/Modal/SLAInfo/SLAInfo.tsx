@@ -13,12 +13,12 @@ const SLAInfo = (props) => {
   const selection = useRecoilValue(selectionState);
   const compendium = useRecoilValue(compendiumState);
   const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-  function checkForUseState(name) {
+  function checkForUseState(name: string) {
     return usedSLAs.findIndex((item) => {
       return item.name === name;
     });
   }
-  function logUsedSLA(name) {
+  function logUsedSLA(name: string) {
     const newArray = clone(usedSLAs);
     const indexOfMatch = checkForUseState(name);
     if (indexOfMatch < 0) {

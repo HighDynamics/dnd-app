@@ -37,24 +37,60 @@ export const temporaryHitPointsState = atom({
   default: 0,
 });
 
-export const primaryModifierState = atom<number | null>({
+export const primaryModifierState = atom<number>({
   key: "primaryModifierState",
-  default: null,
+  default: null as any,
 });
 
 export const diceRollState = atom<React.ReactNode>({
   key: "diceRollState",
   default: "",
 });
-export const mainContentState = atom({
+
+export type MainContent =
+  | "Skills"
+  | "Scores"
+  | "Attacks"
+  | "More"
+  | "Spells"
+  | "Abilities"
+  | "SLAs"
+  | "Prep"
+  | "Items"
+  | "EditSkills"
+  | "EditAbilities"
+  | "EditSpells"
+  | "EditSLAs"
+  | "EditAttacks"
+  | "EditItems"
+  | "EditCore"
+  | "AddCharacter";
+
+export const mainContentState = atom<MainContent>({
   key: "mainContentState",
   default: "Skills",
 });
-export const secondaryNavbarState = atom({
+
+export type SecondaryNavbar = "stats" | "ability" | null;
+
+export const secondaryNavbarState = atom<SecondaryNavbar>({
   key: "secondaryNavbarDisplayState",
   default: "stats",
 });
-export const modalTypeState = atom({
+
+export type ModalType =
+  | "Cast"
+  | "Prep"
+  | "CastPrepped"
+  | "UsedPrepped"
+  | "HP"
+  | "Defense"
+  | "Abilities"
+  | "SLA"
+  | "Item"
+  | "Off";
+
+export const modalTypeState = atom<ModalType>({
   key: "modalTypeState",
   default: "Off",
 });

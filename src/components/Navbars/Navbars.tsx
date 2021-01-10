@@ -1,9 +1,13 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { mainContentState, secondaryNavbarState } from "../../recoilState";
+import type {
+  MainContent,
+  SecondaryNavbar as SecondaryNav,
+} from "../../recoilState";
 import "./Navbars.css";
 
-const NavButtonCodeBlock = (props) => {
+const NavButtonCodeBlock = (props: { name: MainContent }) => {
   const [mainContent, setMainContent] = useRecoilState(mainContentState);
   return (
     <button
@@ -44,7 +48,7 @@ const StatsSelector = () => {
 
 const SecondaryNavbar = (props) => {
   const secondaryNavbar = useRecoilValue(secondaryNavbarState);
-  function navSwitch(display) {
+  function navSwitch(display: SecondaryNav) {
     switch (display) {
       case "stats":
         return <StatsSelector />;
@@ -70,13 +74,17 @@ const PrimaryNavbar = (props) => {
   const statIcon = <i id="statIcon" className="far fa-chart-bar"></i>;
   const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
   const itemIcon = <i id="itemIcon" className="fas fa-scroll"></i>;
-  function setBothDisplays(name, secondaryName) {
+  function setBothDisplays(name: SecondaryNav, secondaryName: MainContent) {
     setSecondaryNavbar(name);
     if (secondaryName !== null) {
       setMainContent(secondaryName);
     }
   }
-  function navButtonCodeBlock(name, icon, secondaryName) {
+  function navButtonCodeBlock(
+    name: SecondaryNav,
+    icon: React.ReactNode,
+    secondaryName: MainContent
+  ) {
     return (
       <button
         id={name}

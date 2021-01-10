@@ -4,7 +4,18 @@ import "./ClassForm.css";
 
 const newClass = { name: "", level: 0 };
 
-const ClassForm = ({ classItem = newClass, character, handleEvent }) => {
+const ClassForm = ({
+  classItem = newClass,
+  character,
+  handleEvent,
+}: {
+  classItem: typeof newClass;
+  character: ICharacter;
+  handleEvent: (
+    setter: ((input: string) => void) | ((input: number) => void),
+    index: number
+  ) => React.ChangeEventHandler;
+}) => {
   const [classTitle, setClassTitle] = useState(classItem.name);
   const [classLevel, setClassLevel] = useState(classItem.level);
   const index = () => {

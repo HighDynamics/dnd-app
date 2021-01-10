@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const blankSkill = {
+const blankSkill: ICharacter.Skill = {
   classSkill: false,
   ability: "strength",
   ranks: 0,
@@ -10,7 +10,13 @@ const blankSkill = {
   name: "",
 };
 
-const SkillForm = ({ initialSkill = blankSkill, onSubmit }) => {
+const SkillForm = ({
+  initialSkill = blankSkill,
+  onSubmit,
+}: {
+  initialSkill?: ICharacter.Skill;
+  onSubmit: (updated: ICharacter.Skill, original: ICharacter.Skill) => any;
+}) => {
   const [classSkill, setClassSkill] = useState(initialSkill.classSkill);
   const [ability, setAbility] = useState(initialSkill.ability);
   const [ranks, setRanks] = useState(initialSkill.ranks);
@@ -19,7 +25,7 @@ const SkillForm = ({ initialSkill = blankSkill, onSubmit }) => {
   const [armorCheck, setArmorCheck] = useState(initialSkill.armorCheck);
   const [name, setName] = useState(initialSkill.name);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     switch (e.target.name) {
       case "ability":
         setAbility(e.target.value);

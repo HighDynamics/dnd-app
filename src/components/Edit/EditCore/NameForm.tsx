@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 
 import { clone } from "../../../utilities/utilities";
 import { updatedCharacterState } from "../../../recoilState";
-const NameForm = (props) => {
+const NameForm = (props: { name: string }) => {
   const { name } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
@@ -11,7 +11,7 @@ const NameForm = (props) => {
   const [nameField, setNameField] = useState(name);
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     setNameField(e.target.value);
     editedCharacter.name = e.target.value;
 

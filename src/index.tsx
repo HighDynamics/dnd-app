@@ -15,7 +15,8 @@ render(
     <RecoilRoot>
       <SWRConfig
         value={{
-          fetcher: (...args) => fetch(...args).then((res) => res.json()),
+          fetcher: (...args: Parameters<typeof fetch>) =>
+            fetch(...args).then((res) => res.json()),
         }}
       >
         <LoadApp />

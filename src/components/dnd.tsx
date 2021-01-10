@@ -69,9 +69,10 @@ const LoadApp = () => {
   ]: InitialRecoilState<ICharacter> = useRecoilState(characterState);
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
   const [compendium, setCompendium] = useRecoilState(compendiumState);
-  const [primaryModifier, setPrimaryModifier] = useRecoilState(
-    primaryModifierState
-  );
+  const [
+    primaryModifier,
+    setPrimaryModifier,
+  ]: InitialRecoilState<number> = useRecoilState(primaryModifierState);
   const abilityMod = getAbilityMod(character);
 
   // Before the data is loaded, it will be `undefined`. So inside `useEffect`

@@ -2,7 +2,17 @@ import { camelCaseToTitleCase } from "../../../utilities/utilities";
 
 import "./DefenseForm.css";
 
-const DefenseForm = ({ field, value, handleEvent, fieldPath }) => {
+const DefenseForm = ({
+  field,
+  value,
+  handleEvent,
+  fieldPath,
+}: {
+  field: string;
+  value: number | null;
+  handleEvent: React.ChangeEventHandler;
+  fieldPath: string;
+}) => {
   const fieldValue = value === null ? 0 : value;
   const immunity = value === null ? true : false;
   const fieldTitle = camelCaseToTitleCase(field);

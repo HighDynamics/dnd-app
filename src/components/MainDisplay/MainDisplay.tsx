@@ -27,13 +27,14 @@ import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 
 import { mainContentState, modalTypeState } from "../../recoilState";
+import type { ModalType, MainContent } from "../../recoilState";
 
 import "./MainDisplay.css";
 
 const MainDisplay = (props) => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const mainContent = useRecoilValue(mainContentState);
-  function screenSwitch(display) {
+  function screenSwitch(display: MainContent) {
     switch (display) {
       case "Skills":
         return <Skills />;
@@ -73,7 +74,7 @@ const MainDisplay = (props) => {
         return <Skills />;
     }
   }
-  function infoSheet(modalType) {
+  function infoSheet(modalType: ModalType) {
     switch (modalType) {
       case "Cast":
       case "Prep":

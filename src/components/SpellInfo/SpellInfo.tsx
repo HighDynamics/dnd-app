@@ -8,6 +8,7 @@ import {
   preppedSpellsCastState,
   characterState,
 } from "../../recoilState";
+import type { ModalType } from "../../recoilState";
 import { clone } from "../../utilities/utilities";
 import { Modal } from "../Modal/Modal";
 import {
@@ -18,8 +19,14 @@ import {
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
 
-export const CompendiumSpell = ({ property, value }) => {
-  function formatProperty(input) {
+export const CompendiumSpell = ({
+  property,
+  value,
+}: {
+  property: string;
+  value: string;
+}) => {
+  function formatProperty(input: typeof property) {
     switch (input) {
       case "name:":
       case "type:":
@@ -45,6 +52,8 @@ export const CompendiumSpell = ({ property, value }) => {
   );
 };
 
+type PrepType = "innate" | "prep" | "preppedCast";
+
 const SpellInfo = (props) => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);
@@ -57,20 +66,27 @@ const SpellInfo = (props) => {
   const [preppedSpellsCast, setPreppedSpellsCast] = useRecoilState(
     preppedSpellsCastState
   );
-  function getSpellLevel(selection, innatePrepOrPrepped) {
-    let foundLevel = null;
+  function getSpellLevel(selection: string, innatePrepOrPrepped: PrepType) {
+    type Level = keyof typeof character.magic.spells;
+    let foundLevel = null as null | Level;
     if (innatePrepOrPrepped === "innate") {
       Object.keys(character.magic.spells).forEach((level) => {
-        if (Object.values(character.magic.spells[level]).includes(selection)) {
-          foundLevel = level;
+        if (
+          Object.values(character.magic.spells[level as Level]).includes(
+            selection
+          )
+        ) {
+          foundLevel = level as Level;
         }
       });
     } else {
       Object.keys(character.magic.spellbook).forEach((level) => {
         if (
-          Object.values(character.magic.spellbook[level]).includes(selection)
+          Object.values(character.magic.spellbook[level as Level]).includes(
+            selection
+          )
         ) {
-          foundLevel = level;
+          foundLevel = level as Level;
         }
       });
     }
@@ -88,7 +104,7 @@ const SpellInfo = (props) => {
     eight: 8,
     nine: 9,
   };
-  function addUsedSpell(selection, innatePrepOrPrepped) {
+  function addUsedSpell(selection: string, innatePrepOrPrepped: PrepType) {
     const levelString = getSpellLevel(selection, innatePrepOrPrepped);
     //assign a number from string
     const level = lvlConversion[levelString];
@@ -109,7 +125,7 @@ const SpellInfo = (props) => {
       setModalType("Off");
     }
   }
-  function removeUsedSpell(selection, innatePrepOrPrepped) {
+  function removeUsedSpell(selection: string, innatePrepOrPrepped: PrepType) {
     const levelString = getSpellLevel(selection, innatePrepOrPrepped);
     //assign a number from string
     const level = lvlConversion[levelString];
@@ -137,7 +153,7 @@ const SpellInfo = (props) => {
       setPreppedSpellsCast(newArray);
     }
   }
-  function chooseModal(modalType) {
+  function chooseModal(modalType: ModalType) {
     switch (modalType) {
       case "Prep":
         return (

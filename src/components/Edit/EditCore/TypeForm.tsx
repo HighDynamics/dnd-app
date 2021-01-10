@@ -1,6 +1,17 @@
 import { useState } from "react";
 
-const TypeForm = ({ type, character, handleEvent }) => {
+const TypeForm = ({
+  type,
+  character,
+  handleEvent,
+}: {
+  type: string;
+  character: ICharacter;
+  handleEvent: (
+    setterFn: (value: string) => void,
+    index: number
+  ) => React.ChangeEventHandler;
+}) => {
   const [typeName, setTypeName] = useState(type);
 
   const index = () => {

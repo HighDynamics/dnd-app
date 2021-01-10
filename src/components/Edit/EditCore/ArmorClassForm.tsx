@@ -8,7 +8,10 @@ import { camelCaseToTitleCase } from "../../../utilities/utilities";
 
 import "./ArmorClassForm.css";
 
-const ArmorClassForm = (props) => {
+const ArmorClassForm = (props: {
+  field: keyof ICharacter["armorClass"];
+  value: number;
+}) => {
   const { field, value } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
@@ -17,7 +20,7 @@ const ArmorClassForm = (props) => {
   const fieldName = camelCaseToTitleCase(field);
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     setFieldValue(e.target.value);
     editedCharacter.armorClass[field] = Number(e.target.value);
 

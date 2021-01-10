@@ -13,13 +13,13 @@ import {
 import { totalSpells } from "../dnd";
 import "./Spells.css";
 
-const PreppedSpellCast = (props) => {
+const PreppedSpellCast = (props: { value: string }) => {
   const spell = props.value;
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const formattedSpellName = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons disabled " + formattedSpellName;
-  function displayInfo(spell) {
+  function displayInfo(spell: string) {
     setModalType("UsedPrepped");
     setSelection(spell);
   }
@@ -30,20 +30,23 @@ const PreppedSpellCast = (props) => {
   );
 };
 
-const PreppedSpellsCast = (props) => {
+function PreppedSpellsCast(props: {
+  levelNum: number;
+  preppedSpellsCast: Array<string[]>;
+}) {
   const { levelNum, preppedSpellsCast } = props;
   return preppedSpellsCast[levelNum].map((psc) => (
     <PreppedSpellCast key={psc} value={psc} />
   ));
-};
+}
 
-const PreppedSpell = (props) => {
+const PreppedSpell = (props: { value: string }) => {
   const spell = props.value;
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const formattedSpellName = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedSpellName;
-  function displayInfo(spell) {
+  function displayInfo(spell: string) {
     setModalType("CastPrepped");
     setSelection(spell);
   }
@@ -54,20 +57,23 @@ const PreppedSpell = (props) => {
   );
 };
 
-const PreppedSpells = (props) => {
+function PreppedSpells(props: {
+  levelNum: number;
+  preppedSpells: Array<string[]>;
+}) {
   const { levelNum, preppedSpells } = props;
   return preppedSpells[levelNum].map((ps) => (
     <PreppedSpell key={ps} value={ps} />
   ));
-};
+}
 
-const KnownSpell = (props) => {
+const KnownSpell = (props: { value: string }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const spell = props.value;
   const formattedClass = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;
-  function displayInfo(spell) {
+  function displayInfo(spell: string) {
     setModalType("Cast");
     setSelection(spell);
   }
@@ -78,13 +84,16 @@ const KnownSpell = (props) => {
   );
 };
 
-const KnownSpells = (props) => {
+const KnownSpells = (props: {
+  character: ICharacter;
+  level: keyof ICharacter["magic"]["spells"];
+}) => {
   return Object.values(props.character.magic.spells[props.level]).map((s) => (
     <KnownSpell key={s} value={s} />
   ));
 };
 
-const CasterType = (props) => {
+const CasterType = (props: { character: ICharacter }) => {
   const character = props.character;
   if (character.magic.type.arcane && character.magic.type.divine) {
     return "Cantrips & Orisons";
@@ -95,7 +104,17 @@ const CasterType = (props) => {
   }
 };
 
-const romans = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+const romans = [
+  "I",
+  "II",
+  "III",
+  "IV",
+  "V",
+  "VI",
+  "VII",
+  "VIII",
+  "IX",
+] as const;
 const numStrings = [
   "one",
   "two",
@@ -106,9 +125,17 @@ const numStrings = [
   "seven",
   "eight",
   "nine",
-];
+] as const;
 
-const SpellCodeBlock = (props) => {
+const SpellCodeBlock = (props: {
+  levelNum: number;
+  character: ICharacter;
+  primaryModifier: number;
+  innateSpellsCast: Array<string[]>;
+  preppedSpells: Array<string[]>;
+  preppedSpellsCast: Array<string[]>;
+  getDifficultyClass: (levelNum: number) => number;
+}) => {
   const {
     levelNum,
     character,
@@ -167,7 +194,7 @@ const Spells = (props) => {
     innateSpellsCast[0].length -
     preppedSpells[0].length -
     preppedSpellsCast[0].length;
-  function getDifficultyClass(levelNum) {
+  function getDifficultyClass(levelNum: number) {
     return 10 + levelNum + primaryModifier;
   }
 

@@ -8,10 +8,13 @@ import {
 } from "../../../utilities/utilities";
 import "./DefenseInfo.css";
 
-const EnergyResistanceItem = (props) => {
+const EnergyResistanceItem = (props: {
+  defense: ICharacter["defense"];
+  value: ObjEntries<typeof defense.energyResistance>;
+}) => {
   const item = props.value;
   const defense = props.defense;
-  function getResistance(type) {
+  function getResistance(type: typeof item[0]) {
     if (defense.energyResistance[type] === null) {
       return "Immune";
     }
@@ -23,7 +26,7 @@ const EnergyResistanceItem = (props) => {
     </li>
   );
 };
-const WillSaveItem = (props) => {
+const WillSaveItem = (props: { value: [string, number] }) => {
   const item = props.value;
   return (
     <li className="willSaveItem">
@@ -32,7 +35,7 @@ const WillSaveItem = (props) => {
   );
 };
 
-const ReflexSaveItem = (props) => {
+const ReflexSaveItem = (props: { value: [string, number] }) => {
   const item = props.value;
   return (
     <li className="reflexSaveItem">
@@ -41,7 +44,7 @@ const ReflexSaveItem = (props) => {
   );
 };
 
-const FortitudeSaveItem = (props) => {
+const FortitudeSaveItem = (props: { value: [string, number] }) => {
   const item = props.value;
   return (
     <li className="fortitudeSaveItem">
@@ -49,6 +52,7 @@ const FortitudeSaveItem = (props) => {
     </li>
   );
 };
+
 const DefenseInfo = (props) => {
   const character = useRecoilValue(characterState);
   const setRoll = useSetRecoilState(diceRollState);
@@ -63,9 +67,13 @@ const DefenseInfo = (props) => {
   const energyResistanceItems = Object.entries(
     defense.energyResistance
   ).map((item, i) => (
-    <EnergyResistanceItem key={i} value={item} defense={defense} />
+    <EnergyResistanceItem
+      key={i}
+      value={item as ObjEntries<typeof defense.energyResistance>}
+      defense={defense}
+    />
   ));
-  function getSavesTotalValue(type) {
+  function getSavesTotalValue(type: keyof ICharacter["defense"]["saves"]) {
     switch (type) {
       case "fortitude":
         return (
@@ -84,7 +92,7 @@ const DefenseInfo = (props) => {
         return null;
     }
   }
-  function getSavesBreakdown(type) {
+  function getSavesBreakdown(type: keyof ICharacter["defense"]["saves"]) {
     switch (type) {
       case "fortitude":
         return Object.entries(defense.saves.fortitude).map((item, i) => (

@@ -28,7 +28,7 @@ const DefenseFormParent = () => {
   const editedCharacter = clone(updatedCharacter);
   const fieldPath = editedCharacter.defense;
 
-  const handleChange = (e) => {
+  const handleChange: React.ChangeEventHandler = (e) => {
     const value = e.target.value;
     const field = e.target.name;
     const type = e.target.type;
@@ -122,13 +122,18 @@ const DefenseFormParent = () => {
   );
 };
 
-const SavesFormParent = ({ character }) => {
+const SavesFormParent = ({ character }: { character: ICharacter }) => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
   );
   const editedCharacter = clone(updatedCharacter);
   const fieldPath = editedCharacter.defense.saves;
-  const handleChange = (setterFunction, fieldParent) => (e) => {
+  const handleChange = (
+    setterFunction:
+      | ((value: string | null) => void)
+      | ((value: number | null) => void),
+    fieldParent: keyof ICharacter["defense"]["saves"]
+  ): React.ChangeEventHandler => (e) => {
     const value = e.target.value;
     setterFunction(value);
     switch (e.target.name) {
@@ -201,11 +206,15 @@ const SavesFormParent = ({ character }) => {
   );
 };
 
-const ArmorClassFormParent = ({ character }) => {
+const ArmorClassFormParent = ({ character }: { character: ICharacter }) => {
   const armorClass = Object.entries(
     character.armorClass
   ).map(([field, value]) => (
-    <ArmorClassForm key={field} field={field} value={value} />
+    <ArmorClassForm
+      key={field}
+      field={field as keyof typeof character.armorClass}
+      value={value}
+    />
   ));
 
   return (
@@ -216,7 +225,7 @@ const ArmorClassFormParent = ({ character }) => {
   );
 };
 
-const HitPointsFormParent = ({ character }) => {
+const HitPointsFormParent = ({ character }: { character: ICharacter }) => {
   return (
     <fieldset>
       <legend>Hit Points</legend>
@@ -228,7 +237,7 @@ const HitPointsFormParent = ({ character }) => {
   );
 };
 
-const AbilityScoreFormParent = ({ character }) => {
+const AbilityScoreFormParent = ({ character }: { character: ICharacter }) => {
   const primaryMod = character.abilities.primary;
   const [primaryModifier, setPrimaryModifier] = useState(primaryMod);
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
@@ -241,11 +250,17 @@ const AbilityScoreFormParent = ({ character }) => {
       if (value === null) {
         value = 0;
       }
-      return <AbilityScoreForm key={field} field={field} value={value} />;
+      return (
+        <AbilityScoreForm
+          key={field}
+          field={field as keyof typeof character.abilities.score}
+          value={value}
+        />
+      );
     }
   );
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     setPrimaryModifier(e.target.value);
     editedCharacter.abilities.primary = e.target.value;
     setUpdatedCharacter(editedCharacter);
@@ -275,20 +290,23 @@ const AbilityScoreFormParent = ({ character }) => {
   );
 };
 
-const TypesFormParent = ({ character }) => {
+const TypesFormParent = ({ character }: { character: ICharacter }) => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
   );
   const editedCharacter = clone(updatedCharacter);
 
-  const handleChange = (setterFunction, index) => (e) => {
+  const handleChange = (
+    setterFunction: (value: string) => void,
+    index: number
+  ): React.ChangeEventHandler => (e) => {
     const value = e.target.value;
     setterFunction(value);
     editedCharacter.type[index] = value;
     setUpdatedCharacter(editedCharacter);
   };
 
-  const handleNewType = (e) => {
+  const handleNewType: React.MouseEventHandler = (e) => {
     editedCharacter.type.push("");
     setUpdatedCharacter(editedCharacter);
   };
@@ -311,13 +329,16 @@ const TypesFormParent = ({ character }) => {
   );
 };
 
-const ClassFormParent = ({ character }) => {
+const ClassFormParent = ({ character }: { character: ICharacter }) => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
   );
   const editedCharacter = clone(updatedCharacter);
 
-  const handleChange = (setterFunction, index) => (e) => {
+  const handleChange = (
+    setterFunction: (value: any) => void,
+    index: number
+  ): React.ChangeEventHandler => (e) => {
     const value = e.target.value;
     switch (e.target.name) {
       case "classTitle":
@@ -334,7 +355,7 @@ const ClassFormParent = ({ character }) => {
     setUpdatedCharacter(editedCharacter);
   };
 
-  const handleNewClass = (e) => {
+  const handleNewClass: React.MouseEventHandler = (e) => {
     editedCharacter.class.push({ name: "", level: 0 });
     setUpdatedCharacter(editedCharacter);
   };
@@ -364,7 +385,7 @@ const EditCore = (props) => {
   const setMainContent = useSetRecoilState(mainContentState);
   const character = useRecoilValue(characterState);
   const updatedCharacter = useRecoilValue(updatedCharacterState);
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const primary = updatedCharacter.abilities.primary;
     if (updatedCharacter.abilities.score[primary] === null) {

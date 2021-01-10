@@ -6,7 +6,7 @@ import { clone } from "../../../utilities/utilities";
 
 import "./HitPointsForm.css";
 
-const HitPointsForm = (props) => {
+const HitPointsForm = (props: { hitPoints: number; dieSize: number }) => {
   const { hitPoints, dieSize } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
     updatedCharacterState
@@ -15,7 +15,7 @@ const HitPointsForm = (props) => {
   const [dieSizeNum, setDieSizeNum] = useState(dieSize);
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent) {
     switch (e.target.name) {
       case "hp":
         setHp(e.target.value);
