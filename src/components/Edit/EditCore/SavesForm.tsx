@@ -23,14 +23,16 @@ const SavesForm = ({
   const handleChange = handleEvent(setFieldValue, fieldParent);
   return (
     <>
-      {fieldName}:{" "}
-      <input
-        name={field}
-        className="numberInput twoDigit savesFormItemNumber"
-        type="number"
-        value={fieldValue}
-        onChange={handleChange}
-      />
+      <label>
+        {fieldName}:{" "}
+        <input
+          name={field}
+          className="numberInput twoDigit savesFormItemNumber"
+          type="number"
+          value={fieldValue}
+          onChange={handleChange}
+        />
+      </label>
     </>
   );
 };
