@@ -52,12 +52,13 @@ const More = (props) => {
             </button>
           </div>
         )}
-        <button
+        {/*add below in the future*/}
+        {/*<button
           className="moreButton"
           onClick={() => setMainContent("EditAttacks")}
         >
           Attacks
-        </button>
+        </button>*/}
         <button
           className="moreButton"
           onClick={() => setMainContent("EditItems")}
