@@ -32,14 +32,16 @@ const AbilityScoreForm = ({
   return (
     <>
       <div className="abilityScoreFormItem">
-        {fieldName}:{" "}
-        <input
-          type="number"
-          name={field}
-          value={fieldValue}
-          className="numberInput twoDigit abilityScoreFormItemNumber"
-          onChange={handleChange}
-        />
+        <label>
+          {fieldName}:{" "}
+          <input
+            type="number"
+            name={field}
+            value={fieldValue}
+            className="numberInput twoDigit abilityScoreFormItemNumber"
+            onChange={handleChange}
+          />
+        </label>
       </div>
     </>
   );

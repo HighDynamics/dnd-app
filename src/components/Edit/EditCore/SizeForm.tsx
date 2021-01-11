@@ -20,23 +20,25 @@ const SizeForm = (props: { size: string }) => {
   }
   return (
     <>
-      Size:{" "}
-      <select
-        name="size"
-        className="textInput"
-        value={sizeName}
-        onChange={handleChange}
-      >
-        <option value="Fine">Fine</option>
-        <option value="Diminutive">Diminutive</option>
-        <option value="Tiny">Tiny</option>
-        <option value="Small">Small</option>
-        <option value="Medium">Medium</option>
-        <option value="Large">Large</option>
-        <option value="Huge">Huge</option>
-        <option value="Gargantuan">Gargantuan</option>
-        <option value="Colossal">Colossal</option>
-      </select>
+      <label>
+        Size:{" "}
+        <select
+          name="size"
+          className="textInput"
+          value={sizeName}
+          onChange={handleChange}
+        >
+          <option value="Fine">Fine</option>
+          <option value="Diminutive">Diminutive</option>
+          <option value="Tiny">Tiny</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+          <option value="Huge">Huge</option>
+          <option value="Gargantuan">Gargantuan</option>
+          <option value="Colossal">Colossal</option>
+        </select>
+      </label>
     </>
   );
 };

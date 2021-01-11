@@ -33,27 +33,31 @@ const HitPointsForm = (props: { hitPoints: number; dieSize: number }) => {
 
   return (
     <>
-      HD size:{" "}
-      <select
-        name="dieSize"
-        className="numberInput threeDigit"
-        value={dieSizeNum}
-        onChange={handleChange}
-      >
-        <option value="4">4</option>
-        <option value="6">6</option>
-        <option value="8">8</option>
-        <option value="10">10</option>
-        <option value="12">12</option>
-      </select>{" "}
-      HP:{" "}
-      <input
-        type="number"
-        className="numberInput threeDigit"
-        name="hp"
-        onChange={handleChange}
-        value={hp}
-      />
+      <label>
+        HD size:{" "}
+        <select
+          name="dieSize"
+          className="numberInput threeDigit"
+          value={dieSizeNum}
+          onChange={handleChange}
+        >
+          <option value="4">4</option>
+          <option value="6">6</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+          <option value="12">12</option>
+        </select>
+      </label>{" "}
+      <label>
+        HP:{" "}
+        <input
+          type="number"
+          className="numberInput threeDigit"
+          name="hp"
+          onChange={handleChange}
+          value={hp}
+        />
+      </label>
     </>
   );
 };

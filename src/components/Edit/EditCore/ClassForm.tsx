@@ -29,22 +29,26 @@ const ClassForm = ({
   const handleLevelChange = handleEvent(setClassLevel, index());
   return (
     <>
-      Class:{" "}
-      <input
-        className="textInput"
-        type="text"
-        name="classTitle"
-        value={classTitle}
-        onChange={handleTitleChange}
-      />{" "}
-      Level:{" "}
-      <input
-        className="numberInput twoDigit"
-        type="number"
-        name="level"
-        value={classLevel}
-        onChange={handleLevelChange}
-      />
+      <label>
+        Class:{" "}
+        <input
+          className="textInput"
+          type="text"
+          name="classTitle"
+          value={classTitle}
+          onChange={handleTitleChange}
+        />{" "}
+      </label>
+      <label>
+        Level:{" "}
+        <input
+          className="numberInput twoDigit"
+          type="number"
+          name="level"
+          value={classLevel}
+          onChange={handleLevelChange}
+        />
+      </label>
       <br />
     </>
   );
