@@ -194,6 +194,16 @@ const Arn = {
       display: true,
     },
     {
+      name: "Handle Animal",
+      ability: "charisma",
+      ranks: 0,
+      miscModifier: 0,
+      classSkill: false,
+      armorCheck: false,
+      display: true,
+    },
+
+    {
       name: "Heal",
       ability: "wisdom",
       ranks: 20,
@@ -293,6 +303,15 @@ const Arn = {
       display: false,
     },
     {
+      name: "Open Lock",
+      ability: "dexterity",
+      ranks: 0,
+      miscModifier: 0,
+      classSkill: true,
+      armorCheck: true,
+      display: false,
+    },
+    {
       name: "Perception",
       ability: "wisdom",
       ranks: 9,
@@ -345,6 +364,15 @@ const Arn = {
       classSkill: true,
       armorCheck: false,
       display: true,
+    },
+    {
+      name: "Sleight of Hand",
+      ability: "dexterity",
+      ranks: 7,
+      miscModifier: 2,
+      classSkill: true,
+      armorCheck: true,
+      display: false,
     },
     {
       name: "Spellcraft",
