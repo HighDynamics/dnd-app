@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "./SkillForm.css";
+
 const blankSkill: ICharacter.Skill = {
   classSkill: false,
   ability: "strength",
@@ -75,7 +77,7 @@ const SkillForm = ({
       <form onSubmit={handleSubmit}>
         <fieldset className="formItemsContainer">
           <input
-            className="skillName"
+            className="legendHeader skillLegendHeader"
             name="skillName"
             type="text"
             value={name}
@@ -85,75 +87,92 @@ const SkillForm = ({
 
           <div className="skillDetailContainer">
             <div className="skillDetailItem">
-              <label htmlFor="ability">Ability:</label>
-              <select name="ability" value={ability} onChange={handleChange}>
-                <option value="strength">strength</option>
-                <option value="constitution">constitution</option>
-                <option value="dexterity">dexterity</option>
-                <option value="intelligence">intelligence</option>
-                <option value="wisdom">wisdom</option>
-                <option value="charisma">charisma</option>
-              </select>
+              <label>
+                Ability:{" "}
+                <select
+                  name="ability"
+                  className="textInput skillSelect"
+                  value={ability}
+                  onChange={handleChange}
+                >
+                  <option value="strength">strength</option>
+                  <option value="constitution">constitution</option>
+                  <option value="dexterity">dexterity</option>
+                  <option value="intelligence">intelligence</option>
+                  <option value="wisdom">wisdom</option>
+                  <option value="charisma">charisma</option>
+                </select>
+              </label>
             </div>
 
             <div className="skillDetailItem">
-              <label htmlFor="classSkill">Class Skill:</label>
-              <input
-                type="checkbox"
-                name="classSkill"
-                checked={classSkill}
-                onChange={handleChange}
-              />
+              <label>
+                Class Skill:
+                <input
+                  type="checkbox"
+                  name="classSkill"
+                  checked={classSkill}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
 
             <div className="skillDetailItem">
-              <label htmlFor="ranks">Ranks:</label>
-              <input
-                type="number"
-                name="ranks"
-                min="0"
-                className="skillNumberInput"
-                value={ranks}
-                onChange={handleChange}
-              />
+              <label>
+                Ranks:{" "}
+                <input
+                  type="number"
+                  name="ranks"
+                  min="0"
+                  className="numberInput twoDigit skillNumberInput"
+                  value={ranks}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
 
             <div className="skillDetailItem">
-              <label htmlFor="armorCheck">Armor Check:</label>
-              <input
-                type="checkbox"
-                name="armorCheck"
-                checked={armorCheck}
-                onChange={handleChange}
-              />
+              <label>
+                Armor Check:{" "}
+                <input
+                  type="checkbox"
+                  name="armorCheck"
+                  checked={armorCheck}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
 
             <div className="skillDetailItem">
-              <label htmlFor="miscModifier">Misc Modifier:</label>
-              <input
-                type="number"
-                name="miscModifier"
-                min="0"
-                className="skillNumberInput"
-                value={miscModifier}
-                onChange={handleChange}
-              />
+              <label>
+                Misc Modifier:{" "}
+                <input
+                  type="number"
+                  name="miscModifier"
+                  min="0"
+                  className="numberInput twoDigit skillNumberInput"
+                  value={miscModifier}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
 
             <div className="skillDetailItem">
-              <label htmlFor="display">Display:</label>
-              <input
-                type="checkbox"
-                name="display"
-                checked={display}
-                onChange={handleChange}
-              />
+              <label>
+                Display:{" "}
+                <input
+                  type="checkbox"
+                  name="display"
+                  checked={display}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
           </div>
 
           <div className="updateCharacter">
             <input
-              className="updateCharacterButton"
+              className="updateCharacterButton defaultButton"
               type="submit"
               value="Update Character"
             />

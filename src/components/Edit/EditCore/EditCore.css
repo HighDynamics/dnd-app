@@ -3,13 +3,6 @@
   align-items: center;
 }
 
-.twoDigit {
-  width: 2rem;
-}
-.threeDigit {
-  width: 3rem;
-}
-
 .armorClassFormContainer {
   display: flex;
   flex-direction: row;
@@ -19,4 +12,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.coreFormButton {
+  margin-top: 2px;
 }

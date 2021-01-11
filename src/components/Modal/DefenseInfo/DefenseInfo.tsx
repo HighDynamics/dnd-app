@@ -125,7 +125,7 @@ const DefenseInfo = (props) => {
           <p className="savesHeading">Saves</p>
           <div className="fortitudeSaveContainer">
             <button
-              className="fortitudeSaveButton"
+              className="fortitudeSaveButton defaultButton"
               onClick={() => setRoll(roll20(fortSave, "Fortitude"))}
             >
               Fortitude: {fortSave} <i className="fas fa-dice-d20"></i>
@@ -137,7 +137,7 @@ const DefenseInfo = (props) => {
           </div>
           <div className="reflexSaveContainer">
             <button
-              className="reflexSaveButton"
+              className="reflexSaveButton defaultButton"
               onClick={() => setRoll(roll20(refSave, "Reflex"))}
             >
               Reflex: {refSave} <i className="fas fa-dice-d20"></i>
@@ -149,7 +149,7 @@ const DefenseInfo = (props) => {
           </div>
           <div className="willSaveContainer">
             <button
-              className="willSaveButton"
+              className="willSaveButton defaultButton"
               onClick={() => setRoll(roll20(willSave, "Will"))}
             >
               Will: {willSave} <i className="fas fa-dice-d20"></i>

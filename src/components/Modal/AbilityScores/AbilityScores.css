@@ -10,10 +10,6 @@
   font-size: 1.5rem;
   font-family: monospace;
 }
-.rollAbility {
-  border: none;
-  background-color: rgba(57, 18, 70, 0.8);
-  color: white;
-  outline: 2px solid black;
+.rollAbilityButton {
   margin-right: 10px;
 }

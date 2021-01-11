@@ -10,7 +10,6 @@ import {
   characterState,
 } from "../../recoilState";
 import { totalSpells } from "../dnd";
-import "./PrepSpells.css";
 
 const KnownSpell = (props) => {
   const setModalType = useSetRecoilState(modalTypeState);
@@ -98,7 +97,11 @@ const PrepSpells = (props) => {
   return (
     <>
       <div>
-        <button id="returnToSpells" onClick={() => setMainContent("Spells")}>
+        <button
+          id="returnToSpells"
+          className="backButton"
+          onClick={() => setMainContent("Spells")}
+        >
           <i className="fas fa-arrow-left"></i>
         </button>
         <div className="spellContainer">

@@ -6,9 +6,9 @@
 .inputAndButton {
   display: inline;
   float: right;
+  margin-right: 2px;
 }
-.shortNumber {
-  width: 4rem;
+.damageInput {
   margin-right: 4px;
 }
 .redText {
@@ -16,10 +16,4 @@
 }
 .greenText {
   color: green;
-}
-.plusMinusButton {
-  border: none;
-  color: white;
-  background-color: rgba(63, 54, 68, 1);
-  outline: 1px solid white;
 }
