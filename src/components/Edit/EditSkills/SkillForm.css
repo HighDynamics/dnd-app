@@ -1,0 +1,23 @@
+.updateCharacterButton {
+  margin-top: 1rem;
+}
+.skillDetailContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.skillDetailItem {
+  width: 50%;
+  text-align: right;
+}
+.updateCharacter {
+  text-align: center;
+  margin: auto;
+}
+.skillSelect {
+  width: auto;
+}
+.skillLegendHeader {
+  margin-top: 0;
+  margin-bottom: -1rem;
+  top: -1rem;
+}

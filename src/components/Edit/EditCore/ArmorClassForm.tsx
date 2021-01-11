@@ -28,14 +28,16 @@ const ArmorClassForm = (props: {
   }
   return (
     <div className="armorClassFormItem">
-      {fieldName}:{" "}
-      <input
-        type="number"
-        name={field}
-        className="numberInput twoDigit armorClassFormItemNumber"
-        value={fieldValue}
-        onChange={handleChange}
-      />
+      <label>
+        {fieldName}:{" "}
+        <input
+          type="number"
+          name={field}
+          className="numberInput twoDigit armorClassFormItemNumber"
+          value={fieldValue}
+          onChange={handleChange}
+        />
+      </label>
     </div>
   );
 };

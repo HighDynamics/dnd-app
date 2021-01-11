@@ -18,7 +18,7 @@ export const Modal = (
 
   return (
     <div className="modal" {...rest}>
-      <button className="modal_closeButton" onClick={onClose}>
+      <button className="modal_closeButton defaultButton" onClick={onClose}>
         x
       </button>
       {children}

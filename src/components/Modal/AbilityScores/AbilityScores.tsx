@@ -33,7 +33,7 @@ const AbilityScores = (props) => {
       <p className="abilityScores">
         {/*button appears on same line*/}
         <button
-          className="rollAbility"
+          className="rollAbilityButton defaultButton"
           onClick={() => setRollResult(roll20(abilityMod, abilityString))}
         >
           <i className="fas fa-dice-d20"></i>

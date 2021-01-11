@@ -51,19 +51,19 @@ const HitPointInfo = (props) => {
           Damage: {damage}{" "}
           <div className="inputAndButton">
             <input
-              className="numberInput shortNumber"
+              className="numberInput threeDigit damageInput"
               type="number"
               value={damageInput}
               onChange={handleDamageChange}
             />
             <button
-              className="plusMinusButton"
+              className="defaultButton"
               onClick={() => handleDamageSubmit("add")}
             >
               +
             </button>
             <button
-              className="plusMinusButton"
+              className="defaultButton"
               onClick={() => handleDamageSubmit("subtract")}
             >
               -
@@ -74,19 +74,19 @@ const HitPointInfo = (props) => {
           Temporary: {tempHP}{" "}
           <div className="inputAndButton">
             <input
-              className="numberInput shortNumber"
+              className="numberInput threeDigit damageInput"
               type="number"
               value={tempHPInput}
               onChange={handleTempHPChange}
             />
             <button
-              className="plusMinusButton"
+              className="defaultButton"
               onClick={() => handleTempHPSubmit("add")}
             >
               +
             </button>
             <button
-              className="plusMinusButton"
+              className="defaultButton"
               onClick={() => handleTempHPSubmit("subtract")}
             >
               -
