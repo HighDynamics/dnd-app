@@ -81,8 +81,8 @@ const LoadApp = () => {
   useEffect(
     function setFirstCharacterFromServer() {
       if (charactersResponse) {
-        setCharacter(charactersResponse.characters[0]);
-        setUpdatedCharacter(charactersResponse.characters[0]);
+        setCharacter(charactersResponse.characters[1]);
+        setUpdatedCharacter(charactersResponse.characters[1]);
       }
     },
     [charactersResponse, setCharacter, setUpdatedCharacter]
