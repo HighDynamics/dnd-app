@@ -54,6 +54,15 @@ const App = () => {
   );
 };
 
+const getPrimaryModifierValue = (character: ICharacter) => {
+  const modNumber = getAbilityMod(character)(character.abilities.primary);
+  if (modNumber === null)
+    throw new Error(
+      `Primary modifiers must not be null. ${character.name}'s primary modifier is ${character.abilities.primary}, but the value for that modifier is null.`
+    );
+  return modNumber;
+};
+
 const LoadApp = () => {
   // Load data from the characters server endpoint
   const { data: charactersResponse } = useSWR<IServer.GetCharacters.Response>(
@@ -73,7 +82,6 @@ const LoadApp = () => {
     primaryModifier,
     setPrimaryModifier,
   ]: InitialRecoilState<number> = useRecoilState(primaryModifierState);
-  const abilityMod = getAbilityMod(character);
 
   // Before the data is loaded, it will be `undefined`. So inside `useEffect`
   // hooks below, make sure the data exists.
@@ -100,10 +108,10 @@ const LoadApp = () => {
   useEffect(
     function setPrimaryModifierWhenCharacterChanges() {
       if (character) {
-        setPrimaryModifier(abilityMod(character.abilities.primary));
+        setPrimaryModifier(getPrimaryModifierValue(character));
       }
     },
-    [character, setPrimaryModifier, abilityMod]
+    [character, setPrimaryModifier]
   );
 
   // Wait until all data has been flushed through Recoil and values exist.
