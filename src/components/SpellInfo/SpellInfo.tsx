@@ -82,7 +82,7 @@ function getSpellLevel(
       }
     });
   }
-  return foundLevel;
+  return foundLevel as Level;
 }
 
 const lvlConversion = {
