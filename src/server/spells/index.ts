@@ -1,4 +1,4 @@
-const spellCompendium = [
+const spellCompendium: ISpell[] = [
   //Mending
   {
     name: "Mending",
