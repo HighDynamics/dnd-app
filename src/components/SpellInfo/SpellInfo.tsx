@@ -54,6 +54,50 @@ export const CompendiumSpell = ({
 
 type PrepType = "innate" | "prep" | "preppedCast";
 
+function getSpellLevel(
+  selection: string,
+  innatePrepOrPrepped: PrepType,
+  character: ICharacter
+) {
+  type Level = keyof typeof character.magic.spells;
+  let foundLevel = null as null | Level;
+  if (innatePrepOrPrepped === "innate") {
+    Object.keys(character.magic.spells).forEach((level) => {
+      if (
+        Object.values(character.magic.spells[level as Level]).includes(
+          selection
+        )
+      ) {
+        foundLevel = level as Level;
+      }
+    });
+  } else {
+    Object.keys(character.magic.spellbook).forEach((level) => {
+      if (
+        Object.values(character.magic.spellbook[level as Level]).includes(
+          selection
+        )
+      ) {
+        foundLevel = level as Level;
+      }
+    });
+  }
+  return foundLevel as Level;
+}
+
+const lvlConversion = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+};
+
 const SpellInfo = (props) => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);
@@ -66,46 +110,13 @@ const SpellInfo = (props) => {
   const [preppedSpellsCast, setPreppedSpellsCast] = useRecoilState(
     preppedSpellsCastState
   );
-  function getSpellLevel(selection: string, innatePrepOrPrepped: PrepType) {
-    type Level = keyof typeof character.magic.spells;
-    let foundLevel = null as null | Level;
-    if (innatePrepOrPrepped === "innate") {
-      Object.keys(character.magic.spells).forEach((level) => {
-        if (
-          Object.values(character.magic.spells[level as Level]).includes(
-            selection
-          )
-        ) {
-          foundLevel = level as Level;
-        }
-      });
-    } else {
-      Object.keys(character.magic.spellbook).forEach((level) => {
-        if (
-          Object.values(character.magic.spellbook[level as Level]).includes(
-            selection
-          )
-        ) {
-          foundLevel = level as Level;
-        }
-      });
-    }
-    return foundLevel;
-  }
-  const lvlConversion = {
-    zero: 0,
-    one: 1,
-    two: 2,
-    three: 3,
-    four: 4,
-    five: 5,
-    six: 6,
-    seven: 7,
-    eight: 8,
-    nine: 9,
-  };
+
   function addUsedSpell(selection: string, innatePrepOrPrepped: PrepType) {
-    const levelString = getSpellLevel(selection, innatePrepOrPrepped);
+    const levelString = getSpellLevel(
+      selection,
+      innatePrepOrPrepped,
+      character
+    );
     //assign a number from string
     const level = lvlConversion[levelString];
     if (innatePrepOrPrepped === "innate") {
@@ -125,8 +136,13 @@ const SpellInfo = (props) => {
       setModalType("Off");
     }
   }
+
   function removeUsedSpell(selection: string, innatePrepOrPrepped: PrepType) {
-    const levelString = getSpellLevel(selection, innatePrepOrPrepped);
+    const levelString = getSpellLevel(
+      selection,
+      innatePrepOrPrepped,
+      character
+    );
     //assign a number from string
     const level = lvlConversion[levelString];
     if (innatePrepOrPrepped === "innate") {

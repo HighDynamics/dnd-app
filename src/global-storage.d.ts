@@ -1,5 +1,4 @@
 import characters from "./server/characters";
-import spells from "./server/spells";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 declare global {
@@ -9,5 +8,19 @@ declare global {
     type Skill = ICharacter["skills"][number];
   }
 
-  type ISpell = typeof spells[0];
+  type ISpell = {
+    name: string;
+    type: string;
+    level: string;
+    components: string;
+    effect?: string;
+    castingTime: string;
+    range: string;
+    target?: string;
+    duration: string;
+    area?: string;
+    savingThrow?: string;
+    spellResistance?: string;
+    description: string;
+  };
 }

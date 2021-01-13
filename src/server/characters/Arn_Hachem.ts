@@ -480,6 +480,9 @@ const Arn = {
       arcane: true,
       divine: false,
     },
+    // spell_refs: [
+    //   {spell_id: 123, level: 1},
+    // ],
     spells: {
       zero: [
         "Mending",

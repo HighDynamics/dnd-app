@@ -2,7 +2,7 @@ import { CompendiumSpell } from "../components/SpellInfo/SpellInfo";
 import { mutate } from "swr";
 
 function rollDice(size: number) {
-  return (mod: number | null, use: string) => {
+  return (mod: number, use: string) => {
     const roll = Math.floor(Math.random() * size + 1);
     function edgeRollClassAssignment(roll: number) {
       if (roll === 1 && size === 20) {
@@ -10,7 +10,7 @@ function rollDice(size: number) {
       } else if (roll === 20 && size === 20) {
         return "natTwenty";
       } else {
-        return null;
+        return undefined;
       }
     }
     const result = (
@@ -33,15 +33,21 @@ function clone<T>(object: T): T {
   return JSON.parse(JSON.stringify(object));
 }
 const roll20 = rollDice(20);
+
 function displayCompendiumInfo(matchedSpell: ISpell) {
   const spellKeys = Object.keys(matchedSpell) as Array<keyof ISpell>;
   const compendiumInfo = spellKeys.map((key) => {
     return (
-      <CompendiumSpell key={key} property={key} value={matchedSpell[key]} />
+      <CompendiumSpell
+        key={key}
+        property={key}
+        value={matchedSpell[key] as string}
+      />
     );
   });
   return compendiumInfo;
 }
+
 function getAbilityMod(character: ICharacter) {
   return (ability: keyof ICharacter["abilities"]["score"]) => {
     const score = character.abilities.score[ability];
