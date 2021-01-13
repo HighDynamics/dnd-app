@@ -21,13 +21,14 @@ const AbilityScores = () => {
   const intMod = modifier("intelligence");
   const wisMod = modifier("wisdom");
   const chaMod = modifier("charisma");
-  function renderAbilityScore(score: number | null) {
-    return typeof score === "number" ? score : "--";
+  function renderAbilityScore(ability: string, score: number | null) {
+    const abilityPath = character.abilities.score[ability.toLowerCase()];
+    return abilityPath === null ? "--" : score;
   }
   function abilityScoreCodeBlock(
     abilityString: string,
     abilityScore: number | null,
-    abilityMod: number | null
+    abilityMod: number
   ) {
     return (
       <p className="abilityScores">
@@ -38,8 +39,8 @@ const AbilityScores = () => {
         >
           <i className="fas fa-dice-d20"></i>
         </button>
-        {abilityString}: {renderAbilityScore(abilityScore)} |{" "}
-        {renderAbilityScore(abilityMod)}
+        {abilityString}: {renderAbilityScore(abilityString, abilityScore)} |{" "}
+        {renderAbilityScore(abilityString, abilityMod)}
       </p>
     );
   }
@@ -47,12 +48,12 @@ const AbilityScores = () => {
     <>
       <h2 className="abilityScoresHeader">Abilities</h2>
       <div id="abilityScoresWrapper">
-        {abilityScoreCodeBlock("STR", str, strMod)}
-        {abilityScoreCodeBlock("DEX", dex, dexMod)}
-        {abilityScoreCodeBlock("CON", con, conMod)}
-        {abilityScoreCodeBlock("INT", int, intMod)}
-        {abilityScoreCodeBlock("WIS", wis, wisMod)}
-        {abilityScoreCodeBlock("CHA", cha, chaMod)}
+        {abilityScoreCodeBlock("Strength", str, strMod)}
+        {abilityScoreCodeBlock("Dexterity", dex, dexMod)}
+        {abilityScoreCodeBlock("Constitution", con, conMod)}
+        {abilityScoreCodeBlock("Intelligence", int, intMod)}
+        {abilityScoreCodeBlock("Wisdom", wis, wisMod)}
+        {abilityScoreCodeBlock("Charisma", cha, chaMod)}
       </div>
     </>
   );

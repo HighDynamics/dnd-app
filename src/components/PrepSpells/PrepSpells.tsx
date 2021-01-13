@@ -67,12 +67,19 @@ const numStrings = [
   "nine",
 ];
 
-const SpellCodeBlock = (props) => {
-  const { levelNum } = props;
-  const { character } = props;
-  const { primaryModifier } = props;
-  const { innateSpellsCast } = props;
-  const { preppedSpells } = props;
+const SpellCodeBlock = ({
+  character,
+  levelNum,
+  primaryModifier,
+  innateSpellsCast,
+  preppedSpells,
+}: {
+  character: ICharacter;
+  levelNum: number;
+  primaryModifier: number;
+  innateSpellsCast: [string[]];
+  preppedSpells: string[];
+}) => {
   const levelRoman = romans[levelNum - 1];
   const level = numStrings[levelNum - 1];
   const remainingSpells =

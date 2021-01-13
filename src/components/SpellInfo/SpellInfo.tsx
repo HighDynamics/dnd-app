@@ -173,19 +173,11 @@ const SpellInfo = () => {
     switch (modalType) {
       case "Prep":
         return (
-          <PreppingSpell
-            selection={selection}
-            addUsedSpell={addUsedSpell}
-            removeUsedSpell={removeUsedSpell}
-          />
+          <PreppingSpell selection={selection} addUsedSpell={addUsedSpell} />
         );
       case "Cast":
         return (
-          <CastingSpell
-            selection={selection}
-            addUsedSpell={addUsedSpell}
-            removeUsedSpell={removeUsedSpell}
-          />
+          <CastingSpell selection={selection} addUsedSpell={addUsedSpell} />
         );
       case "CastPrepped":
         return (
