@@ -35,9 +35,13 @@ function PreppedSpellsCast(props: {
   preppedSpellsCast: Array<string[]>;
 }) {
   const { levelNum, preppedSpellsCast } = props;
-  return preppedSpellsCast[levelNum].map((psc) => (
-    <PreppedSpellCast key={psc} value={psc} />
-  ));
+  return (
+    <>
+      {preppedSpellsCast[levelNum].map((psc) => (
+        <PreppedSpellCast key={psc} value={psc} />
+      ))}
+    </>
+  );
 }
 
 const PreppedSpell = (props: { value: string }) => {
@@ -62,9 +66,13 @@ function PreppedSpells(props: {
   preppedSpells: Array<string[]>;
 }) {
   const { levelNum, preppedSpells } = props;
-  return preppedSpells[levelNum].map((ps) => (
-    <PreppedSpell key={ps} value={ps} />
-  ));
+  return (
+    <>
+      {preppedSpells[levelNum].map((ps) => (
+        <PreppedSpell key={ps} value={ps} />
+      ))}
+    </>
+  );
 }
 
 const KnownSpell = (props: { value: string }) => {
@@ -88,19 +96,23 @@ const KnownSpells = (props: {
   character: ICharacter;
   level: keyof ICharacter["magic"]["spells"];
 }) => {
-  return Object.values(props.character.magic.spells[props.level]).map((s) => (
-    <KnownSpell key={s} value={s} />
-  ));
+  return (
+    <>
+      {Object.values(props.character.magic.spells[props.level]).map((s) => (
+        <KnownSpell key={s} value={s} />
+      ))}
+    </>
+  );
 };
 
 const CasterType = (props: { character: ICharacter }) => {
   const character = props.character;
   if (character.magic.type.arcane && character.magic.type.divine) {
-    return "Cantrips & Orisons";
+    return <>Cantrips & Orisons</>;
   } else if (character.magic.type.divine) {
-    return "Orisons";
-  } else if (character.magic.type.arcane) {
-    return "Cantrips";
+    return <>Orisons</>;
+  } else {
+    return <>Cantrips</>;
   }
 };
 
@@ -182,7 +194,7 @@ const SpellCodeBlock = (props: {
   );
 };
 
-const Spells = (props) => {
+const Spells = () => {
   const character = useRecoilValue(characterState);
   const primaryModifier = useRecoilValue(primaryModifierState);
   const setMainContent = useSetRecoilState(mainContentState);

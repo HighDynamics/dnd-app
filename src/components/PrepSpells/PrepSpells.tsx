@@ -11,13 +11,13 @@ import {
 } from "../../recoilState";
 import { totalSpells } from "../dnd";
 
-const KnownSpell = (props) => {
+const KnownSpell = (props: { value: string }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const spell = props.value;
   const formattedClass = spell.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;
-  function displayInfo(spell) {
+  function displayInfo(spell: string) {
     setModalType("Prep");
     setSelection(spell);
   }
@@ -28,20 +28,29 @@ const KnownSpell = (props) => {
   );
 };
 
-const Spellbook = (props) => {
-  return Object.values(
-    props.character.magic.spellbook[props.level]
-  ).map((s) => <KnownSpell key={s} value={s} />);
+const Spellbook = ({
+  character,
+  level,
+}: {
+  character: ICharacter;
+  level: string;
+}) => {
+  return (
+    <>
+      {Object.values(character.magic.spellbook[level]).map((s) => (
+        <KnownSpell key={s} value={s} />
+      ))}
+    </>
+  );
 };
 
-const CasterType = (props) => {
-  const character = props.character;
+const CasterType = ({ character }: { character: ICharacter }) => {
   if (character.magic.type.arcane && character.magic.type.divine) {
-    return "Cantrips & Orisons";
+    return <>Cantrips & Orisons</>;
   } else if (character.magic.type.divine) {
-    return "Orisons";
-  } else if (character.magic.type.arcane) {
-    return "Cantrips";
+    return <>Orisons</>;
+  } else {
+    return <>Cantrips</>;
   }
 };
 
@@ -83,7 +92,7 @@ const SpellCodeBlock = (props) => {
     </div>
   );
 };
-const PrepSpells = (props) => {
+const PrepSpells = () => {
   const character = useRecoilValue(characterState);
   const primaryModifier = useRecoilValue(primaryModifierState);
   const setMainContent = useSetRecoilState(mainContentState);

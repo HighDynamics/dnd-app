@@ -73,7 +73,7 @@ function textClassToGreenOrRed(current: number, expected: number) {
   } else if (current < expected) {
     return "redText";
   } else {
-    return null;
+    return "";
   }
 }
 function camelCaseToTitleCase(item: string) {

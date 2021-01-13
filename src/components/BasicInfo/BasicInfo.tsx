@@ -11,7 +11,7 @@ import { getAC, textClassToGreenOrRed } from "../../utilities/utilities";
 import TopComponent from "../TopComponent/TopComponent";
 import "./BasicInfo.css";
 
-const BasicInfo = (props) => {
+const BasicInfo = () => {
   //get the stuff
   const character = useRecoilValue(characterState);
   const rollResult = useRecoilValue(diceRollState);

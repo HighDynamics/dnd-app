@@ -4,7 +4,7 @@ import { characterState, diceRollState } from "../../../recoilState";
 import { roll20, getAbilityMod } from "../../../utilities/utilities";
 import "./AbilityScores.css";
 
-const AbilityScores = (props) => {
+const AbilityScores = () => {
   const character = useRecoilValue(characterState);
   const setRollResult = useSetRecoilState(diceRollState);
   const abilityScore = character.abilities.score;

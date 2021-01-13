@@ -9,7 +9,7 @@ import {
 import { textClassToGreenOrRed } from "../../../utilities/utilities";
 import "./HitPointInfo.css";
 
-const HitPointInfo = (props) => {
+const HitPointInfo = () => {
   const [tempHP, setTempHP] = useRecoilState(temporaryHitPointsState);
   const [damage, setDamage] = useRecoilState(damageState);
   const character = useRecoilValue(characterState);

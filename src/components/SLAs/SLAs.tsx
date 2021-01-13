@@ -90,7 +90,7 @@ const SLACodeBlock = (props: {
   );
 };
 
-const SLAs = (props) => {
+const SLAs = () => {
   const character = useRecoilValue(characterState);
   //cantrips or orisons? or both?
   function casterType() {

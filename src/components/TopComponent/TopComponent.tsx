@@ -25,7 +25,7 @@ const CharacterClasses = (props: {
   );
 };
 
-const TopComponent = (props) => {
+const TopComponent = () => {
   const character = useRecoilValue(characterState);
   const [toggle, setToggle] = useState(false);
   const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);

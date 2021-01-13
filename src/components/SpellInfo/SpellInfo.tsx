@@ -98,7 +98,7 @@ const lvlConversion = {
   nine: 9,
 };
 
-const SpellInfo = (props) => {
+const SpellInfo = () => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
