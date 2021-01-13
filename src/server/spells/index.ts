@@ -1,6 +1,7 @@
 const spellCompendium = [
   //Mending
   {
+    id: "srd1",
     name: "Mending",
     type: "Transmutation",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -16,6 +17,7 @@ const spellCompendium = [
   },
   //Arcane Mark
   {
+    id: "srd2",
     name: "Arcane Mark",
     type: "Universal",
     level: "Sor/Wiz 0",
@@ -31,6 +33,7 @@ const spellCompendium = [
   },
   //Ghost Sound
   {
+    id: "srd3",
     name: "Ghost Sound",
     type: "Illusion (Figment)",
     level: "Bard 0, Sor/Wiz 0",
@@ -46,6 +49,7 @@ const spellCompendium = [
   },
   //Detect magic
   {
+    id: "srd4",
     name: "Detect Magic",
     type: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -60,6 +64,7 @@ const spellCompendium = [
   },
   //Mage Hand
   {
+    id: "srd5",
     name: "Mage Hand",
     type: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
@@ -75,6 +80,7 @@ const spellCompendium = [
   },
   //Message
   {
+    id: "srd6",
     name: "Message",
     type: "Transmutation [Language-Dependent]",
     level: "Brd 0, Sor/Wiz 0",
@@ -90,6 +96,7 @@ const spellCompendium = [
   },
   //Light
   {
+    id: "srd7",
     name: "Light",
     type: "Evocation [Light]",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -105,6 +112,7 @@ const spellCompendium = [
   },
   //Read Magic
   {
+    id: "srd8",
     name: "Read Magic",
     type: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Pal 1, Rgr 1, Sor/Wiz 0",
@@ -118,6 +126,7 @@ const spellCompendium = [
   },
   //Acid Splash
   {
+    id: "srd9",
     name: "Acid Splash",
     type: "Conjuration (Creation) [Acid]",
     level: "Sor/Wiz 0",
@@ -133,6 +142,7 @@ const spellCompendium = [
   },
   //Lullaby
   {
+    id: "srd10",
     name: "Lullaby",
     type: "Enchantement (Compulsion) [Mind-Affecting]",
     level: "Brd 0",
@@ -148,6 +158,7 @@ const spellCompendium = [
   },
   //Know direction
   {
+    id: "srd11",
     name: "Know Direction",
     type: "Divination",
     level: "Brd 0, Drd 0",
@@ -161,6 +172,7 @@ const spellCompendium = [
   },
   //Open/Close
   {
+    id: "srd12",
     name: "Open/Close",
     type: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
@@ -177,6 +189,7 @@ const spellCompendium = [
   },
   //Prestidigitation
   {
+    id: "srd13",
     name: "Prestidigitation",
     type: "Universal",
     level: "Brd 0, Sor/Wiz 0",
@@ -192,6 +205,7 @@ const spellCompendium = [
   },
   //Chill touch
   {
+    id: "srd14",
     name: "Chill Touch",
     type: "Necromancy",
     level: "Sor/Wiz 1",
