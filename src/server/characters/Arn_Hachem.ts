@@ -448,6 +448,7 @@ const Arn = {
     passive: [{ name: "Aura Of Menace", type: "supernatural" }],
   },
   magic: {
+    sla_refs: [{ spell_id: "srd14", level: 1, uses: 4, frequency: "day" }],
     slas: {
       zero: "",
       one: [
@@ -480,25 +481,23 @@ const Arn = {
       arcane: true,
       divine: false,
     },
-    // spell_refs: [
-    //   {spell_id: 123, level: 1},
-    // ],
+    spell_refs: [
+      { spell_id: "srd1", level: 0 },
+      { spell_id: "srd2", level: 0 },
+      { spell_id: "srd3", level: 0 },
+      { spell_id: "srd4", level: 0 },
+      { spell_id: "srd5", level: 0 },
+      { spell_id: "srd6", level: 0 },
+      { spell_id: "srd7", level: 0 },
+      { spell_id: "srd8", level: 0 },
+      { spell_id: "srd9", level: 0 },
+      { spell_id: "srd10", level: 0 },
+      { spell_id: "srd11", level: 0 },
+      { spell_id: "srd12", level: 0 },
+      { spell_id: "srd13", level: 0 },
+    ],
     spells: {
-      zero: [
-        "Mending",
-        "Arcane Mark",
-        "Ghost Sound",
-        "Detect Magic",
-        "Mage Hand",
-        "Message",
-        "Light",
-        "Read Magic",
-        "Acid Splash",
-        "Lullaby",
-        "Know Direction",
-        "Open/Close",
-        "Prestidigitation",
-      ],
+      zero: [],
       one: [
         "Silent Image",
         "Disguise Self",
