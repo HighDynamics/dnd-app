@@ -6,6 +6,7 @@ import {
   selectionState,
   innateSpellsCastState,
   preppedSpellsState,
+  preppedSpellsCastState,
   primaryModifierState,
   characterState,
 } from "../../recoilState";
@@ -105,10 +106,12 @@ const PrepSpells = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const innateSpellsCast = useRecoilValue(innateSpellsCastState);
   const preppedSpells = useRecoilValue(preppedSpellsState);
+  const preppedSpellsCast = useRecoilValue(preppedSpellsCastState);
   const remainingSpells =
-    totalSpells(character, primaryModifier, "zero", 0) -
+    character.magic.spellsPerDay.zero -
     innateSpellsCast[0].length -
-    preppedSpells[0].length;
+    preppedSpells[0].length -
+    preppedSpellsCast[0].length;
 
   return (
     <>
