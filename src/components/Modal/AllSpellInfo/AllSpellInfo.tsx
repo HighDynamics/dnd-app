@@ -1,28 +1,24 @@
 import { useRecoilValue } from "recoil";
 
-import { compendiumState } from "../../../recoilState";
+import { spellCompendiumState } from "../../../recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 
 export const CastingSpell = (props: {
   selection: string;
-  addUsedSpell: (selection: string, type: "innate") => void;
+  addUsedSpell: (selection: {}, type: "innate") => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
   return (
     <>
       <button
         id="castSpell"
         className="confirmSpellButton"
-        onClick={() => addUsedSpell(selection, "innate")}
+        onClick={() => addUsedSpell(selection.name, "innate")}
       >
         Cast Spell
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
@@ -30,22 +26,17 @@ export const PreppingSpell = (props: {
   selection: string;
   addUsedSpell: (selection: string, type: "prep") => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-
   return (
     <>
       <button
         id="prepSpell"
         className="confirmSpellButton"
-        onClick={() => addUsedSpell(selection, "prep")}
+        onClick={() => addUsedSpell(selection.name, "prep")}
       >
         Prep Spell
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
@@ -54,10 +45,7 @@ export const CastingPreppedSpell = (props: {
   addUsedSpell: (selection: string, type: "PreppedCast") => void;
   removeUsedSpell: (selection: string, type: "prep") => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell, removeUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-
   function disableSpell(selection: string) {
     addUsedSpell(selection, "PreppedCast");
     removeUsedSpell(selection, "prep");
@@ -66,7 +54,7 @@ export const CastingPreppedSpell = (props: {
     <>
       <button
         className="confirmSpellButton"
-        onClick={() => disableSpell(selection)}
+        onClick={() => disableSpell(selection.name)}
       >
         Use Prepped Spell
       </button>{" "}
@@ -74,13 +62,11 @@ export const CastingPreppedSpell = (props: {
       <button
         id="removePrepSpell"
         className="confirmSpellButton"
-        onClick={() => removeUsedSpell(selection, "prep")}
+        onClick={() => removeUsedSpell(selection.name, "prep")}
       >
         Cancel Prep
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
@@ -89,10 +75,8 @@ export const UsedPreppedSpell = (props: {
   addUsedSpell: (selection: string, type: "preppedCast") => void;
   removeUsedSpell: (selection: string, type: "prep") => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
+  const spellCompendium = useRecoilValue(spellCompendiumState);
   const { selection, addUsedSpell, removeUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-
   function disableSpell(selection: string) {
     addUsedSpell(selection, "preppedCast");
     removeUsedSpell(selection, "prep");
@@ -101,14 +85,12 @@ export const UsedPreppedSpell = (props: {
     <>
       <button
         className="confirmSpellButton"
-        onClick={() => disableSpell(selection)}
+        onClick={() => disableSpell(selection.name)}
         disabled
       >
         Already Used
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
