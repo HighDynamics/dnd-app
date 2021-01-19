@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   primaryModifierState,
   characterState,
-  compendiumState,
+  spellCompendiumState,
   updatedCharacterState,
   InitialRecoilState,
 } from "../recoilState";
@@ -77,7 +77,9 @@ const LoadApp = () => {
     setCharacter,
   ]: InitialRecoilState<ICharacter> = useRecoilState(characterState);
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
-  const [compendium, setCompendium] = useRecoilState(compendiumState);
+  const [spellCompendium, setSpellCompendium] = useRecoilState(
+    spellCompendiumState
+  );
   const [
     primaryModifier,
     setPrimaryModifier,

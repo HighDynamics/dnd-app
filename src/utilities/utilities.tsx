@@ -36,7 +36,7 @@ const roll20 = rollDice(20);
 
 function displayCompendiumInfo(matchedSpell: ISpell) {
   const spellKeys = Object.keys(matchedSpell) as Array<keyof ISpell>;
-  const compendiumInfo = spellKeys.map((key) => {
+  const spellCompendiumInfo = spellKeys.map((key) => {
     return (
       <CompendiumSpell
         key={key}
@@ -45,7 +45,7 @@ function displayCompendiumInfo(matchedSpell: ISpell) {
       />
     );
   });
-  return compendiumInfo;
+  return spellCompendiumInfo;
 }
 
 function getAbilityMod(character: ICharacter) {

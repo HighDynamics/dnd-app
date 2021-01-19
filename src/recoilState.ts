@@ -13,8 +13,8 @@ export type InitialRecoilState<T> = [
   setValue: SetterOrUpdater<T>
 ];
 
-export const compendiumState = atom<{ spells: ISpell[] }>({
-  key: "compendiumState",
+export const spellCompendiumState = atom<{ spells: ISpell[] }>({
+  key: "spellCompendiumState",
   default: { spells: [] },
 });
 
