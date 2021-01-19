@@ -100,11 +100,16 @@ const LoadApp = () => {
 
   useEffect(
     function setCompendiumFromServerSpells() {
-      if (spellsResponse) {
-        setCompendium({ spells: spellsResponse.spells });
+      if (spellsResponse && character) {
+        const characterSpellRefs = character.magic.spell_refs.map((s) => s.id);
+        const characterSpells = spellsResponse.spells.filter((spell) =>
+          characterSpellRefs.includes(spell.id)
+        );
+
+        setSpellCompendium({ spells: characterSpells });
       }
     },
-    [spellsResponse, setCompendium]
+    [spellsResponse, character, setSpellCompendium]
   );
 
   useEffect(
@@ -117,7 +122,8 @@ const LoadApp = () => {
   );
 
   // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && compendium && primaryModifier)) return <>Loading...</>;
+  if (!(character && spellCompendium && primaryModifier))
+    return <>Loading...</>;
 
   return <App />;
 };

@@ -94,6 +94,10 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
   });
 };
 
+//abstract this further to include other compendiums
+const getInfoById = (compendium: []) => (id: string) =>
+  compendium.spells.find((item) => item.id === id);
+
 export {
   textClassToGreenOrRed,
   camelCaseToTitleCase,
@@ -104,4 +108,5 @@ export {
   displayCompendiumInfo,
   whiteSpaceToUnderscore,
   persistCharacter,
+  getInfoById,
 };

@@ -9,8 +9,10 @@ import {
   preppedSpellsCastState,
   primaryModifierState,
   characterState,
+  spellCompendiumState,
 } from "../../recoilState";
 import { totalSpells } from "../dnd";
+import { getInfoById } from "../../utilities/utilities";
 import "./Spells.css";
 
 const PreppedSpellCast = (props: { value: string }) => {
@@ -75,11 +77,19 @@ function PreppedSpells(props: {
   );
 }
 
-const KnownSpell = (props: { value: string }) => {
+const KnownSpell = ({
+  spellRef,
+  level,
+}: {
+  spellRef: string;
+  level: number;
+}) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
-  const spell = props.value;
-  const formattedClass = spell.replace(/\W/g, "");
+  const spellCompendium = useRecoilValue(spellCompendiumState);
+  const getSpellInfoById = getInfoById(spellCompendium);
+  const spell = getSpellInfoById(spellRef);
+  const formattedClass = spell.name.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;
   function displayInfo(spell: string) {
     setModalType("Cast");
@@ -87,26 +97,30 @@ const KnownSpell = (props: { value: string }) => {
   }
   return (
     <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
-      {spell + " \u221e"}
+      {spell.name + " \u221e"}
     </button>
   );
 };
 
-const KnownSpells = (props: {
+const KnownSpells = ({
+  character,
+  level,
+}: {
   character: ICharacter;
-  level: keyof ICharacter["magic"]["spells"];
+  level: keyof ICharacter["magic"]["spell_refs"]["level"];
 }) => {
   return (
     <>
-      {Object.values(props.character.magic.spells[props.level]).map((s) => (
-        <KnownSpell key={s} value={s} />
+      {Object.values(
+        character.magic.spell_refs.filter((sr) => sr.level === level)
+      ).map((s) => (
+        <KnownSpell key={s.id} spellRef={s.id} level={s.level} />
       ))}
     </>
   );
 };
 
-const CasterType = (props: { character: ICharacter }) => {
-  const character = props.character;
+const CasterType = ({ character }: { character: ICharacter }) => {
   if (character.magic.type.arcane && character.magic.type.divine) {
     return <>Cantrips & Orisons</>;
   } else if (character.magic.type.divine) {
@@ -240,7 +254,7 @@ const Spells = () => {
             </>
           ) : null}
           <p className="spellList">
-            <KnownSpells level="zero" character={character} />
+            <KnownSpells level={0} character={character} />
           </p>
           <hr />
         </div>
