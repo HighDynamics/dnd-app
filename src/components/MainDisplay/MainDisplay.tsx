@@ -9,7 +9,6 @@ import AbilityScores from "../Modal/AbilityScores/AbilityScores";
 import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
 import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
 import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
-import PrepSpells from "../PrepSpells/PrepSpells";
 import Spells from "../Spells/Spells";
 import Skills from "../Skills/Skills";
 import Attacks from "../Attacks/Attacks";
@@ -31,7 +30,7 @@ import type { ModalType, MainContent } from "../../recoilState";
 
 import "./MainDisplay.css";
 
-const MainDisplay = (props) => {
+const MainDisplay = () => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const mainContent = useRecoilValue(mainContentState);
   function screenSwitch(display: MainContent) {
@@ -45,13 +44,13 @@ const MainDisplay = (props) => {
       case "More":
         return <More />;
       case "Spells":
-        return <Spells />;
+        return <Spells innate={true} />;
       case "Abilities":
         return <ActiveAndPassiveAbilities />;
       case "SLAs":
         return <SLAs />;
       case "Prep":
-        return <PrepSpells />;
+        return <Spells innate={false} />;
       case "Items":
         return <Items />;
       case "EditSkills":
@@ -77,8 +76,10 @@ const MainDisplay = (props) => {
   function infoSheet(modalType: ModalType) {
     switch (modalType) {
       case "Cast":
+        return <SpellInfo innate={true} />;
       case "Prep":
       case "CastPrepped":
+        return <SpellInfo innate={false} />;
       case "UsedPrepped":
         return <SpellInfo />;
       case "HP":

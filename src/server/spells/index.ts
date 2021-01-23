@@ -3,7 +3,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd1",
     name: "Mending",
-    type: "Transmutation",
+    school: "Transmutation",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -19,7 +19,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd2",
     name: "Arcane Mark",
-    type: "Universal",
+    school: "Universal",
     level: "Sor/Wiz 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -35,7 +35,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd3",
     name: "Ghost Sound",
-    type: "Illusion (Figment)",
+    school: "Illusion (Figment)",
     level: "Bard 0, Sor/Wiz 0",
     components: "V, S, M",
     castingTime: "1 standard action",
@@ -51,7 +51,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd4",
     name: "Detect Magic",
-    type: "Divination",
+    school: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -66,7 +66,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd5",
     name: "Mage Hand",
-    type: "Transmutation",
+    school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -82,7 +82,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd6",
     name: "Message",
-    type: "Transmutation [Language-Dependent]",
+    school: "Transmutation [Language-Dependent]",
     level: "Brd 0, Sor/Wiz 0",
     components: "V, S, AF",
     castingTime: "1 standard action",
@@ -98,7 +98,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd7",
     name: "Light",
-    type: "Evocation [Light]",
+    school: "Evocation [Light]",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
     components: "V, M/DF",
     castingTime: "1 standard action",
@@ -114,7 +114,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd8",
     name: "Read Magic",
-    type: "Divination",
+    school: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Pal 1, Rgr 1, Sor/Wiz 0",
     components: "V, S, AF",
     castingTime: "1 standard action",
@@ -128,7 +128,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd9",
     name: "Acid Splash",
-    type: "Conjuration (Creation) [Acid]",
+    school: "Conjuration (Creation) [Acid]",
     level: "Sor/Wiz 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -144,7 +144,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd10",
     name: "Lullaby",
-    type: "Enchantement (Compulsion) [Mind-Affecting]",
+    school: "Enchantement (Compulsion) [Mind-Affecting]",
     level: "Brd 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -160,7 +160,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd11",
     name: "Know Direction",
-    type: "Divination",
+    school: "Divination",
     level: "Brd 0, Drd 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -174,7 +174,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd12",
     name: "Open/Close",
-    type: "Transmutation",
+    school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
     components: "V, S, AF",
     castingTime: "1 standard action",
@@ -191,7 +191,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd13",
     name: "Prestidigitation",
-    type: "Universal",
+    school: "Universal",
     level: "Brd 0, Sor/Wiz 0",
     components: "V, S",
     castingTime: "1 standard action",
@@ -207,7 +207,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd14",
     name: "Chill Touch",
-    type: "Necromancy",
+    school: "Necromancy",
     level: "Sor/Wiz 1",
     components: "V, S",
     castingTime: "1 standard action",
