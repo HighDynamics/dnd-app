@@ -15,11 +15,11 @@ import { totalSpells } from "../dnd";
 import { getInfoById } from "../../utilities/utilities";
 import "./Spells.css";
 
-const PreppedSpellCast = (props: { value: string }) => {
+const PreppedSpellCast = (props: { value: ISpell }) => {
   const spell = props.value;
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
-  const formattedSpellName = spell.replace(/\W/g, "");
+  const formattedSpellName = spell.name.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons disabled " + formattedSpellName;
   function displayInfo(spell: string) {
     setModalType("UsedPrepped");
@@ -27,62 +27,68 @@ const PreppedSpellCast = (props: { value: string }) => {
   }
   return (
     <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
-      {spell}
+      {spell.name}
     </button>
   );
 };
 
 function PreppedSpellsCast(props: {
-  levelNum: number;
-  preppedSpellsCast: Array<string[]>;
+  level: number;
+  preppedSpellsCast: Array<ISpell[]>;
 }) {
-  const { levelNum, preppedSpellsCast } = props;
+  const { level, preppedSpellsCast } = props;
+  let n = 0;
   return (
     <>
-      {preppedSpellsCast[levelNum].map((psc) => (
-        <PreppedSpellCast key={psc} value={psc} />
-      ))}
+      {preppedSpellsCast[level].map((psc) => {
+        n += 1;
+        return <PreppedSpellCast key={psc.id + n} value={psc} />;
+      })}
     </>
   );
 }
 
-const PreppedSpell = (props: { value: string }) => {
-  const spell = props.value;
+const PreppedSpell = ({ spell }: { spell: ISpell }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
-  const formattedSpellName = spell.replace(/\W/g, "");
+  const formattedSpellName = spell.name.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedSpellName;
-  function displayInfo(spell: string) {
+  function displayInfo(spell: ISpell) {
     setModalType("CastPrepped");
     setSelection(spell);
   }
   return (
     <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
-      {spell}
+      {spell.name}
     </button>
   );
 };
 
-function PreppedSpells(props: {
-  levelNum: number;
-  preppedSpells: Array<string[]>;
-}) {
-  const { levelNum, preppedSpells } = props;
+const PreppedSpells = ({
+  preppedSpells,
+  level,
+}: {
+  preppedSpells: Array<ISpell[]>;
+  level: number;
+}) => {
+  let n = 0;
   return (
     <>
-      {preppedSpells[levelNum].map((ps) => (
-        <PreppedSpell key={ps} value={ps} />
-      ))}
+      {preppedSpells[level].map((ps) => {
+        n += 1;
+        return <PreppedSpell key={ps.id + n} spell={ps} />;
+      })}
     </>
   );
-}
+};
 
 const KnownSpell = ({
   spellRef,
-  level,
+  innate,
 }: {
   spellRef: string;
   level: number;
+  innate: boolean;
 }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
@@ -193,15 +199,18 @@ const numStrings = [
 ] as const;
 
 const SpellCodeBlock = (props: {
-  levelNum: number;
   character: ICharacter;
   primaryModifier: number;
+  level: string;
+  levelNum: number;
   innateSpellsCast: Array<string[]>;
   preppedSpells: Array<string[]>;
   preppedSpellsCast: Array<string[]>;
   getDifficultyClass: (levelNum: number) => number;
+  innate: boolean;
 }) => {
   const {
+    level,
     levelNum,
     character,
     primaryModifier,
@@ -209,9 +218,9 @@ const SpellCodeBlock = (props: {
     preppedSpells,
     preppedSpellsCast,
     getDifficultyClass,
+    innate,
   } = props;
   const levelRoman = romans[levelNum - 1];
-  const level = numStrings[levelNum - 1];
   const remainingSpells =
     totalSpells(character, primaryModifier, level, levelNum) -
     innateSpellsCast[levelNum].length -
@@ -230,24 +239,24 @@ const SpellCodeBlock = (props: {
         <>
           <p className="preppedSpells">
             Prepped:{" "}
-            <PreppedSpells levelNum={levelNum} preppedSpells={preppedSpells} />
+            <PreppedSpells preppedSpells={preppedSpells} level={levelNum} />
             <PreppedSpellsCast
-              levelNum={levelNum}
               preppedSpellsCast={preppedSpellsCast}
+              level={levelNum}
             />
           </p>
           <hr className="shortHR" />
         </>
       ) : null}
       <p className="spellList">
-        <KnownSpells level={level} character={character} />
+        <KnownSpells level={level} character={character} innate={innate} />
       </p>
       <hr />
     </div>
   );
 };
 
-const Spells = () => {
+const Spells = ({ innate }: { innate: boolean }) => {
   const character = useRecoilValue(characterState);
   const primaryModifier = useRecoilValue(primaryModifierState);
   const setMainContent = useSetRecoilState(mainContentState);
@@ -265,10 +274,20 @@ const Spells = () => {
 
   return (
     <div>
-      <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
-        <i className="fas fa-book"></i>
-        <span>PREP</span>
-      </button>
+      {innate === true ? (
+        <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
+          <i className="fas fa-book"></i>
+          <span>PREP</span>
+        </button>
+      ) : (
+        <button
+          id="returnToSpells"
+          className="backButton"
+          onClick={() => setMainContent("Spells")}
+        >
+          <i className="fas fa-arrow-left"></i>
+        </button>
+      )}
       <div className="spellContainer">
         <div className="spellItems">
           <div className="spellLevelWrapper">
@@ -283,9 +302,9 @@ const Spells = () => {
             <>
               <p className="preppedSpells">
                 Prepped:{" "}
-                <PreppedSpells levelNum={0} preppedSpells={preppedSpells} />
+                <PreppedSpells level={0} preppedSpells={preppedSpells} />
                 <PreppedSpellsCast
-                  levelNum={0}
+                  level={0}
                   preppedSpellsCast={preppedSpellsCast}
                 />
               </p>
@@ -293,7 +312,7 @@ const Spells = () => {
             </>
           ) : null}
           <p className="spellList">
-            <KnownSpells level={0} character={character} />
+            <KnownSpells level={0} character={character} innate={innate} />
           </p>
           <hr />
         </div>
@@ -301,12 +320,14 @@ const Spells = () => {
           <SpellCodeBlock
             key={i + 1}
             levelNum={i + 1}
+            level={numStrings[i]}
             character={character}
             primaryModifier={primaryModifier}
             innateSpellsCast={innateSpellsCast}
             preppedSpells={preppedSpells}
             preppedSpellsCast={preppedSpellsCast}
             getDifficultyClass={getDifficultyClass}
+            innate={innate}
           />
         ))}
       </div>

@@ -20,7 +20,7 @@ import "./dnd.css";
 export function totalSpells(
   character: ICharacter,
   primaryModifier: number,
-  level: keyof ICharacter["magic"]["spellsPerDay"],
+  level: string,
   levelNum: number
 ) {
   function bonusSpellsPerDay(levelNum: number) {

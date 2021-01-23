@@ -98,6 +98,15 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
 const getInfoById = (compendium: []) => (id: string) =>
   compendium.spells.find((item) => item.id === id);
 
+const getSpellRefInfo = (selection: ISpell, character: ICharacter) => (
+  infoKey: string
+) => {
+  let spellRef = character.magic.spell_refs.find(
+    (ref) => ref.id === selection.id
+  );
+  return spellRef[infoKey];
+};
+
 export {
   textClassToGreenOrRed,
   camelCaseToTitleCase,
@@ -109,4 +118,5 @@ export {
   whiteSpaceToUnderscore,
   persistCharacter,
   getInfoById,
+  getSpellRefInfo,
 };

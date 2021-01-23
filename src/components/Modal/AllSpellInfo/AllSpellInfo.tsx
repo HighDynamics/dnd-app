@@ -5,17 +5,14 @@ import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 
 export const CastingSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: {}, type: "innate") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell) => void;
 }) => {
   const { selection, addUsedSpell } = props;
+  const castSpell = addUsedSpell(selection);
   return (
     <>
-      <button
-        id="castSpell"
-        className="confirmSpellButton"
-        onClick={() => addUsedSpell(selection.name, "innate")}
-      >
+      <button id="castSpell" className="confirmSpellButton" onClick={castSpell}>
         Cast Spell
       </button>
       <div>{displayCompendiumInfo(selection)}</div>
@@ -23,17 +20,15 @@ export const CastingSpell = (props: {
   );
 };
 export const PreppingSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "prep") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell) => void;
 }) => {
   const { selection, addUsedSpell } = props;
+  const prepSpell = addUsedSpell(selection);
+
   return (
     <>
-      <button
-        id="prepSpell"
-        className="confirmSpellButton"
-        onClick={() => addUsedSpell(selection.name, "prep")}
-      >
+      <button id="prepSpell" className="confirmSpellButton" onClick={prepSpell}>
         Prep Spell
       </button>
       <div>{displayCompendiumInfo(selection)}</div>
@@ -41,28 +36,31 @@ export const PreppingSpell = (props: {
   );
 };
 export const CastingPreppedSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "PreppedCast") => void;
-  removeUsedSpell: (selection: string, type: "prep") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell) => string;
+  removeUsedSpell: (selection: ISpell, type: "prep") => void;
 }) => {
   const { selection, addUsedSpell, removeUsedSpell } = props;
-  function disableSpell(selection: string) {
-    addUsedSpell(selection, "PreppedCast");
-    removeUsedSpell(selection, "prep");
-  }
+  const addSpell = addUsedSpell(selection);
+  const removeSpell = removeUsedSpell(selection);
+  const usePreppedSpell = (e) => {
+    addSpell(e);
+    removeSpell(e);
+  };
   return (
     <>
       <button
+        id="usePreppedSpell"
         className="confirmSpellButton"
-        onClick={() => disableSpell(selection.name)}
+        onClick={usePreppedSpell}
       >
         Use Prepped Spell
       </button>{" "}
       ||{" "}
       <button
-        id="removePrepSpell"
+        id="removePreppedSpell"
         className="confirmSpellButton"
-        onClick={() => removeUsedSpell(selection.name, "prep")}
+        onClick={removeSpell}
       >
         Cancel Prep
       </button>
@@ -71,23 +69,14 @@ export const CastingPreppedSpell = (props: {
   );
 };
 export const UsedPreppedSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "preppedCast") => void;
-  removeUsedSpell: (selection: string, type: "prep") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell, type: "preppedCast") => void;
+  removeUsedSpell: (selection: ISpell, type: "prep") => void;
 }) => {
-  const spellCompendium = useRecoilValue(spellCompendiumState);
-  const { selection, addUsedSpell, removeUsedSpell } = props;
-  function disableSpell(selection: string) {
-    addUsedSpell(selection, "preppedCast");
-    removeUsedSpell(selection, "prep");
-  }
+  const { selection } = props;
   return (
     <>
-      <button
-        className="confirmSpellButton"
-        onClick={() => disableSpell(selection.name)}
-        disabled
-      >
+      <button className="confirmSpellButton" disabled>
         Already Used
       </button>
       <div>{displayCompendiumInfo(selection)}</div>
