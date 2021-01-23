@@ -91,31 +91,70 @@ const KnownSpell = ({
   const spell = getSpellInfoById(spellRef);
   const formattedClass = spell.name.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons " + formattedClass;
-  function displayInfo(spell: string) {
-    setModalType("Cast");
+  function displayInfo(spell: ISpell) {
+    innate === true ? setModalType("Cast") : setModalType("Prep");
     setSelection(spell);
   }
   return (
-    <button className={buttonAndSpellClass} onClick={() => displayInfo(spell)}>
-      {spell.name + " \u221e"}
-    </button>
+    <>
+      {innate === true ? (
+        <button
+          className={buttonAndSpellClass}
+          onClick={() => displayInfo(spell)}
+        >
+          {spell.name + " \u221e"}
+        </button>
+      ) : (
+        <button
+          className={buttonAndSpellClass}
+          onClick={() => displayInfo(spell)}
+        >
+          {spell.name}
+        </button>
+      )}
+    </>
   );
 };
 
 const KnownSpells = ({
   character,
   level,
+  innate,
 }: {
   character: ICharacter;
   level: keyof ICharacter["magic"]["spell_refs"]["level"];
 }) => {
+  const innateSpells = character.magic.spell_refs.filter(
+    (sr) => sr.innate === true
+  );
+  const spellbook = character.magic.spell_refs.filter(
+    (sr) => sr.innate === false
+  );
   return (
     <>
-      {Object.values(
-        character.magic.spell_refs.filter((sr) => sr.level === level)
-      ).map((s) => (
-        <KnownSpell key={s.id} spellRef={s.id} level={s.level} />
-      ))}
+      {innate === true
+        ? Object.values(
+            innateSpells.filter((sr) => sr.level === level)
+          ).map((s) => (
+            <KnownSpell
+              key={s.id}
+              spellRef={s.id}
+              level={s.level}
+              innate={innate}
+            />
+          ))
+        : Object.values(
+            spellbook
+              .filter((sr) => sr.level === level)
+              .map((s) => (
+                <KnownSpell
+                  key={s.id}
+                  spellRef={s.id}
+                  level={s.level}
+                  innate={innate}
+                />
+              ))
+          )}
     </>
   );
 };
