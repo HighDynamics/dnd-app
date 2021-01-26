@@ -448,7 +448,10 @@ const Arn = {
     passive: [{ name: "Aura Of Menace", type: "supernatural" }],
   },
   magic: {
-    sla_refs: [{ spell_id: "srd14", level: 1, uses: 4, frequency: "day" }],
+    sla_refs: [
+      { id: "srd14", level: 1, uses: 4, frequency: "day" },
+      { id: "srd15", level: 2, uses: 4, frequency: "day" },
+    ],
     slas: {
       zero: "",
       one: [
