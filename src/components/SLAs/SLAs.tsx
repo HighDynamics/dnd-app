@@ -5,8 +5,11 @@ import {
   characterState,
   selectionState,
   slaState,
+  spellCompendiumState,
 } from "../../recoilState";
 import type { ModalType } from "../../recoilState";
+
+import { getInfoById } from "../../utilities/utilities";
 
 const romans = [
   "I",
@@ -34,11 +37,14 @@ const numStrings = [
 const KnownSLAs = ({ slaRef }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
+  const spellCompendium = useRecoilValue(spellCompendiumState);
   const usedSLAs = useRecoilValue(slaState);
-  const formattedName = name.replace(/_/g, " ");
-  const buttonAndSpellClass = "spellButtons " + name;
+  const getSlaInfoById = getInfoById(spellCompendium);
+  const sla = getSlaInfoById(slaRef.id);
+  const formattedName = sla.name.replace(/_/g, " ");
+  const buttonAndSpellClass = "spellButtons " + sla.name;
   function displayInfo(modalDestination: ModalType) {
-    setSelection(name);
+    setSelection(sla.name);
     setModalType(modalDestination);
   }
   function checkForMatch(name: string) {
@@ -50,14 +56,14 @@ const KnownSLAs = ({ slaRef }) => {
     let indexOfMatch = checkForMatch(formattedName);
     if (indexOfMatch >= 0) {
       const timesUsed = usedSLAs[indexOfMatch].uses;
-      return uses - timesUsed;
+      return slaRef.uses - timesUsed;
     } else {
-      return uses;
+      return slaRef.uses;
     }
   }
   return (
     <button className={buttonAndSpellClass} onClick={() => displayInfo("SLA")}>
-      {formattedName} {displayUsesLeft()}/{frequency}
+      {sla.name} {displayUsesLeft()}/{slaRef.frequency}
     </button>
   );
 };
@@ -77,7 +83,7 @@ const SLACodeBlock = (props: {
           <div className="spellLevelWrapper">
             <h2 className="spellLevelHeader">Level {levelRoman}</h2>
           </div>
-          <p className="spellList">{displaySLAs(level)}</p>
+          <p className="spellList">{displaySLAs(levelNum)}</p>
           <hr />
         </div>
       ) : null}
@@ -97,10 +103,10 @@ const SLAs = () => {
       return "Cantrips";
     }
   }
-  function displaySLAs(level: keyof typeof character.magic.slas) {
-    const slas = Object.values(character.magic.sla_refs).map((s) => (
-      <KnownSLAs key={s.name} slaRef={s} />
-    ));
+  function displaySLAs(level: number) {
+    const slas = Object.values(character.magic.sla_refs)
+      .filter((ref) => ref.level === level)
+      .map((ref) => <KnownSLAs key={ref.id} slaRef={ref} />);
     return slas;
   }
   return (
@@ -111,7 +117,7 @@ const SLAs = () => {
             <div className="spellLevelWrapper">
               <h2 className="spellLevelHeader">{casterType()}</h2>
             </div>
-            <p className="spellList">{displaySLAs("zero")}</p>
+            <p className="spellList">{displaySLAs(0)}</p>
             <hr />
           </div>
         ) : null}
