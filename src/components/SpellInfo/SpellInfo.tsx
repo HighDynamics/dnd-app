@@ -26,12 +26,19 @@ export const CompendiumSpell = ({
   property: string;
   value: string;
 }) => {
+<<<<<<< HEAD
   function formatProperty(string: typeof property) {
     switch (string) {
       case "name":
       case "school":
       case "subSchool":
       case "descriptor":
+=======
+  function formatProperty(input: typeof property) {
+    switch (input) {
+      case "name:":
+      case "school:":
+>>>>>>> e1fc9ff3b0e04ed3bae3b394efb2e2b17fb8d53a
         return "";
       case "description":
         return <hr id="spellSheetHR" />;
@@ -65,6 +72,22 @@ export const CompendiumSpell = ({
   );
 };
 
+<<<<<<< HEAD
+=======
+const lvlConversion = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+};
+
+>>>>>>> e1fc9ff3b0e04ed3bae3b394efb2e2b17fb8d53a
 const SpellInfo = ({ innate }: { innate: boolean }) => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);

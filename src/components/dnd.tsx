@@ -101,6 +101,7 @@ const LoadApp = () => {
   useEffect(
     function setCompendiumFromServerSpells() {
       if (spellsResponse && character) {
+<<<<<<< HEAD
         const characterSpellRefs = character.magic.spell_refs.map(
           (s: string) => s.id
         );
@@ -117,6 +118,11 @@ const LoadApp = () => {
         );
         const characterSpells = spellsResponse.spells.filter((spell) =>
           characterAllSpellRefs.includes(spell.id)
+=======
+        const characterSpellRefs = character.magic.spell_refs.map((s) => s.id);
+        const characterSpells = spellsResponse.spells.filter((spell) =>
+          characterSpellRefs.includes(spell.id)
+>>>>>>> e1fc9ff3b0e04ed3bae3b394efb2e2b17fb8d53a
         );
 
         setSpellCompendium({ spells: characterSpells });
