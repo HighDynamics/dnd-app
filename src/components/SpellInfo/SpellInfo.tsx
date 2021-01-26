@@ -9,7 +9,7 @@ import {
   characterState,
 } from "../../recoilState";
 import type { ModalType } from "../../recoilState";
-import { clone } from "../../utilities/utilities";
+import { clone, getSpellRefInfo } from "../../utilities/utilities";
 import { Modal } from "../Modal/Modal";
 import {
   CastingSpell,
@@ -29,7 +29,7 @@ export const CompendiumSpell = ({
   function formatProperty(input: typeof property) {
     switch (input) {
       case "name:":
-      case "type:":
+      case "school:":
         return "";
       case "description:":
         return <hr id="spellSheetHR" />;
@@ -52,39 +52,6 @@ export const CompendiumSpell = ({
   );
 };
 
-type PrepType = "innate" | "prep" | "preppedCast";
-
-function getSpellLevel(
-  selection: string,
-  innatePrepOrPrepped: PrepType,
-  character: ICharacter
-) {
-  type Level = keyof typeof character.magic.spells;
-  let foundLevel = null as null | Level;
-  if (innatePrepOrPrepped === "innate") {
-    Object.keys(character.magic.spells).forEach((level) => {
-      if (
-        Object.values(character.magic.spells[level as Level]).includes(
-          selection
-        )
-      ) {
-        foundLevel = level as Level;
-      }
-    });
-  } else {
-    Object.keys(character.magic.spellbook).forEach((level) => {
-      if (
-        Object.values(character.magic.spellbook[level as Level]).includes(
-          selection
-        )
-      ) {
-        foundLevel = level as Level;
-      }
-    });
-  }
-  return foundLevel as Level;
-}
-
 const lvlConversion = {
   zero: 0,
   one: 1,
@@ -98,7 +65,7 @@ const lvlConversion = {
   nine: 9,
 };
 
-const SpellInfo = () => {
+const SpellInfo = ({ innate }: { innate: boolean }) => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -110,65 +77,60 @@ const SpellInfo = () => {
   const [preppedSpellsCast, setPreppedSpellsCast] = useRecoilState(
     preppedSpellsCastState
   );
-
-  function addUsedSpell(selection: string, innatePrepOrPrepped: PrepType) {
-    const levelString = getSpellLevel(
-      selection,
-      innatePrepOrPrepped,
-      character
-    );
-    //assign a number from string
-    const level = lvlConversion[levelString];
-    if (innatePrepOrPrepped === "innate") {
+  const addUsedSpell = (selection: ISpell) => (e) => {
+    const level: number = getSpellRefInfo(selection, character)("level");
+    if (innate === true) {
       const newArray = clone(innateSpellsCast);
       newArray[level].push(selection);
       setInnateSpellsCast(newArray);
       setModalType("Off");
-    } else if (innatePrepOrPrepped === "prep") {
-      const newArray = clone(preppedSpells);
-      newArray[level].push(selection);
-      setPreppedSpells(newArray);
-      setModalType("Off");
-    } else {
+      return console.log("Innate spell logged");
+    } else if (e.target.id === "usePreppedSpell") {
       const newArray = clone(preppedSpellsCast);
       newArray[level].push(selection);
       setPreppedSpellsCast(newArray);
       setModalType("Off");
+      return console.log("Casted prepped spell logged");
+    } else if (innate === false) {
+      const newArray = clone(preppedSpells);
+      newArray[level].push(selection);
+      setPreppedSpells(newArray);
+      setModalType("Off");
+      return console.log("Prepped spell logged");
     }
-  }
+  };
 
-  function removeUsedSpell(selection: string, innatePrepOrPrepped: PrepType) {
-    const levelString = getSpellLevel(
-      selection,
-      innatePrepOrPrepped,
-      character
-    );
-    //assign a number from string
-    const level = lvlConversion[levelString];
-    if (innatePrepOrPrepped === "innate") {
+  const removeUsedSpell = (selection: ISpell) => () => {
+    const level = getSpellRefInfo(selection, character)("level");
+    if (innate === true) {
       const newArray = clone(innateSpellsCast);
       const used = newArray[level].findIndex((item) => {
         return item === selection;
       });
       newArray[level].splice(used, 1);
       setInnateSpellsCast(newArray);
-    } else if (innatePrepOrPrepped === "prep") {
-      const newArray = clone(preppedSpells);
-      const used = newArray[level].findIndex((item) => {
-        return item === selection;
-      });
-      newArray[level].splice(used, 1);
-      setPreppedSpells(newArray);
-      setModalType("Off");
-    } else {
+      return console.log("Innate spell removed");
+    } /*else if (e.id === "removePreppedSpell") {
       const newArray = clone(preppedSpellsCast);
       const used = newArray[level].findIndex((item) => {
         return item === selection;
       });
       newArray[level].splice(used, 1);
       setPreppedSpellsCast(newArray);
+      return console.log("prepped spell was removed");
+    }*/ else if (
+      innate === false
+    ) {
+      const newArray = clone(preppedSpells);
+      const used = newArray[level].findIndex(
+        (item) => item.id === selection.id
+      );
+      newArray[level].splice(used, 1);
+      setPreppedSpells(newArray);
+      setModalType("Off");
+      console.log("A prepped spell was removed");
     }
-  }
+  };
   function chooseModal(modalType: ModalType) {
     switch (modalType) {
       case "Prep":

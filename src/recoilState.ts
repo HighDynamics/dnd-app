@@ -13,8 +13,8 @@ export type InitialRecoilState<T> = [
   setValue: SetterOrUpdater<T>
 ];
 
-export const compendiumState = atom<{ spells: ISpell[] }>({
-  key: "compendiumState",
+export const spellCompendiumState = atom<{ spells: ISpell[] }>({
+  key: "spellCompendiumState",
   default: { spells: [] },
 });
 
@@ -96,7 +96,7 @@ export const modalTypeState = atom<ModalType>({
 });
 export const selectionState = atom({
   key: "selectionState",
-  default: "",
+  default: {},
 });
 
 export const emptySpellsArray: [
@@ -111,17 +111,31 @@ export const emptySpellsArray: [
   string[],
   string[]
 ] = [[], [], [], [], [], [], [], [], [], []];
+
+export const emptySpellsArrayWithInfo: [
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+  ISpell[],
+] = [[], [], [], [], [], [], [], [], [], []]
+
 export const innateSpellsCastState = atom({
   key: "innateSpellsCastState",
-  default: emptySpellsArray,
+  default: emptySpellsArrayWithInfo,
 });
 export const preppedSpellsState = atom({
   key: "preppedSpellsState",
-  default: emptySpellsArray,
+  default: emptySpellsArrayWithInfo,
 });
 export const preppedSpellsCastState = atom({
   key: "preppedSpellsCastState",
-  default: emptySpellsArray,
+  default: emptySpellsArrayWithInfo,
 });
 export const slaState = atom<ICharacter["magic"]["slas"]["one"]>({
   key: "slaState",

@@ -36,7 +36,7 @@ const roll20 = rollDice(20);
 
 function displayCompendiumInfo(matchedSpell: ISpell) {
   const spellKeys = Object.keys(matchedSpell) as Array<keyof ISpell>;
-  const compendiumInfo = spellKeys.map((key) => {
+  const spellCompendiumInfo = spellKeys.map((key) => {
     return (
       <CompendiumSpell
         key={key}
@@ -45,7 +45,7 @@ function displayCompendiumInfo(matchedSpell: ISpell) {
       />
     );
   });
-  return compendiumInfo;
+  return spellCompendiumInfo;
 }
 
 function getAbilityMod(character: ICharacter) {
@@ -94,6 +94,19 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
   });
 };
 
+//abstract this further to include other compendiums
+const getInfoById = (compendium: []) => (id: string) =>
+  compendium.spells.find((item) => item.id === id);
+
+const getSpellRefInfo = (selection: ISpell, character: ICharacter) => (
+  infoKey: string
+) => {
+  let spellRef = character.magic.spell_refs.find(
+    (ref) => ref.id === selection.id
+  );
+  return spellRef[infoKey];
+};
+
 export {
   textClassToGreenOrRed,
   camelCaseToTitleCase,
@@ -104,4 +117,6 @@ export {
   displayCompendiumInfo,
   whiteSpaceToUnderscore,
   persistCharacter,
+  getInfoById,
+  getSpellRefInfo,
 };

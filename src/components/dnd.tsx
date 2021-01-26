@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   primaryModifierState,
   characterState,
-  compendiumState,
+  spellCompendiumState,
   updatedCharacterState,
   InitialRecoilState,
 } from "../recoilState";
@@ -20,7 +20,7 @@ import "./dnd.css";
 export function totalSpells(
   character: ICharacter,
   primaryModifier: number,
-  level: keyof ICharacter["magic"]["spellsPerDay"],
+  level: string,
   levelNum: number
 ) {
   function bonusSpellsPerDay(levelNum: number) {
@@ -77,7 +77,9 @@ const LoadApp = () => {
     setCharacter,
   ]: InitialRecoilState<ICharacter> = useRecoilState(characterState);
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
-  const [compendium, setCompendium] = useRecoilState(compendiumState);
+  const [spellCompendium, setSpellCompendium] = useRecoilState(
+    spellCompendiumState
+  );
   const [
     primaryModifier,
     setPrimaryModifier,
@@ -89,8 +91,8 @@ const LoadApp = () => {
   useEffect(
     function setFirstCharacterFromServer() {
       if (charactersResponse) {
-        setCharacter(charactersResponse.characters[1]);
-        setUpdatedCharacter(charactersResponse.characters[1]);
+        setCharacter(charactersResponse.characters[0]);
+        setUpdatedCharacter(charactersResponse.characters[0]);
       }
     },
     [charactersResponse, setCharacter, setUpdatedCharacter]
@@ -98,11 +100,16 @@ const LoadApp = () => {
 
   useEffect(
     function setCompendiumFromServerSpells() {
-      if (spellsResponse) {
-        setCompendium({ spells: spellsResponse.spells });
+      if (spellsResponse && character) {
+        const characterSpellRefs = character.magic.spell_refs.map((s) => s.id);
+        const characterSpells = spellsResponse.spells.filter((spell) =>
+          characterSpellRefs.includes(spell.id)
+        );
+
+        setSpellCompendium({ spells: characterSpells });
       }
     },
-    [spellsResponse, setCompendium]
+    [spellsResponse, character, setSpellCompendium]
   );
 
   useEffect(
@@ -115,7 +122,8 @@ const LoadApp = () => {
   );
 
   // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && compendium && primaryModifier)) return <>Loading...</>;
+  if (!(character && spellCompendium && primaryModifier))
+    return <>Loading...</>;
 
   return <App />;
 };

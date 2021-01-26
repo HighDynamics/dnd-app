@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   slaState,
   selectionState,
-  compendiumState,
+  spellCompendiumState,
 } from "../../../recoilState";
 import { clone, displayCompendiumInfo } from "../../../utilities/utilities";
 import "./SLAInfo.css";
@@ -11,8 +11,8 @@ import "./SLAInfo.css";
 const SLAInfo = (props) => {
   const [usedSLAs, setUsedSLAs] = useRecoilState(slaState);
   const selection = useRecoilValue(selectionState);
-  const compendium = useRecoilValue(compendiumState);
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
+  const spellCompendium = useRecoilValue(spellCompendiumState);
+  const matchedSpell = spellCompendium.spells.find(({ name }) => name === selection);
   function checkForUseState(name: string) {
     return usedSLAs.findIndex((item) => {
       return item.name === name;

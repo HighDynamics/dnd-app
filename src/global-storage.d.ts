@@ -11,7 +11,7 @@ declare global {
   type ISpell = {
     id: string;
     name: string;
-    type: string;
+    school: string;
     level: string;
     components: string;
     effect?: string;

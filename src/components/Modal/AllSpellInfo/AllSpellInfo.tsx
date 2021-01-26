@@ -1,114 +1,85 @@
 import { useRecoilValue } from "recoil";
 
-import { compendiumState } from "../../../recoilState";
+import { spellCompendiumState } from "../../../recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 
 export const CastingSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "innate") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell) => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
+  const castSpell = addUsedSpell(selection);
   return (
     <>
-      <button
-        id="castSpell"
-        className="confirmSpellButton"
-        onClick={() => addUsedSpell(selection, "innate")}
-      >
+      <button id="castSpell" className="confirmSpellButton" onClick={castSpell}>
         Cast Spell
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
 export const PreppingSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "prep") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell) => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
+  const prepSpell = addUsedSpell(selection);
 
   return (
     <>
-      <button
-        id="prepSpell"
-        className="confirmSpellButton"
-        onClick={() => addUsedSpell(selection, "prep")}
-      >
+      <button id="prepSpell" className="confirmSpellButton" onClick={prepSpell}>
         Prep Spell
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
 export const CastingPreppedSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "PreppedCast") => void;
-  removeUsedSpell: (selection: string, type: "prep") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell) => string;
+  removeUsedSpell: (selection: ISpell, type: "prep") => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
   const { selection, addUsedSpell, removeUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-
-  function disableSpell(selection: string) {
-    addUsedSpell(selection, "PreppedCast");
-    removeUsedSpell(selection, "prep");
-  }
+  const addSpell = addUsedSpell(selection);
+  const removeSpell = removeUsedSpell(selection);
+  const usePreppedSpell = (e) => {
+    addSpell(e);
+    removeSpell(e);
+  };
   return (
     <>
       <button
+        id="usePreppedSpell"
         className="confirmSpellButton"
-        onClick={() => disableSpell(selection)}
+        onClick={usePreppedSpell}
       >
         Use Prepped Spell
       </button>{" "}
       ||{" "}
       <button
-        id="removePrepSpell"
+        id="removePreppedSpell"
         className="confirmSpellButton"
-        onClick={() => removeUsedSpell(selection, "prep")}
+        onClick={removeSpell}
       >
         Cancel Prep
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };
 export const UsedPreppedSpell = (props: {
-  selection: string;
-  addUsedSpell: (selection: string, type: "preppedCast") => void;
-  removeUsedSpell: (selection: string, type: "prep") => void;
+  selection: ISpell;
+  addUsedSpell: (selection: ISpell, type: "preppedCast") => void;
+  removeUsedSpell: (selection: ISpell, type: "prep") => void;
 }) => {
-  const compendium = useRecoilValue(compendiumState);
-  const { selection, addUsedSpell, removeUsedSpell } = props;
-  const matchedSpell = compendium.spells.find(({ name }) => name === selection);
-
-  function disableSpell(selection: string) {
-    addUsedSpell(selection, "preppedCast");
-    removeUsedSpell(selection, "prep");
-  }
+  const { selection } = props;
   return (
     <>
-      <button
-        className="confirmSpellButton"
-        onClick={() => disableSpell(selection)}
-        disabled
-      >
+      <button className="confirmSpellButton" disabled>
         Already Used
       </button>
-      {matchedSpell !== undefined && (
-        <div>{displayCompendiumInfo(matchedSpell)}</div>
-      )}
+      <div>{displayCompendiumInfo(selection)}</div>
     </>
   );
 };

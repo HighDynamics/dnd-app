@@ -1,4 +1,4 @@
-const Attacks = (props) => {
+const Attacks = () => {
   return <></>;
 };
 
