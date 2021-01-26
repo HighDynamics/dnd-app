@@ -101,9 +101,22 @@ const LoadApp = () => {
   useEffect(
     function setCompendiumFromServerSpells() {
       if (spellsResponse && character) {
-        const characterSpellRefs = character.magic.spell_refs.map((s) => s.id);
+        const characterSpellRefs = character.magic.spell_refs.map(
+          (s: string) => s.id
+        );
+        const characterSlaRefs = character.magic.sla_refs.map(
+          (s: string) => s.id
+        );
+        const characterAllSpellRefs = characterSpellRefs.reduce(
+          (acc, current, index) => {
+            return [...acc, current, characterSlaRefs[index]].filter(
+              (ref) => ref !== undefined
+            );
+          },
+          []
+        );
         const characterSpells = spellsResponse.spells.filter((spell) =>
-          characterSpellRefs.includes(spell.id)
+          characterAllSpellRefs.includes(spell.id)
         );
 
         setSpellCompendium({ spells: characterSpells });
