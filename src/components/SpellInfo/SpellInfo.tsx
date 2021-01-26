@@ -26,43 +26,43 @@ export const CompendiumSpell = ({
   property: string;
   value: string;
 }) => {
-  function formatProperty(input: typeof property) {
-    switch (input) {
-      case "name:":
-      case "school:":
+  function formatProperty(string: typeof property) {
+    switch (string) {
+      case "name":
+      case "school":
+      case "subSchool":
+      case "descriptor":
         return "";
-      case "description:":
+      case "description":
         return <hr id="spellSheetHR" />;
       default:
-        const spacedProperty = input.replace(/([A-Z])/g, " $1").trim();
-        return spacedProperty;
+        const spacedProperty = string.replace(/([A-Z])/g, " $1").trim();
+        return spacedProperty + ": ";
     }
   }
-  const formattedValue = value.replace(/_/g, " ");
+  const formatValue = (string: typeof property) => {
+    switch (string) {
+      case "subSchool":
+        return "(" + value + ")";
+      case "descriptor":
+        return "[" + value + "]";
+      default:
+        return value;
+    }
+  };
+  const formattedProperty = formatProperty(property);
+  const formattedValue = formatValue(property);
 
   return (
     <>
       {property !== "id" && (
-        <div className="infoSheetContent" id={property}>
-          <span className="property">{formatProperty(property + ":")} </span>
+        <div className={"infoSheetContent " + property}>
+          <span className="property">{formattedProperty}</span>
           <span className="value">{formattedValue}</span>
         </div>
       )}
     </>
   );
-};
-
-const lvlConversion = {
-  zero: 0,
-  one: 1,
-  two: 2,
-  three: 3,
-  four: 4,
-  five: 5,
-  six: 6,
-  seven: 7,
-  eight: 8,
-  nine: 9,
 };
 
 const SpellInfo = ({ innate }: { innate: boolean }) => {

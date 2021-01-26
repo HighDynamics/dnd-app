@@ -9,12 +9,14 @@
 .value {
   color: rgb(68, 33, 27);
 }
-#name {
+.name {
   font-size: 2rem;
   text-align: center;
   margin-top: 3vh;
 }
-#type {
+.school,
+.subSchool,
+.descriptor {
   text-align: center;
 }
 #spellSheetHR {
