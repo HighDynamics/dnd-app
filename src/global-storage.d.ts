@@ -12,11 +12,8 @@ declare global {
     id: string;
     name: string;
     school: string;
-<<<<<<< HEAD
     subSchool?: string;
     descriptor?: string;
-=======
->>>>>>> e1fc9ff3b0e04ed3bae3b394efb2e2b17fb8d53a
     level: string;
     components: string;
     castingTime: string;

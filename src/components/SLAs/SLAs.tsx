@@ -31,15 +31,10 @@ const numStrings = [
   "nine",
 ] as const;
 
-const KnownSLAs = (props: {
-  name: string;
-  uses: number;
-  frequency: string;
-}) => {
+const KnownSLAs = ({ slaRef }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const usedSLAs = useRecoilValue(slaState);
-  const { name, uses, frequency } = props;
   const formattedName = name.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + name;
   function displayInfo(modalDestination: ModalType) {
@@ -103,13 +98,8 @@ const SLAs = () => {
     }
   }
   function displaySLAs(level: keyof typeof character.magic.slas) {
-    const slas = Object.values(character.magic.slas[level]).map((s) => (
-      <KnownSLAs
-        key={s.name}
-        name={s.name}
-        uses={s.uses}
-        frequency={s.frequency}
-      />
+    const slas = Object.values(character.magic.sla_refs).map((s) => (
+      <KnownSLAs key={s.name} slaRef={s} />
     ));
     return slas;
   }
