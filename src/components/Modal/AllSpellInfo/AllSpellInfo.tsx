@@ -1,6 +1,3 @@
-import { useRecoilValue } from "recoil";
-
-import { spellCompendiumState } from "../../../recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 

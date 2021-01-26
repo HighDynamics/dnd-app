@@ -12,14 +12,16 @@ declare global {
     id: string;
     name: string;
     school: string;
+    subSchool?: string;
+    descriptor?: string;
     level: string;
     components: string;
-    effect?: string;
     castingTime: string;
     range: string;
     target?: string;
-    duration: string;
+    effect?: string;
     area?: string;
+    duration: string;
     savingThrow?: string;
     spellResistance?: string;
     description: string;
