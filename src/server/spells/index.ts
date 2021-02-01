@@ -1383,6 +1383,288 @@ const spellCompendium: ISpell[] = [
     description:
       "This spell blesses an area with positive energy. Each Charisma check made to turn undead within this area gains a +3 sacred bonus. Every undead creature entering a consecrated area suffers minor disruption, giving it a -1 penalty on attack rolls, damage rolls, and saves. Undead cannot be created within or summoned into a consecrated area.\n\nIf the consecrated area contains an altar, shrine, or other permanent fixture dedicated to your deity, pantheon, or aligned higher power, the modifiers given above are doubled (+6 sacred bonus on turning checks, -2 penalties for undead in the area). You cannot consecrate an area with a similar fixture of a deity other than your own patron.\n\nIf the area does contain an altar, shrine, or other permanent fixture of a deity, pantheon, or higher power other than your patron, the consecrate spell instead curses the area, cutting off its connection with the associated deity or power. This secondary function, if used, does not also grant the bonuses and penalties relating to undead, as given above.\n\nConsecrate counters and dispels desecrate.\n\nMaterial Component\nA vial of holy water and 25 gp worth (5 pounds) of silver dust, all of which must be sprinkled around the area.",
   },
+  //Contact Other Plane
+  {
+    id: "srd98",
+    name: "Contact Other Plane",
+    school: "Divination",
+    level: "Sor/Wiz 5",
+    components: "V",
+    castingTime: "10 minutes",
+    range: "Personal",
+    target: "You",
+    duration: "Concentration",
+    description:
+      "You send your mind to another plane of existence (an Elemental Plane or some plane farther removed) in order to receive advice and information from powers there. (See the accompanying table for possible consequences and results of the attempt.) The powers reply in a language you understand, but they resent such contact and give only brief answers to your questions. (All questions are answered with “yes,” “no,” “maybe,” “never,” “irrelevant,” or some other one-word answer.)\n\nYou must concentrate on maintaining the spell (a standard action) in order to ask questions at the rate of one per round. A question is answered by the power during the same round. For every two caster levels, you may ask one question.\n\nContact with minds far removed from your home plane increases the probability that you will incur a decrease to Intelligence and Charisma, but the chance of the power knowing the answer, as well as the probability of the entity answering correctly, are likewise increased by moving to distant planes.\n\nOnce the Outer Planes are reached, the power of the deity contacted determines the effects. (Random results obtained from the table are subject to the personalities of individual deities.)\n\nOn rare occasions, this divination may be blocked by an act of certain deities or forces.\n\nd% is rolled for the result shown on the table:\n\nPlane Contacted - Avoid Int/Cha Decrease\u00B9 - True Answer \u00B2 - Don't Know\u00B3 - Lie\u2074 - Random Answer\u2075\n\u2022Elemental Plane - DC 7/1 week - 01-34 - 35-62 - 63-83 - 84-100\n\u2022(appropriate) - (DC 7/1 week) - (01-68) - (69-75) - (76-98) - (99-100)\n\u2022Positive/Negative Energy Plane - DC 8/1 week - 01-39 - 40-65 - 66-86 - 87-100\n\u2022Astral Plane - DC 9/1 week - 01-44 - 45-67 - 68-88 - 89-100\n\u2022Outer Plane, demideity - DC 10/2 weeks - 01-49 - 50-70 - 71-91 - 92-100\n\u2022Outer Plane, lesser deity - DC 12/3 weeks - 01-60 - 61-75 - 76-95 - 96-100\n\u2022Outer Plane, intermediate deity - DC 14/4 weeks - 01-73 - 74-81 - 82-98 - 99-100\n\u2022Outer Plane, greater deity - DC 16/5 weeks - 01-88 - 89-90 - 91-99 - 100\n\n1. You must succeed on an Intelligence check against this DC to avoid a decrease in Intelligence and Charisma. If the check fails, your Intelligence and Charisma scores each fall to 8 for the stated duration, and you become unable to cast arcane spells. If you lose Intelligence and Charisma, the effect strikes as soon as the first question is asked, and no answer is received. (The entries in parentheses are for questions that pertain to the appropriate Elemental Plane.)\n2. You get a true, one-word answer. Questions that cannot be answered in this way are answered randomly.\n3. The entity tells you that it doesn’t know.\n4. The entity intentionally lies to you.\n5. The entity tries to lie but doesn’t know the answer, so it makes one up.",
+  },
+  //Contagion
+  {
+    id: "srd99",
+    name: "Contagion",
+    school: "Necromancy",
+    descriptor: "Evil",
+    level: "Clr 3, Destruction 3, Drd 3, Sor/Wiz 4",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Living creature touched",
+    duration: "Instantaneous",
+    savingThrow: "Fortitude negates",
+    spellResistance: "Yes",
+    description:
+      "The subject contracts a disease selected from the table, which strikes immediately (no incubation period). The DC noted is for the subsequent saves (use contagion’s normal save DC for the initial saving throw).\n\nDisease - DC - Damage\n\u2022Blinding sickness - 16 - 1d4 Str\u00B9\n\u2022Cackle fever - 16 - 1d6 Wis\n\u2022Filth fever - 12 - 1d3 Dex and 1d3 Con\n\u2022Mindfire - 12 - 1d4 Int\n\u2022Red ache - 15 - 1d6 Str\n\u2022Shakes - 13 - 1d8 Dex\n\u2022Slimy doom - 14 - 1d4 Con\n\n1. Each time a victim takes 2 or more points of Strength damage from blinding sickness, he or she must make another Fortitude save (using the disease’s save DC) or be permanently blinded.",
+  },
+  //Contingency
+  {
+    id: "srd100",
+    name: "Contingency",
+    school: "Evocation",
+    level: "Sor/Wiz 6",
+    components: "V, S, M, F",
+    castingTime: "At least 10 minutes; see text",
+    range: "Personal",
+    target: "You",
+    duration: "One day/level (D) or until discharged",
+    description:
+      "You can place another spell upon your person so that it comes into effect under some condition you dictate when casting contingency. The contingency spell and the companion spell are cast at the same time. The 10-minute casting time is the minimum total for both castings; if the companion spell has a casting time longer than 10 minutes, use that instead.\n\nThe spell to be brought into effect by the contingency must be one that affects your person and be of a spell level no higher than one-third your caster level (rounded down, maximum 6th level).\n\nThe conditions needed to bring the spell into effect must be clear, although they can be general. In all cases, the contingency immediately brings into effect the companion spell, the latter being “cast” instantaneously when the prescribed circumstances occur. If complicated or convoluted conditions are prescribed, the whole spell combination (contingency and the companion magic) may fail when called on. The companion spell occurs based solely on the stated conditions, regardless of whether you want it to.\n\nYou can use only one contingency spell at a time; if a second is cast, the first one (if still active) is dispelled.\n\nMaterial Component\nThat of the companion spell, plus quicksilver and an eyelash of an ogre mage, rakshasa, or similar spell-using creature.\n\nFocus\nA statuette of you carved from elephant ivory and decorated with gems (worth at least 1,500 gp). You must carry the focus for the contingency to work.",
+  },
+  //Continual Flame
+  {
+    id: "srd101",
+    name: "Continual Flame",
+    school: "Evocation",
+    descriptor: "Light",
+    level: "Clr 3, Sor/Wiz 2",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Object touched",
+    effect: "Magical, heatless flame",
+    duration: "Permanent",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "A flame, equivalent in brightness to a torch, springs forth from an object that you touch. The effect looks like a regular flame, but it creates no heat and doesn’t use oxygen. A continual flame can be covered and hidden but not smothered or quenched.\n\nLight spells counter and dispel darkness spells of an equal or lower level.\n\nMaterial Component\nYou sprinkle ruby dust (worth 50 gp) on the item that is to carry the flame.",
+  },
+  //Control Plants
+  {
+    id: "srd102",
+    name: "Control Plants",
+    school: "Transmuation",
+    level: "Drd 8, Plant 8",
+    components: "V, S, DF",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target:
+      "Up to 2 HD/level of plant creatures, no two of which can be more than 30 ft. apart",
+    duration: "1 min./level",
+    savingThrow: "Will negates",
+    spellResistance: "No",
+    description:
+      "This spell enables you to control the actions of one or more plant creatures for a short period of time. You command the creatures by voice and they understand you, no matter what language you speak. Even if vocal communication is impossible the controlled plants do not attack you. At the end of the spell, the subjects revert to their normal behavior.\n\nSuicidal or self-destructive commands are simply ignored.",
+  },
+  //Control Undead
+  {
+    id: "srd103",
+    name: "Control Undead",
+    school: "Necromancy",
+    level: "Sor/Wiz 7",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5ft./2 levels)",
+    target:
+      "Up to 2 HD/level of undead creatures, no two of which can be more than 30 ft. apart",
+    duration: "1 min./level",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "This spell enables you to command undead creatures for a short period of time. You command them by voice and they understand you, no matter what language you speak. Even if vocal communication is impossible the controlled undead do not attack you. At the end of the spell, the subjects revert to their normal behavior.\n\nIntelligent undead creatures remember that you controlled them.\n\nMaterial Component\nA small piece of bone and a small piece of raw meat.",
+  },
+  //Control Water
+  {
+    id: "srd104",
+    name: "Control Water",
+    school: "Transmuation",
+    descriptor: "Water",
+    level: "Clr 4, Drd 4, Sor/Wiz 6, Water 4",
+    components: "V, S, M/DF",
+    castingTime: "1 standard action",
+    range: "Long (400 ft. + 40 ft./level)",
+    area:
+      "Water in a volume of 10 ft./level by 10 ft./level by 2 ft./level (S)",
+    duration: "10 min./level (D)",
+    savingThrow: "None; see text",
+    spellResistance: "No",
+    description:
+      "Depending on the version you choose, the control water spell raises or lowers water.\n\nLower Water\nThis causes water or similar liquid to reduce its depth by as much as 2 feet per caster level (to a minimum depth of 1 inch). The water is lowered within a squarish depression whose sides are up to caster level × 10 feet long. In extremely large and deep bodies of water, such as a deep ocean, the spell creates a whirlpool that sweeps ships and similar craft downward, putting them at risk and rendering them unable to leave by normal movement for the duration of the spell. When cast on water elementals and other water-based creatures, this spell acts as a slow spell (Will negates). The spell has no effect on other creatures.\n\nRaise Water\nThis causes water or similar liquid to rise in height, just as the lower water version causes it to lower. Boats raised in this way slide down the sides of the hump that the spell creates. If the area affected by the spell includes riverbanks, a beach, or other land nearby, the water can spill over onto dry land.\n\nWith either version, you may reduce one horizontal dimension by half and double the other horizontal dimension.\n\nArcane Material Component\nA drop of water (for raise water) or a pinch of dust (for lower water).",
+  },
+  //Creeping Doom
+  {
+    id: "srd105",
+    name: "Creeping Doom",
+    school: "Conjuration",
+    subSchool: "Summoning",
+    level: "Drd 7",
+    components: "V, S",
+    castingTime: "1 round",
+    range: "Close (25 ft. + 5 ft./2 levels)/ 100 ft.; see text",
+    effect: "One swarm of centipedes per two levels",
+    duration: "1 min./level",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "When you utter the spell of creeping doom, you call forth a mass of centipede swarms (one per two caster levels, to a maximum of ten swarms at 20th level), which need not appear adjacent to one another.\n\nYou may summon the centipede swarms so that they share the area of other creatures. The swarms remain stationary, attacking any creatures in their area, unless you command the creeping doom to move (a standard action). As a standard action, you can command any number of the swarms to move toward any prey within 100 feet of you. You cannot command any swarm to move more than 100 feet away from you, and if you move more than 100 feet from any swarm, that swarm remains stationary, attacking any creatures in its area (but it can be commanded again if you move within 100 feet).",
+  },
+  //Crushing Despair
+  {
+    id: "srd106",
+    name: "Crushing Despair",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Mind-Affecting",
+    level: "Brd 3, Sor/Wiz 4",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "30 ft.",
+    target: "Cone-shaped burst",
+    duration: "1 min./level",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "An invisible cone of despair causes great sadness in the subjects. Each affected creature takes a -2 penalty on attack rolls, saving throws, ability checks, skill checks, and weapon damage rolls.\n\nCrushing despair counters and dispels good hope.\n\nMaterial Component\nA vial of tears.",
+  },
+  //Crushing Hand
+  {
+    id: "srd107",
+    name: "Crushing Hand",
+    school: "Evocation",
+    descriptor: "Force",
+    level: "Sor/Wiz 9, Strength 9",
+    components: "V, S, M, F/DF",
+    description:
+      "This spell functions like interposing hand, except that the hand can interpose itself, push, or crush one opponent that you select.\n\nThe crushing hand can grapple an opponent like grasping hand does. Its grapple bonus equals your caster level + your Intelligence, Wisdom, or Charisma modifier (for a wizard, cleric, or sorcerer, respectively), +12 for the hand’s Strength score (35), +4 for being Large. The hand deals 2d6+12 points of damage (lethal, not nonlethal) on each successful grapple check against an opponent.\n\nThe crushing hand can also interpose itself as interposing hand does, or it can bull rush an opponent as forceful hand does, but at a +18 bonus.\n\nDirecting the spell to a new target is a move action.\n\nClerics who cast this spell name it for their deities.\n\nArcane Material Component\nThe shell of an egg.\n\nArcane Focus\nA glove of snakeskin.",
+  },
+  //Cure Critical Wounds
+  {
+    id: "srd108",
+    name: "Cure Critical Wounds",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Brd 4, Clr 4, Drd 5, Healing 4",
+    description:
+      "This spell functions like cure light wounds, except that it cures 4d8 points of damage +1 point per caster level (maximum +20)",
+  },
+  //Cure Critical Wounds, Mass
+  {
+    id: "srd109",
+    name: "Cure Critical Wounds, Mass",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Clr 8, Drd 9, Healing 8",
+    description:
+      "This spell functions like mass cure light wounds, except that it cures 4d8 points of damage +1 point per caster level (maximum +40)",
+  },
+  //Cure Light Wounds
+  {
+    id: "srd110",
+    name: "Cure Light Wounds",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Brd 1, Clr 1, Drd 1, Healing 1, Pal 1, Rgr 2",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature touched",
+    duration: "Instantaneous",
+    savingThrow: "Will half (harmless); see text",
+    spellResistance: "Yes (harmless); see text",
+    description:
+      "When laying your hand upon a living creature, you channel positive energy that cures 1d8 points of damage +1 point per caster level (maximum +5).\n\nSince undead are powered by negative energy, this spell deals damage to them instead of curing their wounds. An undead creature can apply spell resistance, and can attempt a Will save to take half damage.",
+  },
+  //Cure Light Wounds, Mass
+  {
+    id: "srd111",
+    name: "Cure Light Wounds, Mass",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Brd 5, Clr 5, Drd 6, Healing 5",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One creature/level, no two of which can be more than 30 ft. apart",
+    duration: "Instantaneous",
+    savingThrow: "Will half (harmless) or Will half; see text",
+    spellResistance: "Yes (harmless) or Yes; see text",
+    description:
+      "You channel positive energy to cure 1d8 points of damage +1 point per caster level (maximum +25) in each selected creature.\n\nLike other cure spells, mass cure light wounds deals damage to undead in its area rather than curing them. Each affected undead may attempt a Will save for half damage.",
+  },
+  //Cure Minor Wounds
+  {
+    id: "srd112",
+    name: "Cure Minor Wounds",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Clr 0, Drd 0",
+    description:
+      "This spell functions like cure light wounds, except that it cures only 1 point of damage.",
+  },
+  //Cure Moderate Wounds
+  {
+    id: "srd113",
+    name: "Cure Moderate Wounds",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Brd 2, Clr 2, Drd 3, Healing 2, Pal 3, Rgr 3",
+    description:
+      "This spell functions like cure light wounds, except that it cures 2d8 points of damage +1 point per caster level (maximum +10)",
+  },
+  //Cure Moderate Wounds, Mass
+  {
+    id: "srd114",
+    name: "Cure Moderate Wounds, Mass",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Brd 6, Clr 6, Drd 7",
+    description:
+      "This spell functions like mass cure light wounds, except that it cures 2d8 points of damage +1 point per caster level (maximum +30)",
+  },
+  //Cure Serious Wounds
+  {
+    id: "srd115",
+    name: "Cure Serious Wounds",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Brd 3, Clr 3, Drd 4, Pal 4, Rgr 4, Healing 3",
+    description:
+      "This spell functions like cure light wounds, except that it cures 3d8 points of damage +1 point per caster level (maximum +15)",
+  },
+  //Cure Serious Wounds, Mass
+  {
+    id: "srd116",
+    name: "Cure Serious Wounds, Mass",
+    school: "Conjuration",
+    subSchool: "Healing",
+    level: "Clr 7, Drd 8",
+    description:
+      "This spell functions like mass cure light wounds, except that it cures 3d8 points of damage +1 point per caster level (maximum +35)",
+  },
+  //Curse Water
+  {
+    id: "srd117",
+    name: "Curse Water",
+    school: "Necromancy",
+    descriptor: "Evil",
+    level: "Clr 1",
+    components: "V, S, M",
+    castingTime: "1 minute",
+    range: "Touch",
+    target: "Flask of water touched",
+    duration: "Instantaneous",
+    savingThrow: "Will negates (object)",
+    spellResistance: "Yes (object)",
+    description:
+      "This spell imbues a flask (1 pint) of water with negative energy, turning it into unholy water. Unholy water damages good outsiders the way holy water damages undead and evil outsiders.\n\nMaterial Component\n5 pounds of powdered silver (worth 25 gp).",
+  },
   //Detect magic
   {
     id: "srd4",
