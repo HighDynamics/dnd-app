@@ -847,6 +847,240 @@ const spellCompendium: ISpell[] = [
     description:
       "A cone of searing flame shoots from your fingertips. Any creature in the area of the flames takes 1d4 points of fire damage per caster level (maximum 5d4). Flammable materials burn if the flames touch them. A character can extinguish burning items as a full-round action.",
   },
+  //Call Lightning
+  {
+    id: "srd65",
+    name: "Call Lightning",
+    school: "Evocation",
+    descriptor: "Electricity",
+    level: "Drd 3",
+    components: "V, S",
+    castingTime: "1 round",
+    range: "Medium (100 ft. + 10 ft./level)",
+    effect: "One or more 30-ft.-long vertical lines of lightning",
+    duration: "1 min./level",
+    savingThrow: "Reflex half",
+    spellResistance: "Yes",
+    description:
+      "Immediately upon completion of the spell, and once per round thereafter, you may call down a 5-foot-wide, 30-foot-long, vertical bolt of lightning that deals 3d6 points of electricity damage. The bolt of lightning flashes down in a vertical stroke at whatever target point you choose within the spell’s range (measured from your position at the time). Any creature in the target square or in the path of the bolt is affected.\n\nYou need not call a bolt of lightning immediately; other actions, even spellcasting, can be performed. However, each round after the first you may use a standard action (concentrating on the spell) to call a bolt. You may call a total number of bolts equal to your caster level (maximum 10 bolts).\n\nIf you are outdoors and in a stormy area—a rain shower, clouds and wind, hot and cloudy conditions, or even a tornado (including a whirlwind formed by a djinni or an air elemental of at least Large size)—each bolt deals 3d10 points of electricity damage instead of 3d6.\n\nThis spell functions indoors or underground but not underwater.",
+  },
+  //Call Lightning Storm
+  {
+    id: "srd66",
+    name: "Call Lightning Storm",
+    school: "Evocation",
+    descriptor: "Electricty",
+    level: "Drd 5",
+    range: "Long (400 ft. + 40 ft./level)",
+    description:
+      "This spell functions like call lightning, except that each bolt deals 5d6 points of electricity damage (or 5d10 if created outdoors in a stormy area), and you may call a maximum of 15 bolts.",
+  },
+  // Calm Animals
+  {
+    id: "srd67",
+    name: "Calm Animals",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Mind-Affecting",
+    level: "Animal 1, Drd 1, Rgr 1",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "Animals within 30 ft. of each other",
+    duration: "1 min./level",
+    savingThrow: "Will negates; see text",
+    spellResistance: "Yes",
+    description:
+      "This spell soothes and quiets animals, rendering them docile and harmless. Only ordinary animals (those with Intelligence scores of 1 or 2) can be affected by this spell. All the subjects must be of the same kind, and no two may be more than 30 feet apart. The maximum number of Hit Dice of animals you can affect is equal to 2d4 + caster level. A dire animal or an animal trained to attack or guard is allowed a saving throw; other animals are not.\n\nThe affected creatures remain where they are and do not attack or flee. They are not helpless and defend themselves normally if attacked. Any threat breaks the spell on the threatened creatures.",
+  },
+  //Calm Emotions
+  {
+    id: "srd68",
+    name: "Calm Emotions",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Mind-Affecting",
+    level: "Brd 2, Clr 2, Law 2",
+    components: "V, S, DF",
+    castingTime: "1 standard action",
+    range: "Medium (100 ft. + 10 ft./level)",
+    area: "Creatures in a 20-ft.-radius spread",
+    duration: "Concentration, up to 1 round/level (D)",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "This spell calms agitated creatures. You have no control over the affected creatures, but calm emotions can stop raging creatures from fighting or joyous ones from reveling. Creatures so affected cannot take violent actions (although they can defend themselves) or do anything destructive. Any aggressive action against or damage dealt to a calmed creature immediately breaks the spell on all calmed creatures.\n\nThis spell automatically suppresses (but does not dispel) any morale bonuses granted by spells such as bless, good hope, and rage, as well as negating a bard’s ability to inspire courage or a barbarian’s rage ability. It also suppresses any fear effects and removes the confused condition from all targets. While the spell lasts, a suppressed spell or effect has no effect. When the calm emotions spell ends, the original spell or effect takes hold of the creature again, provided that its duration has not expired in the meantime.",
+  },
+  //Cat's Grace
+  {
+    id: "srd69",
+    name: "Cat's Grace",
+    school: "Transmuation",
+    level: "Brd 2, Drd 2, Rgr 2, Sor/Wiz 2",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature touched",
+    duration: "1 min./level",
+    savingThrow: "Will negates (harmless)",
+    spellResistance: "Yes",
+    description:
+      "The transmuted creature becomes more graceful, agile, and coordinated. The spell grants a +4 enhancement bonus to Dexterity, adding the usual benefits to AC, Reflex saves, and other uses of the Dexterity modifier.\n\nMaterial Component\nA pinch of cat fur.",
+  },
+  //Cat's Grace, Mass
+  {
+    id: "srd70",
+    name: "Cat's Grace, Mass",
+    level: "Brd 6, Drd 6, Sor/Wiz 6",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One creature/level, no two of which can be more than 30 ft. apart",
+    description:
+      "This spell functions like cat's grace, except that it affects multiple creatures.",
+  },
+  //Cause Fear
+  {
+    id: "srd71",
+    name: "Cause Fear",
+    school: "Necromancy",
+    descriptor: "Fear, Mind-Affecting",
+    level: "Brd 1, Clr 1, Death 1, Sor/Wiz 1",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One living creature with 5 or fewer HD",
+    duration: "1d4 rounds or 1 round; see text",
+    savingThrow: "Will partial",
+    spellResistance: "Yes",
+    description:
+      "The affected creature becomes frightened. If the subject succeeds on a Will save, it is shaken for 1 round. Creatures with 6 or more Hit Dice are immune to this effect.\n\nCause fear counters and dispels remove fear.",
+  },
+  //Chain Lighting
+  {
+    id: "srd72",
+    name: "Chain Lightning",
+    school: "Evocation",
+    descriptor: "Electricty",
+    level: "Air 6, Sor/Wiz 6",
+    components: "V, S, F",
+    castingTime: "1 standard action",
+    range: "Long (400 ft. + 40 ft./level)",
+    target:
+      "One primary target, plus one secondary target/level (each of which must be within 30 ft. of the primary target)",
+    duration: "Instantaneous",
+    savingThrow: "Reflex half",
+    spellResistance: "Yes",
+    description:
+      "This spell creates an electrical discharge that begins as a single stroke commencing from your fingertips. Unlike lightning bolt, chain lightning strikes one object or creature initially, then arcs to other targets.\n\nThe bolt deals 1d6 points of electricity damage per caster level (maximum 20d6) to the primary target. After it strikes, lightning can arc to a number of secondary targets equal to your caster level (maximum 20). The secondary bolts each strike one target and deal half as much damage as the primary one did (rounded down).\n\nEach target can attempt a Reflex saving throw for half damage. You choose secondary targets as you like, but they must all be within 30 feet of the primary target, and no target can be struck more than once. You can choose to affect fewer secondary targets than the maximum.\n\nFocus\nA bit of fur; a piece of amber, glass, or a crystal rod; plus one silver pin for each of your caster levels.",
+  },
+  //Changestaff
+  {
+    id: "srd73",
+    name: "Changestaff",
+    school: "Transmuation",
+    level: "Drd 7",
+    components: "V, S, F",
+    castingTime: "1 round",
+    range: "Touch",
+    target: "Your touched staff",
+    duration: "1 hour/level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You change a specially prepared quarterstaff into a Huge treantlike creature, about 24 feet tall. When you plant the end of the staff in the ground and speak a special command to conclude the casting of the spell, your staff turns into a creature that looks and fights just like a treant. The staff-treant defends you and obeys any spoken commands. However, it is by no means a true treant; it cannot converse with actual treants or control trees. If the staff-treant is reduced to 0 or fewer hit points, it crumbles to powder and the staff is destroyed. Otherwise, the staff returns to its normal form when the spell duration expires (or when the spell is dismissed), and it can be used as the focus for another casting of the spell. The staff-treant is always at full strength when created, despite any wounds it may have incurred the last time it appeared.\n\nFocus\nThe quarterstaff, which must be specially prepared. The staff must be a sound limb cut from an ash, oak, or yew, then cured, shaped, carved, and polished (a process requiring twenty-eight days).\n\nYou cannot adventure or engage in other strenuous activity during the shaping and carving of the staff.",
+  },
+  //Chaos Hammer
+  {
+    id: "srd74",
+    name: "Chaos Hammer",
+    school: "Evocation",
+    descriptor: "Chaotic",
+    level: "Chaos 4",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Medium (100 ft. + 10 ft./level)",
+    area: "20-ft.-radius burst",
+    duration: "Instantaneous (1d6 rounds); see text",
+    savingThrow: "Will partial; see text",
+    spellResistance: "Yes",
+    description:
+      "You unleash chaotic power to smite your enemies. The power takes the form of a multicolored explosion of leaping, ricocheting energy. Only lawful and neutral (not chaotic) creatures are harmed by the spell.\n\nThe spell deals 1d8 points of damage per two caster levels (maximum 5d8) to lawful creatures (or 1d6 points of damage per caster level, maximum 10d6, to lawful outsiders) and slows them for 1d6 rounds (see the slow spell). A successful Will save reduces the damage by half and negates the slow effect.\n\nThe spell deals only half damage against creatures who are neither lawful nor chaotic, and they are not slowed. Such a creature can reduce the damage by half again (down to one-quarter) with a successful Will save.",
+  },
+  //Charm Animal
+  {
+    id: "srd75",
+    name: "Charm Animal",
+    school: "Enchantment",
+    subSchool: "Charm",
+    descriptor: "Mind-Affecting",
+    level: "Drd 1, Rgr 1",
+    target: "One animal",
+    description:
+      "This spell functions like charm person, except that it affects a creature of the animal type.",
+  },
+  //Charm Monster
+  {
+    id: "srd76",
+    name: "Charm Monster",
+    school: "Enchantment",
+    subSchool: "Charm",
+    descriptor: "Mind-Affecting",
+    level: "Brd 3, Sor/Wiz 4",
+    target: "One living creature",
+    duration: "One day/level",
+    description:
+      "This spell functions like charm person, except that the effect is not restricted by creature type or size",
+  },
+  //Charm Monster, Mass
+  {
+    id: "srd77",
+    name: "Charm Monster, Mass",
+    school: "Enchantment",
+    subSchool: "Charm",
+    descriptor: "Mind-Affecting",
+    level: "Brd 6, Sor/Wiz 8",
+    components: "V",
+    target:
+      "One or more creatures, no two of which can be more than 30 ft. apart",
+    duration: "One day/level",
+    description:
+      "This spell functions like charm monster, except that mass charm monster affects a number of creatures whose combined HD do not exceed twice your level, or at least one creature regardless of HD. If there are more potential targets than you can affect, you choose them one at a time until you choose a creature with too many HD.",
+  },
+  //Charm Person
+  {
+    id: "srd78",
+    name: "Charm Person",
+    school: "Enchantment",
+    subSchool: "Charm",
+    descriptor: "Mind-Affecting",
+    level: "Brd 1, Sor/Wiz 1",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One humanoid creature",
+    duration: "1 hour/level",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "This charm makes a humanoid creature regard you as its trusted friend and ally (treat the target’s attitude as friendly). If the creature is currently being threatened or attacked by you or your allies, however, it receives a +5 bonus on its saving throw.\n\nThe spell does not enable you to control the charmed person as if it were an automaton, but it perceives your words and actions in the most favorable way. You can try to give the subject orders, but you must win an opposed Charisma check to convince it to do anything it wouldn’t ordinarily do. (Retries are not allowed.) An affected creature never obeys suicidal or obviously harmful orders, but it might be convinced that something very dangerous is worth doing. Any act by you or your apparent allies that threatens the charmed person breaks the spell. You must speak the person’s language to communicate your commands, or else be good at pantomiming.",
+  },
+  //Chill Metal
+  {
+    id: "srd79",
+    name: "Chill Metal",
+    school: "Transmuation",
+    descriptor: "Cold",
+    level: "Drd 2",
+    components: "C, S, DF",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target:
+      "Metal equipment of one creature per two levels, no two of which can be more than 30 ft. apart; or 25 lb. of metal/level, none of which can be more than 30 ft. away from any of the rest",
+    duration: "7 rounds",
+    savingThrow: "Will negates (object)",
+    spellResistance: "Yes (object)",
+    description:
+      "Chill metal makes metal extremely cold. Unattended, nonmagical metal gets no saving throw. Magical metal is allowed a saving throw against the spell. An item in a creature’s possession uses the creature’s saving throw bonus unless its own is higher.\n\nA creature takes cold damage if its equipment is chilled. It takes full damage if its armor is affected or if it is holding, touching, wearing, or carrying metal weighing one-fifth of its weight. The creature takes minimum damage (1 point or 2 points; see the table) if it’s not wearing metal armor and the metal that it’s carrying weighs less than one-fifth of its weight.\n\nOn the first round of the spell, the metal becomes chilly and uncomfortable to touch but deals no damage. The same effect also occurs on the last round of the spell’s duration. During the second (and also the next-to-last) round, icy coldness causes pain and damage. In the third, fourth, and fifth rounds, the metal is freezing cold, causing more damage, as shown on the table below.\n\nRound - Metal Temperature - Damage\n\u20221 - Cold - None\n\u20222 - Icy - 1d4 points\n\u20223-5 - Freezing - 2d4 points\n\u20226 - Icy - 1d4 points\n\u20227 - Cold - None\n\nAny heat intense enough to damage the creature negates cold damage from the spell (and vice versa) on a point-for-point basis. Underwater, chill metal deals no damage, but ice immediately forms around the affected metal, making it more buoyant.\n\nChill metal counters and dispels heat metal.",
+  },
   //Chill touch
   {
     id: "srd14",
@@ -862,6 +1096,292 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes",
     description:
       "A touch from your hand, which glows with blue energy, disrupts the life force of living creatures. Each touch channels negative energy that deals 1d6 points of damage. The touched creature also takes 1 point of Strength damage unless it makes a successful Fortitude saving throw. You can use this melee touch attack up to one time per level.\n\nAn undead creature you touch takes no damage of either sort, but it must make a successful Will saving throw or flee as if panicked for 1d4 rounds +1 round per caster level.",
+  },
+  //Circle of Death
+  {
+    id: "srd80",
+    name: "Circle of Death",
+    school: "Necromancy",
+    descriptor: "Death",
+    level: "Sor/Wiz 6",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Medium (100 ft. + 10 ft./level)",
+    area: "Several living creatures within a 40-ft.-radius burst",
+    duration: "Instantaneous",
+    savingThrow: "Fortitude negates",
+    spellResistance: "Yes",
+    description:
+      "A circle of death snuffs out the life force of living creatures, killing them instantly.\n\nThe spell slays 1d4 HD worth of living creatures per caster level (maximum 20d4). Creatures with the fewest HD are affected first; among creatures with equal HD, those who are closest to the burst’s point of origin are affected first. No creature of 9 or more HD can be affected, and Hit Dice that are not sufficient to affect a creature are wasted.\n\nMaterial Component\nThe powder of a crushed black pearl with a minimum value of 500 gp.",
+  },
+  //Clairaudience/Clairvoyance
+  {
+    id: "srd81",
+    name: "Clairaudience/Clairvoyance",
+    school: "Divination",
+    subSchool: "Scrying",
+    level: "Brd 3, Knowledge 3, Sor/Wiz 3",
+    components: "V, S, F/DF",
+    castingTime: "10 minutes",
+    range: "Long (400 ft. + 40 ft./level)",
+    effect: "Magical sensor",
+    duration: "1 min./level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "Clairaudience/clairvoyance creates an invisible magical sensor at a specific location that enables you to hear or see (your choice) almost as if you were there. You don’t need line of sight or line of effect, but the locale must be known—a place familiar to you or an obvious one. Once you have selected the locale, the sensor doesn’t move, but you can rotate it in all directions to view the area as desired. Unlike other scrying spells, this spell does not allow magically or supernaturally enhanced senses to work through it. If the chosen locale is magically dark, you see nothing. If it is naturally pitch black, you can see in a 10-foot radius around the center of the spell’s effect. Clairaudience/clairvoyance functions only on the plane of existence you are currently occupying.\n\nArcane Focus\nA small horn (for hearing) or a glass eye (for seeing).",
+  },
+  //Clenched Fist
+  {
+    id: "srd82",
+    name: "Clenched Fist",
+    school: "Evocation",
+    descriptor: "Force",
+    level: "Sor/Wiz 8, Strength 8",
+    components: "V, S, F/DF",
+    description:
+      "This spell functions like interposing hand, except that the hand can interpose itself, push, or strike one opponent that you select. The floating hand can move as far as 60 feet and can attack in the same round. Since this hand is directed by you, its ability to notice or attack invisible or concealed creatures is no better than yours.\n\nThe hand attacks once per round, and its attack bonus equals your caster level + your Intelligence, Wisdom, or Charisma modifier (for a wizard, cleric, or sorcerer, respectively), +11 for the hand’s Strength score (33), -1 for being Large. The hand deals 1d8+11 points of damage on each attack, and any creature struck must make a Fortitude save (against this spell’s save DC) or be stunned for 1 round. Directing the spell to a new target is a move action.\n\nThe clenched fist can also interpose itself as interposing hand does, or it can bull rush an opponent as forceful hand does, but at a +15 bonus on the Strength check.\n\nClerics who cast this spell name it for their deities.\n\nArcane Focus\nA leather glove.",
+  },
+  //Cloak of Chaos
+  {
+    id: "srd83",
+    name: "Cloak of Chaos",
+    school: "Abjuration",
+    descriptor: "Chaotic",
+    level: "Chaos 8, Clr 8",
+    components: "V, S, F",
+    castingTime: "1 standard action",
+    range: "20 ft.",
+    target: "One creature/level in a 20-ft.-radius burst centered on you",
+    duration: "1 round/level (D)",
+    savingThrow: "See text",
+    spellResistance: "Yes (harmless)",
+    description:
+      "A random pattern of color surrounds the subjects, protecting them from attacks, granting them resistance to spells cast by lawful creatures, and causing lawful creatures that strike the subjects to become confused. This abjuration has four effects.\n\nFirst, each warded creature gains a +4 deflection bonus to AC and a +4 resistance bonus on saves. Unlike protection from law, the benefit of this spell applies against all attacks, not just against attacks by lawful creatures.\n\nSecond, each warded creature gains spell resistance 25 against lawful spells and spells cast by lawful creatures.\n\nThird, the abjuration blocks possession and mental influence, just as protection from law does.\n\nFinally, if a lawful creature succeeds on a melee attack against a warded creature, the offending attacker is confused for 1 round (Will save negates, as with the confusion spell, but against the save DC of cloak of chaos).\n\nFocus\nA tiny reliquary containing some sacred relic, such as a scrap of parchment from a chaotic text. The reliquary costs at least 500 gp.",
+  },
+  //Clone
+  {
+    id: "srd84",
+    name: "Clone",
+    school: "Necromancy",
+    level: "Sor/Wiz 8",
+    components: "V, S, M, F",
+    castingTime: "10 minutes",
+    range: "0 ft.",
+    target: "One clone",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "This spell makes an inert duplicate of a creature. If the original individual has been slain, its soul immediately transfers to the clone, creating a replacement (provided that the soul is free and willing to return). The original’s physical remains, should they still exist, become inert and cannot thereafter be restored to life. If the original creature has reached the end of its natural life span (that is, it has died of natural causes), any cloning attempt fails.\n\nTo create the duplicate, you must have a piece of flesh (not hair, nails, scales, or the like) with a volume of at least 1 cubic inch that was taken from the original creature’s living body. The piece of flesh need not be fresh, but it must be kept from rotting. Once the spell is cast, the duplicate must be grown in a laboratory for 2d4 months.\n\nWhen the clone is completed, the original’s soul enters it immediately, if that creature is already dead. The clone is physically identical with the original and possesses the same personality and memories as the original. In other respects, treat the clone as if it were the original character raised from the dead, including the loss of one level or 2 points of Constitution (if the original was a 1st-level character). If this Constitution adjustment would give the clone a Constitution score of 0, the spell fails. If the original creature has lost levels since the flesh sample was taken and died at a lower level than the clone would otherwise be, the clone is one level below the level at which the original died.\n\nThe spell duplicates only the original’s body and mind, not its equipment.\n\nA duplicate can be grown while the original still lives, or when the original soul is unavailable, but the resulting body is merely a soulless bit of inert flesh, which rots if not preserved.\n\nMaterial Component\nThe piece of flesh and various laboratory supplies (cost 1,000 gp).",
+  },
+  //Cloudkill
+  {
+    id: "srd85",
+    name: "Cloudkill",
+    school: "Conjuration",
+    subSchool: "Creation",
+    level: "Sor/Wiz 5",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Medium (100 ft. + 10 ft./level)",
+    effect: "Cloud spreads in 20-ft. radius, 20 ft. high",
+    duration: "1 min./level",
+    savingThrow: "Fortitude partial; see text",
+    spellResistance: "No",
+    description:
+      "This spell generates a bank of fog, similar to a fog cloud, except that its vapors are yellowish green and poisonous. These vapors automatically kill any living creature with 3 or fewer HD (no save). A living creature with 4 to 6 HD is slain unless it succeeds on a Fortitude save (in which case it takes 1d4 points of Constitution damage on your turn each round while in the cloud).\n\nA living creature with 6 or more HD takes 1d4 points of Constitution damage on your turn each round while in the cloud (a successful Fortitude save halves this damage). Holding one’s breath doesn’t help, but creatures immune to poison are unaffected by the spell.\n\nUnlike a fog cloud, the cloudkill moves away from you at 10 feet per round, rolling along the surface of the ground.\n\nFigure out the cloud’s new spread each round based on its new point of origin, which is 10 feet farther away from the point of origin where you cast the spell.\n\nBecause the vapors are heavier than air, they sink to the lowest level of the land, even pouring down den or sinkhole openings. It cannot penetrate liquids, nor can it be cast underwater.",
+  },
+  //Color Spray
+  {
+    id: "srd86",
+    name: "Color Spray",
+    school: "Illusion",
+    subSchool: "Pattern",
+    descriptor: "Mind-Affecting",
+    level: "Sor/Wiz 1",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "15 ft.",
+    area: "Cone-shaped burst",
+    duration: "Instantaneous",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "A vivid cone of clashing colors springs forth from your hand, causing creatures to become stunned, perhaps also blinded, and possibly knocking them unconscious.\n\nEach creature within the cone is affected according to its Hit Dice.\n\n2 HD or less\nThe creature is unconscious, blinded, and stunned for 2d4 rounds, then blinded and stunned for 1d4 rounds, and then stunned for 1 round. (Only living creatures are knocked unconscious.)\n\n3 or 4 HD\nThe creature is blinded and stunned for 1d4 rounds, then stunned for 1 round.\n\n5 or more HD\nThe creature is stunned for 1 round.\n\nSightless creatures are not affected by color spray.\n\nMaterial Component\nA pinch each of powder or sand that is colored red, yellow, and blue.",
+  },
+  //Command
+  {
+    id: "srd87",
+    name: "Command",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Language-Dependent, Mind-Affecting",
+    level: "Clr 1",
+    components: "V",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One living creature",
+    duration: "1 round",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "You give the subject a single command, which it obeys to the best of its ability at its earliest opportunity. You may select from the following options.\n\nApproach\nOn its turn, the subject moves toward you as quickly and directly as possible for 1 round. The creature may do nothing but move during its turn, and it provokes attacks of opportunity for this movement as normal.\n\nDrop\nOn its turn, the subject drops whatever it is holding. It can’t pick up any dropped item until its next turn.\n\nFall\nOn its turn, the subject falls to the ground and remains prone for 1 round. It may act normally while prone but takes any appropriate penalties.\n\nFlee\nOn its turn, the subject moves away from you as quickly as possible for 1 round. It may do nothing but move during its turn, and it provokes attacks of opportunity for this movement as normal.\n\nHalt\nThe subject stands in place for 1 round. It may not take any actions but is not considered helpless.\n\nIf the subject can’t carry out your command on its next turn, the spell automatically fails.",
+  },
+  //Command, Greater
+  {
+    id: "srd88",
+    name: "Command, Greater",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Language-Dependent, Mind-Affecting",
+    level: "Clr 5",
+    target: "One creature/level, no two of which can be more than 30 ft. apart",
+    duration: "1 round/level",
+    description:
+      "This spell functions like command, except that up to one creature per level may be affected, and the activities continue beyond 1 round. At the start of each commanded creature’s action after the first, it gets another Will save to attempt to break free from the spell. Each creature must receive the same command.",
+  },
+  //Command Plants
+  {
+    id: "srd89",
+    name: "Command Plants",
+    school: "Transmuation",
+    level: "Drd 4, Plant 4, Rgr 3",
+    components: "V",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target:
+      "Up to 2 HD/level of plant creatures, no two of which can be more than 30 ft. apart",
+    duration: "One day/level",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "This spell allows you some degree of control over one or more plant creatures. Affected plant creatures can understand you, and they perceive your words and actions in the most favorable way (treat their attitude as friendly). They will not attack you while the spell lasts. You can try to give a subject orders, but you must win an opposed Charisma check to convince it to do anything it wouldn’t ordinarily do. (Retries are not allowed.) A commanded plant never obeys suicidal or obviously harmful orders, but it might be convinced that something very dangerous is worth doing.\n\nYou can affect a number of plant creatures whose combined level or HD do not exceed twice your level.",
+  },
+  //Command Undead
+  {
+    id: "srd90",
+    name: "Command Undead",
+    school: "Necromancy",
+    level: "Sor/Wiz 2",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One undead creature",
+    duration: "One day/level",
+    savingThrow: "Will negates; see text",
+    spellResistance: "Yes",
+    description:
+      "This spell allows you some degree of control over an undead creature. Assuming the subject is intelligent, it perceives your words and actions in the most favorable way (treat its attitude as friendly). It will not attack you while the spell lasts. You can try to give the subject orders, but you must win an opposed Charisma check to convince it to do anything it wouldn’t ordinarily do. (Retries are not allowed.) An intelligent commanded undead never obeys suicidal or obviously harmful orders, but it might be convinced that something very dangerous is worth doing.\n\nA nonintelligent undead creature gets no saving throw against this spell. When you control a mindless being, you can communicate only basic commands, such as “come here,” “go there,” “fight,” “stand still,” and so on. Nonintelligent undead won’t resist suicidal or obviously harmful orders.\n\nAny act by you or your apparent allies that threatens the commanded undead (regardless of its Intelligence) breaks the spell.\n\nYour commands are not telepathic. The undead creature must be able to hear you.\n\nMaterial Component\nA shred of raw meat and a splinter of bone.",
+  },
+  //Commune
+  {
+    id: "srd91",
+    name: "Commune",
+    school: "Divination",
+    level: "Clr 5",
+    components: "V, S, M, DF, XP",
+    castingTime: "10 minutes",
+    range: "Personal",
+    target: "You",
+    duration: "1 round/level",
+    description:
+      "You contact your deity—or agents thereof —and ask questions that can be answered by a simple yes or no. (A cleric of no particular deity contacts a philosophically allied deity.) You are allowed one such question per caster level. The answers given are correct within the limits of the entity’s knowledge. “Unclear” is a legitimate answer, because powerful beings of the Outer Planes are not necessarily omniscient. In cases where a one-word answer would be misleading or contrary to the deity’s interests, a short phrase (five words or less) may be given as an answer instead.\n\nThe spell, at best, provides information to aid character decisions. The entities contacted structure their answers to further their own purposes. If you lag, discuss the answers, or go off to do anything else, the spell ends.\n\nMaterial Component\nHoly (or unholy) water and incense.\n\nXP Cost\n100 XP.",
+  },
+  //Commune with Nature
+  {
+    id: "srd92",
+    name: "Commune with Nature",
+    school: "Divination",
+    level: "Animal 5, Drd 5, Rgr 4",
+    components: "V, S",
+    castingTime: "10 minutes",
+    range: "Personal",
+    target: "You",
+    duration: "Instantaneous",
+    description:
+      "You become one with nature, attaining knowledge of the surrounding territory. You instantly gain knowledge of as many as three facts from among the following subjects: the ground or terrain, plants, minerals, bodies of water, people, general animal population, presence of woodland creatures, presence of powerful unnatural creatures, or even the general state of the natural setting.\n\nIn outdoor settings, the spell operates in a radius of 1 mile per caster level. In natural underground settings—caves, caverns, and the like—the radius is limited to 100 feet per caster level. The spell does not function where nature has been replaced by construction or settlement, such as in dungeons and towns.",
+  },
+  //Comprehend Languages
+  {
+    id: "srd93",
+    name: "Comprehend Languages",
+    school: "Divination",
+    level: "Brd 1, Clr 1, Sor/Wiz 1",
+    components: "V, S, M/DF",
+    castingTime: "1 standard action",
+    range: "Personal",
+    target: "You",
+    duration: "10 min./level",
+    description:
+      "You can understand the spoken words of creatures or read otherwise incomprehensible written messages. In either case, you must touch the creature or the writing. The ability to read does not necessarily impart insight into the material, merely its literal meaning. The spell enables you to understand or read an unknown language, not speak or write it.\n\nWritten material can be read at the rate of one page (250 words) per minute. Magical writing cannot be read, though the spell reveals that it is magical. This spell can be foiled by certain warding magic (such as the secret page and illusory script spells). It does not decipher codes or reveal messages concealed in otherwise normal text.\n\nComprehend languages can be made permanent with a permanency spell.\n\nArcane Material Component\nA pinch of soot and a few grains of salt.",
+  },
+  //Cone of Cold
+  {
+    id: "srd94",
+    name: "Cone of Cold",
+    school: "Evocation",
+    descriptor: "Cold",
+    level: "Sor/Wiz 5, Water 6",
+    components: "V, S, M/DF",
+    castingTime: "1 standard action",
+    range: "60 ft.",
+    area: "Cone-shaped burst",
+    duration: "Instantaneous",
+    savingThrow: "Reflex half",
+    spellResistance: "Yes",
+    description:
+      "Cone of cold creates an area of extreme cold, originating at your hand and extending outward in a cone. It drains heat, dealing 1d6 points of cold damage per caster level (maximum 15d6).\n\nArcane Material Component\nA very small crystal or glass cone.",
+  },
+  //Confusion
+  {
+    id: "srd95",
+    name: "Confusion",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Mind-Affecting",
+    level: "Brd 3, Sor/Wiz 4, Trickery 4",
+    components: "V, S, M/DF",
+    castingTime: "1 standard action",
+    range: "Medium (100 ft. + 10 ft./level)",
+    target: "All creatures in a 15-ft.-radius burst",
+    duration: "1 round/level",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "This spell causes the targets to become confused, making them unable to independently determine what they will do.\n\nRoll on the following table at the beginning of each subject’s turn each round to see what the subject does in that round.\n\nd% - Behavior\n\u202201-10 - Attack caster with melee or ranged weapons (or close with caster if attack is not possible).\n\u202211-20 - Act normally.\n\u202221-50 - Do nothing but babble incoherently.\n\u202251-70 - Flee away from caster at top possible speed.\n\u202271-100 - Attack nearest creature (for this purpose, a familiar counts as part of the subject's self).\n\nA confused character who can’t carry out the indicated action does nothing but babble incoherently. Attackers are not at any special advantage when attacking a confused character. Any confused character who is attacked automatically attacks its attackers on its next turn, as long as it is still confused when its turn comes. Note that a confused character will not make attacks of opportunity against any creature that it is not already devoted to attacking (either because of its most recent action or because it has just been attacked).\n\nArcane Material Component\nA set of three nut shells.",
+  },
+  //Confusion, Lesser
+  {
+    id: "srd96",
+    name: "Confusion, Lesser",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Mind-Affecting",
+    level: "Brd 1",
+    components: "V, S, DF",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    target: "One living creature",
+    duration: "1 round",
+    description:
+      "This spell causes a single creature to become confused for 1 round. See the confusion spell, above, to determine the exact effect on the subject.",
+  },
+  //Consecrate
+  {
+    id: "srd97",
+    name: "Consecrate",
+    school: "Evocation",
+    descriptor: "Good",
+    level: "Clr 2",
+    components: "V, S, M, DF",
+    castingTime: "1 standard action",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    area: "20-ft.-radius emanation",
+    duration: "2 hours/level",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "This spell blesses an area with positive energy. Each Charisma check made to turn undead within this area gains a +3 sacred bonus. Every undead creature entering a consecrated area suffers minor disruption, giving it a -1 penalty on attack rolls, damage rolls, and saves. Undead cannot be created within or summoned into a consecrated area.\n\nIf the consecrated area contains an altar, shrine, or other permanent fixture dedicated to your deity, pantheon, or aligned higher power, the modifiers given above are doubled (+6 sacred bonus on turning checks, -2 penalties for undead in the area). You cannot consecrate an area with a similar fixture of a deity other than your own patron.\n\nIf the area does contain an altar, shrine, or other permanent fixture of a deity, pantheon, or higher power other than your patron, the consecrate spell instead curses the area, cutting off its connection with the associated deity or power. This secondary function, if used, does not also grant the bonuses and penalties relating to undead, as given above.\n\nConsecrate counters and dispels desecrate.\n\nMaterial Component\nA vial of holy water and 25 gp worth (5 pounds) of silver dust, all of which must be sprinkled around the area.",
   },
   //Detect magic
   {
