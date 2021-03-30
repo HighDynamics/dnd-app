@@ -2,7 +2,7 @@ import { useSetRecoilState } from "recoil";
 
 import { mainContentState } from "../../../recoilState";
 
-const EditItems = (props) => {
+const EditItems = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   return (
     <>

@@ -931,6 +931,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd70",
     name: "Cat's Grace, Mass",
+    school: 'Transmutation',
     level: "Brd 6, Drd 6, Sor/Wiz 6",
     range: "Close (25 ft. + 5 ft./2 levels)",
     target: "One creature/level, no two of which can be more than 30 ft. apart",

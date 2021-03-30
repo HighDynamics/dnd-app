@@ -2,7 +2,7 @@ import { useSetRecoilState } from "recoil";
 
 import { mainContentState } from "../../recoilState";
 
-const AddCharacter = (props) => {
+const AddCharacter = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   return (
     <>

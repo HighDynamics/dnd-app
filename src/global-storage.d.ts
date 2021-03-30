@@ -8,6 +8,12 @@ declare global {
     type Skill = ICharacter["skills"][number];
   }
 
+  type ISpellRef ={
+    id: string;
+    level: number;
+    innate: boolean;
+  }
+  
   type ISpell = {
     id: string;
     name: string;
@@ -15,13 +21,13 @@ declare global {
     subSchool?: string;
     descriptor?: string;
     level: string;
-    components: string;
-    castingTime: string;
-    range: string;
+    components?: string;
+    castingTime?: string;
+    range?: string;
     target?: string;
     effect?: string;
     area?: string;
-    duration: string;
+    duration?: string;
     savingThrow?: string;
     spellResistance?: string;
     description: string;

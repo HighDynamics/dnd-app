@@ -22,7 +22,6 @@ export function makeServer({ environment = "test" } = {}) {
       // set up all the starting data
       // @ts-expect-error
       characters.forEach((char) => server.create("character", char));
-      // @ts-expect-error
       spells.forEach((spell) => server.create("spell", spell));
     },
 

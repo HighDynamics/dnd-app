@@ -397,7 +397,7 @@ const DefenseFormParent = () => {
   );
 };
 
-const EditCore = (props) => {
+const EditCore = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const character = useRecoilValue(characterState);
   const updatedCharacter = useRecoilValue(updatedCharacterState);

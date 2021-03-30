@@ -1,4 +1,4 @@
-const EditSLAs = (props) => {
+const EditSLAs = () => {
 return <></>
 }
 

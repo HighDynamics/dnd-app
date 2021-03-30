@@ -1,4 +1,4 @@
-const EditSpells = (props) => {
+const EditSpells = () => {
   return <></>;
 };
 

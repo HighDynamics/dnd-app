@@ -94,15 +94,15 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
   });
 };
 
-//abstract this further to include other compendiums
+//TODO: abstract this further to include other compendiums
 const getInfoById = (compendium: []) => (id: string) =>
-  compendium.spells.find((item) => item.id === id);
+  compendium.spells.find((item: ISpell) => item.id === id);
 
 const getSpellRefInfo = (selection: ISpell, character: ICharacter) => (
   infoKey: string
-) => {
-  let spellRef = character.magic.spell_refs.find(
-    (ref) => ref.id === selection.id
+):string|number|boolean => {
+  let spellRef: ISpellRef = character.magic.spell_refs.find(
+    (ref: ISpellRef) => ref.id === selection.id
   );
   return spellRef[infoKey];
 };
