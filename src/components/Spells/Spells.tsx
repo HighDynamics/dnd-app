@@ -131,10 +131,10 @@ const KnownSpells = ({
   level: keyof ICharacter["magic"]["spell_refs"]["level"];
 }) => {
   const innateSpells = character.magic.spell_refs.filter(
-    (sr) => sr.innate === true
+    (sr: ISpellRef) => sr.innate === true
   );
   const spellbook = character.magic.spell_refs.filter(
-    (sr) => sr.innate === false
+    (sr: ISpellRef) => sr.innate === false
   );
   return (
     <>
