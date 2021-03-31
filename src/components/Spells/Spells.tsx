@@ -273,16 +273,16 @@ const Spells = ({ innate }: { innate: boolean }) => {
   }
 
   return (
-    <div>
+    <>
       {innate === true ? (
-        <button id="prepSpellsButton" onClick={() => setMainContent("Prep")}>
+        <button className="defaultButton prepSpellsButton" onClick={() => setMainContent("Prep")}>
           <i className="fas fa-book"></i>
           <span>PREP</span>
         </button>
       ) : (
         <button
           id="returnToSpells"
-          className="backButton"
+          className="backButton returnToSpells"
           onClick={() => setMainContent("Spells")}
         >
           <i className="fas fa-arrow-left"></i>
@@ -331,7 +331,7 @@ const Spells = ({ innate }: { innate: boolean }) => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

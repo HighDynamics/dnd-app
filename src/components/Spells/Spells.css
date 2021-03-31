@@ -1,26 +1,18 @@
-#prepSpellsButton {
-  position: relative;
-  border: none;
-  margin-top: 2vh;
-  background-color: rgba(231, 144, 249, 0.5);
-  color: black;
-  font-size: 2.5rem;
-  width: auto;
-  height: auto;
-  box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
-  -webkit-box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
-  -moz-box-shadow: 0 0 15px 5px rgba(231, 144, 249, 0.72);
-  z-index: 2;
+.prepSpellsButton{
+  position: fixed;
+  margin: 2px;
+  outline: 1px solid gray;
+  font-size: 20px;
 }
-
-#prepSpellsButton span {
-  position: relative;
-  color: white;
-  font-size: 0.5rem;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  padding-top: 3px;
+.returnToSpells{
+  position: fixed;
+  margin: 2px;
+  outline: 1px solid gray;
+  border:none;
 }
 .shortHR {
   width: 50%;
+}
+.spellContainer{
+  margin-top: 10vh;
 }
