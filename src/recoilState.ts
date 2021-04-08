@@ -64,7 +64,8 @@ export type MainContent =
   | "EditAttacks"
   | "EditItems"
   | "EditCore"
-  | "AddCharacter";
+  | "AddCharacter"
+  | "ChangeCharacter";
 
 export const mainContentState = atom<MainContent>({
   key: "mainContentState",
@@ -122,8 +123,8 @@ export const emptySpellsArrayWithInfo: [
   ISpell[],
   ISpell[],
   ISpell[],
-  ISpell[],
-] = [[], [], [], [], [], [], [], [], [], []]
+  ISpell[]
+] = [[], [], [], [], [], [], [], [], [], []];
 
 export const innateSpellsCastState = atom({
   key: "innateSpellsCastState",

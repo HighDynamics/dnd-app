@@ -67,13 +67,20 @@ const More = () => {
         </button>
       </div>
       <hr></hr>
-      <div className='buttonList'>
-      <button
-        className="moreButton"
-        onClick={() => setMainContent("AddCharacter")}
-      >
-        Add Character
-      </button></div>
+      <div className="buttonList">
+        <button
+          className="moreButton"
+          onClick={() => setMainContent("AddCharacter")}
+        >
+          Add Character
+        </button>
+        <button
+          className="moreButton"
+          onClick={() => setMainContent("ChangeCharacter")}
+        >
+          Change Character
+        </button>
+      </div>
     </>
   );
 };

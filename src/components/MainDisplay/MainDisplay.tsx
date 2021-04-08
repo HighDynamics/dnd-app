@@ -24,6 +24,7 @@ import AddCharacter from "../AddCharacter/AddCharacter";
 import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
 import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
+import ChangeCharacter from "../ChangeCharacter/ChangeCharacter";
 
 import { mainContentState, modalTypeState } from "../../recoilState";
 import type { ModalType, MainContent } from "../../recoilState";
@@ -69,6 +70,8 @@ const MainDisplay = () => {
         return <EditCore />;
       case "AddCharacter":
         return <AddCharacter />;
+      case "ChangeCharacter":
+        return <ChangeCharacter />;
       default:
         return <Skills />;
     }
