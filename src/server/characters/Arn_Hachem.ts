@@ -448,6 +448,11 @@ const Arn = {
     passive: [{ name: "Aura Of Menace", type: "supernatural" }],
   },
   magic: {
+    spellcaster: true,
+    type: {
+      arcane: true,
+      divine: false,
+    },
     sla_refs: [
       { id: "srd14", level: 1, uses: 4, frequency: "day" },
       { id: "srd15", level: 2, uses: 4, frequency: "day" },
@@ -478,11 +483,6 @@ const Arn = {
       seven: "",
       eight: "",
       nine: "",
-    },
-    spellcaster: true,
-    type: {
-      arcane: true,
-      divine: false,
     },
     spell_refs: [
       { id: "srd1", level: 0, innate: true },
