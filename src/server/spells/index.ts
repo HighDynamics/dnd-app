@@ -931,7 +931,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "srd70",
     name: "Cat's Grace, Mass",
-    school: 'Transmutation',
+    school: "Transmutation",
     level: "Brd 6, Drd 6, Sor/Wiz 6",
     range: "Close (25 ft. + 5 ft./2 levels)",
     target: "One creature/level, no two of which can be more than 30 ft. apart",
@@ -1515,6 +1515,24 @@ const spellCompendium: ISpell[] = [
     spellResistance: "No",
     description:
       "When you utter the spell of creeping doom, you call forth a mass of centipede swarms (one per two caster levels, to a maximum of ten swarms at 20th level), which need not appear adjacent to one another.\n\nYou may summon the centipede swarms so that they share the area of other creatures. The swarms remain stationary, attacking any creatures in their area, unless you command the creeping doom to move (a standard action). As a standard action, you can command any number of the swarms to move toward any prey within 100 feet of you. You cannot command any swarm to move more than 100 feet away from you, and if you move more than 100 feet from any swarm, that swarm remains stationary, attacking any creatures in its area (but it can be commanded again if you move within 100 feet).",
+  },
+  //Create Food and Water
+  {
+    id: "srd118",
+    name: "Create Food and Water",
+    school: "Conjuration",
+    subSchool: "Creation",
+    level: "Clr 3",
+    components: "V, S",
+    castingTime: "10 minutes",
+    range: "Close (25 ft. + 5 ft./2 levels)",
+    effect:
+      "Food and water to sustain three humans or one horse/level for 24 hours",
+    duration: "24 hours; see text",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "The food that this spell creates is simple fare of your choice—highly nourishing, if rather bland. Food so created decays and becomes inedible within 24 hours, although it can be kept fresh for another 24 hours by casting a purify food and drink spell on it. The water created by this spell is just like clean rain water, and it doesn’t go bad as the food does.",
   },
   //Crushing Despair
   {
