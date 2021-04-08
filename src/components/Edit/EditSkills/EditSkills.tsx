@@ -39,7 +39,7 @@ const EditSkills = () => {
         <i className="fas fa-arrow-left"></i>
       </button>
       <button
-        className="newSkillButton defaultButton"
+        className="defaultButton newSkillButton"
         onClick={() => setNewSkillForm(!newSkillForm)}
       >
         Add New Skill

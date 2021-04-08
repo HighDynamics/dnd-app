@@ -3,10 +3,17 @@
   text-align: center;
   margin-top: 10%;
 }
+.damageListItem{
+  height:25px;
+}
+.damageListItemText{
+  margin: auto;
+  height: 25px;
+}
 .inputAndButton {
   display: inline;
   float: right;
-  margin-right: 2px;
+  margin-right: 5px;
 }
 .damageInput {
   margin-right: 4px;

@@ -31,7 +31,8 @@ const AbilityScores = () => {
     abilityMod: number
   ) {
     return (
-      <p className="abilityScores">
+      <div className='abilityScoresItemsContainer'>
+        <span className="abilityNamesAndButton">
         {/*button appears on same line*/}
         <button
           className="rollAbilityButton defaultButton"
@@ -39,15 +40,18 @@ const AbilityScores = () => {
         >
           <i className="fas fa-dice-d20"></i>
         </button>
-        {abilityString}: {renderAbilityScore(abilityString, abilityScore)} |{" "}
+        {abilityString}: 
+        </span>
+        <span className='abilityScoresAndModifier'>{renderAbilityScore(abilityString, abilityScore)} |{" "}
         {renderAbilityScore(abilityString, abilityMod)}
-      </p>
+      </span>
+      </div>
     );
   }
   return (
     <>
       <h2 className="abilityScoresHeader">Abilities</h2>
-      <div id="abilityScoresWrapper">
+      <div className="abilityScoresWrapper">
         {abilityScoreCodeBlock("Strength", str, strMod)}
         {abilityScoreCodeBlock("Dexterity", dex, dexMod)}
         {abilityScoreCodeBlock("Constitution", con, conMod)}

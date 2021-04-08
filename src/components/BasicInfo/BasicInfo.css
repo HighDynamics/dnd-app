@@ -33,7 +33,7 @@
   background-color: inherit;
   color: inherit;
   border: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 .HPACButton:focus {
   background-color: rgba(94, 94, 94, 1);

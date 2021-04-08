@@ -3,13 +3,29 @@
   text-align: center;
   font-size: 1.5rem;
 }
-.abilityScores {
-  position: relative;
-  width: auto;
-  margin-left: 15vw;
-  font-size: 1.5rem;
+.abilityScoresWrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.abilityScoresItemsContainer {
+  margin-bottom: 10px;
+  width: 90vw;
+  font-size: 1.3rem;
   font-family: monospace;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  outline: 1px solid black;
 }
 .rollAbilityButton {
   margin-right: 10px;
+}
+.abilityNamesAndButton{
+  width: 55vw;
+}
+.abilityScoresAndModifier{
+  margin:auto;
+  margin-right: 0;
+  width: 25vw;
 }

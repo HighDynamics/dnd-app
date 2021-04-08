@@ -47,8 +47,9 @@ const HitPointInfo = () => {
       <h2 className="HPHeading">Hit Points</h2>
       <ul>
         <li className={"currentHP " + textColorClass}>Current: {currentHP}</li>
-        <li>
-          Damage: {damage}{" "}
+        <hr className="blackHR"/>
+        <li className='damageListItem'>
+          <span className="damageListItemText">Damage: {damage}{" "}</span>
           <div className="inputAndButton">
             <input
               className="numberInput threeDigit damageInput"
@@ -70,8 +71,9 @@ const HitPointInfo = () => {
             </button>
           </div>
         </li>
-        <li>
-          Temporary: {tempHP}{" "}
+        <hr className="blackHR"/>
+        <li className='damageListItem'>
+          <span className="damageListItemText">Temporary: {tempHP}{" "}</span>
           <div className="inputAndButton">
             <input
               className="numberInput threeDigit damageInput"

@@ -34,7 +34,7 @@ export const CompendiumSpell = ({
       case "descriptor":
         return "";
       case "description":
-        return <hr id="spellSheetHR" />;
+        return <hr className="blackHR" />;
       default:
         const spacedProperty = string.replace(/([A-Z])/g, " $1").trim();
         return spacedProperty + ": ";
@@ -110,15 +110,7 @@ const SpellInfo = ({ innate }: { innate: boolean }) => {
       newArray[level].splice(used, 1);
       setInnateSpellsCast(newArray);
       return console.log("Innate spell removed");
-    } /*else if (e.id === "removePreppedSpell") {
-      const newArray = clone(preppedSpellsCast);
-      const used = newArray[level].findIndex((item) => {
-        return item === selection;
-      });
-      newArray[level].splice(used, 1);
-      setPreppedSpellsCast(newArray);
-      return console.log("prepped spell was removed");
-    }*/ else if (
+    } else if (
       innate === false
     ) {
       const newArray = clone(preppedSpells);

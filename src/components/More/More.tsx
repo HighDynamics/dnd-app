@@ -5,7 +5,7 @@ import { mainContentState } from "../../recoilState";
 
 import "./More.css";
 
-const More = (props) => {
+const More = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const [magicToggle, setMagicToggle] = useState(false);
   return (
@@ -67,12 +67,13 @@ const More = (props) => {
         </button>
       </div>
       <hr></hr>
+      <div className='buttonList'>
       <button
         className="moreButton"
         onClick={() => setMainContent("AddCharacter")}
       >
         Add Character
-      </button>
+      </button></div>
     </>
   );
 };
