@@ -1,4 +1,5 @@
 const Ig = {
+  id: "2",
   name: "Ig Nallah",
   type: ["Sanctified", "Aboleth", "Demigod"],
   hitPoints: {
@@ -440,6 +441,12 @@ const Ig = {
     ],
   },
   magic: {
+    spellcaster: true,
+    type: {
+      arcane: false,
+      divine: true,
+    },
+    sla_refs: [{ id: "srd33", level: 8, uses: 3, frequency: "day" }],
     slas: {
       zero: "",
       one: [],
@@ -459,24 +466,23 @@ const Ig = {
         { name: "Scry Location", uses: 3, frequency: "day" },
       ],
       seven: [{ name: "Righteous Smite", uses: 3, frequency: "day" }],
-      eight: [
-        { name: "Flash Flood", uses: 3, frequency: "day" },
-        { name: "Antipathy", uses: 3, frequency: "day" },
-      ],
+      eight: [{ name: "Flash Flood", uses: 3, frequency: "day" }],
       nine: [{ name: "Hold Monster, Mass", uses: 3, frequency: "day" }],
     },
-    spellcaster: true,
-    type: {
-      arcane: false,
-      divine: true,
-    },
+    spell_refs: [
+      { id: "srd11", level: 0, innate: false },
+      { id: "srd93", level: 1, innate: false },
+      { id: "srd118", level: 3, innate: false },
+      { id: "srd43", level: 5, innate: false },
+      { id: "srd88", level: 5, innate: false },
+    ],
     spells: {
       zero: ["Know Direction"],
-      one: ["Goodberry", "Comprehend Languages"],
+      one: ["Goodberry"],
       two: ["Mark of the Outcast", "Enthrall"],
-      three: ["Create Food and Water", "Tongues"],
+      three: ["Tongues"],
       four: ["Vampiric Touch", "Sending"],
-      five: ["Baleful Polymorph", "Command, Greater"],
+      five: ["Baleful Polymorph"],
       six: ["Heroes Feast", "Dream"],
       seven: ["Stone to Flesh", "Aspect of the Deity"],
       eight: ["Swallow", "Crown of Glory"],

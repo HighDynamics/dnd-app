@@ -1,4 +1,5 @@
 const Arn = {
+  id: "1",
   name: "Arn Hachem",
   type: ["Human", "Sanctified", "Deathless", "Spellstitched", "Archlich"],
   hitPoints: {
