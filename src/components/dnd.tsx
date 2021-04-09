@@ -91,8 +91,16 @@ const LoadApp = () => {
   useEffect(
     function setFirstCharacterFromServer() {
       if (charactersResponse) {
-        setCharacter(charactersResponse.characters[0]);
-        setUpdatedCharacter(charactersResponse.characters[0]);
+        const getDefaultOrById = (id: string): ICharacter => {
+          let foundCharacter = charactersResponse.characters.find(
+            (char) => char.id === id
+          );
+          return foundCharacter
+            ? foundCharacter
+            : charactersResponse.characters[0];
+        };
+        setCharacter(getDefaultOrById(character?.id));
+        setUpdatedCharacter(getDefaultOrById(character?.id));
       }
     },
     [charactersResponse, setCharacter, setUpdatedCharacter]

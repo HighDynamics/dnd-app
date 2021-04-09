@@ -1,9 +1,10 @@
-import { useRecoilState } from "recoil";
-import { characterState } from "../../recoilState";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { characterState, updatedCharacterState } from "../../recoilState";
 import useSWR from "swr";
 
 const ChangeCharacter = () => {
   const [character, setCharacter] = useRecoilState(characterState);
+  const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
   const { data: charactersResponse } = useSWR<IServer.GetCharacters.Response>(
     "/api/characters"
   );
@@ -14,13 +15,14 @@ const ChangeCharacter = () => {
         selectedCharacter = char;
       }
     }
-    return selectedCharacter;
+    setCharacter(selectedCharacter);
+    setUpdatedCharacter(selectedCharacter);
   }
   const availableCharacters = charactersResponse?.characters.map((char) => (
     <button
       key={char.id}
       className="moreButton"
-      onClick={() => setCharacter(setCharacterById(char.id))}
+      onClick={() => setCharacterById(char.id)}
     >
       {char.name}
     </button>
