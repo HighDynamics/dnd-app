@@ -44,7 +44,7 @@ const KnownSLAs = ({ slaRef }) => {
   const formattedName = sla.name.replace(/_/g, " ");
   const buttonAndSpellClass = "spellButtons " + sla.name;
   function displayInfo(modalDestination: ModalType) {
-    setSelection(sla.name);
+    setSelection(sla);
     setModalType(modalDestination);
   }
   function checkForMatch(name: string) {

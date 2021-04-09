@@ -138,7 +138,11 @@ export const preppedSpellsCastState = atom({
   key: "preppedSpellsCastState",
   default: emptySpellsArrayWithInfo,
 });
-export const slaState = atom<ICharacter["magic"]["slas"]["one"]>({
+export type SLATracker = {
+  name: string;
+  uses: number;
+};
+export const slaState = atom<Array<SLATracker>>({
   key: "slaState",
   default: [],
 });
