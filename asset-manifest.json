@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/dnd-app/static/css/main.9b452876.chunk.css",
-    "main.js": "/dnd-app/static/js/main.a69037d5.chunk.js",
-    "main.js.map": "/dnd-app/static/js/main.a69037d5.chunk.js.map",
+    "main.css": "/dnd-app/static/css/main.11da770f.chunk.css",
+    "main.js": "/dnd-app/static/js/main.b8c5c3f4.chunk.js",
+    "main.js.map": "/dnd-app/static/js/main.b8c5c3f4.chunk.js.map",
     "runtime-main.js": "/dnd-app/static/js/runtime-main.f44c7497.js",
     "runtime-main.js.map": "/dnd-app/static/js/runtime-main.f44c7497.js.map",
-    "static/js/2.b1c20fb8.chunk.js": "/dnd-app/static/js/2.b1c20fb8.chunk.js",
-    "static/js/2.b1c20fb8.chunk.js.map": "/dnd-app/static/js/2.b1c20fb8.chunk.js.map",
+    "static/js/2.f5db416b.chunk.js": "/dnd-app/static/js/2.f5db416b.chunk.js",
+    "static/js/2.f5db416b.chunk.js.map": "/dnd-app/static/js/2.f5db416b.chunk.js.map",
     "index.html": "/dnd-app/index.html",
-    "static/css/main.9b452876.chunk.css.map": "/dnd-app/static/css/main.9b452876.chunk.css.map",
-    "static/js/2.b1c20fb8.chunk.js.LICENSE.txt": "/dnd-app/static/js/2.b1c20fb8.chunk.js.LICENSE.txt"
+    "static/css/main.11da770f.chunk.css.map": "/dnd-app/static/css/main.11da770f.chunk.css.map",
+    "static/js/2.f5db416b.chunk.js.LICENSE.txt": "/dnd-app/static/js/2.f5db416b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f44c7497.js",
-    "static/js/2.b1c20fb8.chunk.js",
-    "static/css/main.9b452876.chunk.css",
-    "static/js/main.a69037d5.chunk.js"
+    "static/js/2.f5db416b.chunk.js",
+    "static/css/main.11da770f.chunk.css",
+    "static/js/main.b8c5c3f4.chunk.js"
   ]
 }
