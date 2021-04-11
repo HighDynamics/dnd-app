@@ -448,8 +448,8 @@ const Arn = {
     ],
     passive: [{ name: "Aura Of Menace", type: "supernatural" }],
   },
+  spellcaster: true,
   magic: {
-    spellcaster: true,
     type: {
       arcane: true,
       divine: false,
@@ -598,12 +598,7 @@ const Arn = {
       nine: 6,
     },
   },
-  items: [
-    "Mesmerist's Gloves",
-    "Nolzure's Orb",
-    "Vanisher Cloak",
-    "GateBreaker Ballista Bolt",
-  ],
+  item_refs: [],
 };
 
 export default Arn;

@@ -440,8 +440,8 @@ const Ig = {
       { name: "Automatic Action", type: "divine" },
     ],
   },
+  spellcaster: true,
   magic: {
-    spellcaster: true,
     type: {
       arcane: false,
       divine: true,
@@ -589,18 +589,7 @@ const Ig = {
       nine: 4,
     },
   },
-  items: [
-    "Bag of Holding III",
-    "Crown of Good",
-    "Winged Mask",
-    "Gossamer Robe Wraps",
-    "Rings of Force Armor",
-    "Drow Ring of Silent Spells",
-    "Staff of Control Water",
-    "Phylactery of Change",
-    "Kintyre Flakes",
-    "Staff of the Titan Herald",
-  ],
+  item_refs: [],
 };
 
 export default Ig;
