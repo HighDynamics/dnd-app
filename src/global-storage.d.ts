@@ -64,8 +64,8 @@ declare global {
       active: SpecialAbilities[];
       passive: SpecialAbilities[];
     };
+    spellcaster: boolean;
     magic: {
-      spellcaster: boolean;
       type: {
         arcane: boolean;
         divine: boolean;
@@ -85,7 +85,7 @@ declare global {
         nine: number;
       };
     };
-    items: string[];
+    item_refs: string[];
   };
 
   namespace ICharacter {
