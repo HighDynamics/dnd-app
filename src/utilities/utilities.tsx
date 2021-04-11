@@ -95,12 +95,12 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
 };
 
 //TODO: abstract this further to include other compendiums
-const getInfoById = (compendium: []) => (id: string) =>
+const getInfoById = (compendium: { spells: ISpell[] }) => (id: string) =>
   compendium.spells.find((item: ISpell) => item.id === id);
 
 const getSpellRefInfo = (selection: ISpell, character: ICharacter) => (
   infoKey: string
-):string|number|boolean => {
+): string | number | boolean => {
   let spellRef: ISpellRef = character.magic.spell_refs.find(
     (ref: ISpellRef) => ref.id === selection.id
   );
