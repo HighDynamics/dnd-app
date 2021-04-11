@@ -143,8 +143,10 @@ const LoadApp = () => {
   );
 
   // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && spellCompendium && primaryModifier))
+  if (!(character && spellCompendium && primaryModifier)) {
+    console.log(character, spellCompendium, primaryModifier);
     return <>Loading...</>;
+  }
 
   return <App />;
 };
