@@ -16,10 +16,10 @@ const ItemsHeld = (props: { value: string }) => {
     </button>
   );
 };
-const Items = (props) => {
+const Items = () => {
   const character = useRecoilValue(characterState);
   function displayItems() {
-    const items = Object.values(character.items).map((s) => (
+    const items = Object.values(character.item_refs).map((s) => (
       <ItemsHeld key={s} value={s} />
     ));
     return items;

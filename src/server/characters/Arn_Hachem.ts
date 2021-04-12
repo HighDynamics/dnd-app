@@ -598,7 +598,7 @@ const Arn = {
       nine: 6,
     },
   },
-  item_refs: [],
+  item_refs: [{ id: "1" }],
 };
 
 export default Arn;

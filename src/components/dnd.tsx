@@ -8,6 +8,7 @@ import {
   spellCompendiumState,
   updatedCharacterState,
   InitialRecoilState,
+  itemCompendiumState,
 } from "../recoilState";
 import { getAbilityMod } from "../utilities/utilities";
 import * as Navbar from "./Navbars/Navbars";
@@ -71,7 +72,9 @@ const LoadApp = () => {
   const { data: spellsResponse } = useSWR<IServer.GetSpells.Response>(
     "/api/spells"
   );
-
+  const { data: itemsResponse } = useSWR<IServer.GetItems.Response>(
+    "/api/items"
+  );
   const [
     character,
     setCharacter,
@@ -79,6 +82,9 @@ const LoadApp = () => {
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
   const [spellCompendium, setSpellCompendium] = useRecoilState(
     spellCompendiumState
+  );
+  const [itemCompendium, setItemCompendium] = useRecoilState(
+    itemCompendiumState
   );
   const [
     primaryModifier,
@@ -107,13 +113,13 @@ const LoadApp = () => {
   );
 
   useEffect(
-    function setCompendiumFromServerSpells() {
-      if (spellsResponse && character) {
+    function setCompendiumsFromServer() {
+      if (spellsResponse && character && itemsResponse) {
         const characterSpellRefs = character.magic.spell_refs.map(
-          (s: string) => s.id
+          (spell: ISpellRef) => spell.id
         );
         const characterSlaRefs = character.magic.sla_refs.map(
-          (s: string) => s.id
+          (spell: ISLARef) => spell.id
         );
         const characterAllSpellRefs = characterSpellRefs.reduce(
           (acc, current, index) => {
@@ -123,14 +129,29 @@ const LoadApp = () => {
           },
           []
         );
+        console.log(character.item_refs);
+        console.log(character);
+        const characterItemRefs = character.item_refs.map(
+          (item: IItemRef) => item.id
+        );
+
         const characterSpells = spellsResponse.spells.filter((spell) =>
           characterAllSpellRefs.includes(spell.id)
         );
-
+        const characterItems = itemsResponse.items.filter((item) =>
+          characterItemRefs.includes(item.id)
+        );
         setSpellCompendium({ spells: characterSpells });
+        setItemCompendium({ items: characterItems });
       }
     },
-    [spellsResponse, character, setSpellCompendium]
+    [
+      spellsResponse,
+      character,
+      setSpellCompendium,
+      itemsResponse,
+      setItemCompendium,
+    ]
   );
 
   useEffect(
@@ -143,8 +164,8 @@ const LoadApp = () => {
   );
 
   // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && spellCompendium && primaryModifier)) {
-    console.log(character, spellCompendium, primaryModifier);
+  if (!(character && spellCompendium && primaryModifier && itemCompendium)) {
+    console.log(character, spellCompendium, primaryModifier, itemCompendium);
     return <>Loading...</>;
   }
 

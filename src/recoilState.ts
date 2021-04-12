@@ -18,6 +18,11 @@ export const spellCompendiumState = atom<{ spells: ISpell[] }>({
   default: { spells: [] },
 });
 
+export const itemCompendiumState = atom<{ items: IItem[] }>({
+  key: "itemCompendiumState",
+  default: { items: [] },
+});
+
 export const characterState = atom<ICharacter>({
   key: "characterState",
   default: null as any,
@@ -72,7 +77,7 @@ export const mainContentState = atom<MainContent>({
   default: "Skills",
 });
 
-export type SecondaryNavbar = "stats" | "ability" | null;
+export type SecondaryNavbar = "stats" | "ability" | "items";
 
 export const secondaryNavbarState = atom<SecondaryNavbar>({
   key: "secondaryNavbarDisplayState",

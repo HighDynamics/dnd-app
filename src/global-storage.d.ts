@@ -85,7 +85,7 @@ declare global {
         nine: number;
       };
     };
-    item_refs: string[];
+    item_refs: IItemRef[];
   };
 
   namespace ICharacter {
@@ -119,7 +119,14 @@ declare global {
     uses: number;
     frequency: string;
   };
-
+  type IItemRef = {
+    id: string;
+  };
+  type IItem = {
+    id: string;
+    name: string;
+    description: string;
+  };
   type ISpell = {
     id: string;
     name: string;

@@ -1,6 +1,7 @@
 import { Server, Model, RestSerializer, Response } from "miragejs";
 import characters from "./characters";
 import spells from "./spells";
+import items from "./items";
 
 // Any @ts-expected-errors below are probably because the authors of mirage
 // don't understand TS
@@ -12,6 +13,7 @@ export function makeServer({ environment = "test" } = {}) {
     models: {
       character: Model,
       spell: Model,
+      items: Model,
     },
 
     serializers: {
@@ -20,9 +22,9 @@ export function makeServer({ environment = "test" } = {}) {
 
     seeds(server) {
       // set up all the starting data
-      // @ts-expect-error
       characters.forEach((char) => server.create("character", char));
       spells.forEach((spell) => server.create("spell", spell));
+      items.forEach((item) => server.create("item", item));
     },
 
     routes() {
@@ -38,6 +40,11 @@ export function makeServer({ environment = "test" } = {}) {
       this.get("/spells", (schema) => {
         // @ts-expect-error
         return schema.spells.all();
+      });
+
+      this.get("/items", (schema) => {
+        // @ts-expect-error
+        return schema.items.all();
       });
 
       this.put("/characters/:charId", (schema, request) => {
@@ -65,6 +72,9 @@ declare global {
 
     namespace GetSpells {
       type Response = { spells: ISpell[] };
+    }
+    namespace GetItems {
+      type Response = { items: IItem[] };
     }
   }
 }
