@@ -1396,7 +1396,7 @@ const spellCompendium: ISpell[] = [
     target: "You",
     duration: "Concentration",
     description:
-      "You send your mind to another plane of existence (an Elemental Plane or some plane farther removed) in order to receive advice and information from powers there. (See the accompanying table for possible consequences and results of the attempt.) The powers reply in a language you understand, but they resent such contact and give only brief answers to your questions. (All questions are answered with “yes,” “no,” “maybe,” “never,” “irrelevant,” or some other one-word answer.)\n\nYou must concentrate on maintaining the spell (a standard action) in order to ask questions at the rate of one per round. A question is answered by the power during the same round. For every two caster levels, you may ask one question.\n\nContact with minds far removed from your home plane increases the probability that you will incur a decrease to Intelligence and Charisma, but the chance of the power knowing the answer, as well as the probability of the entity answering correctly, are likewise increased by moving to distant planes.\n\nOnce the Outer Planes are reached, the power of the deity contacted determines the effects. (Random results obtained from the table are subject to the personalities of individual deities.)\n\nOn rare occasions, this divination may be blocked by an act of certain deities or forces.\n\nd% is rolled for the result shown on the table:\n\nPlane Contacted - Avoid Int/Cha Decrease\u00B9 - True Answer \u00B2 - Don't Know\u00B3 - Lie\u2074 - Random Answer\u2075\n\u2022Elemental Plane - DC 7/1 week - 01-34 - 35-62 - 63-83 - 84-100\n\u2022(appropriate) - (DC 7/1 week) - (01-68) - (69-75) - (76-98) - (99-100)\n\u2022Positive/Negative Energy Plane - DC 8/1 week - 01-39 - 40-65 - 66-86 - 87-100\n\u2022Astral Plane - DC 9/1 week - 01-44 - 45-67 - 68-88 - 89-100\n\u2022Outer Plane, demideity - DC 10/2 weeks - 01-49 - 50-70 - 71-91 - 92-100\n\u2022Outer Plane, lesser deity - DC 12/3 weeks - 01-60 - 61-75 - 76-95 - 96-100\n\u2022Outer Plane, intermediate deity - DC 14/4 weeks - 01-73 - 74-81 - 82-98 - 99-100\n\u2022Outer Plane, greater deity - DC 16/5 weeks - 01-88 - 89-90 - 91-99 - 100\n\n1. You must succeed on an Intelligence check against this DC to avoid a decrease in Intelligence and Charisma. If the check fails, your Intelligence and Charisma scores each fall to 8 for the stated duration, and you become unable to cast arcane spells. If you lose Intelligence and Charisma, the effect strikes as soon as the first question is asked, and no answer is received. (The entries in parentheses are for questions that pertain to the appropriate Elemental Plane.)\n2. You get a true, one-word answer. Questions that cannot be answered in this way are answered randomly.\n3. The entity tells you that it doesn’t know.\n4. The entity intentionally lies to you.\n5. The entity tries to lie but doesn’t know the answer, so it makes one up.",
+      "You send your mind to another plane of existence (an Elemental Plane or some plane farther removed) in order to receive advice and information from powers there. (See the accompanying table for possible consequences and results of the attempt.) The powers reply in a language you understand, but they resent such contact and give only brief answers to your questions. (All questions are answered with “yes,” “no,” “maybe,” “never,” “irrelevant,” or some other one-word answer.)\n\nYou must concentrate on maintaining the spell (a standard action) in order to ask questions at the rate of one per round. A question is answered by the power during the same round. For every two caster levels, you may ask one question.\n\nContact with minds far removed from your home plane increases the probability that you will incur a decrease to Intelligence and Charisma, but the chance of the power knowing the answer, as well as the probability of the entity answering correctly, are likewise increased by moving to distant planes.\n\nOnce the Outer Planes are reached, the power of the deity contacted determines the effects. (Random results obtained from the table are subject to the personalities of individual deities.)\n\nOn rare occasions, this divination may be blocked by an act of certain deities or forces.\n\nd% is rolled for the result shown on the table: http://www.d20srd.org/srd/spells/contactOtherPlane.htm",
   },
   //Contagion
   {
@@ -1683,6 +1683,22 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes (object)",
     description:
       "This spell imbues a flask (1 pint) of water with negative energy, turning it into unholy water. Unholy water damages good outsiders the way holy water damages undead and evil outsiders.\n\nMaterial Component\n5 pounds of powdered silver (worth 25 gp).",
+  },
+  {
+    id: "srd118",
+    name: "Dancing Lights",
+    school: "Evocation",
+    descriptor: "Light",
+    level: "Brd 0 , Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Medium (100 ft. + 10ft./level",
+    effect: "Up to four lights, all within a 10-ft.-radius area",
+    duration: "1 minute (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "Depending on the version selected, you create up to four lights that resemble lanterns or torches (and cast that amount of light), or up to four glowing spheres of light (which look like will-o’-wisps), or one faintly glowing, vaguely humanoid shape. The dancing lights must stay within a 10-foot-radius area in relation to each other but otherwise move as you desire (no concentration required): forward or back, up or down, straight or turning corners, or the like. The lights can move up to 100 feet per round. A light winks out if the distance between you and it exceeds the spell’s range.\n\nDancing lights can be made permanent with a permanency spell.",
   },
   //Detect magic
   {
