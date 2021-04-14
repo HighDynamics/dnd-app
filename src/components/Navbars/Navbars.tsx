@@ -39,15 +39,13 @@ const StatsSelector = () => {
     <div>
       <ul id="statsSelector" className="navbarContainer">
         <NavButtonCodeBlock name={"Skills"} />
-        {/*add below in the future*/}
-        {/*<NavButtonCodeBlock name={"Attacks"} />*/}
-        <NavButtonCodeBlock name={"More"} />
+        <NavButtonCodeBlock name={"Items"} />
       </ul>
     </div>
   );
 };
 
-const SecondaryNavbar = (props) => {
+const SecondaryNavbar = () => {
   const secondaryNavbar = useRecoilValue(secondaryNavbarState);
   function navSwitch(display: SecondaryNav) {
     switch (display) {
@@ -67,7 +65,7 @@ const SecondaryNavbar = (props) => {
     </>
   );
 };
-const PrimaryNavbar = (props) => {
+const PrimaryNavbar = () => {
   const [secondaryNavbar, setSecondaryNavbar] = useRecoilState(
     secondaryNavbarState
   );
@@ -103,7 +101,7 @@ const PrimaryNavbar = (props) => {
       <ul id="primaryNavbar" className="navbarContainer">
         {navButtonCodeBlock("stats", statIcon, "Skills")}
         {navButtonCodeBlock("ability", abilityIcon, "Spells")}
-        {navButtonCodeBlock(null, itemIcon, "Items")}
+        {navButtonCodeBlock("items", itemIcon, "Items")}
       </ul>
     </div>
   );
