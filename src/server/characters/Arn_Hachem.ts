@@ -454,7 +454,7 @@ const Arn = {
       arcane: true,
       divine: false,
     },
-    sla_refs: [
+    slaRefs: [
       { id: "srd14", level: 1, uses: 4, frequency: "day" },
       { id: "srd15", level: 2, uses: 4, frequency: "day" },
     ],
@@ -485,7 +485,7 @@ const Arn = {
       eight: "",
       nine: "",
     },
-    spell_refs: [
+    spellRefs: [
       { id: "srd1", level: 0, innate: true },
       { id: "srd1", level: 0, innate: false },
       { id: "srd2", level: 0, innate: true },
@@ -598,7 +598,7 @@ const Arn = {
       nine: 6,
     },
   },
-  item_refs: [{ id: "1" }],
+  itemRefs: [{ id: "1" }],
 };
 
 export default Arn;

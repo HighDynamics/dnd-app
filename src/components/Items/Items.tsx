@@ -19,7 +19,7 @@ const ItemsHeld = (props: { value: string }) => {
 const Items = () => {
   const character = useRecoilValue(characterState);
   function displayItems() {
-    const items = Object.values(character.item_refs).map((s) => (
+    const items = Object.values(character.itemRefs).map((s) => (
       <ItemsHeld key={s} value={s} />
     ));
     return items;

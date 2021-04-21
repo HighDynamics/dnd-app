@@ -70,8 +70,8 @@ declare global {
         arcane: boolean;
         divine: boolean;
       };
-      sla_refs: ISLARef[];
-      spell_refs: ISpellRef[];
+      slaRefs: ISLARef[];
+      spellRefs: ISpellRef[];
       spellsPerDay: {
         zero: number;
         one: number;
@@ -85,7 +85,7 @@ declare global {
         nine: number;
       };
     };
-    item_refs: IItemRef[];
+    itemRefs: IItemRef[];
   };
 
   namespace ICharacter {

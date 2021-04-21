@@ -104,7 +104,7 @@ const SLAs = () => {
     }
   }
   function displaySLAs(level: number) {
-    const slas = Object.values(character.magic.sla_refs)
+    const slas = Object.values(character.magic.slaRefs)
       .filter((ref) => ref.level === level)
       .map((ref) => <KnownSLAs key={ref.id} slaRef={ref} />);
     return slas;

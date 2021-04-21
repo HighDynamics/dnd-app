@@ -115,10 +115,10 @@ const LoadApp = () => {
   useEffect(
     function setCompendiumsFromServer() {
       if (spellsResponse && character && itemsResponse) {
-        const characterSpellRefs = character.magic.spell_refs.map(
+        const characterSpellRefs = character.magic.spellRefs.map(
           (spell: ISpellRef) => spell.id
         );
-        const characterSlaRefs = character.magic.sla_refs.map(
+        const characterSlaRefs = character.magic.slaRefs.map(
           (spell: ISLARef) => spell.id
         );
         const characterAllSpellRefs = characterSpellRefs.reduce(
@@ -129,9 +129,9 @@ const LoadApp = () => {
           },
           []
         );
-        console.log(character.item_refs);
+        console.log(character.itemRefs);
         console.log(character);
-        const characterItemRefs = character.item_refs.map(
+        const characterItemRefs = character.itemRefs.map(
           (item: IItemRef) => item.id
         );
 

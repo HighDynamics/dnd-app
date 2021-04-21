@@ -446,7 +446,7 @@ const Ig = {
       arcane: false,
       divine: true,
     },
-    sla_refs: [{ id: "srd33", level: 8, uses: 3, frequency: "day" }],
+    slaRefs: [{ id: "srd33", level: 8, uses: 3, frequency: "day" }],
     slas: {
       zero: "",
       one: [],
@@ -469,7 +469,7 @@ const Ig = {
       eight: [{ name: "Flash Flood", uses: 3, frequency: "day" }],
       nine: [{ name: "Hold Monster, Mass", uses: 3, frequency: "day" }],
     },
-    spell_refs: [
+    spellRefs: [
       { id: "srd11", level: 0, innate: false },
       { id: "srd93", level: 1, innate: false },
       { id: "srd118", level: 3, innate: false },
@@ -589,7 +589,7 @@ const Ig = {
       nine: 4,
     },
   },
-  item_refs: [],
+  itemRefs: [],
 };
 
 export default Ig;

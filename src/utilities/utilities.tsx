@@ -101,7 +101,7 @@ const getInfoById = (compendium: { spells: ISpell[] }) => (id: string) =>
 const getSpellRefInfo = (selection: ISpell, character: ICharacter) => (
   infoKey: string
 ): string | number | boolean => {
-  let spellRef: ISpellRef = character.magic.spell_refs.find(
+  let spellRef: ISpellRef = character.magic.spellRefs.find(
     (ref: ISpellRef) => ref.id === selection.id
   );
   return spellRef[infoKey];

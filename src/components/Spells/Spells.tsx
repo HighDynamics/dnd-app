@@ -128,12 +128,12 @@ const KnownSpells = ({
   innate,
 }: {
   character: ICharacter;
-  level: keyof ICharacter["magic"]["spell_refs"]["level"];
+  level: keyof ICharacter["magic"]["spellRefs"]["level"];
 }) => {
-  const innateSpells = character.magic.spell_refs.filter(
+  const innateSpells = character.magic.spellRefs.filter(
     (sr: ISpellRef) => sr.innate === true
   );
-  const spellbook = character.magic.spell_refs.filter(
+  const spellbook = character.magic.spellRefs.filter(
     (sr: ISpellRef) => sr.innate === false
   );
   return (
@@ -275,7 +275,10 @@ const Spells = ({ innate }: { innate: boolean }) => {
   return (
     <>
       {innate === true ? (
-        <button className="defaultButton prepSpellsButton" onClick={() => setMainContent("Prep")}>
+        <button
+          className="defaultButton prepSpellsButton"
+          onClick={() => setMainContent("Prep")}
+        >
           <i className="fas fa-book"></i>
           <span>PREP</span>
         </button>

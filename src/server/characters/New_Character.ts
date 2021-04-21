@@ -350,10 +350,10 @@ const NewCharacter = {
       arcane: true,
       divine: false,
     },
-    sla_refs: [],
-    spell_refs: [],
+    slaRefs: [],
+    spellRefs: [],
   },
-  item_refs: [],
+  itemRefs: [],
 };
 
 export default NewCharacter;
