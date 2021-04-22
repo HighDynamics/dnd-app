@@ -1,4 +1,4 @@
-import { CompendiumSpell } from "../components/SpellInfo/SpellInfo";
+import CompendiumObject from "../components/Modal/CompendiumObject/CompendiumObject";
 import { mutate } from "swr";
 
 function rollDice(size: number) {
@@ -33,20 +33,6 @@ function clone<T>(object: T): T {
   return JSON.parse(JSON.stringify(object));
 }
 const roll20 = rollDice(20);
-
-function displayCompendiumInfo(matchedSpell: ISpell) {
-  const spellKeys = Object.keys(matchedSpell) as Array<keyof ISpell>;
-  const spellCompendiumInfo = spellKeys.map((key) => {
-    return (
-      <CompendiumSpell
-        key={key}
-        property={key}
-        value={matchedSpell[key] as string}
-      />
-    );
-  });
-  return spellCompendiumInfo;
-}
 
 function getAbilityMod(character: ICharacter) {
   return (ability: keyof ICharacter["abilities"]["score"]) => {
@@ -94,17 +80,43 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
   });
 };
 
-//TODO: abstract this further to include other compendiums
-const getInfoById = (compendium: { spells: ISpell[] }) => (id: string) =>
-  compendium.spells.find((item: ISpell) => item.id === id);
+type ICompendiumObject = ISpell | IItem;
+type IRefObject = ISpellRef | IItemRef;
 
-const getSpellRefInfo = (selection: ISpell, character: ICharacter) => (
-  infoKey: string
-): string | number | boolean => {
-  let spellRef: ISpellRef = character.magic.spellRefs.find(
-    (ref: ISpellRef) => ref.id === selection.id
-  );
-  return spellRef[infoKey];
+function displayCompendiumInfo(matchedObject: ICompendiumObject) {
+  const objectKeys = Object.keys(matchedObject) as Array<keyof ISpell>;
+  const compendiumObjectInfo = objectKeys.map((key) => {
+    return (
+      <CompendiumObject
+        key={key}
+        property={key}
+        value={matchedObject[key] as string}
+      />
+    );
+  });
+  return compendiumObjectInfo;
+}
+
+const getInfoById = (compendium: ICompendium) => (id: string) =>
+  compendium.spells.find((item: ICompendiumObject) => item.id === id);
+
+const getRefInfoByCompendiumObject = (
+  selection: ICompendiumObject,
+  character: ICharacter
+) => (infoKey: string): string | number | boolean => {
+  let objectRef = {} as IRefObject | undefined;
+  if (selection.hasOwnProperty("school")) {
+    objectRef = character.magic.spellRefs.find(
+      (ref: IRefObject) => ref.id === selection.id
+    );
+  } else {
+    objectRef = character.itemRefs.find(
+      (ref: IRefObject) => ref.id === selection.id
+    );
+  }
+  return objectRef === undefined
+    ? alert("Reference Not Found")
+    : objectRef[infoKey];
 };
 
 export {
@@ -118,5 +130,5 @@ export {
   whiteSpaceToUnderscore,
   persistCharacter,
   getInfoById,
-  getSpellRefInfo,
+  getRefInfoByCompendiumObject,
 };

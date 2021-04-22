@@ -9,7 +9,7 @@ import {
   characterState,
 } from "../../recoilState";
 import type { ModalType } from "../../recoilState";
-import { clone, getSpellRefInfo } from "../../utilities/utilities";
+import { clone, getRefInfoByCompendiumObject } from "../../utilities/utilities";
 import { Modal } from "../Modal/Modal";
 import {
   CastingSpell,
@@ -18,52 +18,6 @@ import {
   UsedPreppedSpell,
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
-
-export const CompendiumSpell = ({
-  property,
-  value,
-}: {
-  property: string;
-  value: string;
-}) => {
-  function formatProperty(string: typeof property) {
-    switch (string) {
-      case "name":
-      case "school":
-      case "subSchool":
-      case "descriptor":
-        return "";
-      case "description":
-        return <hr className="blackHR" />;
-      default:
-        const spacedProperty = string.replace(/([A-Z])/g, " $1").trim();
-        return spacedProperty + ": ";
-    }
-  }
-  const formatValue = (string: typeof property) => {
-    switch (string) {
-      case "subSchool":
-        return "(" + value + ")";
-      case "descriptor":
-        return "[" + value + "]";
-      default:
-        return value;
-    }
-  };
-  const formattedProperty = formatProperty(property);
-  const formattedValue = formatValue(property);
-
-  return (
-    <>
-      {property !== "id" && (
-        <div className={"infoSheetContent " + property}>
-          <span className="property">{formattedProperty}</span>
-          <span className="value">{formattedValue}</span>
-        </div>
-      )}
-    </>
-  );
-};
 
 const SpellInfo = ({ innate }: { innate: boolean }) => {
   //bring in react/recoil context
@@ -78,7 +32,10 @@ const SpellInfo = ({ innate }: { innate: boolean }) => {
     preppedSpellsCastState
   );
   const addUsedSpell = (selection: ISpell) => (e) => {
-    const level: number = getSpellRefInfo(selection, character)("level");
+    const level: number = getRefInfoByCompendiumObject(
+      selection,
+      character
+    )("level");
     if (innate === true) {
       const newArray = clone(innateSpellsCast);
       newArray[level].push(selection);
@@ -101,7 +58,7 @@ const SpellInfo = ({ innate }: { innate: boolean }) => {
   };
 
   const removeUsedSpell = (selection: ISpell) => () => {
-    const level = getSpellRefInfo(selection, character)("level");
+    const level = getRefInfoByCompendiumObject(selection, character)("level");
     if (innate === true) {
       const newArray = clone(innateSpellsCast);
       const used = newArray[level].findIndex((item) => {
@@ -110,9 +67,7 @@ const SpellInfo = ({ innate }: { innate: boolean }) => {
       newArray[level].splice(used, 1);
       setInnateSpellsCast(newArray);
       return console.log("Innate spell removed");
-    } else if (
-      innate === false
-    ) {
+    } else if (innate === false) {
       const newArray = clone(preppedSpells);
       const used = newArray[level].findIndex(
         (item) => item.id === selection.id
