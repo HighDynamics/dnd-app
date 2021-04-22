@@ -47,33 +47,9 @@ const HitPointInfo = () => {
       <h2 className="HPHeading">Hit Points</h2>
       <ul>
         <li className={"currentHP " + textColorClass}>Current: {currentHP}</li>
-        <hr className="blackHR"/>
-        <li className='damageListItem'>
-          <span className="damageListItemText">Damage: {damage}{" "}</span>
-          <div className="inputAndButton">
-            <input
-              className="numberInput threeDigit damageInput"
-              type="number"
-              value={damageInput}
-              onChange={handleDamageChange}
-            />
-            <button
-              className="defaultButton"
-              onClick={() => handleDamageSubmit("add")}
-            >
-              +
-            </button>
-            <button
-              className="defaultButton"
-              onClick={() => handleDamageSubmit("subtract")}
-            >
-              -
-            </button>
-          </div>
-        </li>
-        <hr className="blackHR"/>
-        <li className='damageListItem'>
-          <span className="damageListItemText">Temporary: {tempHP}{" "}</span>
+        <hr className="blackHR" />
+        <li className="damageListItem">
+          <span className="damageListItemText">Temporary: {tempHP} </span>
           <div className="inputAndButton">
             <input
               className="numberInput threeDigit damageInput"
@@ -90,6 +66,30 @@ const HitPointInfo = () => {
             <button
               className="defaultButton"
               onClick={() => handleTempHPSubmit("subtract")}
+            >
+              -
+            </button>
+          </div>
+        </li>
+        <hr className="blackHR" />
+        <li className="damageListItem">
+          <span className="damageListItemText">Damage: {damage} </span>
+          <div className="inputAndButton">
+            <input
+              className="numberInput threeDigit damageInput"
+              type="number"
+              value={damageInput}
+              onChange={handleDamageChange}
+            />
+            <button
+              className="defaultButton"
+              onClick={() => handleDamageSubmit("add")}
+            >
+              +
+            </button>
+            <button
+              className="defaultButton"
+              onClick={() => handleDamageSubmit("subtract")}
             >
               -
             </button>
