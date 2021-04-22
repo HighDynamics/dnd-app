@@ -53,7 +53,7 @@ const SecondaryNavbar = () => {
         return <StatsSelector />;
       case "ability":
         return <AbilitySelector />;
-      case null:
+      case "more":
         return null;
       default:
         return <StatsSelector />;
