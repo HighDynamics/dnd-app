@@ -77,7 +77,7 @@ export const mainContentState = atom<MainContent>({
   default: "Skills",
 });
 
-export type SecondaryNavbar = "stats" | "ability" | "items";
+export type SecondaryNavbar = "stats" | "ability" | "more";
 
 export const secondaryNavbarState = atom<SecondaryNavbar>({
   key: "secondaryNavbarDisplayState",

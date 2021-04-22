@@ -72,7 +72,7 @@ const PrimaryNavbar = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const statIcon = <i id="statIcon" className="far fa-chart-bar"></i>;
   const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
-  const itemIcon = <i id="itemIcon" className="fas fa-scroll"></i>;
+  const moreIcon = <i id="moreIcon" className="fas fa-cog"></i>;
   function setBothDisplays(name: SecondaryNav, secondaryName: MainContent) {
     setSecondaryNavbar(name);
     if (secondaryName !== null) {
@@ -101,7 +101,7 @@ const PrimaryNavbar = () => {
       <ul id="primaryNavbar" className="navbarContainer">
         {navButtonCodeBlock("stats", statIcon, "Skills")}
         {navButtonCodeBlock("ability", abilityIcon, "Spells")}
-        {navButtonCodeBlock("items", itemIcon, "Items")}
+        {navButtonCodeBlock("more", moreIcon, "More")}
       </ul>
     </div>
   );
