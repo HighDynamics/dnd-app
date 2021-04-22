@@ -125,6 +125,9 @@ declare global {
   type IItem = {
     id: string;
     name: string;
+    weight?: number;
+    casterLevel?: number;
+    price?: string;
     description: string;
   };
   type ISpell = {
@@ -144,5 +147,8 @@ declare global {
     savingThrow?: string;
     spellResistance?: string;
     description: string;
+  };
+  type ICompendium = {
+    [key: string]: ISpell[] | IItem[];
   };
 }

@@ -1,27 +1,26 @@
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 
-import { modalTypeState, characterState } from "../../recoilState";
+import { modalTypeState, selectionState } from "../../recoilState";
+import itemCompendium from "../../server/items";
 
-const ItemsHeld = (props: { value: string }) => {
+const ItemsHeld = ({ item }: { item: IItem }) => {
+  const setSelection = useSetRecoilState(selectionState);
   const setModalType = useSetRecoilState(modalTypeState);
-  const item = props.value;
-  const formattedItem = item.replace(/_/g, " ");
-  const buttonAndSpellClass = "spellButtons " + item;
+  const formattedItem = item.name.replace(/_/g, " ");
+  const buttonAndSpellClass = "spellButtons " + formattedItem;
+  function displayInfo(item: IItem) {
+    setModalType("Item");
+    setSelection(item);
+  }
   return (
-    <button
-      className={buttonAndSpellClass}
-      onClick={() => setModalType("Item")}
-    >
+    <button className={buttonAndSpellClass} onClick={() => displayInfo(item)}>
       {formattedItem}
     </button>
   );
 };
 const Items = () => {
-  const character = useRecoilValue(characterState);
   function displayItems() {
-    const items = Object.values(character.itemRefs).map((s) => (
-      <ItemsHeld key={s} value={s} />
-    ));
+    const items = itemCompendium.map((i) => <ItemsHeld key={i.id} item={i} />);
     return items;
   }
   return (
