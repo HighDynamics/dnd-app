@@ -10,7 +10,8 @@
   justify-content: space-around;
   align-items: center;
   padding-left: 0;
-  height: 2rem;
+  margin-top: 1vh;
+  height: 5vh;
 }
 .navbarItemsOn {
   background: rgba(255, 255, 255, 0.2);
@@ -32,13 +33,12 @@
 }
 #primaryNavbar {
   position: relative;
-  margin-top: 1vh;
 }
 #secondaryNavbar {
   width: 80vw;
+  height: 5vh;
+  margin: auto;
   position: relative;
-  left: 50%;
-  transform: translate(-50%);
   z-index: 0;
 }
 #statIcon {

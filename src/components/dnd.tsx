@@ -42,14 +42,12 @@ const App = () => {
   return (
     <>
       <div id="appWrapper">
-        <div>
-          <div id="topWrapper">
-            <BasicInfo />
-            <Navbar.PrimaryNavbar />
-            <Navbar.SecondaryNavbar />
-          </div>
-          <MainDisplay />
+        <div id="topWrapper">
+          <BasicInfo />
+          <Navbar.PrimaryNavbar />
+          <Navbar.SecondaryNavbar />
         </div>
+        <MainDisplay />
       </div>
     </>
   );
@@ -129,8 +127,6 @@ const LoadApp = () => {
           },
           []
         );
-        console.log(character.itemRefs);
-        console.log(character);
         const characterItemRefs = character.itemRefs.map(
           (item: IItemRef) => item.id
         );
@@ -165,7 +161,6 @@ const LoadApp = () => {
 
   // Wait until all data has been flushed through Recoil and values exist.
   if (!(character && spellCompendium && primaryModifier && itemCompendium)) {
-    console.log(character, spellCompendium, primaryModifier, itemCompendium);
     return <>Loading...</>;
   }
 

@@ -1,18 +1,18 @@
-.prepSpellsButton{
+.prepSpellsButton {
   position: fixed;
   margin: 2px;
   outline: 1px solid gray;
   font-size: 20px;
 }
-.returnToSpells{
+.returnToSpells {
   position: fixed;
   margin: 2px;
   outline: 1px solid gray;
-  border:none;
+  border: none;
 }
 .shortHR {
   width: 50%;
 }
-.spellContainer{
+.spellContainer {
   margin-top: 10vh;
 }

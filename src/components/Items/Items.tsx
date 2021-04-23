@@ -3,6 +3,8 @@ import { useSetRecoilState } from "recoil";
 import { modalTypeState, selectionState } from "../../recoilState";
 import itemCompendium from "../../server/items";
 
+import "./Items.css";
+
 const ItemsHeld = ({ item }: { item: IItem }) => {
   const setSelection = useSetRecoilState(selectionState);
   const setModalType = useSetRecoilState(modalTypeState);
@@ -25,7 +27,7 @@ const Items = () => {
   }
   return (
     <div>
-      <h1>Items</h1>
+      <h1 className="itemsHeader">Items</h1>
       <div className="spellContainer">
         <div className="spellItems">
           <p className="spellList">{displayItems()}</p>

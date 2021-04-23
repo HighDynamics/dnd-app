@@ -9,7 +9,7 @@
 }
 #HPACDiceWrapper {
   outline: 1px solid white;
-  max-height: 85.05px;
+  height: 15vh;
   display: flex;
   flex-direction: row;
   margin-left: 1px;
@@ -19,9 +19,16 @@
   width: 50vw;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: flex-start;
   outline: 1px solid white;
+}
+@media only screen and (min-width: 768px) {
+  #hpacWrapper {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
 }
 .scores {
   flex-grow: 2;
@@ -33,7 +40,7 @@
   background-color: inherit;
   color: inherit;
   border: none;
-  font-size: 1.8rem;
+  font-size: 6.5vmin;
 }
 .HPACButton:focus {
   background-color: rgba(94, 94, 94, 1);

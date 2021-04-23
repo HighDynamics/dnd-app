@@ -1,0 +1,13 @@
+.addSpellForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.inputKey {
+  margin-left: 5px;
+  display: inline-block;
+  width: 130px;
+}
+.addSpellButton {
+  margin-bottom: 5px;
+}

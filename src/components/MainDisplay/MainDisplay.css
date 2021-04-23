@@ -1,10 +1,24 @@
-#mainContent {
-  position: relative;
-  height: 65vh;
+.mainContent {
+  position: fixed;
+  top: 35.5vh;
+  height: 75%;
+  width: 100%;
   overflow: auto;
-  z-index: 0;
+  z-index: 1;
+}
+.mainContent::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
 }
 .underNavbar {
   margin-bottom: 0;
+  margin-top: 10px;
   height: 2px;
+}
+.bottomPadding {
+  height: 100px;
+}
+.infoSheet {
+  height: 60vh;
 }

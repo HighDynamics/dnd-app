@@ -1,5 +1,7 @@
 html body {
   overflow-y: hidden;
+  overflow-x: hidden;
+  height: 90%;
 }
 body {
   position: relative;
@@ -16,7 +18,8 @@ body {
 }
 
 #topWrapper {
-  height: auto;
+  min-height: 190px;
+  height: 31.5vh;
 }
 #rollUse {
   font-size: 0.8rem;
