@@ -2,7 +2,6 @@
 .noScroll {
   overflow: hidden;
 }
-
 .modal {
   z-index: 5;
   margin-left: 2vw;
@@ -31,4 +30,12 @@
   font-size: 1.5rem;
   height: 2rem;
   width: 2rem;
+}
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 1s;
 }

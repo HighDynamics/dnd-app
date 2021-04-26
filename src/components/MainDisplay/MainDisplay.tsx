@@ -15,9 +15,10 @@ import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
 import EditSkills from "../Edit/EditSkills/EditSkills";
 import EditAbilities from "../Edit/EditAbilities/EditAbilities";
-import EditSpells from "../Edit/EditSpells/EditSpells";
-import EditSLAs from "../Edit/EditSLAs/EditSLAs";
+import EditSpellForm from "../Edit/EditMagic/EditSpellForm/EditSpellForm";
+import EditSLAs from "../Edit/EditMagic/EditSLAs/EditSLAs";
 import EditAttacks from "../Edit/EditAttacks/EditAttacks";
+import EditMagic from "../Edit/EditMagic/EditMagic";
 import EditItems from "../Edit/EditItems/EditItems";
 import EditCore from "../Edit/EditCore/EditCore";
 import AddCharacter from "../AddCharacter/AddCharacter";
@@ -25,6 +26,7 @@ import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
 import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 import ChangeCharacter from "../ChangeCharacter/ChangeCharacter";
+import ConfirmationModal from "../Modal/ConfirmationModal/ConfirmationModal";
 
 import { mainContentState, modalTypeState } from "../../recoilState";
 import type { ModalType, MainContent } from "../../recoilState";
@@ -58,8 +60,8 @@ const MainDisplay = () => {
         return <EditSkills />;
       case "EditAbilities":
         return <EditAbilities />;
-      case "EditSpells":
-        return <EditSpells />;
+      case "EditMagic":
+        return <EditMagic />;
       case "EditSLAs":
         return <EditSLAs />;
       case "EditAttacks":
@@ -76,45 +78,55 @@ const MainDisplay = () => {
         return <Skills />;
     }
   }
+  const modalFade = (animationState: () => void) => {
+    setTimeout(() => setModalType("Off"), 1000);
+    animationState();
+  };
   function infoSheet(modalType: ModalType) {
     switch (modalType) {
       case "Cast":
-        return <SpellInfo innate={true} />;
+        return <SpellInfo innate={true} onClose={modalFade} />;
       case "Prep":
       case "CastPrepped":
-        return <SpellInfo innate={false} />;
+        return <SpellInfo innate={false} onClose={modalFade} />;
       case "UsedPrepped":
-        return <SpellInfo />;
+        return <SpellInfo innate={false} onClose={modalFade} />;
       case "HP":
         return (
-          <Modal onClose={() => setModalType("Off")}>
+          <Modal onClose={modalFade}>
             <HitPointInfo />
             <AbilityScores />
           </Modal>
         );
       case "Defense":
         return (
-          <Modal onClose={() => setModalType("Off")}>
+          <Modal onClose={modalFade}>
             <ArmorClassInfo />
             <DefenseInfo />
           </Modal>
         );
       case "Abilities":
         return (
-          <Modal onClose={() => setModalType("Off")}>
+          <Modal onClose={modalFade}>
             <AbilityInfo />
           </Modal>
         );
       case "SLA":
         return (
-          <Modal onClose={() => setModalType("Off")}>
+          <Modal onClose={modalFade}>
             <SLAInfo />
           </Modal>
         );
       case "Item":
         return (
-          <Modal onClose={() => setModalType("Off")}>
+          <Modal onClose={modalFade}>
             <ItemInfo />
+          </Modal>
+        );
+      case "ConfirmationModal":
+        return (
+          <Modal onClose={modalFade}>
+            <ConfirmationModal />
           </Modal>
         );
       case "Off":
@@ -124,11 +136,14 @@ const MainDisplay = () => {
     }
   }
   return (
-    <div>
+    <>
       <hr className="underNavbar" />
-      <div id="infoSheet">{infoSheet(modalType)}</div>
-      <div id="mainContent">{screenSwitch(mainContent)}</div>
-    </div>
+      <div className="infoSheet">{infoSheet(modalType)}</div>
+      <div className="mainContent">
+        {screenSwitch(mainContent)}
+        <div className="bottomPadding"></div>
+      </div>
+    </>
   );
 };
 
