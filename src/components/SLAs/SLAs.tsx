@@ -11,6 +11,8 @@ import type { ModalType } from "../../recoilState";
 
 import { getInfoById } from "../../utilities/utilities";
 
+import "./SLAs.css";
+
 const romans = [
   "I",
   "II",
@@ -111,7 +113,7 @@ const SLAs = () => {
   }
   return (
     <div>
-      <div className="spellContainer">
+      <div className="slasContainer">
         {Array.isArray(character.magic.slas.zero) ? (
           <div className="spellItems">
             <div className="spellLevelWrapper">

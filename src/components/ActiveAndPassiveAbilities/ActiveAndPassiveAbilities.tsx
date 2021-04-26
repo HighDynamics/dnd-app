@@ -36,7 +36,7 @@ const Abilities = (props: { type: "active" | "passive" }) => {
     <KnownAbility key={a.name} name={a.name} type={a.type} />
   ));
   return (
-    <div className="spellContainer">
+    <div className="abilitiesContainer">
       <div className="spellItems">
         <p className="spellList">{abilities}</p>
       </div>

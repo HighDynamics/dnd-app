@@ -28,7 +28,7 @@ const Items = () => {
   return (
     <div>
       <h1 className="itemsHeader">Items</h1>
-      <div className="spellContainer">
+      <div className="itemsContainer">
         <div className="spellItems">
           <p className="spellList">{displayItems()}</p>
         </div>
