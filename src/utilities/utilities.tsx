@@ -6,23 +6,22 @@ function rollDice(size: number) {
     const roll = Math.floor(Math.random() * size + 1);
     function edgeRollClassAssignment(roll: number) {
       if (roll === 1 && size === 20) {
-        return "natOne";
+        return "natOne rollTotal";
       } else if (roll === 20 && size === 20) {
-        return "natTwenty";
+        return "natTwenty rollTotal";
       } else {
-        return undefined;
+        return "rollTotal";
       }
     }
     const result = (
       <span>
-        <span id="rollUse">{use}</span>
-        <div id="rollTopLine">
-          <span id="rollTotal" className={edgeRollClassAssignment(roll)}>
-            {roll}
-          </span>{" "}
-          <span id="modTotal"> + {mod} =</span>
+        <span className="rollUse">
+          {use} +{mod}
+        </span>
+        <div className="rollResult">
+          + <span className={edgeRollClassAssignment(roll)}>{roll}</span>{" "}
+          <span className="rollModTotal">= {roll + mod}</span>
         </div>
-        <p id="rollModTotal">{roll + mod}</p>
       </span>
     );
     return result;

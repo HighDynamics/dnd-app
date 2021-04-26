@@ -37,22 +37,18 @@ body {
   min-height: 190px;
   height: 31.5vh;
 }
-#rollUse {
+.rollUse {
   font-size: 0.8rem;
 }
-#rollTopLine {
+.rollResult {
   height: 30px;
+  font-size: 30px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: auto;
+  text-align: center;
 }
-#rollTotal {
-  font-size: 30px;
-}
-#rollModTotal {
+.rollModTotal {
   height: 30px;
-  font-size: 30px;
   margin: auto;
 }
 .natTwenty {
