@@ -19,7 +19,13 @@ import {
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
 
-const SpellInfo = ({ innate }: { innate: boolean }) => {
+const SpellInfo = ({
+  innate,
+  onClose,
+}: {
+  innate: boolean;
+  onClose: () => void;
+}) => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -108,9 +114,7 @@ const SpellInfo = ({ innate }: { innate: boolean }) => {
         return null;
     }
   }
-  return (
-    <Modal onClose={() => setModalType("Off")}>{chooseModal(modalType)}</Modal>
-  );
+  return <Modal onClose={onClose}>{chooseModal(modalType)}</Modal>;
 };
 
 export default SpellInfo;

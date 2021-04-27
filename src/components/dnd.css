@@ -148,6 +148,9 @@ hr {
   color: white;
   outline: 2px solid black;
 }
+.defaultButtonSelected {
+  background-color: rgba(152, 13, 199, 0.8);
+}
 .formItemsContainer {
   background-color: rgba(249, 249, 250, 0.8);
   color: black;

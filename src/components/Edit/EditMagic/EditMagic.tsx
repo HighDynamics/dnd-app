@@ -1,17 +1,39 @@
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { mainContentState } from "../../../recoilState";
+import AddSpell from "./AddSpell/AddSpell";
+import EditSpellForm from "./EditSpellForm/EditSpellForm";
 
 const EditMagic = () => {
   const setMainContent = useSetRecoilState(mainContentState);
+  const [toggleAddNewSpell, setToggleAddNewSpell] = useState(false);
+  const [toggleAddCompendiumSpell, setToggleAddCompendiumSpell] = useState(
+    false
+  );
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
   return (
     <>
-      <button onClick={() => setMainContent("More")}>
+      <button className="backButton" onClick={() => setMainContent("More")}>
         <i className="fas fa-arrow-left"></i>
       </button>
-      <div className="editMagicOptionsContainer">
-        <button className="editMagicButtons" onClick={setMainContent}></button>
-      </div>
+      <button
+        className=""
+        onClick={() => setToggleAddCompendiumSpell(!toggleAddCompendiumSpell)}
+      >
+        Add Spell To Character
+      </button>
+      <button
+        className=""
+        onClick={() => setToggleAddNewSpell(!toggleAddNewSpell)}
+      >
+        Add Spell To Compendium
+      </button>
+      {toggleAddNewSpell && <EditSpellForm handleSubmit={handleSubmit} />}
+      {toggleAddCompendiumSpell && <AddSpell />}
     </>
   );
 };

@@ -64,6 +64,7 @@ export type MainContent =
   | "Items"
   | "EditSkills"
   | "EditAbilities"
+  | "EditMagic"
   | "EditSpells"
   | "EditSLAs"
   | "EditAttacks"
@@ -94,6 +95,7 @@ export type ModalType =
   | "Abilities"
   | "SLA"
   | "Item"
+  | "ConfirmationCharacterSpell"
   | "Off";
 
 export const modalTypeState = atom<ModalType>({

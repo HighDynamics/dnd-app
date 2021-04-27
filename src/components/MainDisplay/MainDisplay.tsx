@@ -123,10 +123,10 @@ const MainDisplay = () => {
             <ItemInfo />
           </Modal>
         );
-      case "ConfirmationModal":
+      case "ConfirmationCharacterSpell":
         return (
           <Modal onClose={modalFade}>
-            <ConfirmationModal />
+            <ConfirmationModal type="CharacterSpell" />
           </Modal>
         );
       case "Off":

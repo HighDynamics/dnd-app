@@ -7,7 +7,6 @@ import "./More.css";
 
 const More = () => {
   const setMainContent = useSetRecoilState(mainContentState);
-  const [magicToggle, setMagicToggle] = useState(false);
   return (
     <>
       <h2 className="editHeading">Edit</h2>
@@ -32,33 +31,10 @@ const More = () => {
         </button>
         <button
           className="moreButton"
-          onClick={() => setMagicToggle(!magicToggle)}
+          onClick={() => setMainContent("EditMagic")}
         >
           Magic
         </button>
-        {magicToggle && (
-          <div className="subButtonContainer">
-            <button
-              className="subButton"
-              onClick={() => setMainContent("EditSpells")}
-            >
-              Spells
-            </button>
-            <button
-              className="subButton"
-              onClick={() => setMainContent("EditSLAs")}
-            >
-              SLAs
-            </button>
-          </div>
-        )}
-        {/*add below in the future*/}
-        {/*<button
-          className="moreButton"
-          onClick={() => setMainContent("EditAttacks")}
-        >
-          Attacks
-        </button>*/}
         <button
           className="moreButton"
           onClick={() => setMainContent("EditItems")}

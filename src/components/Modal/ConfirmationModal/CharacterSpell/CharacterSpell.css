@@ -1,0 +1,21 @@
+.addSpellHeader {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 7vh;
+}
+.setSpellAsList {
+  display: flex;
+  justify-content: space-around;
+}
+.detailsForConfirmation {
+  margin-top: 5px;
+}
+.asHeader {
+  font-size: 20px;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+.addSpellButtonContainer {
+  margin-top: 10px;
+  text-align: center;
+}
