@@ -6,6 +6,7 @@ import {
   selectionState,
   slaState,
   spellCompendiumState,
+  primaryModifierState,
 } from "../../recoilState";
 import type { ModalType } from "../../recoilState";
 
@@ -36,7 +37,7 @@ const numStrings = [
   "nine",
 ] as const;
 
-const KnownSLAs = ({ slaRef }) => {
+const KnownSLAs = ({ slaRef }: { slaRef: ISLARef }) => {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
   const spellCompendium = useRecoilValue(spellCompendiumState);
@@ -73,28 +74,29 @@ const SLACodeBlock = (props: {
   levelNum: number;
   character: ICharacter;
   displaySLAs: (level: typeof numStrings[number]) => React.ReactNode;
+  getDifficultyClass: (levelNum: number) => number;
 }) => {
-  const { levelNum, character, displaySLAs } = props;
+  const { levelNum, displaySLAs, getDifficultyClass } = props;
   const levelRoman = romans[levelNum - 1];
-  const level = numStrings[levelNum - 1];
 
   return (
     <>
-      {Array.isArray(character.magic.slas[level]) ? (
-        <div className="spellItems">
-          <div className="spellLevelWrapper">
-            <h2 className="spellLevelHeader">Level {levelRoman}</h2>
-          </div>
-          <p className="spellList">{displaySLAs(levelNum)}</p>
-          <hr />
+      <div className="spellItems">
+        <div className="spellLevelWrapper">
+          <h2 className="spellLevelHeader">
+            Level {levelRoman} (DC {getDifficultyClass(levelNum)})
+          </h2>
         </div>
-      ) : null}
+        <p className="spellList">{displaySLAs(levelNum)}</p>
+        <hr />
+      </div>
     </>
   );
 };
 
 const SLAs = () => {
   const character = useRecoilValue(characterState);
+  const primaryModifier = useRecoilValue(primaryModifierState);
   //cantrips or orisons? or both?
   function casterType() {
     if (character.magic.type.arcane && character.magic.type.divine) {
@@ -111,24 +113,29 @@ const SLAs = () => {
       .map((ref) => <KnownSLAs key={ref.id} slaRef={ref} />);
     return slas;
   }
+  function getDifficultyClass(levelNum: number) {
+    return 10 + levelNum + primaryModifier;
+  }
+
   return (
     <div>
       <div className="slasContainer">
-        {Array.isArray(character.magic.slas.zero) ? (
-          <div className="spellItems">
-            <div className="spellLevelWrapper">
-              <h2 className="spellLevelHeader">{casterType()}</h2>
-            </div>
-            <p className="spellList">{displaySLAs(0)}</p>
-            <hr />
+        <div className="spellItems">
+          <div className="spellLevelWrapper">
+            <h2 className="spellLevelHeader">
+              {casterType()} (DC {getDifficultyClass(0)})
+            </h2>
           </div>
-        ) : null}
+          <p className="spellList">{displaySLAs(0)}</p>
+          <hr />
+        </div>
         {romans.map((_, i) => (
           <SLACodeBlock
             key={i + 1}
             levelNum={i + 1}
             character={character}
             displaySLAs={displaySLAs}
+            getDifficultyClass={getDifficultyClass}
           />
         ))}
       </div>

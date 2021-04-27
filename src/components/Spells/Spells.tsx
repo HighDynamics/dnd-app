@@ -87,7 +87,6 @@ const KnownSpell = ({
   innate,
 }: {
   spellRef: string;
-  level: number;
   innate: boolean;
 }) => {
   const setModalType = useSetRecoilState(modalTypeState);
@@ -128,7 +127,7 @@ const KnownSpells = ({
   innate,
 }: {
   character: ICharacter;
-  level: keyof ICharacter["magic"]["spellRefs"]["level"];
+  level: keyof ICharacter["magic"]["spellRefs"];
 }) => {
   const innateSpells = character.magic.spellRefs.filter(
     (sr: ISpellRef) => sr.innate === true
@@ -249,7 +248,7 @@ const SpellCodeBlock = (props: {
         </>
       ) : null}
       <p className="spellList">
-        <KnownSpells level={level} character={character} innate={innate} />
+        <KnownSpells level={levelNum} character={character} innate={innate} />
       </p>
       <hr />
     </div>
