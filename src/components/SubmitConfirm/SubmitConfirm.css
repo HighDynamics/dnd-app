@@ -1,0 +1,18 @@
+.confirmationBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 80%;
+  height: 10%;
+  background-color: rgba(249, 249, 250, 0.95);
+  outline: 5px solid rgb(238, 193, 246);
+  color: rgb(68, 33, 27);
+  z-index: 5;
+  animation-name: fadeInAndOut;
+  animation-duration: 3s;
+}
+.confirmationText {
+  color: rgb(68, 33, 27);
+  text-align: center;
+}

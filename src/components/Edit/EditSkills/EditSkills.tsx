@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
-import { characterState, mainContentState } from "../../../recoilState";
+import {
+  characterState,
+  mainContentState,
+  confirmationTypeState,
+  ConfirmationType,
+} from "../../../recoilState";
 import { clone, persistCharacter } from "../../../utilities/utilities";
 
 import SkillForm from "./SkillForm";
@@ -10,7 +15,13 @@ import "./EditSkills.css";
 const EditSkills = () => {
   const [character] = useRecoilState(characterState);
   const setMainContent = useSetRecoilState(mainContentState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
   const [newSkillForm, setNewSkillForm] = useState(false);
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
+  };
 
   const handleCreateSkill = (newSkill: ICharacter.Skill) => {
     let updatedCharacter = clone(character);
@@ -19,6 +30,7 @@ const EditSkills = () => {
 
     persistCharacter(updatedCharacter);
     setNewSkillForm(!newSkillForm);
+    renderConfirmation("addSkill");
   };
 
   const handleUpdateSkill = (
@@ -31,6 +43,7 @@ const EditSkills = () => {
     updatedCharacter.skills[index] = updatedSkill;
 
     persistCharacter(updatedCharacter);
+    renderConfirmation("updateSkill");
   };
 
   return (

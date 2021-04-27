@@ -28,6 +28,18 @@ body {
     opacity: 0;
   }
 }
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  33%,
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 #appWrapper {
   background: rgba(0, 0, 0, 0.5);
   height: 100vh;

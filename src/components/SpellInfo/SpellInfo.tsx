@@ -1,4 +1,4 @@
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 
 import {
   modalTypeState,
@@ -7,6 +7,8 @@ import {
   innateSpellsCastState,
   preppedSpellsCastState,
   characterState,
+  confirmationTypeState,
+  ConfirmationType,
 } from "../../recoilState";
 import type { ModalType } from "../../recoilState";
 import { clone, getRefInfoByCompendiumObject } from "../../utilities/utilities";
@@ -18,6 +20,7 @@ import {
   UsedPreppedSpell,
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
+import { useEffect } from "react";
 
 const SpellInfo = ({
   innate,
@@ -28,8 +31,9 @@ const SpellInfo = ({
 }) => {
   //bring in react/recoil context
   const character = useRecoilValue(characterState);
-  const [modalType, setModalType] = useRecoilState(modalTypeState);
   const selection = useRecoilValue(selectionState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
   const [innateSpellsCast, setInnateSpellsCast] = useRecoilState(
     innateSpellsCastState
   );
@@ -37,6 +41,12 @@ const SpellInfo = ({
   const [preppedSpellsCast, setPreppedSpellsCast] = useRecoilState(
     preppedSpellsCastState
   );
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
+  };
+
   const addUsedSpell = (selection: ISpell) => (e) => {
     const level: number = getRefInfoByCompendiumObject(
       selection,
@@ -47,19 +57,19 @@ const SpellInfo = ({
       newArray[level].push(selection);
       setInnateSpellsCast(newArray);
       setModalType("Off");
-      return console.log("Innate spell logged");
+      renderConfirmation("castSpell");
     } else if (e.target.id === "usePreppedSpell") {
       const newArray = clone(preppedSpellsCast);
       newArray[level].push(selection);
       setPreppedSpellsCast(newArray);
       setModalType("Off");
-      return console.log("Casted prepped spell logged");
+      renderConfirmation("castSpell");
     } else if (innate === false) {
       const newArray = clone(preppedSpells);
       newArray[level].push(selection);
       setPreppedSpells(newArray);
       setModalType("Off");
-      return console.log("Prepped spell logged");
+      renderConfirmation("prepSpell");
     }
   };
 
@@ -72,7 +82,6 @@ const SpellInfo = ({
       });
       newArray[level].splice(used, 1);
       setInnateSpellsCast(newArray);
-      return console.log("Innate spell removed");
     } else if (innate === false) {
       const newArray = clone(preppedSpells);
       const used = newArray[level].findIndex(
@@ -81,7 +90,6 @@ const SpellInfo = ({
       newArray[level].splice(used, 1);
       setPreppedSpells(newArray);
       setModalType("Off");
-      console.log("A prepped spell was removed");
     }
   };
   function chooseModal(modalType: ModalType) {
@@ -100,6 +108,7 @@ const SpellInfo = ({
             selection={selection}
             addUsedSpell={addUsedSpell}
             removeUsedSpell={removeUsedSpell}
+            renderConfirmation={renderConfirmation}
           />
         );
       case "UsedPrepped":

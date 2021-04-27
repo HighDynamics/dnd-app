@@ -5,6 +5,8 @@ import {
   mainContentState,
   characterState,
   updatedCharacterState,
+  confirmationTypeState,
+  ConfirmationType,
 } from "../../../recoilState";
 
 import { clone, persistCharacter } from "../../../utilities/utilities";
@@ -401,6 +403,13 @@ const EditCore = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const character = useRecoilValue(characterState);
   const updatedCharacter = useRecoilValue(updatedCharacterState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
+  };
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const primary = updatedCharacter.abilities.primary;
@@ -409,6 +418,7 @@ const EditCore = () => {
       return "Primary Modifier Error";
     }
     persistCharacter(updatedCharacter);
+    renderConfirmation("updateCharacter");
   }
 
   return (

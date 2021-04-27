@@ -1,6 +1,11 @@
 import { ReactEventHandler, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { characterState } from "../../../../recoilState";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  characterState,
+  confirmationTypeState,
+  ConfirmationType,
+  modalTypeState,
+} from "../../../../recoilState";
 import { persistCharacter, clone } from "../../../../utilities/utilities";
 
 import "./CharacterSpell.css";
@@ -69,6 +74,8 @@ const AddInnateOrSpellbook = ({
 
 const CharacterSpell = ({ selection }: { selection: ISpell }) => {
   const character = useRecoilValue(characterState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const setModalType = useSetRecoilState(modalTypeState);
   const [innate, setInnate] = useState(false);
   const [spellbook, setSpellbook] = useState(false);
   const [sla, setSla] = useState(false);
@@ -80,6 +87,11 @@ const CharacterSpell = ({ selection }: { selection: ISpell }) => {
     return buttonClicked
       ? "defaultButton defaultButtonSelected"
       : "defaultButton";
+  };
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
   };
 
   const confirmAddSpell = () => {
@@ -106,8 +118,9 @@ const CharacterSpell = ({ selection }: { selection: ISpell }) => {
         frequency: "day",
       });
     }
-    console.log(updatedCharacter.magic);
     persistCharacter(updatedCharacter);
+    setModalType("Off");
+    renderConfirmation("addSpell");
   };
 
   return (

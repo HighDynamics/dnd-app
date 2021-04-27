@@ -27,14 +27,20 @@ import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 import ChangeCharacter from "../ChangeCharacter/ChangeCharacter";
 import ConfirmationModal from "../Modal/ConfirmationModal/ConfirmationModal";
+import SubmitConfirm from "../SubmitConfirm/SubmitConfirm";
 
-import { mainContentState, modalTypeState } from "../../recoilState";
+import {
+  mainContentState,
+  modalTypeState,
+  confirmationTypeState,
+} from "../../recoilState";
 import type { ModalType, MainContent } from "../../recoilState";
 
 import "./MainDisplay.css";
 
 const MainDisplay = () => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
+  const confirmationType = useRecoilValue(confirmationTypeState);
   const mainContent = useRecoilValue(mainContentState);
   function screenSwitch(display: MainContent) {
     switch (display) {
@@ -138,6 +144,7 @@ const MainDisplay = () => {
   return (
     <>
       <hr className="underNavbar" />
+      {confirmationType !== "off" && <SubmitConfirm />}
       <div className="infoSheet">{infoSheet(modalType)}</div>
       <div className="mainContent">
         {screenSwitch(mainContent)}

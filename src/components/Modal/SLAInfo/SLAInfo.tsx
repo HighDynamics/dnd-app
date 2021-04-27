@@ -5,6 +5,8 @@ import {
   selectionState,
   spellCompendiumState,
   modalTypeState,
+  confirmationTypeState,
+  ConfirmationType,
 } from "../../../recoilState";
 import { clone, displayCompendiumInfo } from "../../../utilities/utilities";
 import "./SLAInfo.css";
@@ -14,6 +16,7 @@ const SLAInfo = () => {
   const selection = useRecoilValue(selectionState);
   const spellCompendium = useRecoilValue(spellCompendiumState);
   const setModalType = useSetRecoilState(modalTypeState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
   const matchedSpell = spellCompendium.spells.find(
     ({ name }) => name === selection.name
   );
@@ -22,6 +25,12 @@ const SLAInfo = () => {
       return item.name === name;
     });
   }
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
+  };
+
   function logUsedSLA(name: string) {
     const newArray = clone(usedSLAs);
     const indexOfMatch = checkForUseState(name);
@@ -34,6 +43,7 @@ const SLAInfo = () => {
       setUsedSLAs(newArray);
     }
     setModalType("Off");
+    renderConfirmation("castSpell");
   }
 
   return (

@@ -6,11 +6,11 @@ function rollDice(size: number) {
     const roll = Math.floor(Math.random() * size + 1);
     function edgeRollClassAssignment(roll: number) {
       if (roll === 1 && size === 20) {
-        return "natOne rollTotal";
+        return "natOne d20Result";
       } else if (roll === 20 && size === 20) {
-        return "natTwenty rollTotal";
+        return "natTwenty d20Result";
       } else {
-        return "rollTotal";
+        return "d20Result";
       }
     }
     const result = (

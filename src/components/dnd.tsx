@@ -17,7 +17,7 @@ import MainDisplay from "./MainDisplay/MainDisplay";
 
 import "./dnd.css";
 
-/******************************Character functions****************************/
+/******************************General functions****************************/
 export function totalSpells(
   character: ICharacter,
   primaryModifier: number,
@@ -29,7 +29,7 @@ export function totalSpells(
   }
   return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
 }
-/******************************Character functions****************************/
+/******************************General functions****************************/
 const App = () => {
   const character = useRecoilValue(characterState);
   useEffect(

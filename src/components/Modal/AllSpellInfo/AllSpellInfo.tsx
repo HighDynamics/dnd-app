@@ -1,3 +1,4 @@
+import { ConfirmationType } from "../../../recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
 
@@ -7,6 +8,7 @@ export const CastingSpell = (props: {
 }) => {
   const { selection, addUsedSpell } = props;
   const castSpell = addUsedSpell(selection);
+
   return (
     <>
       <button id="castSpell" className="confirmSpellButton" onClick={castSpell}>
@@ -36,10 +38,20 @@ export const CastingPreppedSpell = (props: {
   selection: ISpell;
   addUsedSpell: (selection: ISpell) => string;
   removeUsedSpell: (selection: ISpell, type: "prep") => void;
+  renderConfirmation: (confirmationType: ConfirmationType) => void;
 }) => {
-  const { selection, addUsedSpell, removeUsedSpell } = props;
+  const {
+    selection,
+    addUsedSpell,
+    removeUsedSpell,
+    renderConfirmation,
+  } = props;
   const addSpell = addUsedSpell(selection);
   const removeSpell = removeUsedSpell(selection);
+  const cancelPreppedSpell = (e) => {
+    removeSpell(e);
+    renderConfirmation("cancelSpell");
+  };
   const usePreppedSpell = (e) => {
     addSpell(e);
     removeSpell(e);
@@ -57,7 +69,7 @@ export const CastingPreppedSpell = (props: {
       <button
         id="removePreppedSpell"
         className="confirmSpellButton"
-        onClick={removeSpell}
+        onClick={cancelPreppedSpell}
       >
         Cancel Prep
       </button>
