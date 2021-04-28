@@ -1,39 +1,38 @@
-import { useState } from "react";
-import "./EditSpellForm.css";
+import { ReactEventHandler, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import {
+  confirmationTypeState,
+  ConfirmationType,
+  selectionState,
+} from "../../../../recoilState";
+import { addSpellToServer } from "../../../../utilities/utilities";
+import "./AddSpellToCompendium.css";
 
-const emptySpell = {
-  name: "",
-  school: "",
-  subSchool: "",
-  descriptor: "",
-  level: "",
-  components: "",
-  castingTime: "",
-  range: "",
-  target: "",
-  effect: "",
-  area: "",
-  duration: "",
-  savingThrow: "",
-  spellResistance: "",
-  description: "",
-};
-const EditSpellForm = ({ spell = emptySpell, handleSubmit }) => {
-  const [name, setName] = useState(spell.name);
-  const [school, setSchool] = useState(spell.school);
-  const [subSchool, setSubschool] = useState(spell.subSchool);
-  const [descriptor, setDescriptor] = useState(spell.descriptor);
-  const [level, setLevel] = useState(spell.level);
-  const [components, setComponents] = useState(spell.components);
-  const [castingTime, setCastingTime] = useState(spell.castingTime);
-  const [range, setRange] = useState(spell.range);
-  const [target, setTarget] = useState(spell.target);
-  const [effect, setEffect] = useState(spell.effect);
-  const [area, setArea] = useState(spell.area);
-  const [duration, setDuration] = useState(spell.duration);
-  const [savingThrow, setSavingThrow] = useState(spell.savingThrow);
-  const [spellResistance, setSpellResistance] = useState(spell.spellResistance);
-  const [description, setDescription] = useState(spell.description);
+const AddSpellToCompendium = ({
+  allCompendiumUserIds,
+  setToggleAddNewSpell,
+}: {
+  allCompendiumUserIds: number[];
+  setToggleAddNewSpell: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const setSelection = useSetRecoilState(selectionState);
+  const [name, setName] = useState("");
+  const [school, setSchool] = useState("");
+  const [subSchool, setSubschool] = useState("");
+  const [descriptor, setDescriptor] = useState("");
+  const [level, setLevel] = useState("");
+  const [components, setComponents] = useState("");
+  const [castingTime, setCastingTime] = useState("");
+  const [range, setRange] = useState("");
+  const [target, setTarget] = useState("");
+  const [effect, setEffect] = useState("");
+  const [area, setArea] = useState("");
+  const [duration, setDuration] = useState("");
+  const [savingThrow, setSavingThrow] = useState("");
+  const [spellResistance, setSpellResistance] = useState("");
+  const [description, setDescription] = useState("");
+
   function handleChange(e) {
     switch (e.target.name) {
       case "name":
@@ -83,23 +82,68 @@ const EditSpellForm = ({ spell = emptySpell, handleSubmit }) => {
         break;
     }
   }
+
+  const emptyRequiredFieldClass = (state: string | null) => {
+    if (state === "") {
+      return "emptyWarn";
+    } else {
+      return "";
+    }
+  };
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = `${Math.max(...allCompendiumUserIds) + 1}`;
+    const notEmptyValues = [
+      name,
+      school,
+      subSchool,
+      descriptor,
+      level,
+      components,
+      castingTime,
+      range,
+      target,
+      effect,
+      area,
+      duration,
+      savingThrow,
+      spellResistance,
+      description,
+    ].filter((field) => field !== "");
+    const newSpell = { id, ...notEmptyValues };
+    console.log(newSpell);
+    addSpellToServer(newSpell);
+    setToggleAddNewSpell(false);
+    setSelection(newSpell);
+    renderConfirmation("addSpell");
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className="formItemsContainer addSpellForm">
+          <p className="requiredFieldIndicator">** required</p>
           <label>
-            <span className="inputKey">Name: </span>
+            <span className="inputKey">Name**: </span>
             <input
               type="text"
+              className={emptyRequiredFieldClass(name)}
               name="name"
               value={name}
               onChange={handleChange}
             />
           </label>
           <label>
-            <span className="inputKey">School: </span>
+            <span className="inputKey">School**: </span>
             <input
               type="text"
+              className={emptyRequiredFieldClass(school)}
               name="school"
               value={school}
               onChange={handleChange}
@@ -124,9 +168,10 @@ const EditSpellForm = ({ spell = emptySpell, handleSubmit }) => {
             />
           </label>
           <label>
-            <span className="inputKey">Level: </span>
+            <span className="inputKey">Level**: </span>
             <input
               type="text"
+              className={emptyRequiredFieldClass(level)}
               name="level"
               value={level}
               onChange={handleChange}
@@ -214,9 +259,10 @@ const EditSpellForm = ({ spell = emptySpell, handleSubmit }) => {
             />
           </label>
           <label>
-            <span className="inputKey">Description: </span>
+            <span className="inputKey">Description**: </span>
             <textarea
               name="description"
+              className={emptyRequiredFieldClass(description)}
               value={description}
               onChange={handleChange}
               rows="10"
@@ -236,4 +282,4 @@ const EditSpellForm = ({ spell = emptySpell, handleSubmit }) => {
   );
 };
 
-export default EditSpellForm;
+export default AddSpellToCompendium;

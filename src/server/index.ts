@@ -54,6 +54,12 @@ export function makeServer({ environment = "test" } = {}) {
         character.save();
         return { character };
       });
+      this.post("/spells", (schema, request) => {
+        const newSpell = schema.find("spell", "0");
+        newSpell.attrs = JSON.parse(request.requestBody);
+        newSpell.save();
+        return { newSpell };
+      });
     },
   });
 
@@ -73,6 +79,11 @@ declare global {
     namespace GetSpells {
       type Response = { spells: ISpell[] };
     }
+    namespace PostSpell {
+      type Request = ISpell;
+      type Response = { spell: ISpell };
+    }
+
     namespace GetItems {
       type Response = { items: IItem[] };
     }

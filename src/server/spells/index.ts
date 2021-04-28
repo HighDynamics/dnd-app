@@ -1,4 +1,6 @@
 const spellCompendium: ISpell[] = [
+  //Empty Spell
+  { id: "0", name: "", school: "", level: "", description: "" },
   //Acid Arrow
   {
     id: "srd15",

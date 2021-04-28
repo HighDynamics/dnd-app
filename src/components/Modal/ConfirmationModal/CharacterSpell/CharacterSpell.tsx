@@ -74,8 +74,8 @@ const AddInnateOrSpellbook = ({
 
 const CharacterSpell = ({ selection }: { selection: ISpell }) => {
   const character = useRecoilValue(characterState);
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
   const setModalType = useSetRecoilState(modalTypeState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
   const [innate, setInnate] = useState(false);
   const [spellbook, setSpellbook] = useState(false);
   const [sla, setSla] = useState(false);

@@ -78,6 +78,14 @@ const persistCharacter = (updatedCharacter: IServer.PutCharacter.Request) => {
     mutate("/api/characters", { characters: [updatedCharacter] });
   });
 };
+const addSpellToServer = (newSpell: IServer.PostSpell.Request) => {
+  fetch("/api/spells", {
+    method: "POST",
+    body: JSON.stringify(newSpell),
+  }).then(() => {
+    mutate("/api/spells", { spells: [newSpell] });
+  });
+};
 
 type ICompendiumObject = ISpell | IItem;
 type IRefObject = ISpellRef | IItemRef;
@@ -130,4 +138,5 @@ export {
   persistCharacter,
   getInfoById,
   getRefInfoByCompendiumObject,
+  addSpellToServer,
 };
