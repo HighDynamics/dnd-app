@@ -1,3 +1,7 @@
+.requiredFieldIndicator {
+  font-style: italic;
+  font-size: 12px;
+}
 .addSpellForm {
   display: flex;
   flex-direction: column;
@@ -7,6 +11,9 @@
   margin-left: 5px;
   display: inline-block;
   width: 130px;
+}
+.emptyWarn {
+  outline: 1px solid red;
 }
 .addSpellButton {
   margin-bottom: 5px;

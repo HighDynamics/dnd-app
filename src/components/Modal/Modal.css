@@ -16,7 +16,7 @@
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  color: black;
+  color: rgb(68, 33, 27);
 }
 .modal::-webkit-scrollbar {
   display: none;
