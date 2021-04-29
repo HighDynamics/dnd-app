@@ -1,4 +1,4 @@
-import { ReactEventHandler, useState } from "react";
+import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import {
   confirmationTypeState,

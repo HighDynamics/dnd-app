@@ -25,6 +25,17 @@ const CompendiumObject = ({
         return "(" + value + ")";
       case "descriptor":
         return "[" + value + "]";
+      case "range":
+        switch (true) {
+          case /^\s*close\s*$/i.test(value):
+            return "Close (25 ft. + 5 ft./2 levels)";
+          case /^\s*medium\s*$/i.test(value):
+            return "Medium (100 ft. + 10 ft./level)";
+          case /^\s*long\s*$/i.test(value):
+            return "Long (400 ft. + 40 ft./level)";
+          default:
+            return value;
+        }
       case "weight":
         return value + " lbs.";
       default:
