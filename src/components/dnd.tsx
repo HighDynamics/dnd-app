@@ -47,7 +47,9 @@ const App = () => {
           <Navbar.PrimaryNavbar />
           <Navbar.SecondaryNavbar />
         </div>
-        <MainDisplay />
+        <div id="mainWrapper">
+          <MainDisplay />
+        </div>
       </div>
     </>
   );
