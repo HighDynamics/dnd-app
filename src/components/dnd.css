@@ -1,7 +1,17 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 html body {
   overflow-y: hidden;
   overflow-x: hidden;
-  height: 90%;
+  height: 100vh;
 }
 body {
   position: relative;
@@ -49,6 +59,19 @@ body {
   min-height: 190px;
   height: 31.5vh;
 }
+
+#mainWrapper {
+  width: 100%;
+  overflow: auto;
+  height: 68.5vh;
+}
+
+#mainWrapper::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+}
+
 .rollUse {
   font-size: 0.8rem;
 }

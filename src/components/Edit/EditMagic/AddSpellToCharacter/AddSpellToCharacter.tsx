@@ -12,9 +12,13 @@ const AddSpellToCharacter = ({
   const setSelection = useSetRecoilState(selectionState);
   const [input, setInput] = useState("");
 
-  const getRequiredInfoFromUser = (e) => {
+  const getRequiredInfoFromUser: React.FormEventHandler<HTMLFormElement> = (
+    e
+  ) => {
     e.preventDefault();
-    const selected = compendiumSRDObjects.find((i) => i.id === input);
+
+    const selected = compendiumSRDObjects.find((i) => i.name === input);
+
     if (selected !== undefined) {
       setSelection(selected);
       setModalType("ConfirmationCharacterSpell");
@@ -23,20 +27,13 @@ const AddSpellToCharacter = ({
     }
   };
 
-  const getCompendiumOptions = () => {
-    const options = [];
-    compendiumSRDObjects.map((object) =>
-      options.push(
-        <option key={object.id} value={object.id}>
-          {object.name}
-        </option>
-      )
-    );
-    return options;
-  };
+  const getCompendiumOptions = () =>
+    compendiumSRDObjects.map((object) => (
+      <option key={object.id} value={object.name} />
+    ));
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
+  const handleChange: React.FormEventHandler<HTMLInputElement> = (e) => {
+    setInput(e.currentTarget.value);
   };
 
   return (

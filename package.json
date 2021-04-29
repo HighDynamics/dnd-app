@@ -16,6 +16,7 @@
     "swr": "^0.3.0"
   },
   "scripts": {
+    "mobile-url": "ifconfig | grep 192.168 | awk '{print \"http://\"$2\":3000\"}'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

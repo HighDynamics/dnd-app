@@ -33,52 +33,52 @@ const AddSpellToCompendium = ({
   const [spellResistance, setSpellResistance] = useState("");
   const [description, setDescription] = useState("");
 
-  function handleChange(e) {
-    switch (e.target.name) {
+  function handleChange(e: React.FormEvent<HTMLInputElement>) {
+    switch (e.currentTarget.name) {
       case "name":
-        setName(e.target.value);
+        setName(e.currentTarget.value);
         break;
       case "school":
-        setSchool(e.target.value);
+        setSchool(e.currentTarget.value);
         break;
       case "subSchool":
-        setSubschool(e.target.value);
+        setSubschool(e.currentTarget.value);
         break;
       case "descriptor":
-        setDescriptor(e.target.value);
+        setDescriptor(e.currentTarget.value);
         break;
       case "level":
-        setLevel(e.target.value);
+        setLevel(e.currentTarget.value);
         break;
       case "components":
-        setComponents(e.target.value);
+        setComponents(e.currentTarget.value);
         break;
       case "castingTime":
-        setCastingTime(e.target.value);
+        setCastingTime(e.currentTarget.value);
         break;
       case "range":
-        setRange(e.target.value);
+        setRange(e.currentTarget.value);
         break;
       case "target":
-        setTarget(e.target.value);
+        setTarget(e.currentTarget.value);
         break;
       case "effect":
-        setEffect(e.target.value);
+        setEffect(e.currentTarget.value);
         break;
       case "area":
-        setArea(e.target.value);
+        setArea(e.currentTarget.value);
         break;
       case "duration":
-        setDuration(e.target.value);
+        setDuration(e.currentTarget.value);
         break;
       case "savingThrow":
-        setSavingThrow(e.target.value);
+        setSavingThrow(e.currentTarget.value);
         break;
       case "spellResistance":
-        setSpellResistance(e.target.value);
+        setSpellResistance(e.currentTarget.value);
         break;
       case "description":
-        setDescription(e.target.value);
+        setDescription(e.currentTarget.value);
         break;
     }
   }
@@ -96,10 +96,10 @@ const AddSpellToCompendium = ({
     setTimeout(() => setConfirmationType("off"), 3000);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault();
-    const id = `${Math.max(...allCompendiumUserIds) + 1}`;
-    const notEmptyValues = [
+
+    const newSpell: IServer.PostSpell.Request = {
       name,
       school,
       subSchool,
@@ -115,9 +115,13 @@ const AddSpellToCompendium = ({
       savingThrow,
       spellResistance,
       description,
-    ].filter((field) => field !== "");
-    const newSpell = { id, ...notEmptyValues };
-    console.log(newSpell);
+    };
+
+    Object.entries(newSpell).forEach(([key, value]) => {
+      if (value !== "") return;
+      delete newSpell[key as keyof typeof newSpell];
+    });
+
     addSpellToServer(newSpell);
     setToggleAddNewSpell(false);
     setSelection(newSpell);

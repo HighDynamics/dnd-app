@@ -146,7 +146,7 @@ const MainDisplay = () => {
       <hr className="underNavbar" />
       {confirmationType !== "off" && <SubmitConfirm />}
       <div className="infoSheet">{infoSheet(modalType)}</div>
-      <div className="mainContent">
+      <div>
         {screenSwitch(mainContent)}
         <div className="bottomPadding"></div>
       </div>
