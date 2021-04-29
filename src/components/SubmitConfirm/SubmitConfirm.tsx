@@ -28,6 +28,8 @@ const SubmitConfirm = () => {
         return <>Skill was updated.</>;
       case "addSkill":
         return <>Skill was added.</>;
+      case "fullRest":
+        return <>Rested. Spell slots restored.</>;
       case "off":
         return null;
       default:

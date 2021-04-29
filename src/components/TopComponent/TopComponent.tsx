@@ -9,6 +9,7 @@ import {
   emptySpellsArray,
   characterState,
   damageState,
+  confirmationTypeState,
 } from "../../recoilState";
 import "./TopComponent.css";
 
@@ -28,11 +29,12 @@ const CharacterClasses = (props: {
 const TopComponent = () => {
   const character = useRecoilValue(characterState);
   const [toggle, setToggle] = useState(false);
+  const [damage, setDamage] = useRecoilState(damageState);
   const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);
   const setpreppedSpells = useSetRecoilState(preppedSpellsState);
   const setPreppedSpellsCast = useSetRecoilState(preppedSpellsCastState);
   const setSLAs = useSetRecoilState(slaState);
-  const [damage, setDamage] = useRecoilState(damageState);
+  const setConfirmationType = useSetRecoilState(confirmationTypeState);
   function getCareerLevel() {
     return character.class.reduce((s, c) => Number(s + c.level), 0);
   }
@@ -45,9 +47,17 @@ const TopComponent = () => {
   function healDamageOnRest() {
     setDamage(Math.max(0, damage - getCareerLevel()));
   }
+
+  const renderConfirmation = (confirmationType: ConfirmationType) => {
+    setConfirmationType(confirmationType);
+    setTimeout(() => setConfirmationType("off"), 3000);
+  };
+
   function fullRest() {
     resetAllSpells();
     healDamageOnRest();
+    setToggle(false);
+    renderConfirmation("fullRest");
   }
   const type = character.type.map((t) => <CharacterType key={t} value={t} />);
   const classList = character.class.map((c) => (

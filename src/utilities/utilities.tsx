@@ -91,14 +91,23 @@ type ICompendiumObject = ISpell | IItem;
 type IRefObject = ISpellRef | IItemRef;
 
 function displayCompendiumInfo(matchedObject: ICompendiumObject) {
-  const objectKeys = Object.keys(matchedObject) as Array<keyof ISpell>;
+  const objectKeys = Object.keys(matchedObject) as Array<
+    keyof ICompendiumObject
+  >;
+  const fromSRD = /^srd/.test(matchedObject.id);
   const compendiumObjectInfo = objectKeys.map((key) => {
     return (
-      <CompendiumObject
-        key={key}
-        property={key}
-        value={matchedObject[key] as string}
-      />
+      <>
+        <CompendiumObject
+          key={key}
+          from
+          property={key}
+          value={matchedObject[key] as string}
+        />
+        {fromSRD && (
+          <p className="srd">This information is published under the OGL.</p>
+        )}
+      </>
     );
   });
   return compendiumObjectInfo;

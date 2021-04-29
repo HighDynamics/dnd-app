@@ -111,6 +111,7 @@ export type ConfirmationType =
   | "cancelSpell"
   | "addSkill"
   | "updateSkill"
+  | "fullRest"
   | "off";
 
 export const confirmationTypeState = atom<ConfirmationType>({

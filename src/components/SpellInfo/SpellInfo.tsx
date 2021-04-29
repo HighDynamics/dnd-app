@@ -20,7 +20,6 @@ import {
   UsedPreppedSpell,
 } from "../Modal/AllSpellInfo/AllSpellInfo";
 import "./SpellInfo.css";
-import { useEffect } from "react";
 
 const SpellInfo = ({
   innate,
