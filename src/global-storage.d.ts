@@ -132,6 +132,7 @@ declare global {
   };
   type ISpell = {
     id: string;
+    isSrd: boolean;
     name: string;
     school: string;
     subSchool?: string;

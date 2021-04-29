@@ -90,6 +90,24 @@ const addSpellToServer = (newSpell: IServer.PostSpell.Request) => {
 type ICompendiumObject = ISpell | IItem;
 type IRefObject = ISpellRef | IItemRef;
 
+/**
+ * Come up with better names here...
+ *
+ * This is an example of how you might create a unique display name for various objects which have an srd and a user-submitted version.
+ */
+export function displayName(object: ICompendiumObject) {
+  return object.isSrd ? object.name : `User: ${object.name}`;
+}
+
+/** see comment above the function before this one. */
+export function idFromName(allObjects: ICompendiumObject[], chosen: string) {
+  const isUserSubmitted = chosen.startsWith("User: ");
+  const baseName = isUserSubmitted ? chosen.slice(6) : chosen;
+  return allObjects
+    .filter((x) => (isUserSubmitted ? !x.isSrd : x.isSrd))
+    .find((x) => x.name === baseName);
+}
+
 function displayCompendiumInfo(matchedObject: ICompendiumObject) {
   const objectKeys = Object.keys(matchedObject) as Array<keyof ISpell>;
   const compendiumObjectInfo = objectKeys.map((key) => {
