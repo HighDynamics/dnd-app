@@ -442,11 +442,12 @@ const Ig = {
   },
   spellcaster: true,
   magic: {
+    casterLevel: 22,
     type: {
       arcane: false,
       divine: true,
     },
-    slaRefs: [{ id: "srd33", level: 8, uses: 3, frequency: "day" }],
+    slaRefs: [{ id: "33", level: 8, uses: 3, frequency: "day" }],
     slas: {
       zero: "",
       one: [],
@@ -470,11 +471,11 @@ const Ig = {
       nine: [{ name: "Hold Monster, Mass", uses: 3, frequency: "day" }],
     },
     spellRefs: [
-      { id: "srd11", level: 0, innate: false },
-      { id: "srd93", level: 1, innate: false },
-      { id: "srd118", level: 3, innate: false },
-      { id: "srd43", level: 5, innate: false },
-      { id: "srd88", level: 5, innate: false },
+      { id: "11", level: 0, innate: false },
+      { id: "93", level: 1, innate: false },
+      { id: "118", level: 3, innate: false },
+      { id: "43", level: 5, innate: false },
+      { id: "88", level: 5, innate: false },
     ],
     spells: {
       zero: ["Know Direction"],

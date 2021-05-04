@@ -47,7 +47,7 @@ const CompendiumObject = ({
 
   return (
     <>
-      {property !== "id" && (
+      {property !== "id" && property !== "isSrd" && (
         <div className={"infoSheetContent " + property}>
           <span className="property">{formattedProperty}</span>
           <span className="value">{formattedValue}</span>

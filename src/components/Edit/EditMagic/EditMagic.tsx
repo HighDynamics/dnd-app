@@ -22,8 +22,8 @@ const EditMagic = () => {
   );
 
   //TODO: include user's added objects in future
-  const compendiumSRDObjects = spellsResponse?.spells.filter((object) =>
-    /^srd/.test(object.id)
+  const compendiumSRDObjects = spellsResponse?.spells.filter(
+    (object) => object.isSrd
   );
 
   const allCompendiumUserIds = spellsResponse?.spells

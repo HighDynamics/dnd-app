@@ -66,6 +66,7 @@ declare global {
     };
     spellcaster: boolean;
     magic: {
+      casterLevel: number;
       type: {
         arcane: boolean;
         divine: boolean;
@@ -124,6 +125,7 @@ declare global {
   };
   type IItem = {
     id: string;
+    isSrd: boolean;
     name: string;
     weight?: number;
     casterLevel?: number;
@@ -132,6 +134,7 @@ declare global {
   };
   type ISpell = {
     id: string;
+    isSrd: boolean;
     name: string;
     school: string;
     subSchool?: string;

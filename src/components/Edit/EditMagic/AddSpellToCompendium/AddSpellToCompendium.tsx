@@ -98,9 +98,9 @@ const AddSpellToCompendium = ({
 
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault();
-
     const newSpell: IServer.PostSpell.Request = {
-      name,
+      isSrd: false,
+      name: "U:" + name,
       school,
       subSchool,
       descriptor,

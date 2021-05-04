@@ -1,9 +1,8 @@
 const spellCompendium: ISpell[] = [
-  //Empty Spell
-  { id: "0", name: "", school: "", level: "", description: "" },
   //Acid Arrow
   {
-    id: "srd15",
+    id: "15",
+    isSrd: true,
     name: "Acid Arrow",
     school: "Conjuration",
     subSchool: "Creation",
@@ -21,7 +20,9 @@ const spellCompendium: ISpell[] = [
   },
   //Acid Fog
   {
-    id: "srd16",
+    id: "16",
+    isSrd: true,
+
     name: "Acid Fog",
     school: "Conjuration",
     subSchool: "Creation",
@@ -39,7 +40,9 @@ const spellCompendium: ISpell[] = [
   },
   //Acid Splash
   {
-    id: "srd9",
+    id: "9",
+    isSrd: true,
+
     name: "Acid Splash",
     school: "Conjuration",
     subSchool: "Creation",
@@ -57,7 +60,9 @@ const spellCompendium: ISpell[] = [
   },
   //Aid
   {
-    id: "srd17",
+    id: "17",
+    isSrd: true,
+
     name: "Aid",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -75,7 +80,9 @@ const spellCompendium: ISpell[] = [
   },
   //Air Walk
   {
-    id: "srd18",
+    id: "18",
+    isSrd: true,
+
     name: "Air Walk",
     school: "Transmutation",
     descriptor: "Air",
@@ -92,7 +99,9 @@ const spellCompendium: ISpell[] = [
   },
   //Alarm
   {
-    id: "srd19",
+    id: "19",
+    isSrd: true,
+
     name: "Alarm",
     school: "Abjuration",
     level: "Brd 1, Rgr 1, Sor/Wiz 1",
@@ -108,7 +117,9 @@ const spellCompendium: ISpell[] = [
   },
   //Align Weapon
   {
-    id: "srd20",
+    id: "20",
+    isSrd: true,
+
     name: "Align Weapon",
     school: "Transmutation",
     descriptor: "see text",
@@ -126,7 +137,9 @@ const spellCompendium: ISpell[] = [
   },
   //Alter Self
   {
-    id: "srd21",
+    id: "21",
+    isSrd: true,
+
     name: "Alter Self",
     school: "Transmutation",
     level: "Brd 2, Sor/Wiz 2",
@@ -140,7 +153,9 @@ const spellCompendium: ISpell[] = [
   },
   //Analyze Dweomer
   {
-    id: "srd22",
+    id: "22",
+    isSrd: true,
+
     name: "Analyze Dweomer",
     school: "Divination",
     level: "Brd 6, Sor/Wiz 6",
@@ -156,7 +171,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animal Growth
   {
-    id: "srd23",
+    id: "23",
+    isSrd: true,
+
     name: "Animal Growth",
     school: "Transmutation",
     level: "Drd 5, Rgr 4, Sor/Wiz 5",
@@ -173,7 +190,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animal Messenger
   {
-    id: "srd24",
+    id: "24",
+    isSrd: true,
+
     name: "Animal Messenger",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -192,7 +211,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animal Shapes
   {
-    id: "srd25",
+    id: "25",
+    isSrd: true,
+
     name: "Animal Shapes",
     school: "Transmutation",
     level: "Animal 7, Drd 8",
@@ -209,7 +230,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animal Trance
   {
-    id: "srd26",
+    id: "26",
+    isSrd: true,
+
     name: "Animal Trance",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -228,7 +251,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animate Dead
   {
-    id: "srd27",
+    id: "27",
+    isSrd: true,
+
     name: "Animate Dead",
     school: "Necromancy",
     descriptor: "Evil",
@@ -245,7 +270,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animate Objects
   {
-    id: "srd28",
+    id: "28",
+    isSrd: true,
+
     name: "Animate Objects",
     school: "Transmutation",
     level: "Brd 6, Chaos 6, Clr 6",
@@ -261,7 +288,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animate Plants
   {
-    id: "srd29",
+    id: "29",
+    isSrd: true,
+
     name: "Animate Plants",
     school: "Transmutation",
     level: "Drd 7, Plant 7",
@@ -278,7 +307,9 @@ const spellCompendium: ISpell[] = [
   },
   //Animate Rope
   {
-    id: "srd30",
+    id: "30",
+    isSrd: true,
+
     name: "Animate Rope",
     school: "Transmuation",
     level: "Brd 1, Sor/Wiz 1",
@@ -294,7 +325,9 @@ const spellCompendium: ISpell[] = [
   },
   //Antilife Shell
   {
-    id: "srd31",
+    id: "31",
+    isSrd: true,
+
     name: "Antilife Shell",
     school: "Abjuration",
     level: "Animal 6, Clr 6, Drd 6",
@@ -310,7 +343,9 @@ const spellCompendium: ISpell[] = [
   },
   //Antimagic Field
   {
-    id: "srd32",
+    id: "32",
+    isSrd: true,
+
     name: "Antimagic Field",
     school: "Abjuration",
     level: "Clr 8, Magic 6, Protection 6, Sor/Wiz 6",
@@ -326,7 +361,9 @@ const spellCompendium: ISpell[] = [
   },
   //Antipathy
   {
-    id: "srd33",
+    id: "33",
+    isSrd: true,
+
     name: "Antipathy",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -345,7 +382,9 @@ const spellCompendium: ISpell[] = [
   },
   //Antiplant Shell
   {
-    id: "srd34",
+    id: "34",
+    isSrd: true,
+
     name: "Antiplant Shell",
     school: "Abjuration",
     level: "Drd 4",
@@ -361,7 +400,9 @@ const spellCompendium: ISpell[] = [
   },
   //Arcane Eye
   {
-    id: "srd35",
+    id: "35",
+    isSrd: true,
+
     name: "Arcane Eye",
     school: "Divination",
     subSchool: "Scrying",
@@ -378,7 +419,9 @@ const spellCompendium: ISpell[] = [
   },
   //Arcane Lock
   {
-    id: "srd36",
+    id: "36",
+    isSrd: true,
+
     name: "Arcane Lock",
     school: "Abjuration",
     level: "Sor/Wiz 2",
@@ -395,7 +438,9 @@ const spellCompendium: ISpell[] = [
   },
   //Arcane Mark
   {
-    id: "srd2",
+    id: "2",
+    isSrd: true,
+
     name: "Arcane Mark",
     school: "Universal",
     level: "Sor/Wiz 0",
@@ -411,7 +456,9 @@ const spellCompendium: ISpell[] = [
   },
   //Arcane Sight
   {
-    id: "srd37",
+    id: "37",
+    isSrd: true,
+
     name: "Arcane Sight",
     school: "Divination",
     level: "Sor/Wiz 3",
@@ -425,7 +472,9 @@ const spellCompendium: ISpell[] = [
   },
   //Arcane Sight, Greater
   {
-    id: "srd38",
+    id: "38",
+    isSrd: true,
+
     name: "Arcane Sight, Greater",
     school: "Divination",
     level: "Sor/Wiz 7",
@@ -434,7 +483,9 @@ const spellCompendium: ISpell[] = [
   },
   //Astral Projection
   {
-    id: "srd39",
+    id: "39",
+    isSrd: true,
+
     name: "Astral Projection",
     school: "Necromancy",
     level: "Clr 9, Sor/Wiz 9, Travel 9",
@@ -451,7 +502,9 @@ const spellCompendium: ISpell[] = [
   },
   //Atonement
   {
-    id: "srd40",
+    id: "40",
+    isSrd: true,
+
     name: "Atonement",
     school: "Abjuration",
     level: "Crl 5, Drd 5",
@@ -467,7 +520,9 @@ const spellCompendium: ISpell[] = [
   },
   //Augury
   {
-    id: "srd41",
+    id: "41",
+    isSrd: true,
+
     name: "Augury",
     school: "Divination",
     level: "Clr 2",
@@ -481,7 +536,9 @@ const spellCompendium: ISpell[] = [
   },
   //Awaken
   {
-    id: "srd42",
+    id: "42",
+    isSrd: true,
+
     name: "Awaken",
     school: "Transmutation",
     level: "Drd 5",
@@ -497,7 +554,9 @@ const spellCompendium: ISpell[] = [
   },
   //Baleful Polymorph
   {
-    id: "srd43",
+    id: "43",
+    isSrd: true,
+
     name: "Baleful Polymorph",
     school: "Transmutation",
     level: "Drd 5, Sor/Wiz 5",
@@ -513,7 +572,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bane
   {
-    id: "srd44",
+    id: "44",
+    isSrd: true,
+
     name: "Bane",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -532,7 +593,9 @@ const spellCompendium: ISpell[] = [
   },
   //Banishment
   {
-    id: "srd45",
+    id: "45",
+    isSrd: true,
+
     name: "Banishment",
     school: "Abjuration",
     level: "Clr 6, Sor/Wiz 7",
@@ -549,7 +612,9 @@ const spellCompendium: ISpell[] = [
   },
   //Barkskin
   {
-    id: "srd46",
+    id: "46",
+    isSrd: true,
+
     name: "Barkskin",
     school: "Transmutation",
     level: "Drd 2, Rgr 2, Plant 2",
@@ -565,7 +630,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bear's Endurance
   {
-    id: "srd47",
+    id: "47",
+    isSrd: true,
+
     name: "Bear's Endurance",
     school: "Transmuation",
     level: "Clr 2, Drd 2, Rgr 2, Sor/Wiz 2",
@@ -581,7 +648,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bear's Endurance, Mass
   {
-    id: "srd48",
+    id: "48",
+    isSrd: true,
+
     name: "Bear's Endurance, Mass",
     school: "Transmutation",
     level: "Clr 6,Drd 6, Sor/Wiz 6",
@@ -592,7 +661,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bestow Curse
   {
-    id: "srd49",
+    id: "49",
+    isSrd: true,
+
     name: "Bestow Curse",
     school: "Necromancy",
     level: "Clr 3, Sor/Wiz 4",
@@ -608,7 +679,9 @@ const spellCompendium: ISpell[] = [
   },
   //Binding
   {
-    id: "srd50",
+    id: "50",
+    isSrd: true,
+
     name: "Binding",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -627,7 +700,9 @@ const spellCompendium: ISpell[] = [
   },
   //Black Tentacles
   {
-    id: "srd51",
+    id: "51",
+    isSrd: true,
+
     name: "Black Tentacles",
     school: "Conjuration",
     subSchool: "Creation",
@@ -644,7 +719,9 @@ const spellCompendium: ISpell[] = [
   },
   //Blade Barrier
   {
-    id: "srd52",
+    id: "52",
+    isSrd: true,
+
     name: "Blade Barrier",
     school: "Evocation",
     descriptor: "Force",
@@ -662,7 +739,9 @@ const spellCompendium: ISpell[] = [
   },
   //Blasphemy
   {
-    id: "srd53",
+    id: "53",
+    isSrd: true,
+
     name: "Blasphemy",
     school: "Evocation",
     descriptor: "Evil, Sonic",
@@ -679,7 +758,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bless
   {
-    id: "srd54",
+    id: "54",
+    isSrd: true,
+
     name: "Bless",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -698,7 +779,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bless Water
   {
-    id: "srd55",
+    id: "55",
+    isSrd: true,
+
     name: "Bless Water",
     school: "Transmutation",
     descriptor: "Good",
@@ -715,7 +798,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bless Weapon
   {
-    id: "srd56",
+    id: "56",
+    isSrd: true,
+
     name: "Bless Weapon",
     school: "Transmuation",
     level: "Pal 1",
@@ -731,7 +816,9 @@ const spellCompendium: ISpell[] = [
   },
   //Blight
   {
-    id: "srd57",
+    id: "57",
+    isSrd: true,
+
     name: "Blight",
     school: "Necromancy",
     level: "Drd 4, Sor/Wiz 5",
@@ -746,7 +833,9 @@ const spellCompendium: ISpell[] = [
   },
   //Blindness/Deafness
   {
-    id: "srd58",
+    id: "58",
+    isSrd: true,
+
     name: "Blindness/Deafness",
     school: "Necromancy",
     level: "Brd 2, Clr 3, Sor/Wiz 2",
@@ -762,7 +851,9 @@ const spellCompendium: ISpell[] = [
   },
   //Blink
   {
-    id: "srd59",
+    id: "59",
+    isSrd: true,
+
     name: "Blink",
     school: "Transmutation",
     level: "Brd 3, Sor/Wiz 3",
@@ -775,7 +866,9 @@ const spellCompendium: ISpell[] = [
   },
   //Blur
   {
-    id: "srd60",
+    id: "60",
+    isSrd: true,
+
     name: "Blur",
     school: "Illusion",
     subSchool: "Glamer",
@@ -792,7 +885,9 @@ const spellCompendium: ISpell[] = [
   },
   //Break Enchantment
   {
-    id: "srd61",
+    id: "61",
+    isSrd: true,
+
     name: "Break Enchantment",
     school: "Abjuration",
     level: "Brd 4, Clr 5, Luck 5, Pal 4, Sor/Wiz 5",
@@ -808,7 +903,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bull's Strength
   {
-    id: "srd62",
+    id: "62",
+    isSrd: true,
+
     name: "Bull's Strength",
     school: "Transmuation",
     level: "Clr 2, Drd 2, Pal 2, Sor/Wiz 2, Strength 2",
@@ -824,7 +921,9 @@ const spellCompendium: ISpell[] = [
   },
   //Bull's Strength, Mass
   {
-    id: "srd63",
+    id: "63",
+    isSrd: true,
+
     name: "Bull's Strength, Mass",
     school: "Transmutation",
     level: "Clr 6, Drd 6, Sor/Wiz 6",
@@ -834,7 +933,9 @@ const spellCompendium: ISpell[] = [
   },
   //Burning Hands
   {
-    id: "srd64",
+    id: "64",
+    isSrd: true,
+
     name: "Burning Hands",
     school: "Evocation",
     descriptor: "Fire",
@@ -851,7 +952,9 @@ const spellCompendium: ISpell[] = [
   },
   //Call Lightning
   {
-    id: "srd65",
+    id: "65",
+    isSrd: true,
+
     name: "Call Lightning",
     school: "Evocation",
     descriptor: "Electricity",
@@ -868,7 +971,9 @@ const spellCompendium: ISpell[] = [
   },
   //Call Lightning Storm
   {
-    id: "srd66",
+    id: "66",
+    isSrd: true,
+
     name: "Call Lightning Storm",
     school: "Evocation",
     descriptor: "Electricty",
@@ -879,7 +984,9 @@ const spellCompendium: ISpell[] = [
   },
   // Calm Animals
   {
-    id: "srd67",
+    id: "67",
+    isSrd: true,
+
     name: "Calm Animals",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -897,7 +1004,9 @@ const spellCompendium: ISpell[] = [
   },
   //Calm Emotions
   {
-    id: "srd68",
+    id: "68",
+    isSrd: true,
+
     name: "Calm Emotions",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -915,7 +1024,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cat's Grace
   {
-    id: "srd69",
+    id: "69",
+    isSrd: true,
+
     name: "Cat's Grace",
     school: "Transmuation",
     level: "Brd 2, Drd 2, Rgr 2, Sor/Wiz 2",
@@ -931,7 +1042,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cat's Grace, Mass
   {
-    id: "srd70",
+    id: "70",
+    isSrd: true,
+
     name: "Cat's Grace, Mass",
     school: "Transmutation",
     level: "Brd 6, Drd 6, Sor/Wiz 6",
@@ -942,7 +1055,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cause Fear
   {
-    id: "srd71",
+    id: "71",
+    isSrd: true,
+
     name: "Cause Fear",
     school: "Necromancy",
     descriptor: "Fear, Mind-Affecting",
@@ -959,7 +1074,9 @@ const spellCompendium: ISpell[] = [
   },
   //Chain Lighting
   {
-    id: "srd72",
+    id: "72",
+    isSrd: true,
+
     name: "Chain Lightning",
     school: "Evocation",
     descriptor: "Electricty",
@@ -977,7 +1094,9 @@ const spellCompendium: ISpell[] = [
   },
   //Changestaff
   {
-    id: "srd73",
+    id: "73",
+    isSrd: true,
+
     name: "Changestaff",
     school: "Transmuation",
     level: "Drd 7",
@@ -993,7 +1112,9 @@ const spellCompendium: ISpell[] = [
   },
   //Chaos Hammer
   {
-    id: "srd74",
+    id: "74",
+    isSrd: true,
+
     name: "Chaos Hammer",
     school: "Evocation",
     descriptor: "Chaotic",
@@ -1010,7 +1131,9 @@ const spellCompendium: ISpell[] = [
   },
   //Charm Animal
   {
-    id: "srd75",
+    id: "75",
+    isSrd: true,
+
     name: "Charm Animal",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1022,7 +1145,9 @@ const spellCompendium: ISpell[] = [
   },
   //Charm Monster
   {
-    id: "srd76",
+    id: "76",
+    isSrd: true,
+
     name: "Charm Monster",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1035,7 +1160,9 @@ const spellCompendium: ISpell[] = [
   },
   //Charm Monster, Mass
   {
-    id: "srd77",
+    id: "77",
+    isSrd: true,
+
     name: "Charm Monster, Mass",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1050,7 +1177,9 @@ const spellCompendium: ISpell[] = [
   },
   //Charm Person
   {
-    id: "srd78",
+    id: "78",
+    isSrd: true,
+
     name: "Charm Person",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1068,7 +1197,9 @@ const spellCompendium: ISpell[] = [
   },
   //Chill Metal
   {
-    id: "srd79",
+    id: "79",
+    isSrd: true,
+
     name: "Chill Metal",
     school: "Transmuation",
     descriptor: "Cold",
@@ -1086,7 +1217,9 @@ const spellCompendium: ISpell[] = [
   },
   //Chill touch
   {
-    id: "srd14",
+    id: "14",
+    isSrd: true,
+
     name: "Chill Touch",
     school: "Necromancy",
     level: "Sor/Wiz 1",
@@ -1102,7 +1235,9 @@ const spellCompendium: ISpell[] = [
   },
   //Circle of Death
   {
-    id: "srd80",
+    id: "80",
+    isSrd: true,
+
     name: "Circle of Death",
     school: "Necromancy",
     descriptor: "Death",
@@ -1119,7 +1254,9 @@ const spellCompendium: ISpell[] = [
   },
   //Clairaudience/Clairvoyance
   {
-    id: "srd81",
+    id: "81",
+    isSrd: true,
+
     name: "Clairaudience/Clairvoyance",
     school: "Divination",
     subSchool: "Scrying",
@@ -1136,7 +1273,9 @@ const spellCompendium: ISpell[] = [
   },
   //Clenched Fist
   {
-    id: "srd82",
+    id: "82",
+    isSrd: true,
+
     name: "Clenched Fist",
     school: "Evocation",
     descriptor: "Force",
@@ -1147,7 +1286,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cloak of Chaos
   {
-    id: "srd83",
+    id: "83",
+    isSrd: true,
+
     name: "Cloak of Chaos",
     school: "Abjuration",
     descriptor: "Chaotic",
@@ -1164,7 +1305,9 @@ const spellCompendium: ISpell[] = [
   },
   //Clone
   {
-    id: "srd84",
+    id: "84",
+    isSrd: true,
+
     name: "Clone",
     school: "Necromancy",
     level: "Sor/Wiz 8",
@@ -1180,7 +1323,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cloudkill
   {
-    id: "srd85",
+    id: "85",
+    isSrd: true,
+
     name: "Cloudkill",
     school: "Conjuration",
     subSchool: "Creation",
@@ -1197,7 +1342,9 @@ const spellCompendium: ISpell[] = [
   },
   //Color Spray
   {
-    id: "srd86",
+    id: "86",
+    isSrd: true,
+
     name: "Color Spray",
     school: "Illusion",
     subSchool: "Pattern",
@@ -1215,7 +1362,9 @@ const spellCompendium: ISpell[] = [
   },
   //Command
   {
-    id: "srd87",
+    id: "87",
+    isSrd: true,
+
     name: "Command",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1233,7 +1382,9 @@ const spellCompendium: ISpell[] = [
   },
   //Command, Greater
   {
-    id: "srd88",
+    id: "88",
+    isSrd: true,
+
     name: "Command, Greater",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1246,7 +1397,9 @@ const spellCompendium: ISpell[] = [
   },
   //Command Plants
   {
-    id: "srd89",
+    id: "89",
+    isSrd: true,
+
     name: "Command Plants",
     school: "Transmuation",
     level: "Drd 4, Plant 4, Rgr 3",
@@ -1263,7 +1416,9 @@ const spellCompendium: ISpell[] = [
   },
   //Command Undead
   {
-    id: "srd90",
+    id: "90",
+    isSrd: true,
+
     name: "Command Undead",
     school: "Necromancy",
     level: "Sor/Wiz 2",
@@ -1279,7 +1434,9 @@ const spellCompendium: ISpell[] = [
   },
   //Commune
   {
-    id: "srd91",
+    id: "91",
+    isSrd: true,
+
     name: "Commune",
     school: "Divination",
     level: "Clr 5",
@@ -1293,7 +1450,9 @@ const spellCompendium: ISpell[] = [
   },
   //Commune with Nature
   {
-    id: "srd92",
+    id: "92",
+    isSrd: true,
+
     name: "Commune with Nature",
     school: "Divination",
     level: "Animal 5, Drd 5, Rgr 4",
@@ -1307,7 +1466,9 @@ const spellCompendium: ISpell[] = [
   },
   //Comprehend Languages
   {
-    id: "srd93",
+    id: "93",
+    isSrd: true,
+
     name: "Comprehend Languages",
     school: "Divination",
     level: "Brd 1, Clr 1, Sor/Wiz 1",
@@ -1321,7 +1482,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cone of Cold
   {
-    id: "srd94",
+    id: "94",
+    isSrd: true,
+
     name: "Cone of Cold",
     school: "Evocation",
     descriptor: "Cold",
@@ -1338,7 +1501,9 @@ const spellCompendium: ISpell[] = [
   },
   //Confusion
   {
-    id: "srd95",
+    id: "95",
+    isSrd: true,
+
     name: "Confusion",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1356,7 +1521,9 @@ const spellCompendium: ISpell[] = [
   },
   //Confusion, Lesser
   {
-    id: "srd96",
+    id: "96",
+    isSrd: true,
+
     name: "Confusion, Lesser",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1371,7 +1538,9 @@ const spellCompendium: ISpell[] = [
   },
   //Consecrate
   {
-    id: "srd97",
+    id: "97",
+    isSrd: true,
+
     name: "Consecrate",
     school: "Evocation",
     descriptor: "Good",
@@ -1388,7 +1557,9 @@ const spellCompendium: ISpell[] = [
   },
   //Contact Other Plane
   {
-    id: "srd98",
+    id: "98",
+    isSrd: true,
+
     name: "Contact Other Plane",
     school: "Divination",
     level: "Sor/Wiz 5",
@@ -1398,11 +1569,13 @@ const spellCompendium: ISpell[] = [
     target: "You",
     duration: "Concentration",
     description:
-      "You send your mind to another plane of existence (an Elemental Plane or some plane farther removed) in order to receive advice and information from powers there. (See the accompanying table for possible consequences and results of the attempt.) The powers reply in a language you understand, but they resent such contact and give only brief answers to your questions. (All questions are answered with “yes,” “no,” “maybe,” “never,” “irrelevant,” or some other one-word answer.)\n\nYou must concentrate on maintaining the spell (a standard action) in order to ask questions at the rate of one per round. A question is answered by the power during the same round. For every two caster levels, you may ask one question.\n\nContact with minds far removed from your home plane increases the probability that you will incur a decrease to Intelligence and Charisma, but the chance of the power knowing the answer, as well as the probability of the entity answering correctly, are likewise increased by moving to distant planes.\n\nOnce the Outer Planes are reached, the power of the deity contacted determines the effects. (Random results obtained from the table are subject to the personalities of individual deities.)\n\nOn rare occasions, this divination may be blocked by an act of certain deities or forces.\n\nd% is rolled for the result shown on the table: http://www.d20srd.org/srd/spells/contactOtherPlane.htm",
+      "You send your mind to another plane of existence (an Elemental Plane or some plane farther removed) in order to receive advice and information from powers there. (See the accompanying table for possible consequences and results of the attempt.) The powers reply in a language you understand, but they resent such contact and give only brief answers to your questions. (All questions are answered with “yes,” “no,” “maybe,” “never,” “irrelevant,” or some other one-word answer.)\n\nYou must concentrate on maintaining the spell (a standard action) in order to ask questions at the rate of one per round. A question is answered by the power during the same round. For every two caster levels, you may ask one question.\n\nContact with minds far removed from your home plane increases the probability that you will incur a decrease to Intelligence and Charisma, but the chance of the power knowing the answer, as well as the probability of the entity answering correctly, are likewise increased by moving to distant planes.\n\nOnce the Outer Planes are reached, the power of the deity contacted determines the effects. (Random results obtained from the table are subject to the personalities of individual deities.)\n\nOn rare occasions, this divination may be blocked by an act of certain deities or forces.\n\nd% is rolled for the result shown on the table:",
   },
   //Contagion
   {
-    id: "srd99",
+    id: "99",
+    isSrd: true,
+
     name: "Contagion",
     school: "Necromancy",
     descriptor: "Evil",
@@ -1419,7 +1592,9 @@ const spellCompendium: ISpell[] = [
   },
   //Contingency
   {
-    id: "srd100",
+    id: "100",
+    isSrd: true,
+
     name: "Contingency",
     school: "Evocation",
     level: "Sor/Wiz 6",
@@ -1433,7 +1608,9 @@ const spellCompendium: ISpell[] = [
   },
   //Continual Flame
   {
-    id: "srd101",
+    id: "101",
+    isSrd: true,
+
     name: "Continual Flame",
     school: "Evocation",
     descriptor: "Light",
@@ -1451,7 +1628,9 @@ const spellCompendium: ISpell[] = [
   },
   //Control Plants
   {
-    id: "srd102",
+    id: "102",
+    isSrd: true,
+
     name: "Control Plants",
     school: "Transmuation",
     level: "Drd 8, Plant 8",
@@ -1468,7 +1647,9 @@ const spellCompendium: ISpell[] = [
   },
   //Control Undead
   {
-    id: "srd103",
+    id: "103",
+    isSrd: true,
+
     name: "Control Undead",
     school: "Necromancy",
     level: "Sor/Wiz 7",
@@ -1485,7 +1666,9 @@ const spellCompendium: ISpell[] = [
   },
   //Control Water
   {
-    id: "srd104",
+    id: "104",
+    isSrd: true,
+
     name: "Control Water",
     school: "Transmuation",
     descriptor: "Water",
@@ -1503,7 +1686,9 @@ const spellCompendium: ISpell[] = [
   },
   //Creeping Doom
   {
-    id: "srd105",
+    id: "105",
+    isSrd: true,
+
     name: "Creeping Doom",
     school: "Conjuration",
     subSchool: "Summoning",
@@ -1520,7 +1705,9 @@ const spellCompendium: ISpell[] = [
   },
   //Create Food and Water
   {
-    id: "srd118",
+    id: "118",
+    isSrd: true,
+
     name: "Create Food and Water",
     school: "Conjuration",
     subSchool: "Creation",
@@ -1538,7 +1725,9 @@ const spellCompendium: ISpell[] = [
   },
   //Crushing Despair
   {
-    id: "srd106",
+    id: "106",
+    isSrd: true,
+
     name: "Crushing Despair",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1556,7 +1745,9 @@ const spellCompendium: ISpell[] = [
   },
   //Crushing Hand
   {
-    id: "srd107",
+    id: "107",
+    isSrd: true,
+
     name: "Crushing Hand",
     school: "Evocation",
     descriptor: "Force",
@@ -1567,7 +1758,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Critical Wounds
   {
-    id: "srd108",
+    id: "108",
+    isSrd: true,
+
     name: "Cure Critical Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1577,7 +1770,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Critical Wounds, Mass
   {
-    id: "srd109",
+    id: "109",
+    isSrd: true,
+
     name: "Cure Critical Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1587,7 +1782,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Light Wounds
   {
-    id: "srd110",
+    id: "110",
+    isSrd: true,
+
     name: "Cure Light Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1604,7 +1801,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Light Wounds, Mass
   {
-    id: "srd111",
+    id: "111",
+    isSrd: true,
+
     name: "Cure Light Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1621,7 +1820,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Minor Wounds
   {
-    id: "srd112",
+    id: "112",
+    isSrd: true,
+
     name: "Cure Minor Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1631,7 +1832,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Moderate Wounds
   {
-    id: "srd113",
+    id: "113",
+    isSrd: true,
+
     name: "Cure Moderate Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1641,7 +1844,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Moderate Wounds, Mass
   {
-    id: "srd114",
+    id: "114",
+    isSrd: true,
+
     name: "Cure Moderate Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1651,7 +1856,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Serious Wounds
   {
-    id: "srd115",
+    id: "115",
+    isSrd: true,
+
     name: "Cure Serious Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1661,7 +1868,9 @@ const spellCompendium: ISpell[] = [
   },
   //Cure Serious Wounds, Mass
   {
-    id: "srd116",
+    id: "116",
+    isSrd: true,
+
     name: "Cure Serious Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1671,7 +1880,9 @@ const spellCompendium: ISpell[] = [
   },
   //Curse Water
   {
-    id: "srd117",
+    id: "117",
+    isSrd: true,
+
     name: "Curse Water",
     school: "Necromancy",
     descriptor: "Evil",
@@ -1687,7 +1898,9 @@ const spellCompendium: ISpell[] = [
       "This spell imbues a flask (1 pint) of water with negative energy, turning it into unholy water. Unholy water damages good outsiders the way holy water damages undead and evil outsiders.\n\nMaterial Component\n5 pounds of powdered silver (worth 25 gp).",
   },
   {
-    id: "srd118",
+    id: "118",
+    isSrd: true,
+
     name: "Dancing Lights",
     school: "Evocation",
     descriptor: "Light",
@@ -1704,7 +1917,9 @@ const spellCompendium: ISpell[] = [
   },
   //Detect magic
   {
-    id: "srd4",
+    id: "4",
+    isSrd: true,
+
     name: "Detect Magic",
     school: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1719,7 +1934,9 @@ const spellCompendium: ISpell[] = [
   },
   //Ghost Sound
   {
-    id: "srd3",
+    id: "3",
+    isSrd: true,
+
     name: "Ghost Sound",
     school: "Illusion (Figment)",
     level: "Bard 0, Sor/Wiz 0",
@@ -1735,7 +1952,9 @@ const spellCompendium: ISpell[] = [
   },
   //Know direction
   {
-    id: "srd11",
+    id: "11",
+    isSrd: true,
+
     name: "Know Direction",
     school: "Divination",
     level: "Brd 0, Drd 0",
@@ -1749,7 +1968,9 @@ const spellCompendium: ISpell[] = [
   },
   //Light
   {
-    id: "srd7",
+    id: "7",
+    isSrd: true,
+
     name: "Light",
     school: "Evocation [Light]",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1765,7 +1986,9 @@ const spellCompendium: ISpell[] = [
   },
   //Lullaby
   {
-    id: "srd10",
+    id: "10",
+    isSrd: true,
+
     name: "Lullaby",
     school: "Enchantement (Compulsion) [Mind-Affecting]",
     level: "Brd 0",
@@ -1781,7 +2004,9 @@ const spellCompendium: ISpell[] = [
   },
   //Mage Hand
   {
-    id: "srd5",
+    id: "5",
+    isSrd: true,
+
     name: "Mage Hand",
     school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
@@ -1797,7 +2022,9 @@ const spellCompendium: ISpell[] = [
   },
   //Mending
   {
-    id: "srd1",
+    id: "1",
+    isSrd: true,
+
     name: "Mending",
     school: "Transmutation",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1813,7 +2040,9 @@ const spellCompendium: ISpell[] = [
   },
   //Message
   {
-    id: "srd6",
+    id: "6",
+    isSrd: true,
+
     name: "Message",
     school: "Transmutation [Language-Dependent]",
     level: "Brd 0, Sor/Wiz 0",
@@ -1829,7 +2058,9 @@ const spellCompendium: ISpell[] = [
   },
   //Open/Close
   {
-    id: "srd12",
+    id: "12",
+    isSrd: true,
+
     name: "Open/Close",
     school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
@@ -1846,7 +2077,9 @@ const spellCompendium: ISpell[] = [
   },
   //Prestidigitation
   {
-    id: "srd13",
+    id: "13",
+    isSrd: true,
+
     name: "Prestidigitation",
     school: "Universal",
     level: "Brd 0, Sor/Wiz 0",
@@ -1862,7 +2095,9 @@ const spellCompendium: ISpell[] = [
   },
   //Read Magic
   {
-    id: "srd8",
+    id: "8",
+    isSrd: true,
+
     name: "Read Magic",
     school: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Pal 1, Rgr 1, Sor/Wiz 0",

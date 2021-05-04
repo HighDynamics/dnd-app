@@ -1,6 +1,7 @@
-const itemCompendium = [
+const itemCompendium: IItem[] = [
   {
     id: "1",
+    isSrd: false,
     name: "Nolzur's Orb",
     weight: 1,
     casterLevel: 15,

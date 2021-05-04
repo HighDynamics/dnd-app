@@ -17,7 +17,9 @@ const AddSpellToCharacter = ({
   ) => {
     e.preventDefault();
 
-    const selected = compendiumSRDObjects.find((i) => i.name === input);
+    const selected = compendiumSRDObjects.find(
+      (object) => object.name === input
+    );
 
     if (selected !== undefined) {
       setSelection(selected);
