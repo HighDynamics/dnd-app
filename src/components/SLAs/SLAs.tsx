@@ -73,7 +73,7 @@ const KnownSLAs = ({ slaRef }: { slaRef: ISLARef }) => {
 const SLACodeBlock = (props: {
   levelNum: number;
   character: ICharacter;
-  displaySLAs: (level: typeof numStrings[number]) => React.ReactNode;
+  displaySLAs: (level: number) => React.ReactNode;
   getDifficultyClass: (levelNum: number) => number;
 }) => {
   const { levelNum, displaySLAs, getDifficultyClass } = props;

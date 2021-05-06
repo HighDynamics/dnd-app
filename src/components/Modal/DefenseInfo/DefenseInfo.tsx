@@ -53,7 +53,7 @@ const FortitudeSaveItem = (props: { value: [string, number] }) => {
   );
 };
 
-const DefenseInfo = (props) => {
+const DefenseInfo = () => {
   const character = useRecoilValue(characterState);
   const setRoll = useSetRecoilState(diceRollState);
   const defense = character.defense;

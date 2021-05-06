@@ -94,19 +94,14 @@ function displayCompendiumInfo(matchedObject: ICompendiumObject) {
   const objectKeys = Object.keys(matchedObject) as Array<
     keyof ICompendiumObject
   >;
-  const fromSRD = /^srd/.test(matchedObject.id);
   const compendiumObjectInfo = objectKeys.map((key) => {
     return (
       <>
         <CompendiumObject
           key={key}
-          from
           property={key}
           value={matchedObject[key] as string}
         />
-        {fromSRD && (
-          <p className="srd">This information is published under the OGL.</p>
-        )}
       </>
     );
   });

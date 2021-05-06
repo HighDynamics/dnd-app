@@ -1,3 +1,4 @@
+import React, { ReactEventHandler } from "react";
 import { ConfirmationType } from "../../../recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 import "./AllSpellInfo.css";
@@ -47,12 +48,12 @@ export const CastingPreppedSpell = (props: {
     renderConfirmation,
   } = props;
   const addSpell = addUsedSpell(selection);
-  const removeSpell = removeUsedSpell(selection);
-  const cancelPreppedSpell = (e) => {
+  const removeSpell = removeUsedSpell(selection, "prep");
+  const cancelPreppedSpell = (e: React.DOMAttributes<HTMLButtonElement>) => {
     removeSpell(e);
     renderConfirmation("cancelSpell");
   };
-  const usePreppedSpell = (e) => {
+  const usePreppedSpell = (e: React.DOMAttributes<HTMLButtonElement>) => {
     addSpell(e);
     removeSpell(e);
   };

@@ -33,7 +33,7 @@ const AddSla = ({
         min="0"
         max="9"
         value={slaLevel}
-        onChange={(e) => setSlaLevel(e.target.value)}
+        onChange={(e) => setSlaLevel(e.currentTarget.value)}
       />
       <br />
       Uses per day{" "}
@@ -41,7 +41,7 @@ const AddSla = ({
         type="number"
         className="numberInput twoDigit"
         value={usesPerDay}
-        onChange={(e) => setUsesPerDay(e.target.value)}
+        onChange={(e) => setUsesPerDay(e.currentTarget.value)}
       />
     </>
   );
@@ -66,7 +66,7 @@ const AddInnateOrSpellbook = ({
         min="0"
         max="9"
         value={spellLevel}
-        onChange={(e) => setSpellLevel(e.target.value)}
+        onChange={(e) => setSpellLevel(e.currentTarget.value)}
       />
     </>
   );

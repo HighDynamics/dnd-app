@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { ReactEventHandler, useState } from "react";
 import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 
 import {
@@ -32,8 +32,8 @@ const ClassFormParent = ({ character }: { character: ICharacter }) => {
   const handleChange = (
     setterFunction: (value: any) => void,
     index: number
-  ): React.ChangeEventHandler => (e) => {
-    const value = e.target.value;
+  ): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+    const value = e.currentTarget.value;
     switch (e.target.name) {
       case "classTitle":
         setterFunction(value);
@@ -49,7 +49,7 @@ const ClassFormParent = ({ character }: { character: ICharacter }) => {
     setUpdatedCharacter(editedCharacter);
   };
 
-  const handleNewClass: React.MouseEventHandler = (e) => {
+  const handleNewClass: React.MouseEventHandler = () => {
     editedCharacter.class.push({ name: "", level: 0 });
     setUpdatedCharacter(editedCharacter);
   };
@@ -90,8 +90,8 @@ const TypesFormParent = ({ character }: { character: ICharacter }) => {
   const handleChange = (
     setterFunction: (value: string) => void,
     index: number
-  ): React.ChangeEventHandler => (e) => {
-    const value = e.target.value;
+  ): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+    const value = e.currentTarget.value;
     setterFunction(value);
     editedCharacter.type[index] = value;
     setUpdatedCharacter(editedCharacter);
@@ -158,11 +158,14 @@ const AbilityScoreFormParent = ({ character }: { character: ICharacter }) => {
     }
   );
 
-  function handleChange(e: React.ChangeEvent) {
-    setPrimaryModifier(e.target.value);
-    editedCharacter.abilities.primary = e.target.value;
+  function handleChange(
+    e: React.SelectHTMLAttributes<HTMLSelectElement>
+  ): void {
+    setPrimaryModifier(e.currentTarget.value);
+    editedCharacter.abilities.primary = e.currentTarget.value;
     setUpdatedCharacter(editedCharacter);
   }
+
   return (
     <fieldset className="formItemsContainer">
       <legend className="legendHeader">Ability Scores</legend>
@@ -216,12 +219,13 @@ const SavesFormParent = ({ character }: { character: ICharacter }) => {
   const editedCharacter = clone(updatedCharacter);
   const fieldPath = editedCharacter.defense.saves;
   const handleChange = (
-    setterFunction:
-      | ((value: string | null) => void)
-      | ((value: number | null) => void),
+    setterFunction: ((value: string) => void) | ((value: number) => void),
     fieldParent: keyof ICharacter["defense"]["saves"]
-  ): React.ChangeEventHandler => (e) => {
-    const value = e.target.value;
+  ): React.ChangeEventHandler<HTMLInputElement> => (e) => {
+    const value: string | number = e.currentTarget.value;
+    if (value === null) {
+      throw new Error("Something Went Wrong");
+    }
     setterFunction(value);
     switch (e.target.name) {
       case "base":
@@ -301,7 +305,7 @@ const DefenseFormParent = () => {
   const fieldPath = editedCharacter.defense;
 
   const handleChange: React.ChangeEventHandler = (e) => {
-    const value = e.target.value;
+    const value = e.currentTarget.value;
     const field = e.target.name;
     const type = e.target.type;
 

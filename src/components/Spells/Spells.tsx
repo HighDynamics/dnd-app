@@ -21,7 +21,7 @@ const PreppedSpellCast = (props: { value: ISpell }) => {
   const setSelection = useSetRecoilState(selectionState);
   const formattedSpellName = spell.name.replace(/\W/g, "");
   const buttonAndSpellClass = "spellButtons disabled " + formattedSpellName;
-  function displayInfo(spell: string) {
+  function displayInfo(spell: ISpell) {
     setModalType("UsedPrepped");
     setSelection(spell);
   }
@@ -127,7 +127,8 @@ const KnownSpells = ({
   innate,
 }: {
   character: ICharacter;
-  level: keyof ICharacter["magic"]["spellRefs"];
+  level: number;
+  innate: boolean;
 }) => {
   const innateSpells = character.magic.spellRefs.filter(
     (sr: ISpellRef) => sr.innate === true

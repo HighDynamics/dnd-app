@@ -23,7 +23,7 @@ export function totalSpells(
   primaryModifier: number,
   level: string,
   levelNum: number
-) {
+): number {
   function bonusSpellsPerDay(levelNum: number) {
     return Math.ceil((primaryModifier - (levelNum - 1)) / 4);
   }
@@ -109,7 +109,7 @@ const LoadApp = () => {
         setUpdatedCharacter(getDefaultOrById(character?.id));
       }
     },
-    [charactersResponse, setCharacter, setUpdatedCharacter]
+    [charactersResponse, setCharacter, setUpdatedCharacter, character?.id]
   );
 
   useEffect(
@@ -122,8 +122,8 @@ const LoadApp = () => {
           (spell: ISLARef) => spell.id
         );
         const characterAllSpellRefs = characterSpellRefs.reduce(
-          (acc, current, index) => {
-            return [...acc, current, characterSlaRefs[index]].filter(
+          (previousValue, current, index) => {
+            return [...previousValue, current, characterSlaRefs[index]].filter(
               (ref) => ref !== undefined
             );
           },

@@ -20,8 +20,8 @@ const ArmorClassForm = (props: {
   const fieldName = camelCaseToTitleCase(field);
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e: React.ChangeEvent) {
-    setFieldValue(e.target.value);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setFieldValue(Number(e.target.value));
     editedCharacter.armorClass[field] = Number(e.target.value);
 
     setUpdatedCharacter(editedCharacter);

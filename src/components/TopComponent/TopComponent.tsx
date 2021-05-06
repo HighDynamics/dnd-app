@@ -10,6 +10,7 @@ import {
   characterState,
   damageState,
   confirmationTypeState,
+  ConfirmationType,
 } from "../../recoilState";
 import "./TopComponent.css";
 

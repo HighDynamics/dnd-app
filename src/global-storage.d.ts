@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import characters from "./server/characters";
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 declare global {
   type ICharacter = {
     id: string;
@@ -74,16 +74,7 @@ declare global {
       slaRefs: ISLARef[];
       spellRefs: ISpellRef[];
       spellsPerDay: {
-        zero: number;
-        one: number;
-        two: number;
-        three: number;
-        four: number;
-        five: number;
-        six: number;
-        seven: number;
-        eight: number;
-        nine: number;
+        [level: string]: number;
       };
     };
     itemRefs: IItemRef[];

@@ -15,7 +15,6 @@ import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
 import EditSkills from "../Edit/EditSkills/EditSkills";
 import EditAbilities from "../Edit/EditAbilities/EditAbilities";
-import EditSpellForm from "../Edit/EditMagic/AddSpellToCompendium/AddSpellToCompendium";
 import EditSLAs from "../Edit/EditMagic/EditSLAs/EditSLAs";
 import EditAttacks from "../Edit/EditAttacks/EditAttacks";
 import EditMagic from "../Edit/EditMagic/EditMagic";

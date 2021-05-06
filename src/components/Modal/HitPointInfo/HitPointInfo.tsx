@@ -20,7 +20,7 @@ const HitPointInfo = () => {
     currentHP,
     character.hitPoints.total
   );
-  function handleDamageChange(e: React.ChangeEvent) {
+  function handleDamageChange(e: React.ChangeEvent<HTMLInputElement>) {
     setDamageInput(Number(e.target.value));
   }
   // By the way: here is a great opportunity for a higher order function
@@ -30,7 +30,7 @@ const HitPointInfo = () => {
       : setDamage(Math.max(0, damage - damageInput));
     setDamageInput(0);
   }
-  function handleTempHPChange(e: React.ChangeEvent) {
+  function handleTempHPChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTempHPInput(Number(e.target.value));
   }
   function handleTempHPSubmit(addOrSubtract: "add" | "subtract") {

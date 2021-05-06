@@ -16,7 +16,10 @@ const ChangeCharacter = () => {
   function handleNewCharacter() {
     setMainContent("EditCore");
   }
-  function setCharacterById(id: string): ICharacter {
+  function setCharacterById(id: string): void {
+    if (charactersResponse === undefined) {
+      throw new Error("Character not found");
+    }
     let selectedCharacter: ICharacter = character;
     for (const char of charactersResponse?.characters) {
       if (char.id === id) {

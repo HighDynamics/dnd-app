@@ -1,4 +1,4 @@
-const AbilityInfo = (props) => {
+const AbilityInfo = () => {
   return <></>;
 };
 export default AbilityInfo;

@@ -12,7 +12,7 @@ const ArmorClassItem = (props: { value: [string, number] }) => {
     </li>
   );
 };
-const ArmorClassInfo = (props) => {
+const ArmorClassInfo = () => {
   const character = useRecoilValue(characterState);
   const currentAC = getAC(character);
   const armorClassItems = Object.entries(

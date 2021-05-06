@@ -20,30 +20,28 @@ const AbilityScoreForm = ({
   );
   const editedCharacter = clone(updatedCharacter);
 
-  function handleChange(e: React.ChangeEvent) {
-    setFieldValue(e.target.value);
-    if (e.target.value > 0) {
-      editedCharacter.abilities.score[field] = Number(e.target.value);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setFieldValue(Number(e.currentTarget.value));
+    if (Number(e.currentTarget.value) > 0) {
+      editedCharacter.abilities.score[field] = Number(e.currentTarget.value);
     } else {
       editedCharacter.abilities.score[field] = null;
     }
     setUpdatedCharacter(editedCharacter);
   }
   return (
-    <>
-      <div className="abilityScoreFormItem">
-        <label>
-          {fieldName}:{" "}
-          <input
-            type="number"
-            name={field}
-            value={fieldValue}
-            className="numberInput twoDigit abilityScoreFormItemNumber"
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-    </>
+    <div className="abilityScoreFormItem">
+      <label>
+        {fieldName}:{" "}
+        <input
+          type="number"
+          name={field}
+          value={fieldValue}
+          className="numberInput twoDigit abilityScoreFormItemNumber"
+          onChange={handleChange}
+        />
+      </label>
+    </div>
   );
 };
 
