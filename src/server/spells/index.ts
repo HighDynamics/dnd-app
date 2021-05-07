@@ -22,7 +22,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "16",
     isSrd: true,
-
     name: "Acid Fog",
     school: "Conjuration",
     subSchool: "Creation",
@@ -42,7 +41,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "9",
     isSrd: true,
-
     name: "Acid Splash",
     school: "Conjuration",
     subSchool: "Creation",
@@ -62,7 +60,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "17",
     isSrd: true,
-
     name: "Aid",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -82,7 +79,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "18",
     isSrd: true,
-
     name: "Air Walk",
     school: "Transmutation",
     descriptor: "Air",
@@ -101,7 +97,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "19",
     isSrd: true,
-
     name: "Alarm",
     school: "Abjuration",
     level: "Brd 1, Rgr 1, Sor/Wiz 1",
@@ -119,7 +114,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "20",
     isSrd: true,
-
     name: "Align Weapon",
     school: "Transmutation",
     descriptor: "see text",
@@ -139,7 +133,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "21",
     isSrd: true,
-
     name: "Alter Self",
     school: "Transmutation",
     level: "Brd 2, Sor/Wiz 2",
@@ -155,7 +148,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "22",
     isSrd: true,
-
     name: "Analyze Dweomer",
     school: "Divination",
     level: "Brd 6, Sor/Wiz 6",
@@ -173,7 +165,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "23",
     isSrd: true,
-
     name: "Animal Growth",
     school: "Transmutation",
     level: "Drd 5, Rgr 4, Sor/Wiz 5",
@@ -192,12 +183,10 @@ const spellCompendium: ISpell[] = [
   {
     id: "24",
     isSrd: true,
-
     name: "Animal Messenger",
     school: "Enchantment",
     subSchool: "Compulsion",
     descriptor: "Mind-Affecting",
-
     level: "Brd 2, Drd 2, Rgr 1",
     components: "V, S, M",
     castingTime: "1 standard action",
@@ -213,7 +202,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "25",
     isSrd: true,
-
     name: "Animal Shapes",
     school: "Transmutation",
     level: "Animal 7, Drd 8",
@@ -232,12 +220,10 @@ const spellCompendium: ISpell[] = [
   {
     id: "26",
     isSrd: true,
-
     name: "Animal Trance",
     school: "Enchantment",
     subSchool: "Compulsion",
     descriptor: "Mind-Affecting, Sonic",
-
     level: "Brd 2, Drd 2",
     components: "V, S",
     castingTime: "1 standard action",
@@ -253,7 +239,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "27",
     isSrd: true,
-
     name: "Animate Dead",
     school: "Necromancy",
     descriptor: "Evil",
@@ -272,7 +257,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "28",
     isSrd: true,
-
     name: "Animate Objects",
     school: "Transmutation",
     level: "Brd 6, Chaos 6, Clr 6",
@@ -290,7 +274,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "29",
     isSrd: true,
-
     name: "Animate Plants",
     school: "Transmutation",
     level: "Drd 7, Plant 7",
@@ -309,7 +292,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "30",
     isSrd: true,
-
     name: "Animate Rope",
     school: "Transmuation",
     level: "Brd 1, Sor/Wiz 1",
@@ -327,7 +309,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "31",
     isSrd: true,
-
     name: "Antilife Shell",
     school: "Abjuration",
     level: "Animal 6, Clr 6, Drd 6",
@@ -345,7 +326,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "32",
     isSrd: true,
-
     name: "Antimagic Field",
     school: "Abjuration",
     level: "Clr 8, Magic 6, Protection 6, Sor/Wiz 6",
@@ -363,12 +343,10 @@ const spellCompendium: ISpell[] = [
   {
     id: "33",
     isSrd: true,
-
     name: "Antipathy",
     school: "Enchantment",
     subSchool: "Compulsion",
     descriptor: "Mind-Affecting",
-
     level: "Drd 9, Sor/Wiz 8",
     components: "V, S, M/DF",
     castingTime: "1 hour",
@@ -384,7 +362,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "34",
     isSrd: true,
-
     name: "Antiplant Shell",
     school: "Abjuration",
     level: "Drd 4",
@@ -402,7 +379,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "35",
     isSrd: true,
-
     name: "Arcane Eye",
     school: "Divination",
     subSchool: "Scrying",
@@ -421,7 +397,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "36",
     isSrd: true,
-
     name: "Arcane Lock",
     school: "Abjuration",
     level: "Sor/Wiz 2",
@@ -440,7 +415,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "2",
     isSrd: true,
-
     name: "Arcane Mark",
     school: "Universal",
     level: "Sor/Wiz 0",
@@ -458,7 +432,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "37",
     isSrd: true,
-
     name: "Arcane Sight",
     school: "Divination",
     level: "Sor/Wiz 3",
@@ -474,7 +447,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "38",
     isSrd: true,
-
     name: "Arcane Sight, Greater",
     school: "Divination",
     level: "Sor/Wiz 7",
@@ -485,7 +457,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "39",
     isSrd: true,
-
     name: "Astral Projection",
     school: "Necromancy",
     level: "Clr 9, Sor/Wiz 9, Travel 9",
@@ -504,7 +475,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "40",
     isSrd: true,
-
     name: "Atonement",
     school: "Abjuration",
     level: "Crl 5, Drd 5",
@@ -522,7 +492,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "41",
     isSrd: true,
-
     name: "Augury",
     school: "Divination",
     level: "Clr 2",
@@ -538,7 +507,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "42",
     isSrd: true,
-
     name: "Awaken",
     school: "Transmutation",
     level: "Drd 5",
@@ -556,7 +524,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "43",
     isSrd: true,
-
     name: "Baleful Polymorph",
     school: "Transmutation",
     level: "Drd 5, Sor/Wiz 5",
@@ -574,12 +541,10 @@ const spellCompendium: ISpell[] = [
   {
     id: "44",
     isSrd: true,
-
     name: "Bane",
     school: "Enchantment",
     subSchool: "Compulsion",
     descriptor: "Fear, Mind-Affecting",
-
     level: "Clr 1",
     components: "V, S, DF",
     castingTime: "1 standard action",
@@ -595,7 +560,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "45",
     isSrd: true,
-
     name: "Banishment",
     school: "Abjuration",
     level: "Clr 6, Sor/Wiz 7",
@@ -614,7 +578,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "46",
     isSrd: true,
-
     name: "Barkskin",
     school: "Transmutation",
     level: "Drd 2, Rgr 2, Plant 2",
@@ -632,7 +595,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "47",
     isSrd: true,
-
     name: "Bear's Endurance",
     school: "Transmuation",
     level: "Clr 2, Drd 2, Rgr 2, Sor/Wiz 2",
@@ -650,7 +612,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "48",
     isSrd: true,
-
     name: "Bear's Endurance, Mass",
     school: "Transmutation",
     level: "Clr 6,Drd 6, Sor/Wiz 6",
@@ -663,7 +624,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "49",
     isSrd: true,
-
     name: "Bestow Curse",
     school: "Necromancy",
     level: "Clr 3, Sor/Wiz 4",
@@ -681,12 +641,10 @@ const spellCompendium: ISpell[] = [
   {
     id: "50",
     isSrd: true,
-
     name: "Binding",
     school: "Enchantment",
     subSchool: "Compulsion",
     descriptor: "Mind-Affecting",
-
     level: "Sor/Wiz 8",
     components: "V, S, M",
     castingTime: "One minute",
@@ -702,7 +660,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "51",
     isSrd: true,
-
     name: "Black Tentacles",
     school: "Conjuration",
     subSchool: "Creation",
@@ -721,7 +678,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "52",
     isSrd: true,
-
     name: "Blade Barrier",
     school: "Evocation",
     descriptor: "Force",
@@ -741,7 +697,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "53",
     isSrd: true,
-
     name: "Blasphemy",
     school: "Evocation",
     descriptor: "Evil, Sonic",
@@ -760,7 +715,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "54",
     isSrd: true,
-
     name: "Bless",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -781,7 +735,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "55",
     isSrd: true,
-
     name: "Bless Water",
     school: "Transmutation",
     descriptor: "Good",
@@ -800,7 +753,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "56",
     isSrd: true,
-
     name: "Bless Weapon",
     school: "Transmuation",
     level: "Pal 1",
@@ -818,7 +770,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "57",
     isSrd: true,
-
     name: "Blight",
     school: "Necromancy",
     level: "Drd 4, Sor/Wiz 5",
@@ -835,7 +786,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "58",
     isSrd: true,
-
     name: "Blindness/Deafness",
     school: "Necromancy",
     level: "Brd 2, Clr 3, Sor/Wiz 2",
@@ -853,7 +803,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "59",
     isSrd: true,
-
     name: "Blink",
     school: "Transmutation",
     level: "Brd 3, Sor/Wiz 3",
@@ -868,7 +817,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "60",
     isSrd: true,
-
     name: "Blur",
     school: "Illusion",
     subSchool: "Glamer",
@@ -887,7 +835,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "61",
     isSrd: true,
-
     name: "Break Enchantment",
     school: "Abjuration",
     level: "Brd 4, Clr 5, Luck 5, Pal 4, Sor/Wiz 5",
@@ -905,7 +852,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "62",
     isSrd: true,
-
     name: "Bull's Strength",
     school: "Transmuation",
     level: "Clr 2, Drd 2, Pal 2, Sor/Wiz 2, Strength 2",
@@ -923,7 +869,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "63",
     isSrd: true,
-
     name: "Bull's Strength, Mass",
     school: "Transmutation",
     level: "Clr 6, Drd 6, Sor/Wiz 6",
@@ -935,7 +880,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "64",
     isSrd: true,
-
     name: "Burning Hands",
     school: "Evocation",
     descriptor: "Fire",
@@ -954,7 +898,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "65",
     isSrd: true,
-
     name: "Call Lightning",
     school: "Evocation",
     descriptor: "Electricity",
@@ -973,7 +916,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "66",
     isSrd: true,
-
     name: "Call Lightning Storm",
     school: "Evocation",
     descriptor: "Electricty",
@@ -986,7 +928,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "67",
     isSrd: true,
-
     name: "Calm Animals",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1006,7 +947,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "68",
     isSrd: true,
-
     name: "Calm Emotions",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1026,7 +966,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "69",
     isSrd: true,
-
     name: "Cat's Grace",
     school: "Transmuation",
     level: "Brd 2, Drd 2, Rgr 2, Sor/Wiz 2",
@@ -1044,7 +983,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "70",
     isSrd: true,
-
     name: "Cat's Grace, Mass",
     school: "Transmutation",
     level: "Brd 6, Drd 6, Sor/Wiz 6",
@@ -1057,7 +995,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "71",
     isSrd: true,
-
     name: "Cause Fear",
     school: "Necromancy",
     descriptor: "Fear, Mind-Affecting",
@@ -1076,7 +1013,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "72",
     isSrd: true,
-
     name: "Chain Lightning",
     school: "Evocation",
     descriptor: "Electricty",
@@ -1096,7 +1032,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "73",
     isSrd: true,
-
     name: "Changestaff",
     school: "Transmuation",
     level: "Drd 7",
@@ -1114,7 +1049,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "74",
     isSrd: true,
-
     name: "Chaos Hammer",
     school: "Evocation",
     descriptor: "Chaotic",
@@ -1133,7 +1067,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "75",
     isSrd: true,
-
     name: "Charm Animal",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1147,7 +1080,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "76",
     isSrd: true,
-
     name: "Charm Monster",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1162,7 +1094,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "77",
     isSrd: true,
-
     name: "Charm Monster, Mass",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1179,7 +1110,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "78",
     isSrd: true,
-
     name: "Charm Person",
     school: "Enchantment",
     subSchool: "Charm",
@@ -1199,7 +1129,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "79",
     isSrd: true,
-
     name: "Chill Metal",
     school: "Transmuation",
     descriptor: "Cold",
@@ -1219,7 +1148,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "14",
     isSrd: true,
-
     name: "Chill Touch",
     school: "Necromancy",
     level: "Sor/Wiz 1",
@@ -1237,7 +1165,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "80",
     isSrd: true,
-
     name: "Circle of Death",
     school: "Necromancy",
     descriptor: "Death",
@@ -1256,7 +1183,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "81",
     isSrd: true,
-
     name: "Clairaudience/Clairvoyance",
     school: "Divination",
     subSchool: "Scrying",
@@ -1275,7 +1201,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "82",
     isSrd: true,
-
     name: "Clenched Fist",
     school: "Evocation",
     descriptor: "Force",
@@ -1288,7 +1213,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "83",
     isSrd: true,
-
     name: "Cloak of Chaos",
     school: "Abjuration",
     descriptor: "Chaotic",
@@ -1307,7 +1231,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "84",
     isSrd: true,
-
     name: "Clone",
     school: "Necromancy",
     level: "Sor/Wiz 8",
@@ -1325,7 +1248,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "85",
     isSrd: true,
-
     name: "Cloudkill",
     school: "Conjuration",
     subSchool: "Creation",
@@ -1344,7 +1266,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "86",
     isSrd: true,
-
     name: "Color Spray",
     school: "Illusion",
     subSchool: "Pattern",
@@ -1364,7 +1285,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "87",
     isSrd: true,
-
     name: "Command",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1384,7 +1304,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "88",
     isSrd: true,
-
     name: "Command, Greater",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1399,7 +1318,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "89",
     isSrd: true,
-
     name: "Command Plants",
     school: "Transmuation",
     level: "Drd 4, Plant 4, Rgr 3",
@@ -1418,7 +1336,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "90",
     isSrd: true,
-
     name: "Command Undead",
     school: "Necromancy",
     level: "Sor/Wiz 2",
@@ -1436,7 +1353,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "91",
     isSrd: true,
-
     name: "Commune",
     school: "Divination",
     level: "Clr 5",
@@ -1452,7 +1368,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "92",
     isSrd: true,
-
     name: "Commune with Nature",
     school: "Divination",
     level: "Animal 5, Drd 5, Rgr 4",
@@ -1468,7 +1383,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "93",
     isSrd: true,
-
     name: "Comprehend Languages",
     school: "Divination",
     level: "Brd 1, Clr 1, Sor/Wiz 1",
@@ -1484,7 +1398,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "94",
     isSrd: true,
-
     name: "Cone of Cold",
     school: "Evocation",
     descriptor: "Cold",
@@ -1503,7 +1416,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "95",
     isSrd: true,
-
     name: "Confusion",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1523,7 +1435,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "96",
     isSrd: true,
-
     name: "Confusion, Lesser",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1540,7 +1451,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "97",
     isSrd: true,
-
     name: "Consecrate",
     school: "Evocation",
     descriptor: "Good",
@@ -1559,7 +1469,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "98",
     isSrd: true,
-
     name: "Contact Other Plane",
     school: "Divination",
     level: "Sor/Wiz 5",
@@ -1575,7 +1484,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "99",
     isSrd: true,
-
     name: "Contagion",
     school: "Necromancy",
     descriptor: "Evil",
@@ -1594,7 +1502,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "100",
     isSrd: true,
-
     name: "Contingency",
     school: "Evocation",
     level: "Sor/Wiz 6",
@@ -1610,7 +1517,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "101",
     isSrd: true,
-
     name: "Continual Flame",
     school: "Evocation",
     descriptor: "Light",
@@ -1630,7 +1536,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "102",
     isSrd: true,
-
     name: "Control Plants",
     school: "Transmuation",
     level: "Drd 8, Plant 8",
@@ -1649,7 +1554,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "103",
     isSrd: true,
-
     name: "Control Undead",
     school: "Necromancy",
     level: "Sor/Wiz 7",
@@ -1668,7 +1572,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "104",
     isSrd: true,
-
     name: "Control Water",
     school: "Transmuation",
     descriptor: "Water",
@@ -1688,7 +1591,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "105",
     isSrd: true,
-
     name: "Creeping Doom",
     school: "Conjuration",
     subSchool: "Summoning",
@@ -1707,7 +1609,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "118",
     isSrd: true,
-
     name: "Create Food and Water",
     school: "Conjuration",
     subSchool: "Creation",
@@ -1727,7 +1628,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "106",
     isSrd: true,
-
     name: "Crushing Despair",
     school: "Enchantment",
     subSchool: "Compulsion",
@@ -1747,7 +1647,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "107",
     isSrd: true,
-
     name: "Crushing Hand",
     school: "Evocation",
     descriptor: "Force",
@@ -1760,7 +1659,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "108",
     isSrd: true,
-
     name: "Cure Critical Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1772,7 +1670,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "109",
     isSrd: true,
-
     name: "Cure Critical Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1784,7 +1681,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "110",
     isSrd: true,
-
     name: "Cure Light Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1803,7 +1699,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "111",
     isSrd: true,
-
     name: "Cure Light Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1822,7 +1717,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "112",
     isSrd: true,
-
     name: "Cure Minor Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1834,7 +1728,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "113",
     isSrd: true,
-
     name: "Cure Moderate Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1846,7 +1739,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "114",
     isSrd: true,
-
     name: "Cure Moderate Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1858,7 +1750,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "115",
     isSrd: true,
-
     name: "Cure Serious Wounds",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1870,7 +1761,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "116",
     isSrd: true,
-
     name: "Cure Serious Wounds, Mass",
     school: "Conjuration",
     subSchool: "Healing",
@@ -1882,7 +1772,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "117",
     isSrd: true,
-
     name: "Curse Water",
     school: "Necromancy",
     descriptor: "Evil",
@@ -1900,7 +1789,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "118",
     isSrd: true,
-
     name: "Dancing Lights",
     school: "Evocation",
     descriptor: "Light",
@@ -1915,11 +1803,81 @@ const spellCompendium: ISpell[] = [
     description:
       "Depending on the version selected, you create up to four lights that resemble lanterns or torches (and cast that amount of light), or up to four glowing spheres of light (which look like will-o’-wisps), or one faintly glowing, vaguely humanoid shape. The dancing lights must stay within a 10-foot-radius area in relation to each other but otherwise move as you desire (no concentration required): forward or back, up or down, straight or turning corners, or the like. The lights can move up to 100 feet per round. A light winks out if the distance between you and it exceeds the spell’s range.\n\nDancing lights can be made permanent with a permanency spell.",
   },
-  //Detect magic
+  //Darkness
+  {
+    id: "119",
+    isSrd: true,
+    name: "Darkness",
+    school: "Evocation",
+    descriptor: "Darkness",
+    level: "Brd 2, Clr 2, Sor/Wiz 2",
+    components: "V, M/DF",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Object touched",
+    duration: "10 min./level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "This spell causes an object to radiate shadowy illumination out to a 20-foot radius. All creatures in the area gain concealment (20% miss chance). Even creatures that can normally see in such conditions (such as with darkvision or low-light vision) have the miss chance in an area shrouded in magical darkness.\nNormal lights (torches, candles, lanterns, and so forth) are incapable of brightening the area, as are light spells of lower level. Higher level light spells are not affected by darkness.\nIf darkness is cast on a small object that is then placed inside or under a lightproof covering, the spell’s effect is blocked until the covering is removed.\nDarkness counters or dispels any light spell of equal or lower spell level.\nArcane Material Component\nA bit of bat fur and either a drop of pitch or a piece of coal.",
+  },
+  //Darkvision
+  {
+    id: "120",
+    isSrd: true,
+    name: "Darkvision",
+    school: "Transmutation",
+    level: "Rgr 3, Sor/Wiz 2",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature Touched",
+    duration: "1 hour/level",
+    savingThrow: "Will negates (harmless)",
+    spellResistance: "Yes (harmless)",
+    description:
+      "The subject gains the ability to see 60 feet even in total darkness. Darkvision is black and white only but otherwise like normal sight. Darkvision does not grant one the ability to see in magical darkness.\nDarkvision can be made permanent with a permanency spell.\nMaterial Component\nEither a pinch of dried carrot or an agate.",
+  },
+  //Daylight
+  {
+    id: "121",
+    isSrd: true,
+    name: "Daylight",
+    school: "Evocation",
+    level: "Light",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Object Touched",
+    duration: "10 min./level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "The object touched sheds light as bright as full daylight in a 60-foot radius, and dim light for an additional 60 feet beyond that. Creatures that take penalties in bright light also take them while within the radius of this magical light. Despite its name, this spell is not the equivalent of daylight for the purposes of creatures that are damaged or destroyed by bright light.\nIf daylight is cast on a small object that is then placed inside or under a light-proof covering, the spell’s effects are blocked until the covering is removed.\nDaylight brought into an area of magical darkness (or vice versa) is temporarily negated, so that the otherwise prevailing light conditions exist in the overlapping areas of effect.\nDaylight counters or dispels any darkness spell of equal or lower level, such as darkness.",
+  },
+  //Daze
+  {
+    id: "124",
+    isSrd: true,
+    name: "Daze",
+    school: "Enchantment",
+    subSchool: "Compulsion",
+    descriptor: "Mind-Affecting",
+    level: "Brd 0, Sor/Wiz 0",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "One humanoid creature of 4 HD or less",
+    duration: "1 round",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "This enchantment clouds the mind of a humanoid creature with 4 or fewer Hit Dice so that it takes no actions. Humanoids of 5 or more HD are not affected. A dazed subject is not stunned, so attackers get no special advantage against it.\nMaterial Component\nA pinch of wool or similar substance.",
+  },
+  //Detect Magic
   {
     id: "4",
     isSrd: true,
-
     name: "Detect Magic",
     school: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1932,11 +1890,62 @@ const spellCompendium: ISpell[] = [
     description:
       "You detect magical auras. The amount of information revealed depends on how long you study a particular area or subject.\n\n1st Round: Presence or absence of magical auras.\n\n2nd Round: Number of different magical auras and the power of the most potent aura.\n\n3rd Round: The strength and location of each aura. If the items or creatures bearing the auras are in line of sight, you can make Spellcraft skill checks to determine the school of magic involved in each. (Make one check per aura; DC 15 + spell level, or 15 + half caster level for a nonspell effect).\n\nMagical areas, multiple types of magic, or strong local magical emanations may distort or conceal weaker auras.\n\nAura Strength: An aura's power depends on a spell's functioning spell level or an item's caster level. If an aura falls into more than one category, detect magic indicates the stronger of the two.\n\nLingering Aura: A magical aura lingers after its original source dissipates (in the case of a spell) or is destroyed (in the case of a magic item). If detect magic is cast and directed at such a location, the spell indicates an aura strength of dim (even weaker than a faint aura). How long the aura lingers at this dim level depends on its original power\n\nOutsiders and elementals are not magical in themselves, but if they are summoned, the conjuration spell registers.\n\nEach round, you can turn to detect magic in a new area. The spell can penetrate barriers, but 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt blocks it.\n\nDetect magic can be made permanent with a permanency spell.",
   },
+  //Detect Poison
+  {
+    id: "123",
+    isSrd: true,
+    name: "Detect Poison",
+    school: "Divination",
+    level: "Clr 0, Drd 0, Pal 1, Rgr 1, Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "One creature, one object, or a 5-ft. cube",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You determine whether a creature, object, or area has been poisoned or is poisonous. You can determine the exact type of poison with a DC 20 Wisdom check. A character with the Craft (alchemy) skill may try a DC 20 Craft (alchemy) check if the Wisdom check fails, or may try the Craft (alchemy) check prior to the Wisdom check.\nThe spell can penetrate barriers, but 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt blocks it.",
+  },
+  //Disrupt Undead
+  {
+    id: "127",
+    isSrd: true,
+    name: "Disrupt Undead",
+    school: "Necromancy",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    effect: "Ray",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "Yes",
+    description:
+      "You direct a ray of positive energy. You must make a ranged touch attack to hit, and if the ray hits an undead creature, it deals 1d6 points of damage to it.",
+  },
+  //Flare
+  {
+    id: "125",
+    isSrd: true,
+    name: "Flare",
+    school: "Evocation",
+    descriptor: "Light",
+    level: "Brd 0, Drd 0, Sor/Wiz 0",
+    components: "V",
+    castingTime: "1 standard action",
+    range: "Close",
+    effect: "Burst of light",
+    duration: "Instantaneous",
+    savingThrow: "Fortitude negates",
+    spellResistance: "Yes",
+    description:
+      "This cantrip creates a burst of light. If you cause the light to burst directly in front of a single creature, that creature is dazzled for 1 minute unless it makes a successful Fortitude save. Sightless creatures, as well as creatures already dazzled, are not affected by flare.",
+  },
   //Ghost Sound
   {
     id: "3",
     isSrd: true,
-
     name: "Ghost Sound",
     school: "Illusion (Figment)",
     level: "Bard 0, Sor/Wiz 0",
@@ -1954,7 +1963,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "11",
     isSrd: true,
-
     name: "Know Direction",
     school: "Divination",
     level: "Brd 0, Drd 0",
@@ -1970,7 +1978,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "7",
     isSrd: true,
-
     name: "Light",
     school: "Evocation [Light]",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1988,7 +1995,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "10",
     isSrd: true,
-
     name: "Lullaby",
     school: "Enchantement (Compulsion) [Mind-Affecting]",
     level: "Brd 0",
@@ -2006,7 +2012,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "5",
     isSrd: true,
-
     name: "Mage Hand",
     school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
@@ -2024,7 +2029,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "1",
     isSrd: true,
-
     name: "Mending",
     school: "Transmutation",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -2042,7 +2046,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "6",
     isSrd: true,
-
     name: "Message",
     school: "Transmutation [Language-Dependent]",
     level: "Brd 0, Sor/Wiz 0",
@@ -2060,7 +2063,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "12",
     isSrd: true,
-
     name: "Open/Close",
     school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
@@ -2079,7 +2081,6 @@ const spellCompendium: ISpell[] = [
   {
     id: "13",
     isSrd: true,
-
     name: "Prestidigitation",
     school: "Universal",
     level: "Brd 0, Sor/Wiz 0",
@@ -2093,11 +2094,28 @@ const spellCompendium: ISpell[] = [
     description:
       "Prestidigitations are minor tricks that novice spellcasters use for practice.\nOnce cast, a prestidigitation spell enables you to perform simple magical effects for 1 hour.\nThe effects are minor and have severe limitations.\nA prestidigitation can slowly lift 1 pound of material.\nIt can color, clean, or soil items in a 1-foot cube each round.\nIt can chill, warm, or flavor 1 pound of nonliving material.\nIt cannot deal damage or affect the concentration of spellcasters.\nPrestidigitation can create small objects, but they look crude and artificial.\nThe materials created by a prestidigitation spell are extremely fragile, and they cannot be used as tools, weapons, or spell components.\nFinally, a prestidigitation lacks the power to duplicate any other spell effects.\nAny actual change to an object (beyond just moving, cleaning, or soiling it) persists only 1 hour.\nCharacters typically use prestidigitation spells to impress common folk, amuse children, and brighten dreary lives.\nCommon tricks with prestidigitations include producing tinklings of ethereal music, brightening faded flowers, creating glowing balls that float over your hand, generating puffs of wind to flicker candles, spicing up aromas and flavors of bland food, and making little whirlwinds to sweep dust under rugs.",
   },
+  //Ray of Frost
+  {
+    id: "126",
+    isSrd: true,
+    name: "Ray of Frost",
+    school: "Evocation",
+    descriptor: "Cold",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    effect: "Ray",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "A ray of freezing air and ice projects from your pointing finger. You must succeed on a ranged touch attack with the ray to deal damage to a target. The ray deals 1d3 points of cold damage.",
+  },
   //Read Magic
   {
     id: "8",
     isSrd: true,
-
     name: "Read Magic",
     school: "Divination",
     level: "Brd 0, Clr 0, Drd 0, Pal 1, Rgr 1, Sor/Wiz 0",
@@ -2108,6 +2126,40 @@ const spellCompendium: ISpell[] = [
     duration: "10 min./level",
     description:
       "By means of read magic, you can decipher magical inscriptions on objects—books, scrolls, weapons, and the like—that would otherwise be unintelligible.\n\nThis deciphering does not normally invoke the magic contained in the writing, although it may do so in the case of a cursed scroll.\n\nFurthermore, once the spell is cast and you have read the magical inscription, you are thereafter able to read that particular writing without recourse to the use of read magic.\n\nYou can read at the rate of one page (250 words) per minute.\n\nThe spell allows you to identify a glyph of warding with a DC 13 Spellcraft check, a greater glyph of warding with a DC 16 Spellcraft check, or any symbol spell with a Spellcraft check (DC 10 + spell level).\n\nRead magic can be made permanent with a permanency spell.\n\nFocus: A clear crystal or mineral prism.",
+  },
+  //Resistance
+  {
+    id: "122",
+    isSrd: true,
+    name: "Resistance",
+    school: "Abjuration",
+    level: "Brd 0, Clr 0, Drd 0, Pal 1, Sor/Wiz 0",
+    components: "V, S, M/DF",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature Touched",
+    duration: "1 minute",
+    savingThrow: "Will negates (harmless)",
+    spellResistance: "Yes (harmless)",
+    description:
+      "You imbue the subject with magical energy that protects it from harm, granting it a +1 resistance bonus on saves.\nResistance can be made permanent with a permanency spell.\nArcane Material Component\nA miniature cloak.",
+  },
+  //Touch of Fatigue
+  {
+    id: "128",
+    isSrd: true,
+    name: "Touch of Fatigue",
+    school: "Necromancy",
+    level: "Sor/Wiz 0",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature Touched",
+    duration: "1 round/level",
+    savingThrow: "Fortitude negates",
+    spellResistance: "Yes",
+    description:
+      "You channel negative energy through your touch, fatiguing the target. You must succeed on a touch attack to strike a target.\nThe subject is immediately fatigued for the spell’s duration.\nThis spell has no effect on a creature that is already fatigued. Unlike with normal fatigue, the effect ends as soon as the spell’s duration expires.\nMaterial Component\nA drop of sweat.",
   },
 ];
 export default spellCompendium;
