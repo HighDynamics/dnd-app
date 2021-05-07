@@ -25,11 +25,11 @@ const EditMagic = () => {
   const compendiumSRDObjects = spellsResponse?.spells.filter(
     (object) => object.isSrd
   );
-
+  /* USE THIS FOR USER ADDED SPELLS
   const allCompendiumUserIds = spellsResponse?.spells
     .filter((object) => /^\d+/.test(object.id))
     .map((object) => object.id);
-
+*/
   const renderConfirmation = (confirmationType: ConfirmationType) => {
     setConfirmationType(confirmationType);
     setTimeout(() => setConfirmationType("off"), 3000);
@@ -54,7 +54,6 @@ const EditMagic = () => {
       </button>
       {toggleAddNewSpell && (
         <AddSpellToCompendium
-          allCompendiumUserIds={allCompendiumUserIds}
           setToggleAddNewSpell={setToggleAddNewSpell}
           renderConfirmation={renderConfirmation}
         />
