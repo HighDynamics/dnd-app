@@ -9,7 +9,6 @@ import { addSpellToServer } from "../../../../utilities/utilities";
 import "./AddSpellToCompendium.css";
 
 const AddSpellToCompendium = ({
-  allCompendiumUserIds,
   setToggleAddNewSpell,
 }: {
   allCompendiumUserIds: number[];
