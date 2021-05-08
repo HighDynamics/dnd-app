@@ -144,6 +144,23 @@ const spellCompendium: ISpell[] = [
     description:
       "You assume the form of a creature of the same type as your normal form. The new form must be within one size category of your normal size. The maximum HD of an assumed form is equal to your caster level, to a maximum of 5 HD at 5th level. You can change into a member of your own kind or even into yourself.\n\nYou retain your own ability scores. Your class and level, hit points, alignment, base attack bonus, and base save bonuses all remain the same. You retain all supernatural and spell-like special attacks and qualities of your normal form, except for those requiring a body part that the new form does not have (such as a mouth for a breath weapon or eyes for a gaze attack).\n\nYou keep all extraordinary special attacks and qualities derived from class levels, but you lose any from your normal form that are not derived from class levels.\n\nIf the new form is capable of speech, you can communicate normally. You retain any spellcasting ability you had in your original form, but the new form must be able to speak intelligibly (that is, speak a language) to use verbal components and must have limbs capable of fine manipulation to use somatic or material components.\n\nYou acquire the physical qualities of the new form while retaining your own mind. Physical qualities include natural size, mundane movement capabilities (such as burrowing, climbing, walking, swimming, and flight with wings, to a maximum speed of 120 feet for flying or 60 feet for nonflying movement), natural armor bonus, natural weapons (such as claws, bite, and so on), racial skill bonuses, racial bonus feats, and any gross physical qualities (presence or absence of wings, number of extremities, and so forth). A body with extra limbs does not allow you to make more attacks (or more advantageous two-weapon attacks) than normal.\n\nYou do not gain any extraordinary special attacks or special qualities not noted above under physical qualities, such as darkvision, low-light vision, blindsense, blindsight, fast healing, regeneration, scent, and so forth.\n\nYou do not gain any supernatural special attacks, special qualities, or spell-like abilities of the new form. Your creature type and subtype (if any) remain the same regardless of your new form. You cannot take the form of any creature with a template, even if that template doesn’t change the creature type or subtype.\n\nYou can freely designate the new form’s minor physical qualities (such as hair color, hair texture, and skin color) within the normal ranges for a creature of that kind. The new form’s significant physical qualities (such as height, weight, and gender) are also under your control, but they must fall within the norms for the new form’s kind. You are effectively disguised as an average member of the new form’s race. If you use this spell to create a disguise, you get a +10 bonus on your Disguise check.\n\nWhen the change occurs, your equipment, if any, either remains worn or held by the new form (if it is capable of wearing or holding the item), or melds into the new form and becomes nonfunctional. When you revert to your true form, any objects previously melded into the new form reappear in the same location on your body they previously occupied and are once again functional. Any new items you wore in the assumed form and can’t wear in your normal form fall off and land at your feet; any that you could wear in either form or carry in a body part common to both forms at the time of reversion are still held in the same way. Any part of the body or piece of equipment that is separated from the whole reverts to its true form.",
   },
+  //Amanuensis
+  {
+    id: "129",
+    isSrd: false,
+    name: "U:Amanuensis",
+    school: "Transmutation",
+    level: "Clr 0, Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "Object or objects with writing",
+    duration: "10 minutes/level",
+    savingThrow: "Will negates (object)",
+    spellResistance: "Yes (object)",
+    description:
+      "You point at the writing and then move your hand as though holding a stylus or quill. As you intone the spell, the script appears on a sheet of paper close at hand.\nYou cause writing from one source (such as a book) to be copied into a book, paper, or parchment. This spell copies 250 words per minute and creates a perfect duplicate of the original. The spell copies only nonmagical text, not illustrations or magical writings (such as the text of a spellbook, a spell scroll, or a sepia snake sigil). If the target contains normal and magical writing (such as a letter with explosive runes), only the normal text is copied, leaving blank space in the copied text where the magical writing would be expected. Likewise, if the target contains text and illustration, only the text is copied.\nThe spell triggers (but does not copy) writing-based magic traps in the material being copied.\nBlank paper, parchment, or a book must be provided for the spell to write upon. If the target has multiple pages, the spell automatically turns to the next blank page whenever necessary. If more pages in the target exist than blank pages are available, the spell copies the original until it runs out of blank pages. At any time during the spell's duration you can redirect the magic to copy from another target, copy onto a different blank source, or resume a duplication that was interrupted by a shortfall of blank pages.\nThe spell does not translate the copied writing. If you do not understand the original, you have no additional ability to understand the copy.",
+  },
   //Analyze Dweomer
   {
     id: "22",
@@ -961,6 +978,42 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes",
     description:
       "This spell calms agitated creatures. You have no control over the affected creatures, but calm emotions can stop raging creatures from fighting or joyous ones from reveling. Creatures so affected cannot take violent actions (although they can defend themselves) or do anything destructive. Any aggressive action against or damage dealt to a calmed creature immediately breaks the spell on all calmed creatures.\n\nThis spell automatically suppresses (but does not dispel) any morale bonuses granted by spells such as bless, good hope, and rage, as well as negating a bard’s ability to inspire courage or a barbarian’s rage ability. It also suppresses any fear effects and removes the confused condition from all targets. While the spell lasts, a suppressed spell or effect has no effect. When the calm emotions spell ends, the original spell or effect takes hold of the creature again, provided that its duration has not expired in the meantime.",
+  },
+  //Caltrops
+  {
+    id: "130",
+    isSrd: false,
+    name: "U:Caltrops",
+    school: "Conjuration",
+    subSchool: "Creation",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    area: "See text",
+    duration: "1 round/level",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You speak the words and spread your palm open, as if you were throwing jacks. Coppery sparks spring from your palm, filling the corridor with small four-pronged spikes.\n\nA caltrops spell covers one 5-foot-by-5-foor square with caltrops. Every time a creature moves into an area covered by caltrops or spends a round fighting while standing in such an area, it might step on one. The caltrops make one attack roll (+0 melee) against the creature. For this attack, the target 's shield and deflection bonuses do not count, nor does its armor bonus for armor worn. A target wearing shoes or other footwear gains a +2 armor bonus to Armor Class (which does count). If the caltrops succeed on the attack, the creature has stepped on one.\nA successful attack by a caltrop deals 1 point of damage. If the target is Small, Medium, or Large, its land speed is reduced by one half because of the injury. This movement penalty lasts for 24 hours, until the creature is successfully treated with a DC 15 Heal check, or until it receives at least 1 point of magical healing. A charging or running creature must immediately stop if it steps on a caltrop. Any creature moving at half speed or slower can pick its way through a bed of caltrops with no trouble.\nThe DM judges the effectiveness of caltrops against unusual opponents or opponents outside the size range given above. A giant centipede, for example, can scramble among the caltrops with no chance of hurting itself, and a fire giant wearing thick, massive boots might be immune to their attacks.\nFor every two caster levels beyond 1st, you can affect an additional 5-foot-by-5-foot square, and the caltrops' attack bonus increases by 1. Thus, you affect two squares at 3rd level (+1 melee), three at 5th level (+2 melee), four at 7th level (+3 melee), and a maximum of five at 9th level or higher (+4 melee maximum).\nMultiple caltrops spells (or mundane caltrops) occupying the same space have no additional effect.",
+  },
+  //Candlelight
+  {
+    id: "131",
+    isSrd: false,
+    name: "U:Candlelight",
+    school: "Evocation",
+    descriptor: "Light",
+    level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
+    components: "V, M, DF",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Object touched",
+    duration: "1 hour/level",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You cause an object to glow like a candle, shedding light in a 5-foot radius from the point you touch.\nThe effect is immobile, but it can be cast on a movable object if desired.\nThe light produced by this cantrip is not strong enough to counter or dispel any magical darkness.\nInvented by the elves for use in nighttime ceremonies, candlelight has made its way into common usage.\nIt is particularly useful to novices and apprentices who need to spend long hours in study.\n\nArcane Material Component: A tiny candle.",
   },
   //Cat's Grace
   {
@@ -1874,6 +1927,24 @@ const spellCompendium: ISpell[] = [
     description:
       "This enchantment clouds the mind of a humanoid creature with 4 or fewer Hit Dice so that it takes no actions. Humanoids of 5 or more HD are not affected. A dazed subject is not stunned, so attackers get no special advantage against it.\nMaterial Component\nA pinch of wool or similar substance.",
   },
+  //Detect Ghost
+  {
+    id: "132",
+    isSrd: false,
+    name: "U:Detect Ghost",
+    school: "Divination",
+    descriptor: "Ectomancy",
+    level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "60 ft.",
+    area: "Quarter-circle emanating from you to the extreme of the range",
+    duration: "Concentration, up to 1 minute/level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You detect ghosts.\nThe amount of information revealed depends on how long you study a particular area or subject.\n1st Round: Presence or absence of ghosts.\n2nd Round: Number of different ghosts.\n3rd Round: The location of each ghost.",
+  },
   //Detect Magic
   {
     id: "4",
@@ -1907,6 +1978,24 @@ const spellCompendium: ISpell[] = [
     description:
       "You determine whether a creature, object, or area has been poisoned or is poisonous. You can determine the exact type of poison with a DC 20 Wisdom check. A character with the Craft (alchemy) skill may try a DC 20 Craft (alchemy) check if the Wisdom check fails, or may try the Craft (alchemy) check prior to the Wisdom check.\nThe spell can penetrate barriers, but 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt blocks it.",
   },
+  //Disrupt Ectoplasm
+  {
+    id: "133",
+    isSrd: false,
+    name: "U:Disrupt Ectoplasm",
+    school: "Necromancy",
+    descriptor: "Ectomancy",
+    level: "Clr 0, Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    effect: "Ray",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "Yes",
+    description:
+      "You direct a ray of energy that damages ectoplasm.\nYou must make a ranged touch attack roll to hit, and if the ray hits a ghost or object made of ectoplasm, it deals 1d6 points of damage to it.\nThis damage bypasses the hardness of ectoplasmic objects and the damage reduction of ectoplasmic creatures.",
+  },
   //Disrupt Undead
   {
     id: "127",
@@ -1923,6 +2012,24 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes",
     description:
       "You direct a ray of positive energy. You must make a ranged touch attack to hit, and if the ray hits an undead creature, it deals 1d6 points of damage to it.",
+  },
+  //Electric Jolt
+  {
+    id: "134",
+    isSrd: false,
+    name: "U:Electric Jolt",
+    school: "Evocation",
+    descriptor: "Electricity",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    effect: "Ray",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "Yes",
+    description:
+      "A white-hot electric spark dances on your fingertip and then bolts toward your target.\nYou release a small stroke of electrical energy. You must succeed on a ranged touch attack with the ray to strike a target. The spell deals 1d3 points of electricity damage.",
   },
   //Flare
   {
@@ -1959,6 +2066,24 @@ const spellCompendium: ISpell[] = [
     description:
       "Ghost sound allows you to create a volume of sound that rises, recedes, approaches, or remains at a fixed place.\n\nYou choose what type of sound ghost sound creates when casting it and cannot thereafter change the sound's basic character.\n\nThe volume of sound created depends on your level.\n\nYou can produce as much noise as four normal humans per caster level (maximum twenty humans).\n\nThus, talking, singing, shouting, walking, marching, or running sounds can be created.\n\nThe noise a ghost sound spell produces can be virtually any type of sound within the volume limit.\n\nA horde of rats running and squeaking is about the same volume as eight humans running and shouting.\n\nA roaring lion is equal to the noise from sixteen humans, while a roaring dire tiger is equal to the noise from twenty humans.\n\nGhost sound can enhance the effectiveness of a silent image spell.\n\nGhost sound can be made permanent with a permanency spell.\n\nMaterial Component: A bit of wool or a small lump of wax.",
   },
+  //Horizikaul's Cough
+  {
+    id: "135",
+    isSrd: false,
+    name: "U:Horizikaul's Cough",
+    school: "Evocation",
+    descriptor: "Sonic",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "One creature or object",
+    duration: "Instantaneous",
+    savingThrow: "Will partial",
+    spellResistance: "Yes",
+    description:
+      "You create a brief but loud noise adjacent to the target.\n Horizikaul's cough strikes unerringly, even if the target is in melee or has anything less than total cover or concealment.\nThe target takes 1 point of sonic damage and must succeed at a Will saving throw or be deafened for 1 round.\nThis spell has no effect if cast into the area of a silence spell.",
+  },
   //Know direction
   {
     id: "11",
@@ -1973,6 +2098,23 @@ const spellCompendium: ISpell[] = [
     duration: "Instantaneous",
     description:
       "You instantly know the direction of north from your current position.\nThe spell is effective in any environment in which 'north' exists, but it may not work in extraplanar settings.\nYour knowledge of north is correct at the moment of casting, but you can get lost again within moments if you don't find some external reference point to help you keep track of direction.",
+  },
+  //Launch Bolt
+  {
+    id: "136",
+    isSrd: false,
+    name: "U:Launch Bolt",
+    school: "Transmutation",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Medium",
+    target: "One crossbow bolt in your possession",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You cast this spell on a crossbow bolt, causing it to fly at a target of your choice as if you had fired it from a light crossbow.\nAny properties of the bolt (such as magical abilities, masterwork quality, and so on) or feats you possess (such as Point Blank Shot, Weapon Focus [light crossbow], and so on) apply.",
   },
   //Light
   {
