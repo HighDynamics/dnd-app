@@ -740,8 +740,7 @@ const spellCompendium: ISpell[] = [
     components: "V, S, DF",
     castingTime: "1 standard action",
     range: "50 ft.",
-    area:
-      "The caster and all allies with a 50-ft. burst, centered on the caster",
+    area: "The caster and all allies with a 50-ft. burst, centered on the caster",
     duration: "1 min./level",
     savingThrow: "None",
     spellResistance: "Yes (harmless)",
@@ -1632,8 +1631,7 @@ const spellCompendium: ISpell[] = [
     components: "V, S, M/DF",
     castingTime: "1 standard action",
     range: "Long",
-    area:
-      "Water in a volume of 10 ft./level by 10 ft./level by 2 ft./level (S)",
+    area: "Water in a volume of 10 ft./level by 10 ft./level by 2 ft./level (S)",
     duration: "10 min./level (D)",
     savingThrow: "None; see text",
     spellResistance: "No",
@@ -2219,6 +2217,40 @@ const spellCompendium: ISpell[] = [
     description:
       "You can open or close (your choice) a door, chest, box, window, bag, pouch, bottle, barrel, or other container.\nIf anything resists this activity (such as a bar on a door or a lock on a chest), the spell fails.\nIn addition, the spell can only open and close things weighing 30 pounds or less.\nThus, doors, chests, and similar objects sized for enormous creatures may be beyond this spell's ability to affect.\nFocus: A brass key.",
   },
+  //Preserve Ectoplasm
+  {
+    id: "137",
+    isSrd: false,
+    name: "U:Preserve Ectoplasm",
+    school: "Transmutation",
+    level: "Sor/Wiz 0",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "10 ft.",
+    target: "1 cu. ft./level of ectoplasm",
+    duration: "Instantaneous",
+    savingThrow: "Will negates (object)",
+    spellResistance: "Yes (object)",
+    description:
+      "As purify food and drink, but affecting only ectoplasm.\n\nMaterial Component: A small loop of gold wire.",
+  },
+  //Preserve Organ
+  {
+    id: "138",
+    isSrd: false,
+    name: "U:Preserve Organ",
+    school: "Necromancy",
+    level: "Clr 0, Drd 0, Sor/Wiz 0",
+    components: "V, S, DF",
+    castingTime: "10 minutes",
+    range: "Touch",
+    effect: "One organ",
+    duration: "24 hours",
+    savingThrow: "Fortitude negates (harmless)",
+    spellResistance: "Yes",
+    description:
+      "The caster preserves a single severed organ from a living creature so that it does not decay or rot.\nEvil casters use preserved organs as material spell components.\nThere are ritual uses for body parts as well.\nThe organ is kept in the exact state it was in when the spell was cast.\nIf a heart is still beating and bloody, for example, then it remains that way.",
+  },
   //Prestidigitation
   {
     id: "13",
@@ -2269,6 +2301,16 @@ const spellCompendium: ISpell[] = [
     description:
       "By means of read magic, you can decipher magical inscriptions on objects—books, scrolls, weapons, and the like—that would otherwise be unintelligible.\n\nThis deciphering does not normally invoke the magic contained in the writing, although it may do so in the case of a cursed scroll.\n\nFurthermore, once the spell is cast and you have read the magical inscription, you are thereafter able to read that particular writing without recourse to the use of read magic.\n\nYou can read at the rate of one page (250 words) per minute.\n\nThe spell allows you to identify a glyph of warding with a DC 13 Spellcraft check, a greater glyph of warding with a DC 16 Spellcraft check, or any symbol spell with a Spellcraft check (DC 10 + spell level).\n\nRead magic can be made permanent with a permanency spell.\n\nFocus: A clear crystal or mineral prism.",
   },
+  //Repair Minor Damage
+  {
+    id: "139",
+    isSrd: false,
+    name: "U:Repair Minor Damage",
+    school: "Transmutation",
+    level: "Sor/Wiz 0",
+    description:
+      "As repair light damage, except you repair 1 point of damage to a construct.",
+  },
   //Resistance
   {
     id: "122",
@@ -2286,6 +2328,77 @@ const spellCompendium: ISpell[] = [
     description:
       "You imbue the subject with magical energy that protects it from harm, granting it a +1 resistance bonus on saves.\nResistance can be made permanent with a permanency spell.\nArcane Material Component\nA miniature cloak.",
   },
+  //Silent Portal
+  {
+    id: "140",
+    isSrd: false,
+    name: "U:Silent Portal",
+    school: "Illusion",
+    subSchool: "Glamer",
+    level: "Sor/Wiz 0",
+    components: "S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "Any single portal",
+    duration: "1 hour/level (D)",
+    savingThrow: "Will negates (object)",
+    spellResistance: "Yes (object)",
+    description:
+      "This simple cantrip negates the sound of opening and closing a single portal (door, window, gate, drawer, chest lid, and so on).\nEven the squeakiest door opens without a sound when under the effect of this spell.\nSilent portal covers only normal means of opening and closing the targeted portal.\nBreaking a window or kicking a door in still makes noise, but opening a door that is falling off its hinges does not (since this is the normal way a door would open).\nPortals composed of magical energy are not affected by this spell.\nIn the case of magic or even intelligent portals, spell resistance and a Will save (DC 10 + caster's ability score modifier + other modifiers as appropriate) apply.",
+  },
+  //Slash Tongue
+  {
+    id: "141",
+    isSrd: false,
+    name: "U:Slash Tongue",
+    school: "Transmutation",
+    descriptor: "Evil",
+    level: "Clr 0, Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "One living creature with a tongue",
+    duration: "1 round",
+    savingThrow: "Fortitude negates",
+    spellResistance: "Yes",
+    description:
+      "The subject's tongue gets a thin cut.\nThe subject takes 1 point of damage and takes a -1 penalty on attack rolls, saving throws, skill checks, and ability checks on the following round due to the annoying pain.",
+  },
+  //Sonic Snap
+  {
+    id: "142",
+    isSrd: false,
+    name: "U:Sonic Snap",
+    school: "Evocation",
+    descriptor: "Sonic",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "One creature or object",
+    duration: "Instantaneous",
+    savingThrow: "Will partial",
+    spellResistance: "Yes",
+    description:
+      "You bark the last word of the spell, and that word takes life, streaking toward your target and exploding in a shout.\n\nYou create a brief but loud noise adjacent to the target. The subject takes 1 point of sonic damage and must succeed on a Will saving throw or be deafened for 1 round. This spell has no effect if cast into the area of a silence spell.",
+  },
+  //Stick
+  {
+    id: "143",
+    isSrd: false,
+    name: "U:Stick",
+    school: "Transmutation",
+    level: "Brd 0, Sor/Wiz 0",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Nonmagical, unattended object weighing up to 5 lbs.",
+    duration: "Instantaneous",
+    savingThrow: "Will negates (object)",
+    spellResistance: "Yes (object)",
+    description:
+      "Stick affixes one item weighing up to 5 pounds to another, heavier item.\nThe two items can be separated with even a small amount of force, such as a wind stronger than 10 mph, a mage hand or unseen servant spell, or a move action by any corporeal creature (which provokes attacks of opportunity).\nMaterial Component: A bit of dried glue.",
+  },
   //Touch of Fatigue
   {
     id: "128",
@@ -2302,6 +2415,24 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes",
     description:
       "You channel negative energy through your touch, fatiguing the target. You must succeed on a touch attack to strike a target.\nThe subject is immediately fatigued for the spell’s duration.\nThis spell has no effect on a creature that is already fatigued. Unlike with normal fatigue, the effect ends as soon as the spell’s duration expires.\nMaterial Component\nA drop of sweat.",
+  },
+  //Unnerving Gaze
+  {
+    id: "144",
+    isSrd: false,
+    name: "U:Unnerving Gaze",
+    school: "Illusion",
+    subSchool: "Phantasm",
+    level: "Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    target: "One humanoid creature",
+    duration: "1 round/level",
+    savingThrow: "Will negates",
+    spellResistance: "Yes",
+    description:
+      "The caster makes his face resemble one of the opponent's departed loved ones or bitter enemies.\nThe subject takes a -1 morale penalty on attack rolls for the duration of the spell.",
   },
 ];
 export default spellCompendium;
