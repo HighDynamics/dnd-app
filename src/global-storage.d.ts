@@ -137,6 +137,7 @@ declare global {
     target?: string;
     effect?: string;
     area?: string;
+    targetOrArea?: string;
     duration?: string;
     savingThrow?: string;
     spellResistance?: string;

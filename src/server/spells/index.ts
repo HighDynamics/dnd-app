@@ -1837,6 +1837,7 @@ const spellCompendium: ISpell[] = [
     description:
       "This spell imbues a flask (1 pint) of water with negative energy, turning it into unholy water. Unholy water damages good outsiders the way holy water damages undead and evil outsiders.\n\nMaterial Component\n5 pounds of powdered silver (worth 25 gp).",
   },
+  //Dancing Lights
   {
     id: "118",
     isSrd: true,
@@ -2029,6 +2030,23 @@ const spellCompendium: ISpell[] = [
     description:
       "A white-hot electric spark dances on your fingertip and then bolts toward your target.\nYou release a small stroke of electrical energy. You must succeed on a ranged touch attack with the ray to strike a target. The spell deals 1d3 points of electricity damage.",
   },
+  //Endure Elements
+  {
+    id: "147",
+    isSrd: true,
+    name: "Endure Elements",
+    school: "Abjuration",
+    level: "Clr 1, Drd 1, Pal 1, Rgr 1, Sor/Wiz 1, Sun 1",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature touched",
+    duration: "24 hours",
+    savingThrow: "Will negates (harmless)",
+    spellResistance: "Yes (harmless)",
+    description:
+      "A creature protected by endure elements suffers no harm from being in a hot or cold environment. It can exist comfortably in conditions between -50 and 140 degrees Fahrenheit without having to make Fortitude saves). The creature’s equipment is likewise protected.\nEndure elements doesn’t provide any protection from fire or cold damage, nor does it protect against other environmental hazards such as smoke, lack of air, and so forth.",
+  },
   //Flare
   {
     id: "125",
@@ -2063,6 +2081,41 @@ const spellCompendium: ISpell[] = [
     spellResistance: "No",
     description:
       "Ghost sound allows you to create a volume of sound that rises, recedes, approaches, or remains at a fixed place.\n\nYou choose what type of sound ghost sound creates when casting it and cannot thereafter change the sound's basic character.\n\nThe volume of sound created depends on your level.\n\nYou can produce as much noise as four normal humans per caster level (maximum twenty humans).\n\nThus, talking, singing, shouting, walking, marching, or running sounds can be created.\n\nThe noise a ghost sound spell produces can be virtually any type of sound within the volume limit.\n\nA horde of rats running and squeaking is about the same volume as eight humans running and shouting.\n\nA roaring lion is equal to the noise from sixteen humans, while a roaring dire tiger is equal to the noise from twenty humans.\n\nGhost sound can enhance the effectiveness of a silent image spell.\n\nGhost sound can be made permanent with a permanency spell.\n\nMaterial Component: A bit of wool or a small lump of wax.",
+  },
+  //Grease
+  {
+    id: "152",
+    isSrd: true,
+    name: "Grease",
+    school: "Conjuration",
+    subSchool: "Creation",
+    level: "Brd 1, Sor/Wiz 1",
+    components: "V, S, M",
+    castingTime: "1 standard action",
+    range: "Close",
+    targetOrArea: "One object or a 10-ft. square",
+    duration: "1 round/level (D)",
+    savingThrow: "See text",
+    spellResistance: "No",
+    description:
+      "A grease spell covers a solid surface with a layer of slippery grease. Any creature in the area when the spell is cast must make a successful Reflex save or fall. This save is repeated on your turn each round that the creature remains within the area. A creature can walk within or through the area of grease at half normal speed with a DC 10 Balance check. Failure means it can’t move that round (and must then make a Reflex save or fall), while failure by 5 or more means it falls (see the Balance skill for details).\nThe spell can also be used to create a greasy coating on an item. Material objects not in use are always affected by this spell, while an object wielded or employed by a creature receives a Reflex saving throw to avoid the effect. If the initial saving throw fails, the creature immediately drops the item. A saving throw must be made in each round that the creature attempts to pick up or use the greased item. A creature wearing greased armor or clothing gains a +10 circumstance bonus on Escape Artist checks and on grapple checks made to resist or escape a grapple or to escape a pin.\nMaterial Component\nA bit of pork rind or butter.",
+  },
+  //Hold Portal
+  {
+    id: "148",
+    isSrd: true,
+    name: "Hold Portal",
+    school: "Abjuration",
+    level: "Sor/Wiz 1",
+    components: "V",
+    castingTime: "1 standard action",
+    range: "Medium",
+    target: "One portal, up to 20 sq. ft./level",
+    duration: "1 min./level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "This spell magically holds shut a door, gate, window, or shutter of wood, metal, or stone. The magic affects the portal just as if it were securely closed and normally locked. A knock spell or a successful dispel magic spell can negate a hold portal spell.\nFor a portal affected by this spell, add 5 to the normal DC for forcing open the portal.",
   },
   //Horizikaul's Cough
   {
@@ -2114,6 +2167,23 @@ const spellCompendium: ISpell[] = [
     description:
       "You cast this spell on a crossbow bolt, causing it to fly at a target of your choice as if you had fired it from a light crossbow.\nAny properties of the bolt (such as magical abilities, masterwork quality, and so on) or feats you possess (such as Point Blank Shot, Weapon Focus [light crossbow], and so on) apply.",
   },
+  //Launch Item
+  {
+    id: "145",
+    isSrd: false,
+    name: "U:Launch Item",
+    school: "Transmutation",
+    level: "Sor/Wiz 0",
+    components: "S",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "One Fine item in your possession, weighing up to 10 lbs.",
+    duration: "Instantaneous",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You hold the item and windmill your arm in an underhanded toss. When it leaves your hand, it is bathed in an orange glow and flies farther than you could throw any item.\nYou cause a Fine item in your possession to fly at great speed to a target or location you specify, out to medium range (100 ft. + 10 ft./level).\nThis spell is normally used to launch dangerous items (flasks of acid, thunderstones, and so on) farther than you could normally throw them. You can use this spell to make an attack with a splash weapon. If you choose to do so, you must make an attack roll as normal, but you suffer no penalties for range.",
+  },
   //Light
   {
     id: "7",
@@ -2147,6 +2217,25 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes",
     description:
       "Any creature within the area that fails a Will save becomes drowsy and inattentive, taking a -5 penalty on Listen and Spot checks and a -2 penalty on Will saves against sleep effects while the lullaby is in effect.\nLullaby lasts for as long as the caster concentrates, plus up to 1 round per caster level thereafter.",
+  },
+  //Mage Armor
+  {
+    id: "151",
+    isSrd: true,
+    name: "Mage Armor",
+    school: "Conjuration",
+    subSchool: "Creation",
+    descriptor: "Force",
+    level: "Sor/Wiz 1",
+    components: "V, S, F",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature touched",
+    duration: "1 hour/level (D)",
+    savingThrow: "Will negates (harmless)",
+    spellResistance: "No",
+    description:
+      "An invisible but tangible field of force surrounds the subject of a mage armor spell, providing a +4 armor bonus to AC.\nUnlike mundane armor, mage armor entails no armor check penalty, arcane spell failure chance, or speed reduction. Since mage armor is made of force, incorporeal creatures can’t bypass it the way they do normal armor.\nFocus\nA piece of cured leather.",
   },
   //Mage Hand
   {
@@ -2198,6 +2287,23 @@ const spellCompendium: ISpell[] = [
     spellResistance: "No",
     description:
       "You can whisper messages and receive whispered replies with little chance of being overheard. You point your finger at each creature you want to receive the message. When you whisper, the whispered message is audible to all targeted creatures within range. Magical silence, 1 foot of stone, 1 inch of common metal (or a thin sheet of lead), or 3 feet of wood or dirt blocks the spell. The message does not have to travel in a straight line. It can circumvent a barrier if there is an open path between you and the subject, and the path's entire length lies within the spell's range. The creatures that receive the message can whisper a reply that you hear. The spell transmits sound, not meaning. It doesn't transcend language barriers.\n\nNote: To speak a message, you must mouth the words and whisper, possibly allowing observers the opportunity to read your lips.\n\nFocus: A short piece of copper wire.",
+  },
+  //No Light
+  {
+    id: "146",
+    isSrd: false,
+    name: "U:No Light",
+    school: "Transmutation",
+    level: "Clr 0, Brd 0, Sor/Wiz 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Close",
+    area: "20-ft.-radius spread",
+    duration: "1 minute/level",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "The caster creates an area of darkness. Normal light sources cannot illuminate the area, but darkvision allows a creature to see within the area. Light counters no light (and vice versa), leaving whatever light conditions normally prevail in the overlapping areas of the spells. Higher-level light spells counter and dispel no light.",
   },
   //Open/Close
   {
@@ -2268,6 +2374,24 @@ const spellCompendium: ISpell[] = [
     description:
       "Prestidigitations are minor tricks that novice spellcasters use for practice.\nOnce cast, a prestidigitation spell enables you to perform simple magical effects for 1 hour.\nThe effects are minor and have severe limitations.\nA prestidigitation can slowly lift 1 pound of material.\nIt can color, clean, or soil items in a 1-foot cube each round.\nIt can chill, warm, or flavor 1 pound of nonliving material.\nIt cannot deal damage or affect the concentration of spellcasters.\nPrestidigitation can create small objects, but they look crude and artificial.\nThe materials created by a prestidigitation spell are extremely fragile, and they cannot be used as tools, weapons, or spell components.\nFinally, a prestidigitation lacks the power to duplicate any other spell effects.\nAny actual change to an object (beyond just moving, cleaning, or soiling it) persists only 1 hour.\nCharacters typically use prestidigitation spells to impress common folk, amuse children, and brighten dreary lives.\nCommon tricks with prestidigitations include producing tinklings of ethereal music, brightening faded flowers, creating glowing balls that float over your hand, generating puffs of wind to flicker candles, spicing up aromas and flavors of bland food, and making little whirlwinds to sweep dust under rugs.",
   },
+  //Protection from Evil
+  {
+    id: "149",
+    isSrd: true,
+    name: "Protection from Evil",
+    school: "Abjuration",
+    descriptor: "Good",
+    level: "Clr 1, Good 1, Pal 1, Sor/Wiz 1",
+    components: "V, S, M/DF",
+    castingTime: "1 standard action",
+    range: "Touch",
+    target: "Creature touched",
+    duration: "1 min./level (D)",
+    savingThrow: "Will negates (harmless)",
+    spellResistance: "No; see text",
+    description:
+      "This spell wards a creature from attacks by evil creatures, from mental control, and from summoned creatures. It creates a magical barrier around the subject at a distance of 1 foot. The barrier moves with the subject and has three major effects.\nFirst, the subject gains a +2 deflection bonus to AC and a +2 resistance bonus on saves. Both these bonuses apply against attacks made or effects created by evil creatures.\nSecond, the barrier blocks any attempt to possess the warded creature (by a magic jar attack, for example) or to exercise mental control over the creature (including enchantment (charm) effects and enchantment (compulsion) effects that grant the caster ongoing control over the subject, such as dominate person). The protection does not prevent such effects from targeting the protected creature, but it suppresses the effect for the duration of the protection from evil effect. If the protection from evil effect ends before the effect granting mental control does, the would-be controller would then be able to mentally command the controlled creature. Likewise, the barrier keeps out a possessing life force but does not expel one if it is in place before the spell is cast. This second effect works regardless of alignment.\nThird, the spell prevents bodily contact by summoned creatures. This causes the natural weapon attacks of such creatures to fail and the creatures to recoil if such attacks require touching the warded creature. Good summoned creatures are immune to this effect. The protection against contact by summoned creatures ends if the warded creature makes an attack against or tries to force the barrier against the blocked creature. Spell resistance can allow a creature to overcome this protection and touch the warded creature.\nArcane Material Component\nA little powdered silver with which you trace a 3-foot -diameter circle on the floor (or ground) around the creature to be warded.",
+  },
   //Ray of Frost
   {
     id: "126",
@@ -2327,6 +2451,22 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes (harmless)",
     description:
       "You imbue the subject with magical energy that protects it from harm, granting it a +1 resistance bonus on saves.\nResistance can be made permanent with a permanency spell.\nArcane Material Component\nA miniature cloak.",
+  },
+  //Shield
+  {
+    id: "150",
+    isSrd: true,
+    name: "Shield",
+    school: "Abjuration",
+    descriptor: "Force",
+    level: "Sor/Wiz 1",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "Personal",
+    target: "You",
+    duration: "1 min./level (D)",
+    description:
+      "Shield creates an invisible, tower shield-sized mobile disk of force that hovers in front of you. It negates magic missile attacks directed at you. The disk also provides a +4 shield bonus to AC. This bonus applies against incorporeal touch attacks, since it is a force effect. The shield has no armor check penalty or arcane spell failure chance. Unlike with a normal tower shield, you can’t use the shield spell for cover.",
   },
   //Silent Portal
   {
