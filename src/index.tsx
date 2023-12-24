@@ -6,6 +6,7 @@ import "./components/dnd.css";
 import LoadApp from "./components/dnd";
 import * as serviceWorker from "./serviceWorker";
 import { makeServer } from "./server";
+import "./index.css";
 
 // Whenever it is time for a real server, this should be removed.
 makeServer({ environment: "development" });
