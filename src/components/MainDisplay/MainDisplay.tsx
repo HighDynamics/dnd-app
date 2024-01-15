@@ -9,7 +9,7 @@ import AbilityScores from "../Modal/AbilityScores/AbilityScores";
 import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
 import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
 import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
-import Spells from "../Spells/Spells";
+import { Spells } from "../Spells/Spells";
 import Skills from "../Skills/Skills";
 import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
@@ -52,13 +52,11 @@ const MainDisplay = () => {
       case "More":
         return <More />;
       case "Spells":
-        return <Spells innate={true} />;
+        return <Spells />;
       case "Abilities":
         return <ActiveAndPassiveAbilities />;
       case "SLAs":
         return <SLAs />;
-      case "Prep":
-        return <Spells innate={false} />;
       case "Items":
         return <Items />;
       case "EditSkills":
