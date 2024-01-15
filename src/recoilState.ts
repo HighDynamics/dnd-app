@@ -10,7 +10,7 @@ import type { SetterOrUpdater } from "recoil";
  */
 export type InitialRecoilState<T> = [
   value: T | null,
-  setValue: SetterOrUpdater<T>
+  setValue: SetterOrUpdater<T>,
 ];
 
 export const spellCompendiumState = atom<{ spells: ISpell[] }>({
@@ -47,9 +47,14 @@ export const primaryModifierState = atom<number>({
   default: null as any,
 });
 
-export const diceRollState = atom<React.ReactNode>({
+export const diceRollState = atom<{
+  result: number;
+  size: number;
+  mod: number;
+  use: string;
+} | null>({
   key: "diceRollState",
-  default: "",
+  default: null,
 });
 
 export type MainContent =
@@ -133,7 +138,7 @@ export const emptySpellsArray: [
   string[],
   string[],
   string[],
-  string[]
+  string[],
 ] = [[], [], [], [], [], [], [], [], [], []];
 
 export const emptySpellsArrayWithInfo: [
@@ -146,7 +151,7 @@ export const emptySpellsArrayWithInfo: [
   ISpell[],
   ISpell[],
   ISpell[],
-  ISpell[]
+  ISpell[],
 ] = [[], [], [], [], [], [], [], [], [], []];
 
 export const innateSpellsCastState = atom({

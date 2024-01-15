@@ -6,8 +6,6 @@ import {
   selectionState,
 } from "../../recoilState";
 
-import "./SubmitConfirm.css";
-
 const SubmitConfirm = () => {
   const character = useRecoilValue(characterState);
   const selection = useRecoilValue(selectionState);
@@ -37,8 +35,8 @@ const SubmitConfirm = () => {
     }
   };
   return (
-    <div className="confirmationBox">
-      <p className="confirmationText">
+    <div className="fixed left-1/2 top-1/2 z-50 h-10 w-4/5 -translate-x-1/2 bg-stone-100 outline outline-4 outline-fuchsia-300">
+      <p className="text-center text-amber-900">
         {displayConfirmation(confirmationType)}
       </p>
     </div>

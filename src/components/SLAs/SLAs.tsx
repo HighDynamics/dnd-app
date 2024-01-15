@@ -82,7 +82,7 @@ const SLACodeBlock = (props: {
   return (
     <>
       <div className="spellItems">
-        <div className="spellLevelWrapper">
+        <div className="text-center">
           <h2 className="spellLevelHeader">
             Level {levelRoman} (DC {getDifficultyClass(levelNum)})
           </h2>
@@ -121,7 +121,7 @@ const SLAs = () => {
     <div>
       <div className="slasContainer">
         <div className="spellItems">
-          <div className="spellLevelWrapper">
+          <div className="text-center">
             <h2 className="spellLevelHeader">
               {casterType()} (DC {getDifficultyClass(0)})
             </h2>

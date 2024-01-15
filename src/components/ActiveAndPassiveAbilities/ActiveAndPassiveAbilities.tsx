@@ -38,7 +38,7 @@ const Abilities = (props: { type: "active" | "passive" }) => {
   return (
     <div className="abilitiesContainer">
       <div className="spellItems">
-        <p className="spellList">{abilities}</p>
+        <p>{abilities}</p>
       </div>
     </div>
   );

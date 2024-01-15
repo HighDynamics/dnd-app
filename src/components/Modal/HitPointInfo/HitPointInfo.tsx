@@ -6,7 +6,8 @@ import {
   damageState,
   temporaryHitPointsState,
 } from "../../../recoilState";
-import { textClassToGreenOrRed } from "../../../utilities/utilities";
+
+import { getTextColor } from "../../../lib";
 import "./HitPointInfo.css";
 
 const HitPointInfo = () => {
@@ -16,10 +17,7 @@ const HitPointInfo = () => {
   const currentHP = character.hitPoints.total + tempHP - damage;
   const [damageInput, setDamageInput] = useState(0);
   const [tempHPInput, setTempHPInput] = useState(0);
-  const textColorClass = textClassToGreenOrRed(
-    currentHP,
-    character.hitPoints.total
-  );
+  const textColorClass = getTextColor(currentHP, character.hitPoints.total);
   function handleDamageChange(e: React.ChangeEvent<HTMLInputElement>) {
     setDamageInput(Number(e.target.value));
   }

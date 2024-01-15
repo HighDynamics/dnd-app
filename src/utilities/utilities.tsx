@@ -3,28 +3,9 @@ import { mutate } from "swr";
 
 function rollDice(size: number) {
   return (mod: number, use: string) => {
-    const roll = Math.floor(Math.random() * size + 1);
-    function edgeRollClassAssignment(roll: number) {
-      if (roll === 1 && size === 20) {
-        return "natOne d20Result";
-      } else if (roll === 20 && size === 20) {
-        return "natTwenty d20Result";
-      } else {
-        return "d20Result";
-      }
-    }
-    const result = (
-      <span>
-        <span className="rollUse">
-          {use} +{mod}
-        </span>
-        <div className="rollResult">
-          + <span className={edgeRollClassAssignment(roll)}>{roll}</span>{" "}
-          <span className="rollModTotal">= {roll + mod}</span>
-        </div>
-      </span>
-    );
-    return result;
+    const result = Math.floor(Math.random() * size + 1);
+
+    return { result, mod, size, use };
   };
 }
 /* vvvvvvvvvvv EXPORT vvvvvvvvvvvvvv */
@@ -51,15 +32,6 @@ function getAC(character: ICharacter) {
     ac.shield +
     ac.size
   );
-}
-function textClassToGreenOrRed(current: number, expected: number) {
-  if (current > expected) {
-    return "greenText";
-  } else if (current < expected) {
-    return "redText";
-  } else {
-    return "";
-  }
 }
 function camelCaseToTitleCase(item: string) {
   //add spaces between words
@@ -111,27 +83,25 @@ function displayCompendiumInfo(matchedObject: ICompendiumObject) {
 const getInfoById = (compendium: ICompendium) => (id: string) =>
   compendium.spells.find((item: ICompendiumObject) => item.id === id);
 
-const getRefInfoByCompendiumObject = (
-  selection: ICompendiumObject,
-  character: ICharacter
-) => (infoKey: string): string | number | boolean => {
-  let objectRef = {} as IRefObject | undefined;
-  if (selection.hasOwnProperty("school")) {
-    objectRef = character.magic.spellRefs.find(
-      (ref: IRefObject) => ref.id === selection.id
-    );
-  } else {
-    objectRef = character.itemRefs.find(
-      (ref: IRefObject) => ref.id === selection.id
-    );
-  }
-  return objectRef === undefined
-    ? alert("Reference Not Found")
-    : objectRef[infoKey];
-};
+const getRefInfoByCompendiumObject =
+  (selection: ICompendiumObject, character: ICharacter) =>
+  (infoKey: string): string | number | boolean => {
+    let objectRef = {} as IRefObject | undefined;
+    if (selection.hasOwnProperty("school")) {
+      objectRef = character.magic.spellRefs.find(
+        (ref: IRefObject) => ref.id === selection.id,
+      );
+    } else {
+      objectRef = character.itemRefs.find(
+        (ref: IRefObject) => ref.id === selection.id,
+      );
+    }
+    return objectRef === undefined
+      ? alert("Reference Not Found")
+      : objectRef[infoKey];
+  };
 
 export {
-  textClassToGreenOrRed,
   camelCaseToTitleCase,
   getAC,
   roll20,

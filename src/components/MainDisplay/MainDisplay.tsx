@@ -35,7 +35,7 @@ import {
 } from "../../recoilState";
 import type { ModalType, MainContent } from "../../recoilState";
 
-import "./MainDisplay.css";
+import { FadedSeparator } from "../FadedSeparator";
 
 const MainDisplay = () => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -142,13 +142,10 @@ const MainDisplay = () => {
   }
   return (
     <>
-      <hr className="underNavbar" />
+      <FadedSeparator className="mt-2 h-[2px]" />
       {confirmationType !== "off" && <SubmitConfirm />}
       <div className="infoSheet">{infoSheet(modalType)}</div>
-      <div>
-        {screenSwitch(mainContent)}
-        <div className="bottomPadding"></div>
-      </div>
+      <div>{screenSwitch(mainContent)}</div>
     </>
   );
 };

@@ -22,7 +22,7 @@ export function totalSpells(
   character: ICharacter,
   primaryModifier: number,
   level: string,
-  levelNum: number
+  levelNum: number,
 ): number {
   function bonusSpellsPerDay(levelNum: number) {
     return Math.ceil((primaryModifier - (levelNum - 1)) / 4);
@@ -36,22 +36,18 @@ const App = () => {
     function setDocTitle() {
       document.title = character.name;
     },
-    [character]
+    [character],
   );
 
   return (
-    <>
-      <div id="appWrapper">
-        <div id="topWrapper">
-          <BasicInfo />
-          <Navbar.PrimaryNavbar />
-          <Navbar.SecondaryNavbar />
-        </div>
-        <div id="mainWrapper">
-          <MainDisplay />
-        </div>
+    <div className="h-dvh overflow-y-scroll bg-black/80">
+      <div>
+        <BasicInfo />
+        <Navbar.PrimaryNavbar />
+        <Navbar.SecondaryNavbar />
       </div>
-    </>
+      <MainDisplay />
+    </div>
   );
 };
 
@@ -59,37 +55,28 @@ const getPrimaryModifierValue = (character: ICharacter) => {
   const modNumber = getAbilityMod(character)(character.abilities.primary);
   if (modNumber === null)
     throw new Error(
-      `Primary modifiers must not be null. ${character.name}'s primary modifier is ${character.abilities.primary}, but the value for that modifier is null.`
+      `Primary modifiers must not be null. ${character.name}'s primary modifier is ${character.abilities.primary}, but the value for that modifier is null.`,
     );
   return modNumber;
 };
 
 const LoadApp = () => {
   // Load data from the characters server endpoint
-  const { data: charactersResponse } = useSWR<IServer.GetCharacters.Response>(
-    "/api/characters"
-  );
-  const { data: spellsResponse } = useSWR<IServer.GetSpells.Response>(
-    "/api/spells"
-  );
-  const { data: itemsResponse } = useSWR<IServer.GetItems.Response>(
-    "/api/items"
-  );
-  const [
-    character,
-    setCharacter,
-  ]: InitialRecoilState<ICharacter> = useRecoilState(characterState);
+  const { data: charactersResponse } =
+    useSWR<IServer.GetCharacters.Response>("/api/characters");
+  const { data: spellsResponse } =
+    useSWR<IServer.GetSpells.Response>("/api/spells");
+  const { data: itemsResponse } =
+    useSWR<IServer.GetItems.Response>("/api/items");
+  const [character, setCharacter]: InitialRecoilState<ICharacter> =
+    useRecoilState(characterState);
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
-  const [spellCompendium, setSpellCompendium] = useRecoilState(
-    spellCompendiumState
-  );
-  const [itemCompendium, setItemCompendium] = useRecoilState(
-    itemCompendiumState
-  );
-  const [
-    primaryModifier,
-    setPrimaryModifier,
-  ]: InitialRecoilState<number> = useRecoilState(primaryModifierState);
+  const [spellCompendium, setSpellCompendium] =
+    useRecoilState(spellCompendiumState);
+  const [itemCompendium, setItemCompendium] =
+    useRecoilState(itemCompendiumState);
+  const [primaryModifier, setPrimaryModifier]: InitialRecoilState<number> =
+    useRecoilState(primaryModifierState);
 
   // Before the data is loaded, it will be `undefined`. So inside `useEffect`
   // hooks below, make sure the data exists.
@@ -99,7 +86,7 @@ const LoadApp = () => {
       if (charactersResponse) {
         const getDefaultOrById = (id: string): ICharacter => {
           let foundCharacter = charactersResponse.characters.find(
-            (char) => char.id === id
+            (char) => char.id === id,
           );
           return foundCharacter
             ? foundCharacter
@@ -109,35 +96,35 @@ const LoadApp = () => {
         setUpdatedCharacter(getDefaultOrById(character?.id));
       }
     },
-    [charactersResponse, setCharacter, setUpdatedCharacter, character?.id]
+    [charactersResponse, setCharacter, setUpdatedCharacter, character?.id],
   );
 
   useEffect(
     function setCompendiumsFromServer() {
       if (spellsResponse && character && itemsResponse) {
         const characterSpellRefs = character.magic.spellRefs.map(
-          (spell: ISpellRef) => spell.id
+          (spell: ISpellRef) => spell.id,
         );
         const characterSlaRefs = character.magic.slaRefs.map(
-          (spell: ISLARef) => spell.id
+          (spell: ISLARef) => spell.id,
         );
         const characterAllSpellRefs = characterSpellRefs.reduce(
           (previousValue, current, index) => {
             return [...previousValue, current, characterSlaRefs[index]].filter(
-              (ref) => ref !== undefined
+              (ref) => ref !== undefined,
             );
           },
-          []
+          [],
         );
         const characterItemRefs = character.itemRefs.map(
-          (item: IItemRef) => item.id
+          (item: IItemRef) => item.id,
         );
 
         const characterSpells = spellsResponse.spells.filter((spell) =>
-          characterAllSpellRefs.includes(spell.id)
+          characterAllSpellRefs.includes(spell.id),
         );
         const characterItems = itemsResponse.items.filter((item) =>
-          characterItemRefs.includes(item.id)
+          characterItemRefs.includes(item.id),
         );
         setSpellCompendium({ spells: characterSpells });
         setItemCompendium({ items: characterItems });
@@ -149,7 +136,7 @@ const LoadApp = () => {
       setSpellCompendium,
       itemsResponse,
       setItemCompendium,
-    ]
+    ],
   );
 
   useEffect(
@@ -158,7 +145,7 @@ const LoadApp = () => {
         setPrimaryModifier(getPrimaryModifierValue(character));
       }
     },
-    [character, setPrimaryModifier]
+    [character, setPrimaryModifier],
   );
 
   // Wait until all data has been flushed through Recoil and values exist.

@@ -30,7 +30,7 @@ const Items = () => {
       <h1 className="itemsHeader">Items</h1>
       <div className="itemsContainer">
         <div className="spellItems">
-          <p className="spellList">{displayItems()}</p>
+          <p>{displayItems()}</p>
         </div>
       </div>
     </div>

@@ -131,24 +131,24 @@ const KnownSpells = ({
   innate: boolean;
 }) => {
   const innateSpells = character.magic.spellRefs.filter(
-    (sr: ISpellRef) => sr.innate === true
+    (sr: ISpellRef) => sr.innate === true,
   );
   const spellbook = character.magic.spellRefs.filter(
-    (sr: ISpellRef) => sr.innate === false
+    (sr: ISpellRef) => sr.innate === false,
   );
   return (
     <>
       {innate === true
-        ? Object.values(
-            innateSpells.filter((sr) => sr.level === level)
-          ).map((s) => (
-            <KnownSpell
-              key={s.id}
-              spellRef={s.id}
-              level={s.level}
-              innate={innate}
-            />
-          ))
+        ? Object.values(innateSpells.filter((sr) => sr.level === level)).map(
+            (s) => (
+              <KnownSpell
+                key={s.id}
+                spellRef={s.id}
+                level={s.level}
+                innate={innate}
+              />
+            ),
+          )
         : Object.values(
             spellbook
               .filter((sr) => sr.level === level)
@@ -159,7 +159,7 @@ const KnownSpells = ({
                   level={s.level}
                   innate={innate}
                 />
-              ))
+              )),
           )}
     </>
   );
@@ -228,8 +228,8 @@ const SpellCodeBlock = (props: {
     preppedSpellsCast[levelNum].length;
   return (
     <div className="spellItems">
-      <div className="spellLevelWrapper">
-        <h2 className="spellLevelHeader">
+      <div className="text-center">
+        <h2>
           Level {levelRoman} (DC {getDifficultyClass(levelNum)})
         </h2>
         <em className="remainingSpells">{remainingSpells} remaining today</em>
@@ -293,13 +293,11 @@ const Spells = ({ innate }: { innate: boolean }) => {
       )}
       <div className="spellContainer">
         <div className="spellItems">
-          <div className="spellLevelWrapper">
-            <h2 id="levelZeroHeader" className="spellLevelHeader">
+          <div className="text-center">
+            <h2>
               <CasterType character={character} /> (DC {getDifficultyClass(0)})
             </h2>
-            <em className="remainingSpells">
-              {remainingSpells} remaining today
-            </em>
+            <em>{remainingSpells} remaining today</em>
           </div>
           {preppedSpells[0].length >= 1 || preppedSpellsCast[0].length >= 1 ? (
             <>
