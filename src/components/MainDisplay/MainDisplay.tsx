@@ -1,7 +1,6 @@
 import { useRecoilValue, useRecoilState } from "recoil";
 
 import Items from "../Items/Items";
-import SLAs from "../SLAs/SLAs";
 import { Modal } from "../Modal/Modal";
 import ActiveAndPassiveAbilities from "../ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
 import SpellInfo from "../SpellInfo/SpellInfo";
@@ -55,8 +54,6 @@ const MainDisplay = () => {
         return <Spells />;
       case "Abilities":
         return <ActiveAndPassiveAbilities />;
-      case "SLAs":
-        return <SLAs />;
       case "Items":
         return <Items />;
       case "EditSkills":

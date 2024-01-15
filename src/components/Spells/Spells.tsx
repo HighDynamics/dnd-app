@@ -22,9 +22,17 @@ function Spell(p: {
   innate?: boolean;
   isPrepping?: boolean;
   expended?: boolean;
+  uses?: number;
+  frequency?: string;
 }) {
   const setModalType = useSetRecoilState(modalTypeState);
   const setSelection = useSetRecoilState(selectionState);
+
+  const usesPer = p.innate
+    ? "\u221e"
+    : p.frequency && p.uses
+      ? `${p.uses}/${p.frequency}`
+      : "";
 
   function displayInfo(spell: ISpell) {
     const modalType = p.innate
@@ -33,7 +41,9 @@ function Spell(p: {
         ? "Prep"
         : p.expended
           ? "UsedPrepped"
-          : "CastPrepped";
+          : p.frequency
+            ? "SLA"
+            : "CastPrepped";
 
     setModalType(modalType);
     setSelection(spell);
@@ -47,7 +57,7 @@ function Spell(p: {
       )}
       onClick={() => displayInfo(p.spell)}
     >
-      {c(p.spell.name, p.innate ? " \u221e" : "")}
+      {c(p.spell.name, usesPer)}
     </button>
   );
 }
@@ -154,13 +164,41 @@ export function Spells() {
             </>
           )}
           <div className={spellListContainerClasses}>
+            {!isPrepping &&
+              character.magic.spellRefs.filter((y) => y.level === i).length >
+                0 &&
+              "Spontaneous:"}
             {character.magic.spellRefs
               .filter((y) => y.innate === !isPrepping)
               .filter((y) => y.level === i)
               .map((y) => {
                 const spell = getInfoById(spellCompendium)(y.id) as ISpell;
 
-                return <Spell key={y.id} spell={spell} innate={!isPrepping} />;
+                return (
+                  <Spell
+                    key={y.id}
+                    spell={spell}
+                    innate={!isPrepping}
+                    isPrepping={isPrepping}
+                  />
+                );
+              })}
+          </div>
+          <div className={spellListContainerClasses}>
+            {character.magic.slaRefs.filter((y) => y.level === i).length > 0 &&
+              "Spell-Like Abilities:"}
+            {character.magic.slaRefs
+              .filter((y) => y.level === i)
+              .map((y) => {
+                const sla = getInfoById(spellCompendium)(y.id) as ISpell;
+                return (
+                  <Spell
+                    key={y.id}
+                    spell={sla}
+                    frequency={y.frequency}
+                    uses={y.uses}
+                  />
+                );
               })}
           </div>
           <FadedSeparator />

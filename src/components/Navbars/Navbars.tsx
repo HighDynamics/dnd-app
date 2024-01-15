@@ -28,7 +28,6 @@ const AbilitySelector = () => {
       <ul id="abilitySelector" className="navbarContainer">
         <NavButtonCodeBlock name={"Spells"} />
         <NavButtonCodeBlock name={"Abilities"} />
-        <NavButtonCodeBlock name={"SLAs"} />
       </ul>
     </div>
   );
@@ -66,9 +65,8 @@ const SecondaryNavbar = () => {
   );
 };
 const PrimaryNavbar = () => {
-  const [secondaryNavbar, setSecondaryNavbar] = useRecoilState(
-    secondaryNavbarState
-  );
+  const [secondaryNavbar, setSecondaryNavbar] =
+    useRecoilState(secondaryNavbarState);
   const setMainContent = useSetRecoilState(mainContentState);
   const statIcon = <i id="statIcon" className="far fa-chart-bar"></i>;
   const abilityIcon = <i id="spellIcon" className="fas fa-hand-sparkles"></i>;
@@ -82,7 +80,7 @@ const PrimaryNavbar = () => {
   function navButtonCodeBlock(
     name: SecondaryNav,
     icon: React.ReactNode,
-    secondaryName: MainContent
+    secondaryName: MainContent,
   ) {
     return (
       <button
