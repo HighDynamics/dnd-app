@@ -64,18 +64,15 @@ declare global {
       active: SpecialAbilities[];
       passive: SpecialAbilities[];
     };
-    spellcaster: boolean;
     magic: {
       casterLevel: number;
       type: {
         arcane: boolean;
         divine: boolean;
       };
-      slaRefs: ISLARef[];
+      slaRefs: ISpellLikeAbilityRef[];
       spellRefs: ISpellRef[];
-      spellsPerDay: {
-        [level: string]: number;
-      };
+      spellsPerDay: number[];
     };
     itemRefs: IItemRef[];
   };
@@ -100,17 +97,16 @@ declare global {
     type SpecialAbilities = { name: string; type: string };
   }
 
-  type ISpellRef = {
-    id: string;
-    level: number;
+  type MagicRef = { id: string; level: number };
+
+  type ISpellRef = MagicRef & {
     innate: boolean;
   };
-  type ISLARef = {
-    id: string;
-    level: number;
+  type ISpellLikeAbilityRef = MagicRef & {
     uses: number;
     frequency: string;
   };
+
   type IItemRef = {
     id: string;
   };
@@ -128,6 +124,7 @@ declare global {
     isSrd: boolean;
     name: string;
     school: string;
+    description: string;
     subSchool?: string;
     descriptor?: string;
     level: string;
@@ -141,9 +138,5 @@ declare global {
     duration?: string;
     savingThrow?: string;
     spellResistance?: string;
-    description: string;
-  };
-  type ICompendium = {
-    [key: string]: ISpell[] | IItem[];
   };
 }

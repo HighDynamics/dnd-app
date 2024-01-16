@@ -80,9 +80,6 @@ function displayCompendiumInfo(matchedObject: ICompendiumObject) {
   return compendiumObjectInfo;
 }
 
-const getInfoById = (compendium: ICompendium) => (id: string) =>
-  compendium.spells.find((item: ICompendiumObject) => item.id === id);
-
 const getRefInfoByCompendiumObject =
   (selection: ICompendiumObject, character: ICharacter) =>
   (infoKey: string): string | number | boolean => {
@@ -110,7 +107,6 @@ export {
   displayCompendiumInfo,
   whiteSpaceToUnderscore,
   persistCharacter,
-  getInfoById,
   getRefInfoByCompendiumObject,
   addSpellToServer,
 };

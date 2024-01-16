@@ -6,7 +6,7 @@ import {
   preppedSpellsState,
   preppedSpellsCastState,
   slaState,
-  emptySpellsArray,
+  emptySpellArray,
   characterState,
   damageState,
   confirmationTypeState,
@@ -40,9 +40,9 @@ const TopComponent = () => {
     return character.class.reduce((s, c) => Number(s + c.level), 0);
   }
   function resetAllSpells() {
-    setInnateSpellsCast(emptySpellsArray);
-    setpreppedSpells(emptySpellsArray);
-    setPreppedSpellsCast(emptySpellsArray);
+    setInnateSpellsCast(emptySpellArray);
+    setpreppedSpells(emptySpellArray);
+    setPreppedSpellsCast(emptySpellArray);
     setSLAs([]);
   }
   function healDamageOnRest() {

@@ -1,63 +1,58 @@
 import { useState } from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-import {
-  modalTypeState,
-  selectionState,
-  innateSpellsCastState,
-  preppedSpellsState,
-  preppedSpellsCastState,
-  primaryModifierState,
-  characterState,
-  spellCompendiumState,
-} from "../../recoilState";
+import * as store from "../../recoilState";
 import { combine as c } from "../../lib";
-import { getInfoById } from "../../utilities/utilities";
 
 import { Button } from "../Button";
 import { FadedSeparator } from "../FadedSeparator";
 
 function Spell(p: {
-  spell: ISpell;
-  innate?: boolean;
+  spell: {
+    id: string;
+    level: number;
+    uses: number;
+    numUsed: number;
+    entry: ISpell | undefined;
+    frequency?: string;
+  };
   isPrepping?: boolean;
-  expended?: boolean;
-  uses?: number;
-  frequency?: string;
 }) {
-  const setModalType = useSetRecoilState(modalTypeState);
-  const setSelection = useSetRecoilState(selectionState);
+  const setModalType = useSetRecoilState(store.modalTypeState);
+  const setSelection = useSetRecoilState(store.selectionState);
 
-  const usesPer = p.innate
-    ? "\u221e"
-    : p.frequency && p.uses
-      ? `${p.uses}/${p.frequency}`
-      : "";
+  const remainingUses =
+    p.spell.uses === Number.POSITIVE_INFINITY
+      ? "\u221e"
+      : `x ${p.spell.uses - p.spell.numUsed}`;
 
   function displayInfo(spell: ISpell) {
-    const modalType = p.innate
-      ? "Cast"
-      : p.isPrepping
-        ? "Prep"
-        : p.expended
-          ? "UsedPrepped"
-          : p.frequency
+    const modalType =
+      p.spell.uses === Number.POSITIVE_INFINITY
+        ? "Cast"
+        : p.isPrepping
+          ? "Prep"
+          : p.spell.frequency
             ? "SLA"
-            : "CastPrepped";
+            : p.spell.numUsed >= p.spell.uses
+              ? "UsedPrepped"
+              : "CastPrepped";
 
     setModalType(modalType);
     setSelection(spell);
   }
 
+  if (!p.spell.entry) return null;
+
   return (
     <button
       className={c(
         "whitespace-nowrap border border-stone-100 px-2 py-1",
-        p.expended && "opacity-50",
+        p.spell.numUsed >= p.spell.uses && "opacity-50",
       )}
-      onClick={() => displayInfo(p.spell)}
+      onClick={() => displayInfo(p.spell.entry)}
     >
-      {c(p.spell.name, usesPer)}
+      {c(p.spell.entry.name, remainingUses)}
     </button>
   );
 }
@@ -74,27 +69,18 @@ const romans = [
   "VIII",
   "IX",
 ] as const;
-const numStrings = [
-  "zero",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-] as const;
 
 export function Spells() {
   const [isPrepping, setIsPrepping] = useState(false);
-  const character = useRecoilValue(characterState);
-  const spellCompendium = useRecoilValue(spellCompendiumState);
-  const primaryModifier = useRecoilValue(primaryModifierState);
-  const innateSpellsCast = useRecoilValue(innateSpellsCastState);
-  const preppedSpells = useRecoilValue(preppedSpellsState);
-  const preppedSpellsCast = useRecoilValue(preppedSpellsCastState);
+  const character = useRecoilValue(store.characterState);
+  const primaryModifier = useRecoilValue(store.primaryModifierState);
+  const spellSlotsExpended = useRecoilValue(store.spellSlotsExpended);
+  const allKnownSpells = useRecoilValue(store.allKnownSpells);
+
+  const preppedSpells = allKnownSpells.spellbookSpells.filter(
+    (x) => x.uses > 0,
+  );
+
   const casterType = !character.magic.type.arcane
     ? "Orisons"
     : !character.magic.type.divine
@@ -102,17 +88,12 @@ export function Spells() {
       : "Cantrips & Orisons";
   const spellListContainerClasses = "flex flex-wrap gap-2 items-center my-4";
 
-  function getRemainingSpells(spellLevel: number) {
-    return (
-      character.magic.spellsPerDay[numStrings[spellLevel]] -
-      innateSpellsCast[spellLevel].length -
-      preppedSpells[spellLevel].length -
-      preppedSpellsCast[spellLevel].length
-    );
-  }
-
   function getDifficultyClass(levelNum: number) {
     return 10 + levelNum + primaryModifier;
+  }
+
+  function getRemainingSpells(level: number) {
+    return character.magic.spellsPerDay[level] - spellSlotsExpended[level];
   }
 
   return (
@@ -130,80 +111,77 @@ export function Spells() {
           <i className="fas fa-arrow-left"></i>
         </Button>
       )}
-      {romans.map((x, i) => (
-        <div key={x} className="mt-4 px-4">
-          <div className="text-center">
-            <h2 className="text-3xl">
-              {i === 0 ? (
+      {romans.map((x, i) => {
+        const thisLevelPreppedSpells = preppedSpells.filter(
+          (y) => y.level === i,
+        );
+        const thisLevelSpellbookSpells = allKnownSpells.spellbookSpells.filter(
+          (y) => y.level === i,
+        );
+        const thisLevelInnateSpells = allKnownSpells.innateSpells.filter(
+          (y) => y.level === i,
+        );
+        const thisLevelSLAs = allKnownSpells.spellLikeAbilities.filter(
+          (y) => y.level === i,
+        );
+
+        return (
+          <div key={x} className="mt-4 px-4">
+            <div className="text-center">
+              <h2 className="text-3xl">
+                {i === 0 ? (
+                  <>
+                    {casterType} (DC {getDifficultyClass(i)})
+                  </>
+                ) : (
+                  <>
+                    Level {x} (DC {getDifficultyClass(i)})
+                  </>
+                )}
+              </h2>
+              <span className="italic">
+                {getRemainingSpells(i)} remaining today
+              </span>
+            </div>
+            {thisLevelPreppedSpells.length > 0 && (
+              <>
+                <div className={spellListContainerClasses}>
+                  Prepped:
+                  {thisLevelPreppedSpells.map((y) => (
+                    <Spell key={y.id + i} spell={y} isPrepping={isPrepping} />
+                  ))}
+                </div>
+                <FadedSeparator className="mx-auto w-1/2" />
+              </>
+            )}
+            <div className={spellListContainerClasses}>
+              {isPrepping &&
+                thisLevelSpellbookSpells.map((y) => (
+                  <Spell key={y.id} spell={y} isPrepping={isPrepping} />
+                ))}
+              {!isPrepping && thisLevelInnateSpells.length > 0 && (
                 <>
-                  {casterType} (DC {getDifficultyClass(i)})
-                </>
-              ) : (
-                <>
-                  Level {x} (DC {getDifficultyClass(i)})
+                  <div>Spontaneous:</div>
+                  {thisLevelInnateSpells.map((y) => (
+                    <Spell key={y.id} spell={y} isPrepping={isPrepping} />
+                  ))}
                 </>
               )}
-            </h2>
-            <span className="italic">
-              {getRemainingSpells(i)} remaining today
-            </span>
+            </div>
+            <div className={spellListContainerClasses}>
+              {thisLevelSLAs.length > 0 && (
+                <>
+                  <div>Spell-Like Abilities:</div>
+                  {thisLevelSLAs.map((y) => (
+                    <Spell key={y.id} spell={y} />
+                  ))}
+                </>
+              )}
+            </div>
+            <FadedSeparator />
           </div>
-          {(preppedSpells[i].length >= 1 ||
-            preppedSpellsCast[i].length >= 1) && (
-            <>
-              <div className={spellListContainerClasses}>
-                Prepped:
-                {preppedSpells[i].map((y) => (
-                  <Spell key={y.id + i} spell={y} isPrepping={isPrepping} />
-                ))}
-                {preppedSpellsCast[i].map((y) => (
-                  <Spell key={y.id + i} spell={y} expended />
-                ))}
-              </div>
-              <FadedSeparator className="mx-auto w-1/2" />
-            </>
-          )}
-          <div className={spellListContainerClasses}>
-            {!isPrepping &&
-              character.magic.spellRefs.filter((y) => y.level === i).length >
-                0 &&
-              "Spontaneous:"}
-            {character.magic.spellRefs
-              .filter((y) => y.innate === !isPrepping)
-              .filter((y) => y.level === i)
-              .map((y) => {
-                const spell = getInfoById(spellCompendium)(y.id) as ISpell;
-
-                return (
-                  <Spell
-                    key={y.id}
-                    spell={spell}
-                    innate={!isPrepping}
-                    isPrepping={isPrepping}
-                  />
-                );
-              })}
-          </div>
-          <div className={spellListContainerClasses}>
-            {character.magic.slaRefs.filter((y) => y.level === i).length > 0 &&
-              "Spell-Like Abilities:"}
-            {character.magic.slaRefs
-              .filter((y) => y.level === i)
-              .map((y) => {
-                const sla = getInfoById(spellCompendium)(y.id) as ISpell;
-                return (
-                  <Spell
-                    key={y.id}
-                    spell={sla}
-                    frequency={y.frequency}
-                    uses={y.uses}
-                  />
-                );
-              })}
-          </div>
-          <FadedSeparator />
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 }

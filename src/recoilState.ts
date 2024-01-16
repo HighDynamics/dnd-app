@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import type { SetterOrUpdater } from "recoil";
 
 /**
@@ -128,20 +128,7 @@ export const selectionState = atom({
   default: {},
 });
 
-export const emptySpellsArray: [
-  string[],
-  string[],
-  string[],
-  string[],
-  string[],
-  string[],
-  string[],
-  string[],
-  string[],
-  string[],
-] = [[], [], [], [], [], [], [], [], [], []];
-
-export const emptySpellsArrayWithInfo: [
+export const emptySpellArray: [
   ISpell[],
   ISpell[],
   ISpell[],
@@ -156,21 +143,81 @@ export const emptySpellsArrayWithInfo: [
 
 export const innateSpellsCastState = atom({
   key: "innateSpellsCastState",
-  default: emptySpellsArrayWithInfo,
+  default: emptySpellArray,
 });
 export const preppedSpellsState = atom({
   key: "preppedSpellsState",
-  default: emptySpellsArrayWithInfo,
+  default: emptySpellArray,
 });
 export const preppedSpellsCastState = atom({
   key: "preppedSpellsCastState",
-  default: emptySpellsArrayWithInfo,
+  default: emptySpellArray,
 });
-export type SLATracker = {
-  name: string;
-  uses: number;
-};
-export const slaState = atom<Array<SLATracker>>({
+export const slaState = atom({
   key: "slaState",
-  default: [],
+  default: emptySpellArray,
+});
+
+export const allKnownSpells = selector({
+  key: "allKnownSpells",
+  get: ({ get }) => {
+    const magic = get(characterState).magic;
+    const spellCompendium = get(spellCompendiumState);
+    function getSpellInfoById(id: string) {
+      return spellCompendium.spells.find((item) => item.id === id);
+    }
+
+    const innateSpells = magic.spellRefs
+      .filter((x) => x.innate)
+      .map((x) => ({
+        id: x.id,
+        level: x.level,
+        uses: Number.POSITIVE_INFINITY,
+        numUsed: 0,
+        entry: getSpellInfoById(x.id),
+      }));
+
+    const spellbookSpells = magic.spellRefs
+      .filter((x) => !x.innate)
+      .map((x) => ({
+        id: x.id,
+        level: x.level,
+        uses: 0,
+        numUsed: 0,
+        entry: getSpellInfoById(x.id),
+      }));
+
+    const spellLikeAbilities = magic.slaRefs.map((x) => ({
+      ...x,
+      numUsed: 0,
+      entry: getSpellInfoById(x.id),
+    }));
+
+    return { innateSpells, spellbookSpells, spellLikeAbilities };
+  },
+});
+
+export const spellSlotsExpended = selector({
+  key: "spellSlotsExpended",
+  get: ({ get }) => {
+    const expendedSpells = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    function getExpendedSpellsByLevel(level: number) {
+      const expendedInnateSpells = get(allKnownSpells)
+        .innateSpells.filter((x) => x.level === level)
+        .reduce((acc, x) => {
+          return acc + x.numUsed;
+        }, 0);
+
+      const expendedSpellbookSpells = get(allKnownSpells)
+        .spellbookSpells.filter((x) => x.level === level)
+        .reduce((acc, x) => {
+          return acc + x.numUsed;
+        }, 0);
+
+      return expendedInnateSpells + expendedSpellbookSpells;
+    }
+
+    return expendedSpells.map((x, i) => x + getExpendedSpellsByLevel(i));
+  },
 });
