@@ -40,14 +40,17 @@ const App = () => {
   );
 
   return (
-    <div className="h-dvh overflow-y-scroll bg-black/80">
-      <div>
-        <BasicInfo />
-        <Navbar.PrimaryNavbar />
-        <Navbar.SecondaryNavbar />
+    <>
+      <div className="backgroundImage fixed top-0 -z-50 h-screen w-screen" />
+      <div className="bg-black/80 text-stone-200">
+        <div>
+          <BasicInfo />
+          <Navbar.PrimaryNavbar />
+          <Navbar.SecondaryNavbar />
+        </div>
+        <MainDisplay />
       </div>
-      <MainDisplay />
-    </div>
+    </>
   );
 };
 
