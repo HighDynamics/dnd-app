@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-serif font-thin tracking-wider;
+  }
+
+  .text-label {
+    @apply font-sans font-bold uppercase tracking-wider opacity-80;
+  }
+}
