@@ -1,128 +1,53 @@
-import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
-
-import {
-  modalTypeState,
-  selectionState,
-  preppedSpellsState,
-  innateSpellsCastState,
-  preppedSpellsCastState,
-  characterState,
-  confirmationTypeState,
-  ConfirmationType,
-} from "../../recoilState";
-import type { ModalType } from "../../recoilState";
-import { clone, getRefInfoByCompendiumObject } from "../../utilities/utilities";
-import { Modal } from "../Modal/Modal";
-import {
-  CastingSpell,
-  PreppingSpell,
-  CastingPreppedSpell,
-  UsedPreppedSpell,
-} from "../Modal/AllSpellInfo/AllSpellInfo";
+import { FadedSeparator } from "../FadedSeparator";
 import "./SpellInfo.css";
 
-const SpellInfo = ({
-  innate,
-  onClose,
-}: {
-  innate: boolean;
-  onClose: () => void;
-}) => {
-  //bring in react/recoil context
-  const character = useRecoilValue(characterState);
-  const selection = useRecoilValue(selectionState);
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
-  const [modalType, setModalType] = useRecoilState(modalTypeState);
-  const [innateSpellsCast, setInnateSpellsCast] = useRecoilState(
-    innateSpellsCastState
+function SpellProperty(p: { name: string; value?: string | null }) {
+  if (!p.value) return null;
+  return (
+    <div className="flex gap-1">
+      <span className="w-[13ch] shrink-0">{p.name}:</span>
+      <span>{p.value}</span>
+    </div>
   );
-  const [preppedSpells, setPreppedSpells] = useRecoilState(preppedSpellsState);
-  const [preppedSpellsCast, setPreppedSpellsCast] = useRecoilState(
-    preppedSpellsCastState
+}
+
+function formatRange(range?: string) {
+  if (!range) return null;
+  return range === "Close"
+    ? "Close (25 ft. + 5 ft./2 levels)"
+    : range === "Medium"
+      ? "Medium (100 ft. + 10 ft./level)"
+      : range === "Long"
+        ? "Long (400 ft. + 40 ft./level)"
+        : range;
+}
+
+export function SpellInfo(p: { spell: ISpell }) {
+  return (
+    <div className="mt-1">
+      <div className="mb-2 flex gap-1">
+        <span>{p.spell.school}</span>
+        {p.spell.subSchool && <span>({p.spell.subSchool})</span>}
+        {p.spell.descriptor && <span>[{p.spell.descriptor}]</span>}
+      </div>
+      <div className="flex flex-col gap-1 text-sm">
+        <SpellProperty name="Level" value={p.spell.level} />
+        <SpellProperty name="Components" value={p.spell.components} />
+        <SpellProperty name="Casting Time" value={p.spell.castingTime} />
+        <SpellProperty name="Range" value={formatRange(p.spell.range)} />
+        <SpellProperty name="Target" value={p.spell.target} />
+        <SpellProperty name="Effect" value={p.spell.effect} />
+        <SpellProperty name="Area" value={p.spell.area} />
+        <SpellProperty name="Target or Area" value={p.spell.targetOrArea} />
+        <SpellProperty name="Duration" value={p.spell.duration} />
+        <SpellProperty name="Saving Throw" value={p.spell.savingThrow} />
+        <SpellProperty
+          name="Spell Resistance"
+          value={p.spell.spellResistance}
+        />
+        <FadedSeparator className="my-2" />
+        <p className="whitespace-pre-line">{p.spell.description}</p>
+      </div>
+    </div>
   );
-
-  const renderConfirmation = (confirmationType: ConfirmationType) => {
-    setConfirmationType(confirmationType);
-    setTimeout(() => setConfirmationType("off"), 3000);
-  };
-
-  const addUsedSpell = (selection: ISpell) => (e) => {
-    const level: number = getRefInfoByCompendiumObject(
-      selection,
-      character
-    )("level");
-    if (innate === true) {
-      const newArray = clone(innateSpellsCast);
-      newArray[level].push(selection);
-      setInnateSpellsCast(newArray);
-      setModalType("Off");
-      renderConfirmation("castSpell");
-    } else if (e.target.id === "usePreppedSpell") {
-      const newArray = clone(preppedSpellsCast);
-      newArray[level].push(selection);
-      setPreppedSpellsCast(newArray);
-      setModalType("Off");
-      renderConfirmation("castSpell");
-    } else if (innate === false) {
-      const newArray = clone(preppedSpells);
-      newArray[level].push(selection);
-      setPreppedSpells(newArray);
-      setModalType("Off");
-      renderConfirmation("prepSpell");
-    }
-  };
-
-  const removeUsedSpell = (selection: ISpell) => () => {
-    const level = getRefInfoByCompendiumObject(selection, character)("level");
-    if (innate === true) {
-      const newArray = clone(innateSpellsCast);
-      const used = newArray[level].findIndex((item) => {
-        return item === selection;
-      });
-      newArray[level].splice(used, 1);
-      setInnateSpellsCast(newArray);
-    } else if (innate === false) {
-      const newArray = clone(preppedSpells);
-      const used = newArray[level].findIndex(
-        (item) => item.id === selection.id
-      );
-      newArray[level].splice(used, 1);
-      setPreppedSpells(newArray);
-      setModalType("Off");
-    }
-  };
-  function chooseModal(modalType: ModalType) {
-    switch (modalType) {
-      case "Prep":
-        return (
-          <PreppingSpell selection={selection} addUsedSpell={addUsedSpell} />
-        );
-      case "Cast":
-        return (
-          <CastingSpell selection={selection} addUsedSpell={addUsedSpell} />
-        );
-      case "CastPrepped":
-        return (
-          <CastingPreppedSpell
-            selection={selection}
-            addUsedSpell={addUsedSpell}
-            removeUsedSpell={removeUsedSpell}
-            renderConfirmation={renderConfirmation}
-          />
-        );
-      case "UsedPrepped":
-        return (
-          <UsedPreppedSpell
-            selection={selection}
-            addUsedSpell={addUsedSpell}
-            removeUsedSpell={removeUsedSpell}
-          />
-        );
-      default:
-        return null;
-    }
-  }
-  return <Modal onClose={onClose}>{chooseModal(modalType)}</Modal>;
-};
-
-export default SpellInfo;
+}

@@ -124,10 +124,10 @@ declare global {
     isSrd: boolean;
     name: string;
     school: string;
+    level: string;
     description: string;
     subSchool?: string;
     descriptor?: string;
-    level: string;
     components?: string;
     castingTime?: string;
     range?: string;

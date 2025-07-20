@@ -3,12 +3,11 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import Items from "../Items/Items";
 import { Modal } from "../Modal/Modal";
 import ActiveAndPassiveAbilities from "../ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
-import SpellInfo from "../SpellInfo/SpellInfo";
 import AbilityScores from "../Modal/AbilityScores/AbilityScores";
 import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
 import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
 import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
-import { Spells } from "../Spells/Spells";
+import { Spells } from "../Spells";
 import Skills from "../Skills/Skills";
 import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
@@ -84,13 +83,6 @@ const MainDisplay = () => {
   };
   function infoSheet(modalType: ModalType) {
     switch (modalType) {
-      case "Cast":
-        return <SpellInfo innate={true} onClose={modalFade} />;
-      case "Prep":
-      case "CastPrepped":
-        return <SpellInfo innate={false} onClose={modalFade} />;
-      case "UsedPrepped":
-        return <SpellInfo innate={false} onClose={modalFade} />;
       case "HP":
         return (
           <Modal onClose={modalFade}>

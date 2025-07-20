@@ -158,8 +158,8 @@ export const slaState = atom({
   default: emptySpellArray,
 });
 
-export const allKnownSpells = selector({
-  key: "allKnownSpells",
+export const allKnownSpells_ = selector({
+  key: "allKnownSpells_",
   get: ({ get }) => {
     const magic = get(characterState).magic;
     const spellCompendium = get(spellCompendiumState);
@@ -167,25 +167,12 @@ export const allKnownSpells = selector({
       return spellCompendium.spells.find((item) => item.id === id);
     }
 
-    const innateSpells = magic.spellRefs
-      .filter((x) => x.innate)
-      .map((x) => ({
-        id: x.id,
-        level: x.level,
-        uses: Number.POSITIVE_INFINITY,
-        numUsed: 0,
-        entry: getSpellInfoById(x.id),
-      }));
-
-    const spellbookSpells = magic.spellRefs
-      .filter((x) => !x.innate)
-      .map((x) => ({
-        id: x.id,
-        level: x.level,
-        uses: 0,
-        numUsed: 0,
-        entry: getSpellInfoById(x.id),
-      }));
+    const spells = magic.spellRefs.map((x) => ({
+      ...x,
+      uses: x.innate ? Number.POSITIVE_INFINITY : 0,
+      numUsed: 0,
+      entry: getSpellInfoById(x.id),
+    }));
 
     const spellLikeAbilities = magic.slaRefs.map((x) => ({
       ...x,
@@ -193,8 +180,13 @@ export const allKnownSpells = selector({
       entry: getSpellInfoById(x.id),
     }));
 
-    return { innateSpells, spellbookSpells, spellLikeAbilities };
+    return { spells, spellLikeAbilities };
   },
+});
+
+export const allKnownSpells = atom({
+  key: "allKnownSpells",
+  default: allKnownSpells_,
 });
 
 export const spellSlotsExpended = selector({
@@ -203,19 +195,13 @@ export const spellSlotsExpended = selector({
     const expendedSpells = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     function getExpendedSpellsByLevel(level: number) {
-      const expendedInnateSpells = get(allKnownSpells)
-        .innateSpells.filter((x) => x.level === level)
+      return get(allKnownSpells)
+        .spells.filter((x) => x.level === level)
         .reduce((acc, x) => {
-          return acc + x.numUsed;
+          const expended =
+            x.uses < Number.POSITIVE_INFINITY ? x.uses : x.numUsed;
+          return acc + expended;
         }, 0);
-
-      const expendedSpellbookSpells = get(allKnownSpells)
-        .spellbookSpells.filter((x) => x.level === level)
-        .reduce((acc, x) => {
-          return acc + x.numUsed;
-        }, 0);
-
-      return expendedInnateSpells + expendedSpellbookSpells;
     }
 
     return expendedSpells.map((x, i) => x + getExpendedSpellsByLevel(i));
