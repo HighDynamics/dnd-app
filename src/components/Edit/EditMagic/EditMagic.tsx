@@ -2,38 +2,22 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import useSWR from "swr";
 
-import {
-  ConfirmationType,
-  confirmationTypeState,
-  mainContentState,
-} from "../../../recoilState";
+import { mainContentState } from "../../../recoilState";
 import AddSpellToCharacter from "./AddSpellToCharacter/AddSpellToCharacter";
 import AddSpellToCompendium from "./AddSpellToCompendium/AddSpellToCompendium";
 
 const EditMagic = () => {
   const setMainContent = useSetRecoilState(mainContentState);
   const [toggleAddNewSpell, setToggleAddNewSpell] = useState(false);
-  const [toggleAddCompendiumSpell, setToggleAddCompendiumSpell] = useState(
-    false
-  );
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
-  const { data: spellsResponse } = useSWR<IServer.GetSpells.Response>(
-    "/api/spells"
-  );
+  const [toggleAddCompendiumSpell, setToggleAddCompendiumSpell] =
+    useState(false);
+  const { data: spellsResponse } =
+    useSWR<IServer.GetSpells.Response>("/api/spells");
 
   //TODO: include user's added objects in future
   const compendiumSRDObjects = spellsResponse?.spells.filter(
-    (object) => object.isSrd
+    (object) => object.isSrd,
   );
-  /* USE THIS FOR USER ADDED SPELLS
-  const allCompendiumUserIds = spellsResponse?.spells
-    .filter((object) => /^\d+/.test(object.id))
-    .map((object) => object.id);
-*/
-  const renderConfirmation = (confirmationType: ConfirmationType) => {
-    setConfirmationType(confirmationType);
-    setTimeout(() => setConfirmationType("off"), 3000);
-  };
 
   return (
     <>
@@ -53,16 +37,10 @@ const EditMagic = () => {
         Add Spell To Compendium
       </button>
       {toggleAddNewSpell && (
-        <AddSpellToCompendium
-          setToggleAddNewSpell={setToggleAddNewSpell}
-          renderConfirmation={renderConfirmation}
-        />
+        <AddSpellToCompendium setToggleAddNewSpell={setToggleAddNewSpell} />
       )}
       {toggleAddCompendiumSpell && (
-        <AddSpellToCharacter
-          compendiumSRDObjects={compendiumSRDObjects}
-          renderConfirmation={renderConfirmation}
-        />
+        <AddSpellToCharacter compendiumSRDObjects={compendiumSRDObjects} />
       )}
     </>
   );

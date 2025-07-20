@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import {
-  confirmationTypeState,
-  ConfirmationType,
-  selectionState,
-} from "../../../../recoilState";
+import { selectionState } from "../../../../recoilState";
 import { addSpellToServer } from "../../../../utilities/utilities";
 import "./AddSpellToCompendium.css";
+import { useToast } from "../../../ActionToast/useToast";
 
 const AddSpellToCompendium = ({
   setToggleAddNewSpell,
@@ -14,7 +11,7 @@ const AddSpellToCompendium = ({
   allCompendiumUserIds: number[];
   setToggleAddNewSpell: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const toast = useToast();
   const setSelection = useSetRecoilState(selectionState);
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
@@ -90,11 +87,6 @@ const AddSpellToCompendium = ({
     }
   };
 
-  const renderConfirmation = (confirmationType: ConfirmationType) => {
-    setConfirmationType(confirmationType);
-    setTimeout(() => setConfirmationType("off"), 3000);
-  };
-
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault();
     const newSpell: IServer.PostSpell.Request = {
@@ -124,7 +116,7 @@ const AddSpellToCompendium = ({
     addSpellToServer(newSpell);
     setToggleAddNewSpell(false);
     setSelection(newSpell);
-    renderConfirmation("addSpell");
+    toast(`Spell ${newSpell.name} added to the compendium.`);
   };
 
   return (

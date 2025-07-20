@@ -9,10 +9,9 @@ import {
   emptySpellArray,
   characterState,
   damageState,
-  confirmationTypeState,
-  ConfirmationType,
 } from "../../recoilState";
 import { combine as c } from "../../lib/string";
+import { useToast } from "../ActionToast/useToast";
 
 const CharacterType = (props: { value: React.ReactNode }) => {
   return <span>{props.value} / </span>;
@@ -35,7 +34,7 @@ const TopComponent = () => {
   const setpreppedSpells = useSetRecoilState(preppedSpellsState);
   const setPreppedSpellsCast = useSetRecoilState(preppedSpellsCastState);
   const setSLAs = useSetRecoilState(slaState);
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const toast = useToast();
   function getCareerLevel() {
     return character.class.reduce((s, c) => Number(s + c.level), 0);
   }
@@ -49,16 +48,11 @@ const TopComponent = () => {
     setDamage(Math.max(0, damage - getCareerLevel()));
   }
 
-  const renderConfirmation = (confirmationType: ConfirmationType) => {
-    setConfirmationType(confirmationType);
-    setTimeout(() => setConfirmationType("off"), 3000);
-  };
-
   function fullRest() {
     resetAllSpells();
     healDamageOnRest();
     setToggle(false);
-    renderConfirmation("fullRest");
+    toast("Full rest completed.");
   }
   const type = character.type.map((t) => <CharacterType key={t} value={t} />);
   const classList = character.class.map((c) => (

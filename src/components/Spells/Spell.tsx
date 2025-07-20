@@ -1,12 +1,13 @@
 import { useRecoilState } from "recoil";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { Disclosure } from "@headlessui/react";
+
+import { SpellInfo } from "../SpellInfo/SpellInfo";
+import { Button } from "../Button";
+import { useToast } from "../ActionToast/useToast";
 
 import * as store from "../../recoilState";
 import { combine as c } from "../../lib";
-
-import { Disclosure } from "@headlessui/react";
-import { SpellInfo } from "../SpellInfo/SpellInfo";
-import { Button } from "../Button";
 
 export function Spell(p: {
   spell: {
@@ -24,6 +25,7 @@ export function Spell(p: {
   const [allKnownSpells, setAllKnownSpells] = useRecoilState(
     store.allKnownSpells,
   );
+  const toast = useToast();
   const remainingUses = p.spell.uses - p.spell.numUsed;
 
   const spellInfo = p.spell.entry;
@@ -52,6 +54,12 @@ export function Spell(p: {
         return x;
       }),
     });
+
+    toast(
+      `The spell ${p.spell.entry?.name} has been ${
+        p.isPrepping ? "prepped" : "cast"
+      }.`,
+    );
   }
 
   return (

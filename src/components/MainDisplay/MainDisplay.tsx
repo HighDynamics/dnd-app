@@ -24,20 +24,15 @@ import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 import ChangeCharacter from "../ChangeCharacter/ChangeCharacter";
 import ConfirmationModal from "../Modal/ConfirmationModal/ConfirmationModal";
-import SubmitConfirm from "../SubmitConfirm/SubmitConfirm";
+import { ActionToast } from "../ActionToast";
 
-import {
-  mainContentState,
-  modalTypeState,
-  confirmationTypeState,
-} from "../../recoilState";
+import { mainContentState, modalTypeState } from "../../recoilState";
 import type { ModalType, MainContent } from "../../recoilState";
 
 import { FadedSeparator } from "../FadedSeparator";
 
 const MainDisplay = () => {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
-  const confirmationType = useRecoilValue(confirmationTypeState);
   const mainContent = useRecoilValue(mainContentState);
   function screenSwitch(display: MainContent) {
     switch (display) {
@@ -130,7 +125,7 @@ const MainDisplay = () => {
   return (
     <>
       <FadedSeparator className="mt-2 h-[2px]" />
-      {confirmationType !== "off" && <SubmitConfirm />}
+      <ActionToast />
       <div className="infoSheet">{infoSheet(modalType)}</div>
       <div>{screenSwitch(mainContent)}</div>
     </>

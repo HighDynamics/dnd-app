@@ -1,14 +1,10 @@
 import { ReactEventHandler, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  characterState,
-  confirmationTypeState,
-  ConfirmationType,
-  modalTypeState,
-} from "../../../../recoilState";
+import { characterState, modalTypeState } from "../../../../recoilState";
 import { persistCharacter, clone } from "../../../../utilities/utilities";
 
 import "./CharacterSpell.css";
+import { useToast } from "../../../ActionToast/useToast";
 
 const AddSla = ({
   spellName,
@@ -75,7 +71,7 @@ const AddInnateOrSpellbook = ({
 const CharacterSpell = ({ selection }: { selection: ISpell }) => {
   const character = useRecoilValue(characterState);
   const setModalType = useSetRecoilState(modalTypeState);
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const toast = useToast();
   const [innate, setInnate] = useState(false);
   const [spellbook, setSpellbook] = useState(false);
   const [sla, setSla] = useState(false);
@@ -87,11 +83,6 @@ const CharacterSpell = ({ selection }: { selection: ISpell }) => {
     return buttonClicked
       ? "defaultButton defaultButtonSelected"
       : "defaultButton";
-  };
-
-  const renderConfirmation = (confirmationType: ConfirmationType) => {
-    setConfirmationType(confirmationType);
-    setTimeout(() => setConfirmationType("off"), 3000);
   };
 
   const confirmAddSpell = () => {
@@ -120,7 +111,7 @@ const CharacterSpell = ({ selection }: { selection: ISpell }) => {
     }
     persistCharacter(updatedCharacter);
     setModalType("Off");
-    renderConfirmation("addSpell");
+    toast(`${selection.name} has been added to your character.`);
   };
 
   return (

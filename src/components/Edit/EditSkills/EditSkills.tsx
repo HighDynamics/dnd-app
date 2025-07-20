@@ -1,27 +1,18 @@
 import { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
-import {
-  characterState,
-  mainContentState,
-  confirmationTypeState,
-  ConfirmationType,
-} from "../../../recoilState";
+import { characterState, mainContentState } from "../../../recoilState";
 import { clone, persistCharacter } from "../../../utilities/utilities";
 
 import SkillForm from "./SkillForm";
 import "./EditSkills.css";
+import { useToast } from "../../ActionToast/useToast";
 
 const EditSkills = () => {
   const [character] = useRecoilState(characterState);
   const setMainContent = useSetRecoilState(mainContentState);
-  const setConfirmationType = useSetRecoilState(confirmationTypeState);
+  const toast = useToast();
   const [newSkillForm, setNewSkillForm] = useState(false);
-
-  const renderConfirmation = (confirmationType: ConfirmationType) => {
-    setConfirmationType(confirmationType);
-    setTimeout(() => setConfirmationType("off"), 3000);
-  };
 
   const handleCreateSkill = (newSkill: ICharacter.Skill) => {
     let updatedCharacter = clone(character);
@@ -30,12 +21,12 @@ const EditSkills = () => {
 
     persistCharacter(updatedCharacter);
     setNewSkillForm(!newSkillForm);
-    renderConfirmation("addSkill");
+    toast(`New skill "${newSkill.name}" added to character.`);
   };
 
   const handleUpdateSkill = (
     updatedSkill: ICharacter.Skill,
-    originalSkill: ICharacter.Skill
+    originalSkill: ICharacter.Skill,
   ) => {
     let updatedCharacter = clone(character);
 
@@ -43,7 +34,7 @@ const EditSkills = () => {
     updatedCharacter.skills[index] = updatedSkill;
 
     persistCharacter(updatedCharacter);
-    renderConfirmation("updateSkill");
+    toast(`${updatedSkill.name} updated successfully.`);
   };
 
   return (

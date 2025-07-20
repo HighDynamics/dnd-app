@@ -108,20 +108,9 @@ export const modalTypeState = atom<ModalType>({
   default: "Off",
 });
 
-export type ConfirmationType =
-  | "castSpell"
-  | "prepSpell"
-  | "addSpell"
-  | "updateCharacter"
-  | "cancelSpell"
-  | "addSkill"
-  | "updateSkill"
-  | "fullRest"
-  | "off";
-
-export const confirmationTypeState = atom<ConfirmationType>({
-  key: "confirmationTypeState",
-  default: "off",
+export const confirmationMsg = atom<string | null>({
+  key: "confirmationMsg",
+  default: null,
 });
 export const selectionState = atom({
   key: "selectionState",
