@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import {
-  innateSpellsCastState,
-  preppedSpellsState,
-  preppedSpellsCastState,
-  slaState,
-  emptySpellArray,
   characterState,
   damageState,
+  allKnownSpells as allKnownSpells_,
 } from "../../recoilState";
 import { combine as c } from "../../lib/string";
 import { useToast } from "../ActionToast/useToast";
@@ -30,20 +26,27 @@ const TopComponent = () => {
   const character = useRecoilValue(characterState);
   const [toggle, setToggle] = useState(false);
   const [damage, setDamage] = useRecoilState(damageState);
-  const setInnateSpellsCast = useSetRecoilState(innateSpellsCastState);
-  const setpreppedSpells = useSetRecoilState(preppedSpellsState);
-  const setPreppedSpellsCast = useSetRecoilState(preppedSpellsCastState);
-  const setSLAs = useSetRecoilState(slaState);
+  const [allKnownSpells, setAllKnownSpells] = useRecoilState(allKnownSpells_);
   const toast = useToast();
   function getCareerLevel() {
     return character.class.reduce((s, c) => Number(s + c.level), 0);
   }
+
   function resetAllSpells() {
-    setInnateSpellsCast(emptySpellArray);
-    setpreppedSpells(emptySpellArray);
-    setPreppedSpellsCast(emptySpellArray);
-    setSLAs([]);
+    const resetSpells = {
+      spells: allKnownSpells.spells.map((spell) => ({
+        ...spell,
+        numUsed: 0,
+        uses: spell.uses < Number.POSITIVE_INFINITY ? 0 : spell.uses,
+      })),
+      spellLikeAbilities: allKnownSpells.spellLikeAbilities.map((sla) => ({
+        ...sla,
+        numUsed: 0,
+      })),
+    };
+    setAllKnownSpells(resetSpells);
   }
+
   function healDamageOnRest() {
     setDamage(Math.max(0, damage - getCareerLevel()));
   }
