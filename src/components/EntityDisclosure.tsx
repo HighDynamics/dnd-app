@@ -21,7 +21,9 @@ export function EntityDisclosure(
             p.containerClassName,
           )}
         >
-          <Disclosure.Button as="div">{p.buttonChildren}</Disclosure.Button>
+          <Disclosure.Button as="div" className="h-8">
+            {p.buttonChildren}
+          </Disclosure.Button>
           <Disclosure.Panel
             onClick={(e) => {
               const parentTop =
