@@ -65,7 +65,7 @@ export function Spell(p: {
       containerClassName={c(p.spell.numUsed >= p.spell.uses && "opacity-50")}
       buttonChildren={
         <div className="flex items-center justify-between">
-          <span>{spellInfo.name}</span>
+          <span className="text-lg">{spellInfo.name}</span>
           <div className="flex items-center justify-end gap-2">
             <span>
               {remainingUses < Number.POSITIVE_INFINITY

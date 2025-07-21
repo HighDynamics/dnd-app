@@ -4,7 +4,7 @@ import "./SpellInfo.css";
 function SpellProperty(p: { name: string; value?: string | null }) {
   if (!p.value) return null;
   return (
-    <div className="flex gap-1">
+    <div className="flex items-center gap-1 font-sans">
       <span className="w-[13ch] shrink-0">{p.name}:</span>
       <span>{p.value}</span>
     </div>
@@ -26,11 +26,11 @@ export function SpellInfo(p: { spell: ISpell }) {
   return (
     <div className="mt-1">
       <div className="mb-2 flex gap-1">
-        <span>{p.spell.school}</span>
+        <span className="font-sans text-lg">{p.spell.school}</span>
         {p.spell.subSchool && <span>({p.spell.subSchool})</span>}
         {p.spell.descriptor && <span>[{p.spell.descriptor}]</span>}
       </div>
-      <div className="flex flex-col gap-1 text-sm">
+      <div className="flex flex-col gap-1">
         <SpellProperty name="Level" value={p.spell.level} />
         <SpellProperty name="Components" value={p.spell.components} />
         <SpellProperty name="Casting Time" value={p.spell.castingTime} />
