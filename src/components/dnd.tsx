@@ -41,8 +41,8 @@ const App = () => {
 
   return (
     <>
-      <div className="backgroundImage fixed top-0 -z-50 h-screen w-screen" />
-      <div className="bg-black/80 text-stone-200">
+      <div className="fixed top-0 -z-50 h-screen w-screen bg-indigo-950/30" />
+      <div className="text-stone-200">
         <div>
           <BasicInfo />
           <Navbar.PrimaryNavbar />
