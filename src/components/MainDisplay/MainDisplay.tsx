@@ -20,7 +20,6 @@ import EditItems from "../Edit/EditItems/EditItems";
 import EditCore from "../Edit/EditCore/EditCore";
 import AddCharacter from "../AddCharacter/AddCharacter";
 import AbilityInfo from "../Modal/AbilityInfo/AbilityInfo";
-import SLAInfo from "../Modal/SLAInfo/SLAInfo";
 import ItemInfo from "../Modal/ItemInfo/ItemInfo";
 import ChangeCharacter from "../ChangeCharacter/ChangeCharacter";
 import ConfirmationModal from "../Modal/ConfirmationModal/ConfirmationModal";
@@ -96,12 +95,6 @@ const MainDisplay = () => {
         return (
           <Modal onClose={modalFade}>
             <AbilityInfo />
-          </Modal>
-        );
-      case "SLA":
-        return (
-          <Modal onClose={modalFade}>
-            <SLAInfo />
           </Modal>
         );
       case "Item":
