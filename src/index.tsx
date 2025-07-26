@@ -1,6 +1,3 @@
-import "./index.css";
-import { makeServer } from "./server";
-import * as serviceWorker from "./serviceWorker";
 import { StrictMode } from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router";
@@ -12,7 +9,10 @@ import Items from "./components/Items/Items";
 import { Skills } from "./components/Skills/Skills";
 import { Spells } from "./components/Spells";
 import LoadApp from "./components/dnd";
-import "./components/dnd.css";
+
+import "./index.css";
+import { makeServer } from "./server";
+import * as serviceWorker from "./serviceWorker";
 
 // Whenever it is time for a real server, this should be removed.
 makeServer({ environment: "development" });

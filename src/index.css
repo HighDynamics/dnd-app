@@ -4,7 +4,11 @@
 
 @layer base {
   html {
-    @apply font-serif font-thin tracking-wider;
+    @apply box-border font-serif font-thin tracking-wider;
+  }
+
+  body {
+    @apply bg-black;
   }
 
   .text-label {
