@@ -1,12 +1,18 @@
+import "./index.css";
+import { makeServer } from "./server";
+import * as serviceWorker from "./serviceWorker";
 import { StrictMode } from "react";
 import { render } from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
-import "./components/dnd.css";
+
+import ActiveAndPassiveAbilities from "./components/ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
+import Items from "./components/Items/Items";
+import { Skills } from "./components/Skills/Skills";
+import { Spells } from "./components/Spells";
 import LoadApp from "./components/dnd";
-import * as serviceWorker from "./serviceWorker";
-import { makeServer } from "./server";
-import "./index.css";
+import "./components/dnd.css";
 
 // Whenever it is time for a real server, this should be removed.
 makeServer({ environment: "development" });
@@ -20,11 +26,21 @@ render(
             fetch(...args).then((res) => res.json()),
         }}
       >
-        <LoadApp />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoadApp />}>
+              <Route path="main" element={<></>} />
+              <Route path="skills" element={<Skills />} />
+              <Route path="items" element={<Items />} />
+              <Route path="spells" element={<Spells />} />
+              <Route path="abilities" element={<ActiveAndPassiveAbilities />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </SWRConfig>
     </RecoilRoot>
   </StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change

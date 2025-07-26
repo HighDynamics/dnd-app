@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import useSWR from "swr";
+import { Outlet } from "react-router";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import useSWR from "swr";
 
 import {
   primaryModifierState,
@@ -11,11 +12,10 @@ import {
   itemCompendiumState,
 } from "../recoilState";
 import { getAbilityMod } from "../utilities/utilities";
-import * as Navbar from "./Navbars/Navbars";
+import { ActionToast } from "./ActionToast";
 import BasicInfo from "./BasicInfo/BasicInfo";
-import MainDisplay from "./MainDisplay/MainDisplay";
-
-import "./dnd.css";
+import { FadedSeparator } from "./FadedSeparator";
+import { Nav } from "./Nav";
 
 /******************************General functions****************************/
 export function totalSpells(
@@ -41,14 +41,19 @@ const App = () => {
 
   return (
     <>
+      <ActionToast />
       <div className="fixed top-0 -z-50 h-screen w-screen bg-indigo-950/30" />
-      <div className="text-stone-200">
+      <div className="text-stone-200 flex flex-col h-screen">
         <div>
           <BasicInfo />
-          <Navbar.PrimaryNavbar />
-          <Navbar.SecondaryNavbar />
         </div>
-        <MainDisplay />
+        <div className="p-4 grow overflow-auto">
+          <Outlet />
+        </div>
+        <div>
+          <FadedSeparator />
+          <Nav />
+        </div>
       </div>
     </>
   );
