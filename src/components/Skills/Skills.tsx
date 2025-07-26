@@ -1,59 +1,67 @@
 import { useSetRecoilState, useRecoilValue } from "recoil";
-
+import { Button } from "../Button";
+import { combine as c } from "../../lib";
+import { EntityDisclosure } from "../EntityDisclosure";
 import { diceRollState, characterState } from "../../recoilState";
+import { FadedSeparator } from "../FadedSeparator";
 import { roll20, getAbilityMod } from "../../utilities/utilities";
-import "./Skills.css";
 
-const SkillsListItem = (props: {
-  character: ICharacter;
-  skill: ICharacter.Skill;
-}) => {
+const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
   const { character, skill } = props;
   const abilityMod = getAbilityMod(character);
   const setRollResult = useSetRecoilState(diceRollState);
 
-  // update variable replacing (Know)ledge with :
-  let formattedSkill = skill.name.replace(/ledge/g, ":");
+  let formattedSkill = skill.name.replace("Knowledge", "Know:");
 
-  // store skill points separately, add modifier
   const skillPoints =
     skill.ranks + skill.miscModifier + abilityMod(skill.ability);
 
-  // confirm class skill to add css class
-  function renderClassSkillsClassNames(skill: ICharacter.Skill) {
-    return (
-      skill.name.replace(/ /g, "_") + (skill.classSkill ? " classSkills" : "")
-    );
-  }
   return (
-    <button
-      className={`skills ${renderClassSkillsClassNames(skill)}`}
-      onClick={() => setRollResult(roll20(skillPoints, formattedSkill))}
+    <EntityDisclosure
+      containerClassName={c(skill.classSkill && "!border-emerald-800")}
+      buttonChildren={
+        <div className="flex items-center justify-between">
+          <span className="text-lg">{formattedSkill}</span>
+          <div className="flex items-center gap-2">
+            <span className="font-mono">+{skillPoints}</span>
+            <Button
+              className="flex size-8 items-center justify-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                setRollResult(roll20(skillPoints, formattedSkill));
+              }}
+            >
+              <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
+            </Button>
+          </div>
+        </div>
+      }
     >
-      <i className="fas fa-dice-d20 skillDice" style={{ float: "left" }}></i>{" "}
-      {formattedSkill} | <span className="skillPoints">{skillPoints}</span>{" "}
-      <i className="fas fa-dice-d20 skillDice" style={{ float: "right" }}></i>
-    </button>
+      <FadedSeparator className="my-2" />
+      <div className="flex flex-col gap-1">
+        <span>Ranks: {skill.ranks}</span>
+        <span>Misc Mod: {skill.miscModifier}</span>
+        <span className="capitalize">
+          {skill.ability}: {abilityMod(skill.ability)}
+        </span>
+      </div>
+    </EntityDisclosure>
   );
 };
 
-const Skills = () => {
+export function Skills() {
   const character = useRecoilValue(characterState);
-  // pass skills to child component
-  const skillsBlock = character.skills
-    .filter((skill) => skill.display)
-    .sort((a, b) => (a.name > b.name ? 1 : -1))
-    .map((s) => (
-      <SkillsListItem key={s.name} skill={s} character={character} />
-    ));
   return (
     <>
-      <h1 id="skillsHeader">Skills</h1>
-      <ul id="skillsListWrapper">
-        <div id="skillsWrapper">{skillsBlock}</div>
-      </ul>
+      <h1 className="mb-4 mt-12 text-5xl font-bold opacity-90">Skills</h1>
+      <div className="flex flex-col gap-2">
+        {character.skills
+          .filter((skill) => skill.display)
+          .sort((a, b) => (a.name > b.name ? 1 : -1))
+          .map((s) => (
+            <SkillsListItem key={s.name} skill={s} character={character} />
+          ))}
+      </div>
     </>
   );
-};
-
-export default Skills;
+}

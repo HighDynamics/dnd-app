@@ -8,7 +8,7 @@ import HitPointInfo from "../Modal/HitPointInfo/HitPointInfo";
 import ArmorClassInfo from "../Modal/ArmorClassInfo/ArmorClassInfo";
 import DefenseInfo from "../Modal/DefenseInfo/DefenseInfo";
 import { Spells } from "../Spells";
-import Skills from "../Skills/Skills";
+import { Skills } from "../Skills/Skills";
 import Attacks from "../Attacks/Attacks";
 import More from "../More/More";
 import EditSkills from "../Edit/EditSkills/EditSkills";
@@ -120,7 +120,7 @@ const MainDisplay = () => {
       <FadedSeparator className="mt-2 h-[2px]" />
       <ActionToast />
       <div className="infoSheet">{infoSheet(modalType)}</div>
-      <div>{screenSwitch(mainContent)}</div>
+      <div className="px-4">{screenSwitch(mainContent)}</div>
     </>
   );
 };
