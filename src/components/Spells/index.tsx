@@ -47,7 +47,7 @@ export function Spells() {
   }
 
   return (
-    <div className="px-4">
+    <>
       <div className="mt-2 flex gap-2">
         <Button
           className={c("grow basis-0", isPrepping && "opacity-50")}
@@ -132,6 +132,6 @@ export function Spells() {
           </div>
         );
       })}
-    </div>
+    </>
   );
 }
