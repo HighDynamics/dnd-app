@@ -1,10 +1,12 @@
-const NewCharacter = {
+const NewCharacter: ICharacter = {
   id: "0",
   name: "New Character",
   type: [],
   hitPoints: {
     dieSize: 8,
     total: 0,
+    damage: 0,
+    temporary: 0,
   },
   armorClass: {
     armor: 0,
@@ -344,7 +346,6 @@ const NewCharacter = {
     active: [],
     passive: [],
   },
-  spellcaster: true,
   magic: {
     casterLevel: 0,
     type: {
@@ -353,18 +354,7 @@ const NewCharacter = {
     },
     slaRefs: [],
     spellRefs: [],
-    spellsPerDay: {
-      zero: 0,
-      one: 0,
-      two: 0,
-      three: 0,
-      four: 0,
-      five: 0,
-      six: 0,
-      seven: 0,
-      eight: 0,
-      nine: 0,
-    },
+    spellsPerDay: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   itemRefs: [],
 };

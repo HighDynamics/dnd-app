@@ -1,10 +1,12 @@
-const Zachariah = {
+const Zachariah: ICharacter = {
   id: "3",
   name: "Zachariah Asalam",
   type: ["Silverbrow Human"],
   hitPoints: {
     dieSize: 4,
     total: 5,
+    damage: 0,
+    temporary: 0,
   },
   armorClass: {
     armor: 0,
@@ -387,9 +389,8 @@ const Zachariah = {
   ],
   characterAbilities: {
     active: [],
-    passive: ["Spontaneous Dispelling"],
+    passive: [],
   },
-  spellcaster: true,
   magic: {
     casterLevel: 1,
     type: {
@@ -433,18 +434,7 @@ const Zachariah = {
       { id: "151", level: 1, innate: false },
       { id: "152", level: 1, innate: false },
     ],
-    spellsPerDay: {
-      zero: 3,
-      one: 1,
-      two: 0,
-      three: 0,
-      four: 0,
-      five: 0,
-      six: 0,
-      seven: 0,
-      eight: 0,
-      nine: 0,
-    },
+    spellsPerDay: [3, 1, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   itemRefs: [],
 };

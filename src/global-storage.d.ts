@@ -84,6 +84,8 @@ declare global {
     hitPoints: {
       dieSize: number;
       total: number;
+      damage: number;
+      temporary: number;
     };
     armorClass: {
       armor: number;

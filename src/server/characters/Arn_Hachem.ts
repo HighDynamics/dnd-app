@@ -5,6 +5,8 @@ const Arn: ICharacter = {
   hitPoints: {
     dieSize: 12,
     total: 321,
+    damage: 0,
+    temporary: 0,
   },
   armorClass: {
     armor: 5,
