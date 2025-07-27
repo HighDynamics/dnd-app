@@ -6,6 +6,7 @@ import { roll20, getAbilityMod } from "../../utilities/utilities";
 import { Button } from "../Button";
 import { EntityDisclosure } from "../EntityDisclosure";
 import { FadedSeparator } from "../FadedSeparator";
+import { Heading } from "../Heading";
 
 const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
   const { character, skill } = props;
@@ -53,8 +54,8 @@ const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
 export function Skills() {
   const character = useRecoilValue(characterState);
   return (
-    <>
-      <h1 className="mb-4 mt-12 text-5xl font-bold opacity-90">Skills</h1>
+    <section className="mt-12">
+      <Heading>Skills</Heading>
       <div className="flex flex-col gap-2">
         {character.skills
           .filter((skill) => skill.display)
@@ -63,6 +64,6 @@ export function Skills() {
             <SkillsListItem key={s.name} skill={s} character={character} />
           ))}
       </div>
-    </>
+    </section>
   );
 }
