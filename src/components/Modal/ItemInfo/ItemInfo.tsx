@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { selectionState } from "../../../recoilState";
+
+import { selectionState } from "../../../store/recoilState";
 import { displayCompendiumInfo } from "../../../utilities/utilities";
 
 const ItemInfo = () => {

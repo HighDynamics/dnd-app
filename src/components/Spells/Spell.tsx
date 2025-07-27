@@ -1,12 +1,11 @@
 import { useRecoilState } from "recoil";
 
-import { SpellInfo } from "../SpellInfo/SpellInfo";
+import { combine as c } from "../../lib";
+import * as store from "../../store/recoilState";
+import { useToast } from "../ActionToast/useToast";
 import { Button } from "../Button";
 import { EntityDisclosure } from "../EntityDisclosure";
-import { useToast } from "../ActionToast/useToast";
-
-import * as store from "../../recoilState";
-import { combine as c } from "../../lib";
+import { SpellInfo } from "../SpellInfo/SpellInfo";
 
 export function Spell(p: {
   spell: {

@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
+import { updatedCharacterState } from "../../../store/recoilState";
 import { clone } from "../../../utilities/utilities";
-import { updatedCharacterState } from "../../../recoilState";
-
 import { camelCaseToTitleCase } from "../../../utilities/utilities";
-
 import "./ArmorClassForm.css";
 
 const ArmorClassForm = (props: {
@@ -14,7 +12,7 @@ const ArmorClassForm = (props: {
 }) => {
   const { field, value } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
-    updatedCharacterState
+    updatedCharacterState,
   );
   const [fieldValue, setFieldValue] = useState(value);
   const fieldName = camelCaseToTitleCase(field);

@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 
-import { mainContentState } from "../../../recoilState";
+import { mainContentState } from "../../../store/recoilState";
 
 const EditAbilities = () => {
   const setMainContent = useSetRecoilState(mainContentState);

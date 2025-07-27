@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
+import { updatedCharacterState } from "../../../store/recoilState";
 import { clone } from "../../../utilities/utilities";
-import { updatedCharacterState } from "../../../recoilState";
+
 const NameForm = (props: { name: string }) => {
   const { name } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
-    updatedCharacterState
+    updatedCharacterState,
   );
   const [nameField, setNameField] = useState(name);
   const editedCharacter = clone(updatedCharacter);

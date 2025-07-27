@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import useSWR from "swr";
 
-import { mainContentState } from "../../../recoilState";
+import { mainContentState } from "../../../store/recoilState";
 import AddSpellToCharacter from "./AddSpellToCharacter/AddSpellToCharacter";
 import AddSpellToCompendium from "./AddSpellToCompendium/AddSpellToCompendium";
 

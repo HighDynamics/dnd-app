@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { selectionState } from "../../../../recoilState";
+
+import { selectionState } from "../../../../store/recoilState";
 import { addSpellToServer } from "../../../../utilities/utilities";
-import "./AddSpellToCompendium.css";
 import { useToast } from "../../../ActionToast/useToast";
+import "./AddSpellToCompendium.css";
 
 const AddSpellToCompendium = ({
   setToggleAddNewSpell,

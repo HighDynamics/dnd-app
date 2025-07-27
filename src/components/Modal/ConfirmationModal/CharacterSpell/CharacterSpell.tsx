@@ -1,10 +1,10 @@
 import { ReactEventHandler, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { characterState, modalTypeState } from "../../../../recoilState";
-import { persistCharacter, clone } from "../../../../utilities/utilities";
 
-import "./CharacterSpell.css";
+import { characterState, modalTypeState } from "../../../../store/recoilState";
+import { persistCharacter, clone } from "../../../../utilities/utilities";
 import { useToast } from "../../../ActionToast/useToast";
+import "./CharacterSpell.css";
 
 const AddSla = ({
   spellName,

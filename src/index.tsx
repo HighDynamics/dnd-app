@@ -6,6 +6,7 @@ import { SWRConfig } from "swr";
 
 import ActiveAndPassiveAbilities from "./components/ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
 import Items from "./components/Items/Items";
+import { Main } from "./components/Main";
 import { Skills } from "./components/Skills/Skills";
 import { Spells } from "./components/Spells";
 import LoadApp from "./components/dnd";
@@ -29,7 +30,7 @@ render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LoadApp />}>
-              <Route path="main" element={<></>} />
+              <Route path="main" element={<Main />} />
               <Route path="skills" element={<Skills />} />
               <Route path="items" element={<Items />} />
               <Route path="spells" element={<Spells />} />

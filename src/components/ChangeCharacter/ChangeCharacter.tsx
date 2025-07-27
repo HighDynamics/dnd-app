@@ -1,18 +1,18 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
+import useSWR from "swr";
+
 import {
   characterState,
   updatedCharacterState,
   mainContentState,
-} from "../../recoilState";
-import useSWR from "swr";
+} from "../../store/recoilState";
 
 const ChangeCharacter = () => {
   const [character, setCharacter] = useRecoilState(characterState);
   const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
   const setMainContent = useSetRecoilState(mainContentState);
-  const { data: charactersResponse } = useSWR<IServer.GetCharacters.Response>(
-    "/api/characters"
-  );
+  const { data: charactersResponse } =
+    useSWR<IServer.GetCharacters.Response>("/api/characters");
   function handleNewCharacter() {
     setMainContent("EditCore");
   }

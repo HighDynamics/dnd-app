@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
+import { updatedCharacterState } from "../../../store/recoilState";
 import { clone } from "../../../utilities/utilities";
-import { updatedCharacterState } from "../../../recoilState";
-
 import "./SpeedForm.css";
 
 const SpeedForm = (props: { speed: number }) => {
   const { speed } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
-    updatedCharacterState
+    updatedCharacterState,
   );
   const [speedValue, setSpeedValue] = useState(speed);
   const editedCharacter = clone(updatedCharacter);

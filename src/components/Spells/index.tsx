@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 
 import { combine as c } from "../../lib";
-import * as store from "../../recoilState";
-
+import * as store from "../../store/recoilState";
 import { Button } from "../Button";
 import { SpellList } from "./SpellList";
 

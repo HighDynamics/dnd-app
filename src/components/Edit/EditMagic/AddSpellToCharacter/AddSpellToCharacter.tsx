@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { modalTypeState, selectionState } from "../../../../recoilState";
+import { modalTypeState, selectionState } from "../../../../store/recoilState";
 
 const AddSpellToCharacter = ({
   compendiumSRDObjects,
@@ -13,12 +13,12 @@ const AddSpellToCharacter = ({
   const [input, setInput] = useState("");
 
   const getRequiredInfoFromUser: React.FormEventHandler<HTMLFormElement> = (
-    e
+    e,
   ) => {
     e.preventDefault();
 
     const selected = compendiumSRDObjects.find(
-      (object) => object.name === input
+      (object) => object.name === input,
     );
 
     if (selected !== undefined) {

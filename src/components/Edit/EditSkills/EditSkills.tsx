@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useSetRecoilState, useRecoilState } from "recoil";
 
-import { characterState, mainContentState } from "../../../recoilState";
+import { characterState, mainContentState } from "../../../store/recoilState";
 import { clone, persistCharacter } from "../../../utilities/utilities";
-
-import SkillForm from "./SkillForm";
-import "./EditSkills.css";
 import { useToast } from "../../ActionToast/useToast";
+import "./EditSkills.css";
+import SkillForm from "./SkillForm";
 
 const EditSkills = () => {
   const [character] = useRecoilState(characterState);

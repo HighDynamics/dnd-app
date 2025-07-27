@@ -1,10 +1,11 @@
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { Button } from "../Button";
+
 import { combine as c } from "../../lib";
-import { EntityDisclosure } from "../EntityDisclosure";
-import { diceRollState, characterState } from "../../recoilState";
-import { FadedSeparator } from "../FadedSeparator";
+import { diceRollState, characterState } from "../../store/recoilState";
 import { roll20, getAbilityMod } from "../../utilities/utilities";
+import { Button } from "../Button";
+import { EntityDisclosure } from "../EntityDisclosure";
+import { FadedSeparator } from "../FadedSeparator";
 
 const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
   const { character, skill } = props;

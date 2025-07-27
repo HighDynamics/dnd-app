@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
+import { updatedCharacterState } from "../../../store/recoilState";
 import { clone, camelCaseToTitleCase } from "../../../utilities/utilities";
-import { updatedCharacterState } from "../../../recoilState";
-
 import "./AbilityScoreForm.css";
 
 const AbilityScoreForm = ({
@@ -16,7 +15,7 @@ const AbilityScoreForm = ({
   const [fieldValue, setFieldValue] = useState(value);
   const fieldName = camelCaseToTitleCase(field);
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
-    updatedCharacterState
+    updatedCharacterState,
   );
   const editedCharacter = clone(updatedCharacter);
 

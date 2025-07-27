@@ -10,7 +10,7 @@ import {
   updatedCharacterState,
   InitialRecoilState,
   itemCompendiumState,
-} from "../recoilState";
+} from "../store/recoilState";
 import { getAbilityMod } from "../utilities/utilities";
 import { ActionToast } from "./ActionToast";
 import BasicInfo from "./BasicInfo/BasicInfo";

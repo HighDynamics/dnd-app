@@ -1,15 +1,14 @@
 import { useRecoilValue, useRecoilState } from "recoil";
 
+import { getTextColor } from "../../lib";
 import {
   diceRollState,
   characterState,
   damageState,
   temporaryHitPointsState,
   modalTypeState,
-} from "../../recoilState";
+} from "../../store/recoilState";
 import { getAC } from "../../utilities/utilities";
-import { getTextColor } from "../../lib";
-
 import TopComponent from "../TopComponent/TopComponent";
 
 function Welcome() {

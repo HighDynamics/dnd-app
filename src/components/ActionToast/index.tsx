@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { confirmationMsg } from "../../recoilState";
+
+import { confirmationMsg } from "../../store/recoilState";
 
 export function ActionToast() {
   const msg = useRecoilValue(confirmationMsg);

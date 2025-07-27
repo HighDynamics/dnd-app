@@ -1,8 +1,7 @@
 import { useSetRecoilState } from "recoil";
 
-import { modalTypeState, selectionState } from "../../recoilState";
 import itemCompendium from "../../server/items";
-
+import { modalTypeState, selectionState } from "../../store/recoilState";
 import "./Items.css";
 
 const ItemsHeld = ({ item }: { item: IItem }) => {

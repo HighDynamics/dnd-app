@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 
+import { combine as c } from "../../lib/string";
 import {
   characterState,
   damageState,
   allKnownSpells as allKnownSpells_,
-} from "../../recoilState";
-import { combine as c } from "../../lib/string";
+} from "../../store/recoilState";
 import { useToast } from "../ActionToast/useToast";
 
 const CharacterType = (props: { value: React.ReactNode }) => {

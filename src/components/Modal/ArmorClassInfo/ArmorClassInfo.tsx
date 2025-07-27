@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 
-import { characterState } from "../../../recoilState";
+import { characterState } from "../../../store/recoilState";
 import { camelCaseToTitleCase, getAC } from "../../../utilities/utilities";
 import "./ArmorClassInfo.css";
 
@@ -15,9 +15,9 @@ const ArmorClassItem = (props: { value: [string, number] }) => {
 const ArmorClassInfo = () => {
   const character = useRecoilValue(characterState);
   const currentAC = getAC(character);
-  const armorClassItems = Object.entries(
-    character.armorClass
-  ).map((item, i) => <ArmorClassItem key={i} value={item} />);
+  const armorClassItems = Object.entries(character.armorClass).map(
+    (item, i) => <ArmorClassItem key={i} value={item} />,
+  );
   return (
     <>
       <h2 className="ACHeading">Armor Class</h2>

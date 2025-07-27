@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
-import { selectionState } from "../../../recoilState";
-import { displayCompendiumInfo } from "../../../utilities/utilities";
 
+import { selectionState } from "../../../store/recoilState";
+import { displayCompendiumInfo } from "../../../utilities/utilities";
 import CharacterSpell from "./CharacterSpell/CharacterSpell";
 
 const ConfirmationModal = ({ type }: { type: string }) => {

@@ -5,22 +5,20 @@ import {
   mainContentState,
   characterState,
   updatedCharacterState,
-} from "../../../recoilState";
-
+} from "../../../store/recoilState";
 import { clone, persistCharacter } from "../../../utilities/utilities";
-import NameForm from "./NameForm";
+import { useToast } from "../../ActionToast/useToast";
+import AbilityScoreForm from "./AbilityScoreForm";
+import ArmorClassForm from "./ArmorClassForm";
 import ClassForm from "./ClassForm";
-import TypeForm from "./TypeForm";
+import DefenseForm from "./DefenseForm";
+import "./EditCore.css";
+import HitPointsForm from "./HitPointsForm";
+import NameForm from "./NameForm";
+import SavesForm from "./SavesForm";
 import SizeForm from "./SizeForm";
 import SpeedForm from "./SpeedForm";
-import HitPointsForm from "./HitPointsForm";
-import ArmorClassForm from "./ArmorClassForm";
-import SavesForm from "./SavesForm";
-import DefenseForm from "./DefenseForm";
-import AbilityScoreForm from "./AbilityScoreForm";
-
-import "./EditCore.css";
-import { useToast } from "../../ActionToast/useToast";
+import TypeForm from "./TypeForm";
 
 const ClassFormParent = ({ character }: { character: ICharacter }) => {
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(

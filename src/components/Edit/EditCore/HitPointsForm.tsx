@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
-import { updatedCharacterState } from "../../../recoilState";
+import { updatedCharacterState } from "../../../store/recoilState";
 import { clone } from "../../../utilities/utilities";
-
 import "./HitPointsForm.css";
 
 const HitPointsForm = (props: { hitPoints: number; dieSize: number }) => {
   const { hitPoints, dieSize } = props;
   const [updatedCharacter, setUpdatedCharacter] = useRecoilState(
-    updatedCharacterState
+    updatedCharacterState,
   );
   const [hp, setHp] = useState(hitPoints);
   const [dieSizeNum, setDieSizeNum] = useState(dieSize);

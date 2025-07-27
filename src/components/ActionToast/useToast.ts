@@ -1,5 +1,6 @@
 import { useSetRecoilState } from "recoil";
-import { confirmationMsg } from "../../recoilState";
+
+import { confirmationMsg } from "../../store/recoilState";
 
 /**
  * Returns a function that sets a message, triggering a toast-like

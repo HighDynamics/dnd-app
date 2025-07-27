@@ -1,8 +1,8 @@
 import { useRecoilValue } from "recoil";
 
-import { characterState } from "../../recoilState";
-import "./ActiveAndPassiveAbilities.css";
+import { characterState } from "../../store/recoilState";
 import { EntityDisclosure } from "../EntityDisclosure";
+import "./ActiveAndPassiveAbilities.css";
 
 function formatType(type: string) {
   switch (type) {
