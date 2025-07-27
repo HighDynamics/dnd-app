@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
+import { getTextColor } from "../lib";
 import {
   characterState,
   damageState,
   temporaryHitPointsState,
-} from "../../../recoilState";
-
-import { getTextColor } from "../../../lib";
-import "./HitPointInfo.css";
+} from "../store/recoilState";
 
 const HitPointInfo = () => {
   const [tempHP, setTempHP] = useRecoilState(temporaryHitPointsState);

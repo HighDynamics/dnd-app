@@ -1,12 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { characterState, diceRollState } from "../../../recoilState";
+import { characterState, diceRollState } from "../store/recoilState";
 import {
   camelCaseToTitleCase,
   roll20,
   getAbilityMod,
-} from "../../../utilities/utilities";
-import "./DefenseInfo.css";
+} from "../utilities/utilities";
 
 const EnergyResistanceItem = (props: {
   defense: ICharacter["defense"];
@@ -14,7 +13,7 @@ const EnergyResistanceItem = (props: {
 }) => {
   const item = props.value;
   const defense = props.defense;
-  function getResistance(type: typeof item[0]) {
+  function getResistance(type: (typeof item)[0]) {
     if (defense.energyResistance[type] === null) {
       return "Immune";
     }
@@ -64,15 +63,15 @@ const DefenseInfo = () => {
   const fortSave = getSavesTotalValue("fortitude");
   const refSave = getSavesTotalValue("reflex");
   const willSave = getSavesTotalValue("will");
-  const energyResistanceItems = Object.entries(
-    defense.energyResistance
-  ).map((item, i) => (
-    <EnergyResistanceItem
-      key={i}
-      value={item as ObjEntries<typeof defense.energyResistance>}
-      defense={defense}
-    />
-  ));
+  const energyResistanceItems = Object.entries(defense.energyResistance).map(
+    (item, i) => (
+      <EnergyResistanceItem
+        key={i}
+        value={item as ObjEntries<typeof defense.energyResistance>}
+        defense={defense}
+      />
+    ),
+  );
   function getSavesTotalValue(type: keyof ICharacter["defense"]["saves"]) {
     switch (type) {
       case "fortitude":
