@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, selector, useRecoilValue } from "recoil";
 import type { SetterOrUpdater } from "recoil";
 
 /**
@@ -27,6 +27,32 @@ export const characterState = atom<ICharacter>({
   key: "characterState",
   default: null as any,
 });
+
+export const useCharacter = () => useRecoilValue(characterState);
+
+const abilityScores = selector({
+  key: "abilityScores",
+  get: ({ get }) => {
+    const abilityScores = get(characterState).abilities.score;
+
+    return Object.entries(abilityScores).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: {
+          score: value,
+          modifier: value ? Math.floor((value - 10) / 2) : null,
+        },
+      }),
+      {} as Record<Ability, { score: number | null; modifier: number | null }>,
+    );
+  },
+});
+
+export function useAbilityScore(ability: Ability) {
+  const scores = useRecoilValue(abilityScores);
+  return scores[ability];
+}
+
 export const updatedCharacterState = atom<ICharacter>({
   key: "updatedCharacterState",
   default: null as any,
