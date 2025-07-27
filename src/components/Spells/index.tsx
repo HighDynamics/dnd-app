@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { combine as c } from "../../lib";
 import * as store from "../../store/recoilState";
 import { Button } from "../Button";
+import { Heading } from "../Heading";
 import { SpellList } from "./SpellList";
 
 const romans = [
@@ -79,11 +80,11 @@ export function Spells() {
         );
 
         return (
-          <div key={x} className="mt-12">
-            <div className="">
-              <h2 className="text-5xl font-bold opacity-90">
+          <section key={x} className="mt-12">
+            <div>
+              <Heading className="mb-0">
                 {i === 0 ? <>{casterType.toUpperCase()}</> : <>{x}</>}
-              </h2>
+              </Heading>
               <h3 className="text-3xl">DC {getDifficultyClass(i)}</h3>
               <span className="italic">
                 {getRemainingSpells(i)} remaining today
@@ -128,7 +129,7 @@ export function Spells() {
                 />
               </div>
             )}
-          </div>
+          </section>
         );
       })}
     </>
