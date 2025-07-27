@@ -1,66 +1,78 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
-import { characterState, diceRollState } from "../store/recoilState";
-import { roll20, getAbilityMod } from "../utilities/utilities";
+import { combine as c } from "../lib";
+import {
+  diceRollState,
+  useAbilityScore,
+  useCharacter,
+} from "../store/recoilState";
+import { roll20 } from "../utilities/utilities";
+import { Button } from "./Button";
+import { EntityDisclosure } from "./EntityDisclosure";
 import { Heading } from "./Heading";
 
-const AbilityScores = () => {
-  const character = useRecoilValue(characterState);
+export const AbilityScores = () => {
+  const { name: characterName } = useCharacter();
   const setRollResult = useSetRecoilState(diceRollState);
-  const abilityScore = character.abilities.score;
-  const modifier = getAbilityMod(character);
-  const str = abilityScore.strength;
-  const dex = abilityScore.dexterity;
-  const con = abilityScore.constitution;
-  const int = abilityScore.intelligence;
-  const wis = abilityScore.wisdom;
-  const cha = abilityScore.charisma;
-  const strMod = modifier("strength");
-  const dexMod = modifier("dexterity");
-  const conMod = modifier("constitution");
-  const intMod = modifier("intelligence");
-  const wisMod = modifier("wisdom");
-  const chaMod = modifier("charisma");
-  function renderAbilityScore(ability: string, score: number | null) {
-    const abilityPath = character.abilities.score[ability.toLowerCase()];
-    return abilityPath === null ? "--" : score;
-  }
-  function abilityScoreCodeBlock(
-    abilityString: string,
-    abilityScore: number | null,
-    abilityMod: number,
-  ) {
-    return (
-      <div className="abilityScoresItemsContainer">
-        <span className="abilityNamesAndButton">
-          {/*button appears on same line*/}
-          <button
-            className="rollAbilityButton defaultButton"
-            onClick={() => setRollResult(roll20(abilityMod, abilityString))}
-          >
-            <i className="fas fa-dice-d20"></i>
-          </button>
-          {abilityString}:
-        </span>
-        <span className="abilityScoresAndModifier">
-          {renderAbilityScore(abilityString, abilityScore)} |{" "}
-          {renderAbilityScore(abilityString, abilityMod)}
-        </span>
-      </div>
-    );
-  }
+  const str = useAbilityScore("strength");
+  const dex = useAbilityScore("dexterity");
+  const con = useAbilityScore("constitution");
+  const int = useAbilityScore("intelligence");
+  const wis = useAbilityScore("wisdom");
+  const cha = useAbilityScore("charisma");
+  const abilityScores = [
+    { name: "Strength", ...str },
+    { name: "Dexterity", ...dex },
+    { name: "Constitution", ...con },
+    { name: "Intelligence", ...int },
+    { name: "Wisdom", ...wis },
+    { name: "Charisma", ...cha },
+  ];
+
   return (
-    <>
-      <Heading>Abilities</Heading>
-      <div className="abilityScoresWrapper">
-        {abilityScoreCodeBlock("Strength", str, strMod)}
-        {abilityScoreCodeBlock("Dexterity", dex, dexMod)}
-        {abilityScoreCodeBlock("Constitution", con, conMod)}
-        {abilityScoreCodeBlock("Intelligence", int, intMod)}
-        {abilityScoreCodeBlock("Wisdom", wis, wisMod)}
-        {abilityScoreCodeBlock("Charisma", cha, chaMod)}
+    <section>
+      <Heading>Ability Scores</Heading>
+      <div className="flex flex-col gap-2">
+        {abilityScores.map(({ name, score, modifier }) => (
+          <EntityDisclosure
+            key={name}
+            containerClassName={c(!score && "opacity-50")}
+            buttonChildren={
+              <div className="flex items-center justify-between">
+                <span className="text-lg">
+                  {name} ({`${score}`})
+                </span>
+                <div className="flex items-center gap-2">
+                  {modifier && (
+                    <span className="tabular-nums text-lg">+{modifier}</span>
+                  )}
+                  <Button
+                    className="flex size-8 items-center justify-center"
+                    disabled={!modifier}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!modifier) return;
+
+                      setRollResult(roll20(modifier, name));
+                    }}
+                  >
+                    <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
+                  </Button>
+                </div>
+              </div>
+            }
+          >
+            {score ? (
+              // TODO: Add the ability score calculation
+              <div></div>
+            ) : (
+              <span>
+                {characterName} does not have a {name} score
+              </span>
+            )}
+          </EntityDisclosure>
+        ))}
       </div>
-    </>
+    </section>
   );
 };
-export default AbilityScores;
