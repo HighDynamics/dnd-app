@@ -1,170 +1,109 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-
-import { characterState, diceRollState } from "../store/recoilState";
+import { abbreviateAbility } from "../lib";
 import {
-  camelCaseToTitleCase,
-  roll20,
-  getAbilityMod,
-} from "../utilities/utilities";
+  useAbilityScore,
+  useCharacter,
+  useDiceRoll,
+} from "../store/recoilState";
+import { Button } from "./Button";
+import { EntityDisclosure } from "./EntityDisclosure";
+import { FadedSeparator } from "./FadedSeparator";
+import { Heading } from "./Heading";
 
-const EnergyResistanceItem = (props: {
-  defense: ICharacter["defense"];
-  value: ObjEntries<typeof defense.energyResistance>;
-}) => {
-  const item = props.value;
-  const defense = props.defense;
-  function getResistance(type: (typeof item)[0]) {
-    if (defense.energyResistance[type] === null) {
-      return "Immune";
-    }
-    return defense.energyResistance[type];
-  }
-  return (
-    <li className="energyResistanceItem">
-      | {camelCaseToTitleCase(item[0])}: {getResistance(item[0])} |
-    </li>
-  );
-};
-const WillSaveItem = (props: { value: [string, number] }) => {
-  const item = props.value;
-  return (
-    <li className="willSaveItem">
-      | {camelCaseToTitleCase(item[0])}: {item[1]} |
-    </li>
-  );
-};
-
-const ReflexSaveItem = (props: { value: [string, number] }) => {
-  const item = props.value;
-  return (
-    <li className="reflexSaveItem">
-      | {camelCaseToTitleCase(item[0])}: {item[1]} |
-    </li>
-  );
-};
-
-const FortitudeSaveItem = (props: { value: [string, number] }) => {
-  const item = props.value;
-  return (
-    <li className="fortitudeSaveItem">
-      | {camelCaseToTitleCase(item[0])}: {item[1]} |
-    </li>
-  );
-};
-
-const DefenseInfo = () => {
-  const character = useRecoilValue(characterState);
-  const setRoll = useSetRecoilState(diceRollState);
+export const DefenseInfo = () => {
+  const character = useCharacter();
+  const roll20 = useDiceRoll(20);
   const defense = character.defense;
-  const getMod = getAbilityMod(character);
-  const conMod = getMod("constitution");
-  const dexMod = getMod("dexterity");
-  const wisMod = getMod("wisdom");
-  const fortSave = getSavesTotalValue("fortitude");
-  const refSave = getSavesTotalValue("reflex");
-  const willSave = getSavesTotalValue("will");
-  const energyResistanceItems = Object.entries(defense.energyResistance).map(
-    (item, i) => (
-      <EnergyResistanceItem
-        key={i}
-        value={item as ObjEntries<typeof defense.energyResistance>}
-        defense={defense}
-      />
-    ),
-  );
-  function getSavesTotalValue(type: keyof ICharacter["defense"]["saves"]) {
-    switch (type) {
-      case "fortitude":
-        return (
-          Object.values(defense.saves.fortitude).reduce((x, y) => x + y) +
-          conMod
-        );
-      case "reflex":
-        return (
-          Object.values(defense.saves.reflex).reduce((x, y) => x + y) + dexMod
-        );
-      case "will":
-        return (
-          Object.values(defense.saves.will).reduce((x, y) => x + y) + wisMod
-        );
-      default:
-        return null;
-    }
-  }
-  function getSavesBreakdown(type: keyof ICharacter["defense"]["saves"]) {
-    switch (type) {
-      case "fortitude":
-        return Object.entries(defense.saves.fortitude).map((item, i) => (
-          <FortitudeSaveItem key={i} value={item} />
-        ));
-      case "reflex":
-        return Object.entries(defense.saves.reflex).map((item, i) => (
-          <ReflexSaveItem key={i} value={item} />
-        ));
-      case "will":
-        return Object.entries(defense.saves.will).map((item, i) => (
-          <WillSaveItem key={i} value={item} />
-        ));
-      default:
-        return null;
-    }
-  }
+  const { fortitude, reflex, will } = defense.saves;
+  const fortMod = useAbilityScore(fortitude.ability).modifier;
+  const refMod = useAbilityScore(reflex.ability).modifier;
+  const willMod = useAbilityScore(will.ability).modifier;
+  const saves = [
+    { name: "Fortitude", abilityMod: fortMod || 0, ...fortitude },
+    { name: "Reflex", abilityMod: refMod || 0, ...reflex },
+    { name: "Will", abilityMod: willMod || 0, ...will },
+  ];
+
   return (
-    <>
-      <h2 className="defenseHeading">Defense</h2>
-      <div>
-        <p className="damageReduction">
-          <strong>Damage Reduction:</strong> {defense.damageReduction.amount} /
-          {defense.damageReduction.weakness}
-        </p>
-        <p className="spellResistance">
-          <strong>Spell Resistance:</strong> {defense.spellResistance}
-        </p>
-        <div className="savesContainer">
-          <p className="savesHeading">Saves</p>
-          <div className="fortitudeSaveContainer">
-            <button
-              className="fortitudeSaveButton defaultButton"
-              onClick={() => setRoll(roll20(fortSave, "Fortitude"))}
-            >
-              Fortitude: {fortSave} <i className="fas fa-dice-d20"></i>
-            </button>
-            <ul className="savesBreakdownContainer">
-              {getSavesBreakdown("fortitude")}
-              <li className="saveMod">| Modifier: {conMod} |</li>
-            </ul>
+    <section>
+      <Heading>Defense</Heading>
+      <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
+          <div className="text-label">Saves</div>
+          {saves.map(({ name, base, magic, misc, abilityMod, ability }) => {
+            const score = base + magic + misc + abilityMod;
+            return (
+              <EntityDisclosure
+                key={name}
+                buttonChildren={
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg">{name}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="tabular-nums text-lg">+{score}</span>
+                      <Button
+                        className="flex size-8 items-center justify-center"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          roll20(score, name);
+                        }}
+                      >
+                        <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
+                      </Button>
+                    </div>
+                  </div>
+                }
+              >
+                <FadedSeparator className="my-2" />
+                <div className="flex">
+                  <div className="flex flex-col flex-1">
+                    <span className="text-label text-sm">Base</span>
+                    <span>{base}</span>
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <span className="text-label text-sm">
+                      {abbreviateAbility(ability)}
+                    </span>
+                    <span>{abilityMod}</span>
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <span className="text-label text-sm">Magic</span>
+                    <span>{magic}</span>
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <span className="text-label text-sm">Misc</span>
+                    <span>{misc}</span>
+                  </div>
+                </div>
+              </EntityDisclosure>
+            );
+          })}
+        </div>
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <span className="text-label">Damage Reduction</span>{" "}
+            <span>
+              {defense.damageReduction.amount} /{" "}
+              {defense.damageReduction.weakness}
+            </span>
           </div>
-          <div className="reflexSaveContainer">
-            <button
-              className="reflexSaveButton defaultButton"
-              onClick={() => setRoll(roll20(refSave, "Reflex"))}
-            >
-              Reflex: {refSave} <i className="fas fa-dice-d20"></i>
-            </button>
-            <ul className="savesBreakdownContainer">
-              {getSavesBreakdown("reflex")}
-              <li className="saveMod">| Modifier: {dexMod} |</li>
-            </ul>
-          </div>
-          <div className="willSaveContainer">
-            <button
-              className="willSaveButton defaultButton"
-              onClick={() => setRoll(roll20(willSave, "Will"))}
-            >
-              Will: {willSave} <i className="fas fa-dice-d20"></i>
-            </button>
-            <ul className="savesBreakdownContainer">
-              {getSavesBreakdown("will")}
-              <li className="saveMod">| Modifier: {wisMod} |</li>
-            </ul>
+          <div className="flex flex-col">
+            <span className="text-label">Spell Resistance</span>
+            <span>{defense.spellResistance}</span>
           </div>
         </div>
-        <p className="energyResistanceHeading">Energy Resistance</p>
-        <ul className="energyResistanceItemsContainer">
-          {energyResistanceItems}
-        </ul>
+        <div className="flex flex-col">
+          <span className="text-label">Energy Resistance</span>
+          <div className="flex flex-col gap-1 max-w-[60%]">
+            {Object.entries(defense.energyResistance).map(([key, value]) => (
+              <div className="flex justify-between" key={key}>
+                <span className="capitalize">{key}:</span>
+                <span className="tabular-nums">
+                  {value !== null ? value : "Immune"}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </>
+    </section>
   );
 };
-export default DefenseInfo;

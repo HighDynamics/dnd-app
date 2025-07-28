@@ -9,3 +9,22 @@ export function combine(...str: Array<string | null | undefined | boolean>) {
     )
     .join(" ");
 }
+
+export function abbreviateAbility(ability: Ability): string {
+  switch (ability) {
+    case "strength":
+      return "Str";
+    case "dexterity":
+      return "Dex";
+    case "constitution":
+      return "Con";
+    case "intelligence":
+      return "Int";
+    case "wisdom":
+      return "Wis";
+    case "charisma":
+      return "Cha";
+    default:
+      return "";
+  }
+}
