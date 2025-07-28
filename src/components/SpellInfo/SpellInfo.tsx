@@ -1,11 +1,10 @@
 import { FadedSeparator } from "../FadedSeparator";
-import "./SpellInfo.css";
 
 function SpellProperty(p: { name: string; value?: string | null }) {
   if (!p.value) return null;
   return (
-    <div className="flex items-center gap-1 font-sans">
-      <span className="w-[13ch] shrink-0">{p.name}:</span>
+    <div className="flex items-center gap-1 font-sans text-sm">
+      <span className="w-[14ch] shrink-0 self-start">{p.name}:</span>
       <span>{p.value}</span>
     </div>
   );
