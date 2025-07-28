@@ -8,6 +8,7 @@ const Arn: ICharacter = {
     damage: 0,
     temporary: 0,
   },
+  initiative: { misc: 0 },
   armorClass: {
     armor: 5,
     shield: 4,

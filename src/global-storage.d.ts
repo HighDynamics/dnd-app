@@ -88,6 +88,7 @@ declare global {
       damage: number;
       temporary: number;
     };
+    initiative: { misc: number };
     armorClass: {
       armor: number;
       shield: number;
