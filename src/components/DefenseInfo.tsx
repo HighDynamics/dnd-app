@@ -5,7 +5,7 @@ import {
   useDiceRoll,
 } from "../store/recoilState";
 import { camelCaseToTitleCase } from "../utilities/utilities";
-import { Button } from "./Button";
+import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { FadedSeparator } from "./FadedSeparator";
 import { Heading } from "./Heading";
@@ -94,15 +94,7 @@ export const DefenseInfo = () => {
                     <span className="text-lg">{name}</span>
                     <div className="flex items-center gap-2">
                       <span className="tabular-nums text-lg">+{score}</span>
-                      <Button
-                        className="flex size-8 items-center justify-center"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          roll20(score, name);
-                        }}
-                      >
-                        <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
-                      </Button>
+                      <DiceRollButton onClick={() => roll20(score, name)} />
                     </div>
                   </div>
                 }

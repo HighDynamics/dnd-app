@@ -4,7 +4,7 @@ import {
   useAbilityScore,
   useDiceRoll,
 } from "../../store/recoilState";
-import { Button } from "../Button";
+import { DiceRollButton } from "../DiceRollButton";
 import { EntityDisclosure } from "../EntityDisclosure";
 import { FadedSeparator } from "../FadedSeparator";
 import { Heading } from "../Heading";
@@ -25,15 +25,12 @@ const SkillsListItem = ({ skill }: { skill: Skill }) => {
           <span className="text-lg">{formattedSkill}</span>
           <div className="flex items-center gap-2">
             <span className="font-mono">+{skillPoints}</span>
-            <Button
+            <DiceRollButton
               className="flex size-8 items-center justify-center"
-              onClick={(e) => {
-                e.stopPropagation();
-                roll20(skillPoints, formattedSkill);
-              }}
+              onClick={() => roll20(skillPoints, formattedSkill)}
             >
               <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
-            </Button>
+            </DiceRollButton>
           </div>
         </div>
       }

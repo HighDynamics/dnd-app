@@ -4,7 +4,7 @@ import {
   useCharacter,
   useDiceRoll,
 } from "../store/recoilState";
-import { Button } from "./Button";
+import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { Heading } from "./Heading";
 
@@ -43,18 +43,13 @@ export const AbilityScores = () => {
                   {modifier && (
                     <span className="tabular-nums text-lg">+{modifier}</span>
                   )}
-                  <Button
-                    className="flex size-8 items-center justify-center"
+                  <DiceRollButton
                     disabled={!modifier}
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    onClick={() => {
                       if (!modifier) return;
-
                       roll20(modifier, name);
                     }}
-                  >
-                    <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
-                  </Button>
+                  />
                 </div>
               </div>
             }
