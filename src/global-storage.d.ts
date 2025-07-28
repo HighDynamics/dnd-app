@@ -128,7 +128,7 @@ declare global {
       };
       primary: Ability;
     };
-    speed: number;
+    speed: { land: number; fly: number; swim: number; burrow: number };
     class: DNDClass[];
     skills: Skill[];
     characterAbilities: {

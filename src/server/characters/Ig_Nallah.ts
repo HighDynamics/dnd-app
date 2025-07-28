@@ -69,7 +69,7 @@ const Ig: ICharacter = {
       | "wisdom"
       | "charisma",
   },
-  speed: 100,
+  speed: { land: 100, fly: 0, swim: 100, burrow: 0 },
   class: [
     { name: "Archivist", level: 1 },
     { name: "Contemplative", level: 1 },

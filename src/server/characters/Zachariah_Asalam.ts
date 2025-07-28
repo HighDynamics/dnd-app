@@ -69,7 +69,7 @@ const Zachariah: ICharacter = {
       | "wisdom"
       | "charisma",
   },
-  speed: 30,
+  speed: { land: 30, fly: 30, swim: 0, burrow: 0 },
   class: [{ name: "Wizard", level: 1 }],
   skills: [
     {

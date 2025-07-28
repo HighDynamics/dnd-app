@@ -69,7 +69,7 @@ const NewCharacter: ICharacter = {
       | "wisdom"
       | "charisma",
   },
-  speed: 30,
+  speed: { land: 30, fly: 0, swim: 0, burrow: 0 },
   class: [],
   skills: [
     {

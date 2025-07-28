@@ -69,7 +69,7 @@ const Arn: ICharacter = {
       | "wisdom"
       | "charisma",
   },
-  speed: 40,
+  speed: { land: 40, fly: 0, swim: 0, burrow: 0 },
   class: [
     { name: "Sorcerer", level: 1 },
     { name: "Mindtender", level: 2 },
