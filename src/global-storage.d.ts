@@ -16,6 +16,7 @@ declare global {
     base: number;
     magic: number;
     misc: number;
+    ability: Ability;
   };
   type DNDClass = { name: string; level: number };
 
