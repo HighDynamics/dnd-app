@@ -1,4 +1,4 @@
-import { atom, selector, useRecoilValue } from "recoil";
+import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
 import type { SetterOrUpdater } from "recoil";
 
 /**
@@ -82,6 +82,15 @@ export const diceRollState = atom<{
   key: "diceRollState",
   default: null,
 });
+
+export function useDiceRoll(size: number) {
+  const setRollResult = useSetRecoilState(diceRollState);
+  return (mod: number, use: string) => {
+    const result = Math.floor(Math.random() * size + 1);
+
+    setRollResult({ result, mod, size, use });
+  };
+}
 
 export type MainContent =
   | "Skills"
