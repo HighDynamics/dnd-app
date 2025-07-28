@@ -1,98 +1,128 @@
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 
-import { getTextColor } from "../lib";
-import {
-  characterState,
-  damageState,
-  temporaryHitPointsState,
-} from "../store/recoilState";
+import { getTextColor, combine as c } from "../lib";
+import { useCharacter } from "../store/recoilState";
+import { useUpdateCharacter } from "../store/server";
+import { useToast } from "./ActionToast/useToast";
+import { Button } from "./Button";
+import { Heading } from "./Heading";
+import { Input } from "./Input";
 
-const HitPointInfo = () => {
-  const [tempHP, setTempHP] = useRecoilState(temporaryHitPointsState);
-  const [damage, setDamage] = useRecoilState(damageState);
-  const character = useRecoilValue(characterState);
-  const currentHP = character.hitPoints.total + tempHP - damage;
-  const [damageInput, setDamageInput] = useState(0);
-  const [tempHPInput, setTempHPInput] = useState(0);
-  const textColorClass = getTextColor(currentHP, character.hitPoints.total);
-  function handleDamageChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setDamageInput(Number(e.target.value));
+export const HitPointInfo = () => {
+  const character = useCharacter();
+  const toast = useToast();
+  const { total, temporary, damage } = character.hitPoints;
+  const updateCharacter = useUpdateCharacter();
+  const [value, setValue] = useState("");
+
+  const currentHP = total + temporary - damage;
+  const textColorClass = getTextColor(currentHP, total);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.currentTarget.value);
   }
-  // By the way: here is a great opportunity for a higher order function
-  function handleDamageSubmit(addOrSubtract: "add" | "subtract") {
-    addOrSubtract === "add"
-      ? setDamage(damage + damageInput)
-      : setDamage(Math.max(0, damage - damageInput));
-    setDamageInput(0);
-  }
-  function handleTempHPChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTempHPInput(Number(e.target.value));
-  }
-  function handleTempHPSubmit(addOrSubtract: "add" | "subtract") {
-    addOrSubtract === "add"
-      ? setTempHP(tempHP + tempHPInput)
-      : setTempHP(Math.max(0, tempHP - tempHPInput));
-    if (tempHP < 0) {
-      setTempHP(0);
+
+  function handleDamageSubmit(operator: "add" | "subtract") {
+    const n = Math.abs(Number(value));
+    if (isNaN(n)) {
+      toast("Please enter a valid number");
+      setValue("");
+      return;
     }
-    setTempHPInput(0);
+
+    updateCharacter({
+      ...character,
+      hitPoints: {
+        ...character.hitPoints,
+        damage: operator === "add" ? damage + n : Math.max(0, damage - n),
+      },
+    });
+    setValue("");
+  }
+
+  function handleTempHPSubmit(operator: "add" | "subtract") {
+    const n = Math.abs(Number(value));
+    if (isNaN(n)) {
+      toast("Please enter a valid number");
+      setValue("");
+      return;
+    }
+
+    updateCharacter({
+      ...character,
+      hitPoints: {
+        ...character.hitPoints,
+        temporary:
+          operator === "add" ? temporary + n : Math.max(0, temporary - n),
+      },
+    });
+    setValue("");
   }
   return (
     <div>
-      <h2 className="HPHeading">Hit Points</h2>
-      <ul>
-        <li className={"currentHP " + textColorClass}>Current: {currentHP}</li>
-        <hr className="blackHR" />
-        <li className="damageListItem">
-          <span className="damageListItemText">Temporary: {tempHP} </span>
-          <div className="inputAndButton">
-            <input
-              className="numberInput threeDigit damageInput"
-              type="number"
-              value={tempHPInput}
-              onChange={handleTempHPChange}
-            />
-            <button
-              className="defaultButton"
-              onClick={() => handleTempHPSubmit("add")}
-            >
-              +
-            </button>
-            <button
-              className="defaultButton"
-              onClick={() => handleTempHPSubmit("subtract")}
-            >
-              -
-            </button>
-          </div>
-        </li>
-        <hr className="blackHR" />
-        <li className="damageListItem">
-          <span className="damageListItemText">Damage: {damage} </span>
-          <div className="inputAndButton">
-            <input
-              className="numberInput threeDigit damageInput"
-              type="number"
-              value={damageInput}
-              onChange={handleDamageChange}
-            />
-            <button
-              className="defaultButton"
-              onClick={() => handleDamageSubmit("add")}
-            >
-              +
-            </button>
-            <button
-              className="defaultButton"
-              onClick={() => handleDamageSubmit("subtract")}
-            >
-              -
-            </button>
-          </div>
-        </li>
-      </ul>
+      <Heading>Hit Points</Heading>
+      <div className="flex justify-between">
+        <div className="flex flex-col">
+          <span className="text-label !text-sm">Current</span>
+          <span className={c(textColorClass, "text-2xl tabular-nums")}>
+            {currentHP}
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-label !text-sm">Damage</span>
+          <span
+            className={c(
+              "text-2xl tabular-nums",
+              damage > 0 ? "text-red-400" : "opacity-50",
+            )}
+          >
+            {damage}
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-label !text-sm">Temporary</span>
+          <span
+            className={c(
+              "text-2xl tabular-nums",
+              temporary > 0 ? "text-emerald-400" : "opacity-50",
+            )}
+          >
+            {temporary}
+          </span>
+        </div>
+      </div>
+      <Input
+        className="w-full text-3xl text-center py-2 my-4"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        value={value}
+        onChange={handleChange}
+      />
+      <div className="flex gap-2">
+        <div className="flex flex-col gap-2 w-full">
+          <Button disabled={!value} onClick={() => handleDamageSubmit("add")}>
+            Add Damage
+          </Button>
+          <Button
+            disabled={!value}
+            onClick={() => handleDamageSubmit("subtract")}
+          >
+            Remove Damage
+          </Button>
+        </div>
+
+        <div className="flex flex-col gap-2 w-full">
+          <Button disabled={!value} onClick={() => handleTempHPSubmit("add")}>
+            Add Temporary HP
+          </Button>
+          <Button
+            disabled={!value}
+            onClick={() => handleTempHPSubmit("subtract")}
+          >
+            Remove Temporary HP
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
-export default HitPointInfo;

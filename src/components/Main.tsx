@@ -1,6 +1,6 @@
 import { AbilityScores } from "./AbilityScores";
 import DefenseInfo from "./DefenseInfo";
-import HitPointInfo from "./HitPointInfo";
+import { HitPointInfo } from "./HitPointInfo";
 
 export function Main() {
   return (
