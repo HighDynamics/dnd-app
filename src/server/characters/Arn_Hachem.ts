@@ -17,38 +17,36 @@ const Arn: ICharacter = {
     deflection: 4,
     misc: 0,
   },
-  defense: {
-    damageReduction: {
-      amount: 15,
-      weakness: "bludgeoning, chaotic",
+  damageReduction: {
+    amount: 15,
+    weakness: "bludgeoning, chaotic",
+  },
+  spellResistance: 27,
+  energyResistance: {
+    acid: 0,
+    cold: null,
+    electricity: null,
+    fire: 0,
+    sonic: 0,
+  },
+  saves: {
+    fortitude: {
+      base: 16,
+      magic: 0,
+      misc: 6,
+      ability: "charisma",
     },
-    spellResistance: 27,
-    energyResistance: {
-      acid: 0,
-      cold: null,
-      electricity: null,
-      fire: 0,
-      sonic: 0,
+    reflex: {
+      base: 10,
+      magic: 0,
+      misc: 6,
+      ability: "dexterity",
     },
-    saves: {
-      fortitude: {
-        base: 16,
-        magic: 0,
-        misc: 6,
-        ability: "charisma",
-      },
-      reflex: {
-        base: 10,
-        magic: 0,
-        misc: 6,
-        ability: "dexterity",
-      },
-      will: {
-        base: 18,
-        magic: 7,
-        misc: 6,
-        ability: "wisdom",
-      },
+    will: {
+      base: 18,
+      magic: 7,
+      misc: 6,
+      ability: "wisdom",
     },
   },
   size: "Medium",

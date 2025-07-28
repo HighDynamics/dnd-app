@@ -97,24 +97,22 @@ declare global {
       deflection: number;
       misc: number;
     };
-    defense: {
-      damageReduction: {
-        amount: number;
-        weakness: string;
-      };
-      spellResistance: number;
-      energyResistance: {
-        acid: number | null;
-        cold: number | null;
-        electricity: number | null;
-        fire: number | null;
-        sonic: number | null;
-      };
-      saves: {
-        fortitude: Save;
-        reflex: Save;
-        will: Save;
-      };
+    damageReduction: {
+      amount: number;
+      weakness: string;
+    };
+    spellResistance: number;
+    energyResistance: {
+      acid: number | null;
+      cold: number | null;
+      electricity: number | null;
+      fire: number | null;
+      sonic: number | null;
+    };
+    saves: {
+      fortitude: Save;
+      reflex: Save;
+      will: Save;
     };
     size: string;
     alignment: string;

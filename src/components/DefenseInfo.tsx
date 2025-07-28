@@ -11,10 +11,15 @@ import { FadedSeparator } from "./FadedSeparator";
 import { Heading } from "./Heading";
 
 export const DefenseInfo = () => {
-  const character = useCharacter();
+  const {
+    armorClass,
+    damageReduction,
+    spellResistance,
+    energyResistance,
+    saves: saves_,
+  } = useCharacter();
+  const { fortitude, reflex, will } = saves_;
   const roll20 = useDiceRoll(20);
-  const defense = character.defense;
-  const { fortitude, reflex, will } = defense.saves;
   const fortMod = useAbilityScore(fortitude.ability).modifier;
   const refMod = useAbilityScore(reflex.ability).modifier;
   const willMod = useAbilityScore(will.ability).modifier;
@@ -23,7 +28,7 @@ export const DefenseInfo = () => {
     { name: "Reflex", abilityMod: refMod || 0, ...reflex },
     { name: "Will", abilityMod: willMod || 0, ...will },
   ];
-  const ac = character.armorClass;
+  const ac = armorClass;
   const totalAc =
     10 +
     ac.armor +
@@ -131,19 +136,18 @@ export const DefenseInfo = () => {
           <div className="flex flex-col">
             <span className="text-label">Damage Reduction</span>{" "}
             <span>
-              {defense.damageReduction.amount} /{" "}
-              {defense.damageReduction.weakness}
+              {damageReduction.amount} / {damageReduction.weakness}
             </span>
           </div>
           <div className="flex flex-col">
             <span className="text-label">Spell Resistance</span>
-            <span>{defense.spellResistance}</span>
+            <span>{spellResistance}</span>
           </div>
         </div>
         <div className="flex flex-col">
           <span className="text-label">Energy Resistance</span>
           <div className="flex flex-col gap-1 max-w-[60%]">
-            {Object.entries(defense.energyResistance).map(([key, value]) => (
+            {Object.entries(energyResistance).map(([key, value]) => (
               <div className="flex justify-between" key={key}>
                 <span className="capitalize">{key}:</span>
                 <span className="tabular-nums">

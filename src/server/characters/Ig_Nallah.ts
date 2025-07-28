@@ -17,38 +17,36 @@ const Ig: ICharacter = {
     deflection: 7,
     misc: 10,
   },
-  defense: {
-    damageReduction: {
-      amount: 10,
-      weakness: "evil",
+  damageReduction: {
+    amount: 10,
+    weakness: "evil",
+  },
+  spellResistance: 32,
+  energyResistance: {
+    acid: 0,
+    cold: 20,
+    electricity: 20,
+    fire: null,
+    sonic: 0,
+  },
+  saves: {
+    fortitude: {
+      base: 19,
+      magic: 0,
+      misc: 2,
+      ability: "constitution",
     },
-    spellResistance: 32,
-    energyResistance: {
-      acid: 0,
-      cold: 20,
-      electricity: 20,
-      fire: null,
-      sonic: 0,
+    reflex: {
+      base: 12,
+      magic: 0,
+      misc: 19,
+      ability: "intelligence",
     },
-    saves: {
-      fortitude: {
-        base: 19,
-        magic: 0,
-        misc: 2,
-        ability: "constitution",
-      },
-      reflex: {
-        base: 12,
-        magic: 0,
-        misc: 19,
-        ability: "intelligence",
-      },
-      will: {
-        base: 26,
-        magic: 0,
-        misc: 20,
-        ability: "wisdom",
-      },
+    will: {
+      base: 26,
+      magic: 0,
+      misc: 20,
+      ability: "wisdom",
     },
   },
   size: "Huge",

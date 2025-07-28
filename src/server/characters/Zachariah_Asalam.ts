@@ -17,38 +17,36 @@ const Zachariah: ICharacter = {
     deflection: 0,
     misc: 0,
   },
-  defense: {
-    damageReduction: {
-      amount: 0,
-      weakness: "",
+  damageReduction: {
+    amount: 0,
+    weakness: "",
+  },
+  spellResistance: 0,
+  energyResistance: {
+    acid: 0,
+    cold: 0,
+    electricity: 0,
+    fire: 0,
+    sonic: 0,
+  },
+  saves: {
+    fortitude: {
+      base: 0,
+      magic: 0,
+      misc: 2,
+      ability: "constitution",
     },
-    spellResistance: 0,
-    energyResistance: {
-      acid: 0,
-      cold: 0,
-      electricity: 0,
-      fire: 0,
-      sonic: 0,
+    reflex: {
+      base: 0,
+      magic: 0,
+      misc: 0,
+      ability: "dexterity",
     },
-    saves: {
-      fortitude: {
-        base: 0,
-        magic: 0,
-        misc: 2,
-        ability: "constitution",
-      },
-      reflex: {
-        base: 0,
-        magic: 0,
-        misc: 0,
-        ability: "dexterity",
-      },
-      will: {
-        base: 2,
-        magic: 0,
-        misc: 0,
-        ability: "wisdom",
-      },
+    will: {
+      base: 2,
+      magic: 0,
+      misc: 0,
+      ability: "wisdom",
     },
   },
   size: "Medium",
