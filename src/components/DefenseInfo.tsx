@@ -4,6 +4,7 @@ import {
   useCharacter,
   useDiceRoll,
 } from "../store/recoilState";
+import { camelCaseToTitleCase } from "../utilities/utilities";
 import { Button } from "./Button";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { FadedSeparator } from "./FadedSeparator";
@@ -22,11 +23,60 @@ export const DefenseInfo = () => {
     { name: "Reflex", abilityMod: refMod || 0, ...reflex },
     { name: "Will", abilityMod: willMod || 0, ...will },
   ];
+  const ac = character.armorClass;
+  const totalAc =
+    10 +
+    ac.armor +
+    ac.deflection +
+    ac.dexterity +
+    ac.misc +
+    ac.naturalArmor +
+    ac.shield +
+    ac.size;
 
   return (
     <section>
       <Heading>Defense</Heading>
       <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-2">
+          <span className="text-label">Armor Class</span>
+          <EntityDisclosure
+            buttonChildren={
+              <div className="flex justify-between text-lg">
+                <div className="flex flex-col">
+                  <span className="text-label text-sm">Total</span>
+                  <span className="tabular-nums">{totalAc}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-label text-sm">Touch</span>
+                  <span className="tabular-nums">
+                    {totalAc - ac.armor - ac.shield}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-label text-sm">Flatfooted</span>
+                  <span className="tabular-nums">{totalAc - ac.dexterity}</span>
+                </div>
+              </div>
+            }
+          >
+            <FadedSeparator className="my-2" />
+            <div className="flex justify-between flex-wrap gap-y-4">
+              <div className="flex flex-col w-1/2">
+                <span className="text-label text-sm">Base</span>
+                <span className="tabular-nums">10</span>
+              </div>
+              {Object.entries(ac).map(([key, value]) => (
+                <div key={key} className="flex flex-col w-1/2">
+                  <span className="text-label text-sm">
+                    {camelCaseToTitleCase(key)}
+                  </span>
+                  <span className="tabular-nums">{value}</span>
+                </div>
+              ))}
+            </div>
+          </EntityDisclosure>
+        </div>
         <div className="flex flex-col gap-2">
           <div className="text-label">Saves</div>
           {saves.map(({ name, base, magic, misc, abilityMod, ability }) => {
