@@ -4,32 +4,17 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import useSWR from "swr";
 
 import {
-  primaryModifierState,
   characterState,
   spellCompendiumState,
   updatedCharacterState,
   InitialRecoilState,
   itemCompendiumState,
 } from "../store/recoilState";
-import { getAbilityMod } from "../utilities/utilities";
 import { ActionToast } from "./ActionToast";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import { FadedSeparator } from "./FadedSeparator";
 import { Nav } from "./Nav";
 
-/******************************General functions****************************/
-export function totalSpells(
-  character: ICharacter,
-  primaryModifier: number,
-  level: string,
-  levelNum: number,
-): number {
-  function bonusSpellsPerDay(levelNum: number) {
-    return Math.ceil((primaryModifier - (levelNum - 1)) / 4);
-  }
-  return character.magic.spellsPerDay[level] + bonusSpellsPerDay(levelNum);
-}
-/******************************General functions****************************/
 const App = () => {
   const character = useRecoilValue(characterState);
   useEffect(
@@ -43,7 +28,7 @@ const App = () => {
     <>
       <ActionToast />
       <div className="fixed top-0 -z-50 h-screen w-screen bg-indigo-950/30" />
-      <div className="text-stone-200 flex flex-col h-screen">
+      <div className="text-stone-200 flex flex-col h-screen max-w-lg mx-auto">
         <div>
           <BasicInfo />
         </div>
@@ -57,15 +42,6 @@ const App = () => {
       </div>
     </>
   );
-};
-
-const getPrimaryModifierValue = (character: ICharacter) => {
-  const modNumber = getAbilityMod(character)(character.abilities.primary);
-  if (modNumber === null)
-    throw new Error(
-      `Primary modifiers must not be null. ${character.name}'s primary modifier is ${character.abilities.primary}, but the value for that modifier is null.`,
-    );
-  return modNumber;
 };
 
 const LoadApp = () => {
@@ -83,8 +59,6 @@ const LoadApp = () => {
     useRecoilState(spellCompendiumState);
   const [itemCompendium, setItemCompendium] =
     useRecoilState(itemCompendiumState);
-  const [primaryModifier, setPrimaryModifier]: InitialRecoilState<number> =
-    useRecoilState(primaryModifierState);
 
   // Before the data is loaded, it will be `undefined`. So inside `useEffect`
   // hooks below, make sure the data exists.
@@ -147,17 +121,8 @@ const LoadApp = () => {
     ],
   );
 
-  useEffect(
-    function setPrimaryModifierWhenCharacterChanges() {
-      if (character) {
-        setPrimaryModifier(getPrimaryModifierValue(character));
-      }
-    },
-    [character, setPrimaryModifier],
-  );
-
   // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && spellCompendium && primaryModifier && itemCompendium)) {
+  if (!(character && spellCompendium && itemCompendium)) {
     return <>Loading...</>;
   }
 

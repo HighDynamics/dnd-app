@@ -7,12 +7,6 @@ function clone<T>(object: T): T {
   return JSON.parse(JSON.stringify(object));
 }
 
-function getAbilityMod(character: ICharacter) {
-  return (ability: keyof ICharacter["abilities"]["score"]) => {
-    const score = character.abilities.score[ability];
-    return !score ? 0 : Math.floor((score - 10) / 2);
-  };
-}
 function getAC(character: ICharacter) {
   const ac = character.armorClass;
   return (
@@ -94,7 +88,6 @@ const getRefInfoByCompendiumObject =
 export {
   camelCaseToTitleCase,
   getAC,
-  getAbilityMod,
   clone,
   displayCompendiumInfo,
   whiteSpaceToUnderscore,

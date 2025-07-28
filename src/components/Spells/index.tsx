@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 
 import { combine as c } from "../../lib";
 import * as store from "../../store/recoilState";
+import { useAbilityScore } from "../../store/recoilState";
 import { Button } from "../Button";
 import { Heading } from "../Heading";
 import { SpellList } from "./SpellList";
@@ -23,7 +24,8 @@ const romans = [
 export function Spells() {
   const [isPrepping, setIsPrepping] = useState(false);
   const character = useRecoilValue(store.characterState);
-  const primaryModifier = useRecoilValue(store.primaryModifierState);
+  const primaryModifier =
+    useAbilityScore(character.abilities.primary).modifier || 0;
   const spellSlotsExpended = useRecoilValue(store.spellSlotsExpended);
   const allKnownSpells = useRecoilValue(store.allKnownSpells);
 

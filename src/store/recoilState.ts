@@ -68,11 +68,6 @@ export const temporaryHitPointsState = atom({
   default: 0,
 });
 
-export const primaryModifierState = atom<number>({
-  key: "primaryModifierState",
-  default: null as any,
-});
-
 export const diceRollState = atom<{
   result: number;
   size: number;
