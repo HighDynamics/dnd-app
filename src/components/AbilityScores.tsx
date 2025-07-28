@@ -1,19 +1,16 @@
-import { useSetRecoilState } from "recoil";
-
 import { combine as c } from "../lib";
 import {
-  diceRollState,
   useAbilityScore,
   useCharacter,
+  useDiceRoll,
 } from "../store/recoilState";
-import { roll20 } from "../utilities/utilities";
 import { Button } from "./Button";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { Heading } from "./Heading";
 
 export const AbilityScores = () => {
   const { name: characterName } = useCharacter();
-  const setRollResult = useSetRecoilState(diceRollState);
+  const roll20 = useDiceRoll(20);
   const str = useAbilityScore("strength");
   const dex = useAbilityScore("dexterity");
   const con = useAbilityScore("constitution");
@@ -53,7 +50,7 @@ export const AbilityScores = () => {
                       e.stopPropagation();
                       if (!modifier) return;
 
-                      setRollResult(roll20(modifier, name));
+                      roll20(modifier, name);
                     }}
                   >
                     <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />

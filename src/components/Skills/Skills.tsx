@@ -1,22 +1,21 @@
-import { useSetRecoilState, useRecoilValue } from "recoil";
-
 import { combine as c } from "../../lib";
-import { diceRollState, characterState } from "../../store/recoilState";
-import { roll20, getAbilityMod } from "../../utilities/utilities";
+import {
+  useCharacter,
+  useAbilityScore,
+  useDiceRoll,
+} from "../../store/recoilState";
 import { Button } from "../Button";
 import { EntityDisclosure } from "../EntityDisclosure";
 import { FadedSeparator } from "../FadedSeparator";
 import { Heading } from "../Heading";
 
-const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
-  const { character, skill } = props;
-  const abilityMod = getAbilityMod(character);
-  const setRollResult = useSetRecoilState(diceRollState);
+const SkillsListItem = ({ skill }: { skill: Skill }) => {
+  const { modifier: skillAbilityMod } = useAbilityScore(skill.ability);
+  const roll20 = useDiceRoll(20);
 
   let formattedSkill = skill.name.replace("Knowledge", "Know:");
 
-  const skillPoints =
-    skill.ranks + skill.miscModifier + abilityMod(skill.ability);
+  const skillPoints = skill.ranks + skill.miscModifier + (skillAbilityMod || 0);
 
   return (
     <EntityDisclosure
@@ -30,7 +29,7 @@ const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
               className="flex size-8 items-center justify-center"
               onClick={(e) => {
                 e.stopPropagation();
-                setRollResult(roll20(skillPoints, formattedSkill));
+                roll20(skillPoints, formattedSkill);
               }}
             >
               <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
@@ -44,7 +43,7 @@ const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
         <span>Ranks: {skill.ranks}</span>
         <span>Misc Mod: {skill.miscModifier}</span>
         <span className="capitalize">
-          {skill.ability}: {abilityMod(skill.ability)}
+          {skill.ability}: {skillAbilityMod}
         </span>
       </div>
     </EntityDisclosure>
@@ -52,7 +51,7 @@ const SkillsListItem = (props: { character: ICharacter; skill: Skill }) => {
 };
 
 export function Skills() {
-  const character = useRecoilValue(characterState);
+  const character = useCharacter();
   return (
     <section className="mt-12">
       <Heading>Skills</Heading>
@@ -61,7 +60,7 @@ export function Skills() {
           .filter((skill) => skill.display)
           .sort((a, b) => (a.name > b.name ? 1 : -1))
           .map((s) => (
-            <SkillsListItem key={s.name} skill={s} character={character} />
+            <SkillsListItem key={s.name} skill={s} />
           ))}
       </div>
     </section>

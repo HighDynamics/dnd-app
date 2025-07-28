@@ -1,18 +1,11 @@
-import CompendiumObject from "../components/Modal/CompendiumObject/CompendiumObject";
 import { mutate } from "swr";
 
-function rollDice(size: number) {
-  return (mod: number, use: string) => {
-    const result = Math.floor(Math.random() * size + 1);
+import CompendiumObject from "../components/Modal/CompendiumObject/CompendiumObject";
 
-    return { result, mod, size, use };
-  };
-}
 /* vvvvvvvvvvv EXPORT vvvvvvvvvvvvvv */
 function clone<T>(object: T): T {
   return JSON.parse(JSON.stringify(object));
 }
-const roll20 = rollDice(20);
 
 function getAbilityMod(character: ICharacter) {
   return (ability: keyof ICharacter["abilities"]["score"]) => {
@@ -101,7 +94,6 @@ const getRefInfoByCompendiumObject =
 export {
   camelCaseToTitleCase,
   getAC,
-  roll20,
   getAbilityMod,
   clone,
   displayCompendiumInfo,
