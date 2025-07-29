@@ -1,12 +1,20 @@
 import { useState } from "react";
 
-import { getTextColor, combine as c } from "../lib";
+import { combine as c } from "../lib";
 import { useCharacter } from "../store/recoilState";
 import { useUpdateCharacter } from "../store/server";
 import { useToast } from "./ActionToast/useToast";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
 import { Input } from "./Input";
+
+function getTextColor(current: number, expected: number) {
+  return current > expected
+    ? "text-emerald-400"
+    : current < expected
+      ? "text-red-400"
+      : "";
+}
 
 export const HitPointInfo = () => {
   const character = useCharacter();
