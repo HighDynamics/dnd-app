@@ -11,9 +11,10 @@ import {
   itemCompendiumState,
 } from "../store/recoilState";
 import { ActionToast } from "./ActionToast";
-import BasicInfo from "./BasicInfo/BasicInfo";
+import { CharacterSelector } from "./CharacterSelector";
 import { FadedSeparator } from "./FadedSeparator";
 import { Nav } from "./Nav";
+import { RollContainer } from "./RollContainer";
 
 const App = () => {
   const character = useRecoilValue(characterState);
@@ -29,11 +30,16 @@ const App = () => {
       <ActionToast />
       <div className="fixed top-0 -z-50 h-screen w-screen bg-indigo-950/30" />
       <div className="text-stone-200 flex flex-col h-screen max-w-lg mx-auto">
-        <div>
-          <BasicInfo />
-        </div>
-        <div className="p-4 grow overflow-auto">
-          <Outlet />
+        <div className="grow overflow-auto">
+          <div className="z-20">
+            <CharacterSelector />
+          </div>
+          <div className="sticky top-0 z-10">
+            <RollContainer />
+          </div>
+          <div className="p-4">
+            <Outlet />
+          </div>
         </div>
         <div>
           <FadedSeparator />
