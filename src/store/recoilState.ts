@@ -87,6 +87,13 @@ export function useDiceRoll(size: number) {
   };
 }
 
+export function useResetDiceRoll() {
+  const setRollResult = useSetRecoilState(diceRollState);
+  return () => setRollResult(null);
+}
+
+export const useDiceRollResult = () => useRecoilValue(diceRollState);
+
 export type MainContent =
   | "Skills"
   | "Scores"

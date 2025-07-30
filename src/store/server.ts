@@ -1,6 +1,17 @@
 import { useRecoilState } from "recoil";
+import useSWR from "swr";
 
 import { characterState } from "./recoilState";
+
+export function useGetCharacters() {
+  const resp = useSWR<IServer.GetCharacters.Response>("/api/characters");
+
+  if (resp.error) throw new Error("Failed to fetch characters");
+
+  if (!resp.data) return [];
+
+  return resp.data.characters;
+}
 
 function updateCharacter(
   characterId: string,
