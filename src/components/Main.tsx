@@ -1,6 +1,7 @@
 import { AbilityScores } from "./AbilityScores";
 import { DefenseInfo } from "./DefenseInfo";
 import { HitPointInfo } from "./HitPointInfo";
+import { MiscInfo } from "./MiscInfo";
 
 export function Main() {
   return (
@@ -8,6 +9,7 @@ export function Main() {
       <AbilityScores />
       <HitPointInfo />
       <DefenseInfo />
+      <MiscInfo />
     </div>
   );
 }
