@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
@@ -18,7 +18,10 @@ import * as serviceWorker from "./serviceWorker";
 // Whenever it is time for a real server, this should be removed.
 makeServer({ environment: "development" });
 
-render(
+const container = document.getElementById("root");
+const root = createRoot(container!);
+
+root.render(
   <StrictMode>
     <RecoilRoot>
       <SWRConfig
@@ -41,7 +44,6 @@ render(
       </SWRConfig>
     </RecoilRoot>
   </StrictMode>,
-  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change
