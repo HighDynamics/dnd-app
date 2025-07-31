@@ -1,19 +1,16 @@
 {
   "name": "dnd",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "homepage": "http://highdynamics.github.io/dnd-app",
   "scripts": {
     "mobile-url": "ifconfig | grep 192.168 | awk '{print \"http://\"$2\":3000\"}'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -30,30 +27,24 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@headlessui/react": "^1.7.18",
-    "@testing-library/jest-dom": "6.1.5",
-    "@testing-library/react": "14.1.2",
-    "@testing-library/user-event": "14.5.1",
+    "@tailwindcss/vite": "^3.4.0",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router": "^7.7.1",
-    "react-scripts": "5.0.1",
     "recoil": "0.7.7",
     "swr": "2.2.4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@vitejs/plugin-react": "^4.7.0",
     "gh-pages": "6.1.1",
     "json-loader": "0.5.7",
     "miragejs": "0.1.48",
     "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "3.4.0",
-    "typescript": "5.3.3"
-  },
-  "overrides": {
-    "react-scripts": {
-      "typescript": "^5"
-    }
+    "typescript": "5.3.3",
+    "vite": "^7.0.6"
   }
 }
