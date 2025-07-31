@@ -845,7 +845,7 @@ const spellCompendium: ISpell[] = [
     savingThrow: "Will negates (harmless)",
     spellResistance: "Yes (harmless)",
     description:
-      "The subject’s outline appears blurred, shifting and wavering. This distortion grants the subject concealment (20% miss chance).\n\nA see invisibility spell does not counteract the blur effect, but a true seeing spell does.\n\nOpponents that cannot see the subject ignore the spell’s effect (though fighting an unseen opponent carries penalties of its own).",
+      "The subject’s outline-solid appears blurred, shifting and wavering. This distortion grants the subject concealment (20% miss chance).\n\nA see invisibility spell does not counteract the blur-sm effect, but a true seeing spell does.\n\nOpponents that cannot see the subject ignore the spell’s effect (though fighting an unseen opponent carries penalties of its own).",
   },
   //Break Enchantment
   {

@@ -17,7 +17,7 @@ export function EntityDisclosure(
         <div
           ref={animate}
           className={c(
-            "select-none rounded border border-stone-700 bg-black/50 py-1 pl-2 pr-1 transition-all duration-500",
+            "select-none rounded-sm border border-stone-700 bg-black/50 py-1 pl-2 pr-1 transition-all duration-500",
             p.containerClassName,
           )}
         >

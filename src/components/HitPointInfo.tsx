@@ -71,13 +71,13 @@ export const HitPointInfo = () => {
       <Heading>Hit Points</Heading>
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <span className="text-label !text-sm">Current</span>
+          <span className="text-label text-sm!">Current</span>
           <span className={c(textColorClass, "text-2xl tabular-nums")}>
             {currentHP}
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-label !text-sm">Damage</span>
+          <span className="text-label text-sm!">Damage</span>
           <span
             className={c(
               "text-2xl tabular-nums",
@@ -88,7 +88,7 @@ export const HitPointInfo = () => {
           </span>
         </div>
         <div className="flex flex-col">
-          <span className="text-label !text-sm">Temporary</span>
+          <span className="text-label text-sm!">Temporary</span>
           <span
             className={c(
               "text-2xl tabular-nums",

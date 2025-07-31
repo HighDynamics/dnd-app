@@ -39,8 +39,8 @@ export function Nav() {
           to={link.to}
           className={({ isActive }) =>
             c(
-              "text-white flex flex-col items-center justify-center font-sans py-2 px-3 rounded opacity-50",
-              isActive && "!text-fuchsia-400 !opacity-100 bg-black/70",
+              "text-white flex flex-col items-center justify-center font-sans py-2 px-3 rounded-sm opacity-50",
+              isActive && "text-fuchsia-400! opacity-100! bg-black/70",
             )
           }
         >

@@ -2,7 +2,7 @@ import { combine as c } from "../lib";
 import { useCharacter, useDiceRollResult } from "../store/recoilState";
 
 const containerClassName =
-  "bg-black text-center min-h-[100px] py-2 border border-stone-700 rounded";
+  "bg-black text-center min-h-[100px] py-2 border border-stone-700 rounded-sm";
 
 export function RollContainer() {
   const character = useCharacter();

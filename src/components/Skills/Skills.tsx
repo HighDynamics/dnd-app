@@ -19,7 +19,7 @@ const SkillsListItem = ({ skill }: { skill: Skill }) => {
 
   return (
     <EntityDisclosure
-      containerClassName={c(skill.classSkill && "!border-emerald-800")}
+      containerClassName={c(skill.classSkill && "border-emerald-800!")}
       buttonChildren={
         <div className="flex items-center justify-between">
           <span className="text-lg">{formattedSkill}</span>
