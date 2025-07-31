@@ -5,7 +5,7 @@ import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 
 import ActiveAndPassiveAbilities from "./components/ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
-import Items from "./components/Items/Items";
+import { Items } from "./components/Items";
 import { Main } from "./components/Main";
 import { Skills } from "./components/Skills/Skills";
 import { Spells } from "./components/Spells";

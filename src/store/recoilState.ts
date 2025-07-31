@@ -53,6 +53,23 @@ export function useAbilityScore(ability: Ability) {
   return scores[ability];
 }
 
+const characterItems = selector({
+  key: "characterItems",
+  get: ({ get }) => {
+    const itemRefs = get(characterState).itemRefs;
+    const itemCompendium = get(itemCompendiumState).items;
+
+    const items = itemRefs
+      .map((itemRef) => itemCompendium.find((i) => i.id === itemRef.id))
+      .filter(Boolean) as IItem[];
+
+    return items;
+  },
+});
+
+export function useItems() {
+  return useRecoilValue(characterItems);
+}
 export const updatedCharacterState = atom<ICharacter>({
   key: "updatedCharacterState",
   default: null as any,
