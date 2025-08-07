@@ -1,6 +1,4 @@
-import { useRecoilValue } from "recoil";
-
-import { characterState } from "../../store/recoilState";
+import { useCharacter } from "../../store/recoilState";
 import { EntityDisclosure } from "../EntityDisclosure";
 import "./ActiveAndPassiveAbilities.css";
 
@@ -16,7 +14,7 @@ function formatType(type: string) {
 }
 
 const ActiveAndPassiveAbilities = () => {
-  const character = useRecoilValue(characterState);
+  const character = useCharacter();
   return (
     <div className="mt-12 flex flex-col gap-12 px-4">
       <div>

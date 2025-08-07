@@ -1,8 +1,8 @@
-import { useItems } from "../store/recoilState";
+import { useCharacterItems } from "../store/recoilState";
 import { EntityDisclosure } from "./EntityDisclosure";
 
 export function Items() {
-  const items = useItems();
+  const items = useCharacterItems();
 
   return (
     <div className="mt-12 flex flex-col px-4">

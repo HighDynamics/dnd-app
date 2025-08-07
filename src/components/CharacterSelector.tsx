@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
-import { combine as c } from "../lib";
-import { characterState, useResetDiceRoll } from "../store/recoilState";
-import { useGetCharacters } from "../store/server";
+import {
+  characterAtom,
+  useAllCharacters,
+  useResetDiceRoll,
+} from "../store/recoilState";
 import { FadedSeparator } from "./FadedSeparator";
 
 export function CharacterSelector() {
-  const [currentCharacter, setCurrentCharacter] =
-    useRecoilState(characterState);
-  const characters = useGetCharacters();
+  const [currentCharacter, setCurrentCharacter] = useRecoilState(characterAtom);
+  const characters = useAllCharacters();
   const resetDiceRoll = useResetDiceRoll();
   const [toggle, setToggle] = useState(false);
 

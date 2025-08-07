@@ -1,40 +1,61 @@
-import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
-import type { SetterOrUpdater } from "recoil";
+import { useEffect } from "react";
+import {
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 
-/**
- * Because the default value for many of these objects is null, but we do not
- * want most of the app to behave as though they are null, we declare the null
- * values to actually be the real data instead of null. This Type will be used
- * at the location where the values for these states is initially set, and it
- * will represent the _actual_ data that we have: null OR the real data.
- */
-export type InitialRecoilState<T> = [
-  value: T | null,
-  setValue: SetterOrUpdater<T>,
-];
+import { useGetCharacters, useGetItems, useGetSpells } from "./server";
 
-export const spellCompendiumState = atom<{ spells: ISpell[] }>({
-  key: "spellCompendiumState",
-  default: { spells: [] },
+const allCharactersAtom = atom<ICharacter[]>({
+  key: "allCharactersAtom",
+  default: [],
 });
 
-export const itemCompendiumState = atom<{ items: IItem[] }>({
-  key: "itemCompendiumState",
-  default: { items: [] },
+export function useSetAllCharacters() {
+  const [characters, setCharacters] = useRecoilState(allCharactersAtom);
+  const fetchedCharacters = useGetCharacters();
+
+  useEffect(() => {
+    if (fetchedCharacters) {
+      setCharacters(fetchedCharacters);
+    }
+  }, [fetchedCharacters, setCharacters]);
+
+  return characters;
+}
+
+export const useAllCharacters = () => useRecoilValue(allCharactersAtom);
+
+export const characterAtom = atom<ICharacter>({
+  key: "characterAtom",
+  default: {} as ICharacter,
 });
 
-export const characterState = atom<ICharacter>({
-  key: "characterState",
-  default: null as any,
-});
+export function useSetFirstCharacter() {
+  const characters = useSetAllCharacters();
+  const [character, setCharacter] = useRecoilState(characterAtom);
 
-export const useCharacter = () => useRecoilValue(characterState);
+  useEffect(
+    function setFirstCharacter() {
+      const firstCharacter = characters?.at(0);
+      if (!firstCharacter) return;
+      setCharacter(firstCharacter);
+    },
+    [characters, setCharacter],
+  );
+
+  return character;
+}
+
+export const useCharacter = () => useRecoilValue(characterAtom);
 
 const abilityScores = selector({
   key: "abilityScores",
   get: ({ get }) => {
-    const abilityScores = get(characterState).abilities.score;
-
+    const abilityScores = get(characterAtom).abilities.score;
     return Object.entries(abilityScores).reduce(
       (acc, [key, value]) => ({
         ...acc,
@@ -53,39 +74,62 @@ export function useAbilityScore(ability: Ability) {
   return scores[ability];
 }
 
+export const itemCompendiumAtom = atom<IItem[]>({
+  key: "itemCompendiumAtom",
+  default: [],
+});
+
+export function useSetItemCompendium() {
+  const items = useGetItems();
+  const [itemCompendium, setItemCompendium] =
+    useRecoilState(itemCompendiumAtom);
+
+  useEffect(() => {
+    if (items) {
+      setItemCompendium(items);
+    }
+  }, [items, setItemCompendium]);
+
+  return itemCompendium;
+}
+
 const characterItems = selector({
   key: "characterItems",
   get: ({ get }) => {
-    const itemRefs = get(characterState).itemRefs;
-    const itemCompendium = get(itemCompendiumState).items;
+    const itemCompendium = get(itemCompendiumAtom);
+    const itemRefs = get(characterAtom).itemRefs;
 
-    const items = itemRefs
-      .map((itemRef) => itemCompendium.find((i) => i.id === itemRef.id))
+    if (itemRefs.length === 0) return [];
+
+    const characterItems_ = itemRefs
+      .map((itemRef) => itemCompendium?.find((i) => i.id === itemRef.id))
       .filter(Boolean) as IItem[];
 
-    return items;
+    return characterItems_;
   },
 });
 
-export function useItems() {
-  return useRecoilValue(characterItems);
+export const useCharacterItems = () => useRecoilValue(characterItems);
+
+export const spellCompendiumAtom = atom<ISpell[]>({
+  key: "spellCompendiumState",
+  default: [],
+});
+
+export function useSetSpellCompendium() {
+  const spells = useGetSpells();
+  const setSpellCompendium = useSetRecoilState(spellCompendiumAtom);
+
+  useEffect(() => {
+    if (spells) {
+      setSpellCompendium(spells);
+    }
+  }, [spells, setSpellCompendium]);
+
+  return spells;
 }
-export const updatedCharacterState = atom<ICharacter>({
-  key: "updatedCharacterState",
-  default: null as any,
-});
 
-export const damageState = atom({
-  key: "damageState",
-  default: 0,
-});
-
-export const temporaryHitPointsState = atom({
-  key: "temporaryHitPointsState",
-  default: 0,
-});
-
-export const diceRollState = atom<{
+export const diceRollAtom = atom<{
   result: number;
   size: number;
   mod: number;
@@ -96,7 +140,7 @@ export const diceRollState = atom<{
 });
 
 export function useDiceRoll(size: number) {
-  const setRollResult = useSetRecoilState(diceRollState);
+  const setRollResult = useSetRecoilState(diceRollAtom);
   return (mod: number, use: string) => {
     const result = Math.floor(Math.random() * size + 1);
 
@@ -105,70 +149,15 @@ export function useDiceRoll(size: number) {
 }
 
 export function useResetDiceRoll() {
-  const setRollResult = useSetRecoilState(diceRollState);
+  const setRollResult = useSetRecoilState(diceRollAtom);
   return () => setRollResult(null);
 }
 
-export const useDiceRollResult = () => useRecoilValue(diceRollState);
-
-export type MainContent =
-  | "Skills"
-  | "Scores"
-  | "Attacks"
-  | "More"
-  | "Spells"
-  | "Abilities"
-  | "SLAs"
-  | "Prep"
-  | "Items"
-  | "EditSkills"
-  | "EditAbilities"
-  | "EditMagic"
-  | "EditSpells"
-  | "EditSLAs"
-  | "EditAttacks"
-  | "EditItems"
-  | "EditCore"
-  | "AddCharacter"
-  | "ChangeCharacter";
-
-export const mainContentState = atom<MainContent>({
-  key: "mainContentState",
-  default: "Skills",
-});
-
-export type SecondaryNavbar = "stats" | "ability" | "more";
-
-export const secondaryNavbarState = atom<SecondaryNavbar>({
-  key: "secondaryNavbarDisplayState",
-  default: "stats",
-});
-
-export type ModalType =
-  | "Cast"
-  | "Prep"
-  | "CastPrepped"
-  | "UsedPrepped"
-  | "HP"
-  | "Defense"
-  | "Abilities"
-  | "SLA"
-  | "Item"
-  | "ConfirmationCharacterSpell"
-  | "Off";
-
-export const modalTypeState = atom<ModalType>({
-  key: "modalTypeState",
-  default: "Off",
-});
+export const useDiceRollResult = () => useRecoilValue(diceRollAtom);
 
 export const confirmationMsg = atom<string | null>({
   key: "confirmationMsg",
   default: null,
-});
-export const selectionState = atom({
-  key: "selectionState",
-  default: {},
 });
 
 export const emptySpellArray: [
@@ -204,8 +193,8 @@ export const slaState = atom({
 export const allKnownSpells_ = selector({
   key: "allKnownSpells_",
   get: ({ get }) => {
-    const magic = get(characterState).magic;
-    const spellCompendium = get(spellCompendiumState);
+    const magic = get(characterAtom).magic;
+    const spellCompendium = get(spellCompendiumAtom);
     function getSpellInfoById(id: string) {
       return spellCompendium.spells.find((item) => item.id === id);
     }

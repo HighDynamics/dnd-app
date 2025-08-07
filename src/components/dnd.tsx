@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import useSWR from "swr";
+import { useRecoilState } from "recoil";
 
 import {
-  characterState,
-  spellCompendiumState,
-  updatedCharacterState,
-  InitialRecoilState,
-  itemCompendiumState,
+  useCharacter,
+  useSetItemCompendium,
+  useSetSpellCompendium,
+  useSetAllCharacters,
+  characterAtom,
 } from "../store/recoilState";
 import { ActionToast } from "./ActionToast";
 import { CharacterSelector } from "./CharacterSelector";
@@ -17,7 +16,8 @@ import { Nav } from "./Nav";
 import { RollContainer } from "./RollContainer";
 
 const App = () => {
-  const character = useRecoilValue(characterState);
+  const character = useCharacter();
+
   useEffect(
     function setDocTitle() {
       document.title = character.name;
@@ -51,86 +51,23 @@ const App = () => {
 };
 
 const LoadApp = () => {
-  // Load data from the characters server endpoint
-  const { data: charactersResponse } =
-    useSWR<IServer.GetCharacters.Response>("/api/characters");
-  const { data: spellsResponse } =
-    useSWR<IServer.GetSpells.Response>("/api/spells");
-  const { data: itemsResponse } =
-    useSWR<IServer.GetItems.Response>("/api/items");
-  const [character, setCharacter]: InitialRecoilState<ICharacter> =
-    useRecoilState(characterState);
-  const setUpdatedCharacter = useSetRecoilState(updatedCharacterState);
-  const [spellCompendium, setSpellCompendium] =
-    useRecoilState(spellCompendiumState);
-  const [itemCompendium, setItemCompendium] =
-    useRecoilState(itemCompendiumState);
-
-  // Before the data is loaded, it will be `undefined`. So inside `useEffect`
-  // hooks below, make sure the data exists.
+  const characters = useSetAllCharacters();
+  const itemCompendium = useSetItemCompendium();
+  const spellCompendium = useSetSpellCompendium();
+  const [character, setCharacter] = useRecoilState(characterAtom);
 
   useEffect(
-    function setFirstCharacterFromServer() {
-      if (charactersResponse) {
-        const getDefaultOrById = (id: string): ICharacter => {
-          let foundCharacter = charactersResponse.characters.find(
-            (char) => char.id === id,
-          );
-          return foundCharacter
-            ? foundCharacter
-            : charactersResponse.characters[0];
-        };
-        setCharacter(getDefaultOrById(character?.id));
-        setUpdatedCharacter(getDefaultOrById(character?.id));
-      }
+    function setFirstCharacter() {
+      if (character.id) return; // If character is already set, do nothing
+
+      const firstCharacter = characters?.at(0);
+      if (!firstCharacter) return;
+      setCharacter(firstCharacter);
     },
-    [charactersResponse, setCharacter, setUpdatedCharacter, character?.id],
+    [characters, setCharacter],
   );
 
-  useEffect(
-    function setCompendiumsFromServer() {
-      if (spellsResponse && character && itemsResponse) {
-        const characterSpellRefs = character.magic.spellRefs.map(
-          (spell: ISpellRef) => spell.id,
-        );
-        const characterSlaRefs = character.magic.slaRefs.map(
-          (spell: ISLARef) => spell.id,
-        );
-        const characterAllSpellRefs = characterSpellRefs.reduce(
-          (previousValue, current, index) => {
-            return [...previousValue, current, characterSlaRefs[index]].filter(
-              (ref) => ref !== undefined,
-            );
-          },
-          [],
-        );
-        const characterItemRefs = character.itemRefs.map(
-          (item: IItemRef) => item.id,
-        );
-
-        const characterSpells = spellsResponse.spells.filter((spell) =>
-          characterAllSpellRefs.includes(spell.id),
-        );
-        const characterItems = itemsResponse.items.filter((item) =>
-          characterItemRefs.includes(item.id),
-        );
-        setSpellCompendium({ spells: characterSpells });
-        setItemCompendium({ items: characterItems });
-      }
-    },
-    [
-      spellsResponse,
-      character,
-      setSpellCompendium,
-      itemsResponse,
-      setItemCompendium,
-    ],
-  );
-
-  // Wait until all data has been flushed through Recoil and values exist.
-  if (!(character && spellCompendium && itemCompendium)) {
-    return <>Loading...</>;
-  }
+  if (!character || !itemCompendium || !spellCompendium) return <>Loading...</>;
 
   return <App />;
 };

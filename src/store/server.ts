@@ -1,16 +1,12 @@
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 
-import { characterState } from "./recoilState";
+import { characterAtom } from "./recoilState";
 
 export function useGetCharacters() {
   const resp = useSWR<IServer.GetCharacters.Response>("/api/characters");
-
   if (resp.error) throw new Error("Failed to fetch characters");
-
-  if (!resp.data) return [];
-
-  return resp.data.characters;
+  return resp.data?.characters;
 }
 
 function updateCharacter(
@@ -32,7 +28,9 @@ function updateCharacter(
 }
 
 export function useUpdateCharacter() {
-  const [character, setCharacter] = useRecoilState(characterState);
+  const [character, setCharacter] = useRecoilState(characterAtom);
+
+  if (!character) throw new Error("No character atom set");
 
   return (characterData: IServer.PutCharacter.Request) => {
     return updateCharacter(character.id, characterData).then((response) => {
@@ -40,4 +38,16 @@ export function useUpdateCharacter() {
       return response;
     });
   };
+}
+
+export function useGetSpells() {
+  const resp = useSWR<IServer.GetSpells.Response>("/api/spells");
+  if (resp.error) throw new Error("Failed to fetch spells");
+  return resp.data?.spells;
+}
+
+export function useGetItems() {
+  const resp = useSWR<IServer.GetItems.Response>("/api/items");
+  if (resp.error) throw new Error("Failed to fetch items");
+  return resp.data?.items;
 }
