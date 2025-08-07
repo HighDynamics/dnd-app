@@ -10,6 +10,12 @@ export function combine(...str: Array<string | null | undefined | boolean>) {
     .join(" ");
 }
 
+export function camelCaseToTitleCase(item: string) {
+  let string = item.replace(/[A-Z]/g, (x) => " " + x);
+  string = string.charAt(0).toUpperCase() + string.slice(1);
+  return string;
+}
+
 export function abbreviateAbility(ability: Ability): string {
   switch (ability) {
     case "strength":

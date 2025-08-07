@@ -1,10 +1,10 @@
 import { abbreviateAbility } from "../lib";
+import { camelCaseToTitleCase } from "../lib";
 import {
   useAbilityScore,
   useCharacter,
   useDiceRoll,
 } from "../store/recoilState";
-import { camelCaseToTitleCase } from "../utilities/utilities";
 import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { FadedSeparator } from "./FadedSeparator";
