@@ -148,7 +148,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "129",
     isSrd: false,
-    name: "U:Amanuensis",
+    name: "Amanuensis",
     school: "Transmutation",
     level: "Clr 0, Sor/Wiz 0",
     components: "V, S",
@@ -982,7 +982,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "130",
     isSrd: false,
-    name: "U:Caltrops",
+    name: "Caltrops",
     school: "Conjuration",
     subSchool: "Creation",
     level: "Sor/Wiz 0",
@@ -1000,7 +1000,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "131",
     isSrd: false,
-    name: "U:Candlelight",
+    name: "Candlelight",
     school: "Evocation",
     descriptor: "Light",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1930,7 +1930,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "132",
     isSrd: false,
-    name: "U:Detect Ghost",
+    name: "Detect Ghost",
     school: "Divination",
     descriptor: "Ectomancy",
     level: "Brd 0, Clr 0, Drd 0, Sor/Wiz 0",
@@ -1981,7 +1981,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "133",
     isSrd: false,
-    name: "U:Disrupt Ectoplasm",
+    name: "Disrupt Ectoplasm",
     school: "Necromancy",
     descriptor: "Ectomancy",
     level: "Clr 0, Sor/Wiz 0",
@@ -2016,7 +2016,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "134",
     isSrd: false,
-    name: "U:Electric Jolt",
+    name: "Electric Jolt",
     school: "Evocation",
     descriptor: "Electricity",
     level: "Sor/Wiz 0",
@@ -2122,7 +2122,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "135",
     isSrd: false,
-    name: "U:Horizikaul's Cough",
+    name: "Horizikaul's Cough",
     school: "Evocation",
     descriptor: "Sonic",
     level: "Sor/Wiz 0",
@@ -2155,7 +2155,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "136",
     isSrd: false,
-    name: "U:Launch Bolt",
+    name: "Launch Bolt",
     school: "Transmutation",
     level: "Sor/Wiz 0",
     components: "V, S",
@@ -2172,7 +2172,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "145",
     isSrd: false,
-    name: "U:Launch Item",
+    name: "Launch Item",
     school: "Transmutation",
     level: "Sor/Wiz 0",
     components: "S",
@@ -2297,7 +2297,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "146",
     isSrd: false,
-    name: "U:No Light",
+    name: "No Light",
     school: "Transmutation",
     level: "Clr 0, Brd 0, Sor/Wiz 0",
     components: "V, S",
@@ -2332,7 +2332,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "137",
     isSrd: false,
-    name: "U:Preserve Ectoplasm",
+    name: "Preserve Ectoplasm",
     school: "Transmutation",
     level: "Sor/Wiz 0",
     components: "V, S, M",
@@ -2349,7 +2349,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "138",
     isSrd: false,
-    name: "U:Preserve Organ",
+    name: "Preserve Organ",
     school: "Necromancy",
     level: "Clr 0, Drd 0, Sor/Wiz 0",
     components: "V, S, DF",
@@ -2434,7 +2434,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "139",
     isSrd: false,
-    name: "U:Repair Minor Damage",
+    name: "Repair Minor Damage",
     school: "Transmutation",
     level: "Sor/Wiz 0",
     description:
@@ -2477,7 +2477,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "140",
     isSrd: false,
-    name: "U:Silent Portal",
+    name: "Silent Portal",
     school: "Illusion",
     subSchool: "Glamer",
     level: "Sor/Wiz 0",
@@ -2495,7 +2495,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "141",
     isSrd: false,
-    name: "U:Slash Tongue",
+    name: "Slash Tongue",
     school: "Transmutation",
     descriptor: "Evil",
     level: "Clr 0, Sor/Wiz 0",
@@ -2513,7 +2513,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "142",
     isSrd: false,
-    name: "U:Sonic Snap",
+    name: "Sonic Snap",
     school: "Evocation",
     descriptor: "Sonic",
     level: "Sor/Wiz 0",
@@ -2531,7 +2531,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "143",
     isSrd: false,
-    name: "U:Stick",
+    name: "Stick",
     school: "Transmutation",
     level: "Brd 0, Sor/Wiz 0",
     components: "V, S, M",
@@ -2565,7 +2565,7 @@ const spellCompendium: ISpell[] = [
   {
     id: "144",
     isSrd: false,
-    name: "U:Unnerving Gaze",
+    name: "Unnerving Gaze",
     school: "Illusion",
     subSchool: "Phantasm",
     level: "Sor/Wiz 0",
@@ -2578,6 +2578,36 @@ const spellCompendium: ISpell[] = [
     spellResistance: "Yes",
     description:
       "The caster makes his face resemble one of the opponent's departed loved ones or bitter enemies.\nThe subject takes a -1 morale penalty on attack rolls for the duration of the spell.",
+  },
+  {
+    id: "145",
+    isSrd: false,
+    name: "Ghost Harp",
+    school: "Divination",
+    level: "Bard 0",
+    components: "V, S",
+    castingTime: "1 minute",
+    range: "Touch",
+    target: "Any object",
+    duration: "5 minutes/level (D)",
+    description:
+      "You prepare an object that records and replays a song previously played or sung in its vicinity.\nWhen cast, the spell searches a radius of 50 feet for the lingering notes of a tune played there within the last day.\nIt records these notes and reverberations.\nIf multiple songs have been played at that spot, ghostharp recalls the song most recently played, starting with the beginning of the piece recalled.\nAt your verbal command, \"Play\", the ghostharp replays the music.\nThe tune repeats until you command it to stop, or until the spell's duration comes to an end.\nThe ghostharp does not record conversations.\nIts imperfect replay can't reproduce bardic music or other magical effects, nor can it cast spells.",
+  },
+  {
+    id: "146",
+    isSrd: false,
+    name: "Detect Crossroads",
+    school: "Divination",
+    level: "Bard 0, Druid 0",
+    components: "V, S",
+    castingTime: "1 standard action",
+    range: "60 ft. or 1 mile (see text)",
+    area: "Quarter circle emanating from you to the extreme of the range",
+    duration: "Concentration up to 10 minutes/level (D)",
+    savingThrow: "None",
+    spellResistance: "No",
+    description:
+      "You can see fey crossroads within 60 feet, if your visibility isn't blocked.\nA crossroads appears to you as a blue-hued, x-shaped shadow upon the ground.\nYou recognize the crossroads for what it is, and won't be fooled by a false or illusory one.\nDetect crossroads gives you no information on where the backroad leads.\nIf the nearest crossroads is less than a mile away, but blocked visually from you either by distance or barriers, you can still sense its general direction.\nEach round, you can turn to detect in a new direction.\nSee the previous chapter for more on crossroads.",
   },
 ];
 export default spellCompendium;
