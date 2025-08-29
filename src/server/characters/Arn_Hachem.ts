@@ -70,13 +70,57 @@ const Arn: ICharacter = {
       | "charisma",
   },
   speed: { land: 40, fly: 0, swim: 0, burrow: 0 },
-  class: [
-    { name: "Sorcerer", level: 1 },
+  classes: [
+    {
+      name: "Sorcerer",
+      level: 1,
+      magic: {
+        spellcastingAbility: "charisma",
+        casterLevel: 26,
+        spellRefs: [
+          { id: "1", level: 0, spontaneous: true },
+          { id: "1", level: 0, spontaneous: false, prepped: 0, numUsed: 0 },
+          { id: "2", level: 0, spontaneous: true },
+          { id: "2", level: 0, spontaneous: false, prepped: 0, numUsed: 0 },
+          { id: "3", level: 0, spontaneous: true },
+          { id: "4", level: 0, spontaneous: true },
+          { id: "5", level: 0, spontaneous: true },
+          { id: "5", level: 0, spontaneous: false, prepped: 0, numUsed: 0 },
+          { id: "6", level: 0, spontaneous: true },
+          { id: "6", level: 0, spontaneous: false, prepped: 0, numUsed: 0 },
+          { id: "7", level: 0, spontaneous: true },
+          { id: "8", level: 0, spontaneous: true },
+          { id: "9", level: 0, spontaneous: true },
+          { id: "10", level: 0, spontaneous: true },
+          { id: "11", level: 0, spontaneous: true },
+          { id: "12", level: 0, spontaneous: true },
+          { id: "12", level: 0, spontaneous: false, prepped: 0, numUsed: 0 },
+          { id: "13", level: 0, spontaneous: true },
+          { id: "13", level: 0, spontaneous: false, prepped: 0, numUsed: 0 },
+        ],
+        slotsPerDay: [8, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+        slotsUsed: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      },
+    },
     { name: "Mindtender", level: 2 },
     { name: "Fleshwarper", level: 2 },
     { name: "Malconvoker", level: 8 },
     { name: "Binder", level: 1 },
-    { name: "Bard", level: 1 },
+    {
+      name: "Bard",
+      level: 1,
+      magic: {
+        spellcastingAbility: "charisma",
+        casterLevel: 1,
+        spellRefs: [
+          { id: "10", level: 0, spontaneous: true },
+          { id: "145", level: 0, spontaneous: true },
+          { id: "146", level: 0, spontaneous: true },
+        ],
+        slotsPerDay: [2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        slotsUsed: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      },
+    },
     { name: "Master Of Masks", level: 5 },
     { name: "Voidcaller", level: 1 },
   ],
@@ -452,43 +496,10 @@ const Arn: ICharacter = {
     ],
     passive: [{ name: "Aura Of Menace", type: "supernatural" }],
   },
-  magic: {
-    casterLevel: 26,
-    type: {
-      arcane: true,
-      divine: false,
-    },
-    slaRefs: [
-      { id: "14", level: 1, uses: 4, frequency: "day" },
-      { id: "15", level: 2, uses: 4, frequency: "day" },
-    ],
-    spellRefs: [
-      { id: "1", level: 0, innate: true },
-      { id: "1", level: 0, innate: false },
-      { id: "2", level: 0, innate: true },
-      { id: "2", level: 0, innate: false },
-
-      { id: "3", level: 0, innate: true },
-      { id: "4", level: 0, innate: true },
-      { id: "5", level: 0, innate: true },
-      { id: "5", level: 0, innate: false },
-
-      { id: "6", level: 0, innate: true },
-      { id: "6", level: 0, innate: false },
-
-      { id: "7", level: 0, innate: true },
-      { id: "8", level: 0, innate: true },
-      { id: "9", level: 0, innate: true },
-      { id: "10", level: 0, innate: true },
-      { id: "11", level: 0, innate: true },
-      { id: "12", level: 0, innate: true },
-      { id: "12", level: 0, innate: false },
-
-      { id: "13", level: 0, innate: true },
-      { id: "13", level: 0, innate: false },
-    ],
-    spellsPerDay: [8, 6, 6, 6, 6, 6, 6, 6, 6, 6],
-  },
+  slaRefs: [
+    { id: "14", level: 1, uses: 4, frequency: "day", numUsed: 0 },
+    { id: "15", level: 2, uses: 4, frequency: "day", numUsed: 0 },
+  ],
   itemRefs: [{ id: "1" }],
 };
 

@@ -69,6 +69,10 @@ const abilityScores = selector({
   },
 });
 
+export function useAbilityScores() {
+  return useRecoilValue(abilityScores);
+}
+
 export function useAbilityScore(ability: Ability) {
   const scores = useRecoilValue(abilityScores);
   return scores[ability];
@@ -129,6 +133,109 @@ export function useSetSpellCompendium() {
   return spells;
 }
 
+export type EnrichedSpell = ISpellRef & {
+  characterClass: string;
+  entry: ISpell;
+};
+export type EnrichedSla = ISpellLikeAbilityRef & { entry: ISpell };
+
+const characterMagic = selector({
+  key: "characterSpells",
+  get: ({ get }) => {
+    const spellCompendium = get(spellCompendiumAtom);
+    const character = get(characterAtom);
+    const classMagic = character.classes.reduce((acc, c) => {
+      if (!c.magic) return acc;
+
+      const classSpells = c.magic.spellRefs
+        .map((spellRef) => ({
+          ...spellRef,
+          characterClass: c.name,
+          entry: spellCompendium?.find((s) => s.id === spellRef.id),
+        }))
+        .filter(Boolean) as EnrichedSpell[];
+
+      return [...acc, ...classSpells];
+    }, [] as EnrichedSpell[]);
+
+    const spellLikeAbilities = character.slaRefs
+      .map((slaRef) => ({
+        ...slaRef,
+        entry: spellCompendium?.find((s) => s.id === slaRef.id),
+      }))
+      .filter(Boolean) as EnrichedSla[];
+
+    return [...classMagic, ...spellLikeAbilities];
+  },
+});
+
+type ClassSpells = { characterClass: string; spells: EnrichedSpell[] };
+type OrderedMagic = Record<
+  number,
+  { slas: EnrichedSla[]; classSpells: ClassSpells[] }
+>;
+
+const magicByClassByLevel = selector({
+  key: "magicByClassByLevel",
+  get: ({ get }) => {
+    const character = get(characterAtom);
+
+    const classMagicMeta = character.classes
+      .map((c) => {
+        if (!c.magic) return;
+
+        return {
+          characterClass: c.name,
+          castingAbility: c.magic.spellcastingAbility,
+          slotsPerDay: c.magic.slotsPerDay || [],
+          slotsUsed: c.magic.slotsUsed || [],
+        };
+      })
+      .filter(Boolean) as {
+      characterClass: string;
+      castingAbility: Ability;
+      slotsPerDay: number[];
+      slotsUsed: number[];
+    }[];
+
+    const magic = get(characterMagic);
+
+    let orderedMagic = {} as OrderedMagic;
+    new Array(10).fill(null).forEach((_, i) => {
+      const levelMagic = magic.filter((x) => x.level === i);
+
+      const classSpells_ = levelMagic.filter(
+        (x) => "characterClass" in x,
+      ) as EnrichedSpell[];
+
+      const classSpells = classSpells_
+        .sort((a, b) => (a.characterClass < b.characterClass ? -1 : 1))
+        .reduce((acc, x) => {
+          if (acc.at(-1)?.characterClass === x.characterClass) {
+            acc.at(-1)?.spells.push(x);
+          } else {
+            acc.push({ characterClass: x.characterClass, spells: [x] });
+          }
+
+          return acc;
+        }, [] as ClassSpells[]);
+
+      const slas = levelMagic.filter(
+        (x) => !("characterClass" in x),
+      ) as EnrichedSla[];
+
+      orderedMagic[i] = {
+        classSpells,
+        slas,
+      };
+    });
+
+    return { classMagicMeta, orderedMagic };
+  },
+});
+
+export const useMagicByClassByLevel = () => useRecoilValue(magicByClassByLevel);
+
 export const diceRollAtom = atom<{
   result: number;
   size: number;
@@ -158,84 +265,4 @@ export const useDiceRollResult = () => useRecoilValue(diceRollAtom);
 export const confirmationMsg = atom<string | null>({
   key: "confirmationMsg",
   default: null,
-});
-
-export const emptySpellArray: [
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-  ISpell[],
-] = [[], [], [], [], [], [], [], [], [], []];
-
-export const innateSpellsCastState = atom({
-  key: "innateSpellsCastState",
-  default: emptySpellArray,
-});
-export const preppedSpellsState = atom({
-  key: "preppedSpellsState",
-  default: emptySpellArray,
-});
-export const preppedSpellsCastState = atom({
-  key: "preppedSpellsCastState",
-  default: emptySpellArray,
-});
-export const slaState = atom({
-  key: "slaState",
-  default: emptySpellArray,
-});
-
-export const allKnownSpells_ = selector({
-  key: "allKnownSpells_",
-  get: ({ get }) => {
-    const magic = get(characterAtom).magic;
-    const spellCompendium = get(spellCompendiumAtom);
-    function getSpellInfoById(id: string) {
-      return spellCompendium.spells.find((item) => item.id === id);
-    }
-
-    const spells = magic.spellRefs.map((x) => ({
-      ...x,
-      uses: x.innate ? Number.POSITIVE_INFINITY : 0,
-      numUsed: 0,
-      entry: getSpellInfoById(x.id),
-    }));
-
-    const spellLikeAbilities = magic.slaRefs.map((x) => ({
-      ...x,
-      numUsed: 0,
-      entry: getSpellInfoById(x.id),
-    }));
-
-    return { spells, spellLikeAbilities };
-  },
-});
-
-export const allKnownSpells = atom({
-  key: "allKnownSpells",
-  default: allKnownSpells_,
-});
-
-export const spellSlotsExpended = selector({
-  key: "spellSlotsExpended",
-  get: ({ get }) => {
-    const expendedSpells = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    function getExpendedSpellsByLevel(level: number) {
-      return get(allKnownSpells)
-        .spells.filter((x) => x.level === level)
-        .reduce((acc, x) => {
-          const expended =
-            x.uses < Number.POSITIVE_INFINITY ? x.uses : x.numUsed;
-          return acc + expended;
-        }, 0);
-    }
-
-    return expendedSpells.map((x, i) => x + getExpendedSpellsByLevel(i));
-  },
 });

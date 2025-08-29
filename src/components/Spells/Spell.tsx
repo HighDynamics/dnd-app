@@ -1,59 +1,23 @@
-import { useRecoilState } from "recoil";
-
 import { combine as c } from "../../lib";
-import * as store from "../../store/recoilState";
 import { useToast } from "../ActionToast/useToast";
 import { Button } from "../Button";
 import { EntityDisclosure } from "../EntityDisclosure";
-import { SpellInfo } from "../SpellInfo/SpellInfo";
+import { SpellInfo } from "./SpellInfo";
 
 export function Spell(p: {
-  spell: {
-    id: string;
-    level: number;
-    uses: number;
-    numUsed: number;
-    entry?: ISpell;
-    innate?: boolean;
-    frequency?: string;
-  };
+  remainingUses: number;
+  spellEntry: ISpell;
   isPrepping?: boolean;
+  incrementMagic: () => void;
 }) {
-  const [allKnownSpells, setAllKnownSpells] = useRecoilState(
-    store.allKnownSpells,
-  );
   const toast = useToast();
-  const remainingUses = p.spell.uses - p.spell.numUsed;
 
-  const spellInfo = p.spell.entry;
-
-  if (!spellInfo) return null;
-
-  function incrementUse() {
-    const spellOrSlaAccessor = p.spell.frequency
-      ? "spellLikeAbilities"
-      : "spells";
-
-    const spellIndex = allKnownSpells[spellOrSlaAccessor].findIndex(
-      (x) => x.id === p.spell.id && x.uses === p.spell.uses,
-    );
-
-    setAllKnownSpells({
-      ...allKnownSpells,
-      [spellOrSlaAccessor]: allKnownSpells[spellOrSlaAccessor].map((x, i) => {
-        if (i === spellIndex) {
-          return {
-            ...p.spell,
-            numUsed: p.isPrepping ? p.spell.numUsed : p.spell.numUsed + 1,
-            uses: p.isPrepping ? p.spell.uses + 1 : p.spell.uses,
-          };
-        }
-        return x;
-      }),
-    });
+  function onClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    p.incrementMagic();
 
     toast(
-      `The spell ${p.spell.entry?.name} has been ${
+      `The spell ${p.spellEntry.name} has been ${
         p.isPrepping ? "prepped" : "cast"
       }.`,
     );
@@ -61,23 +25,20 @@ export function Spell(p: {
 
   return (
     <EntityDisclosure
-      containerClassName={c(p.spell.numUsed >= p.spell.uses && "opacity-50")}
+      containerClassName={c(p.remainingUses <= 0 && "opacity-50")}
       buttonChildren={
         <div className="flex items-center justify-between">
-          <span className="text-lg">{spellInfo.name}</span>
+          <span className="text-lg">{p.spellEntry.name}</span>
           <div className="flex items-center justify-end gap-2">
             <span>
-              {remainingUses < Number.POSITIVE_INFINITY
-                ? `x ${remainingUses}`
+              {p.remainingUses < Number.POSITIVE_INFINITY
+                ? `x ${p.remainingUses}`
                 : "\u221e"}
             </span>
             <Button
-              disabled={!p.isPrepping && remainingUses === 0}
+              disabled={!p.isPrepping && p.remainingUses === 0}
               className="h-8"
-              onClick={(e) => {
-                e.stopPropagation();
-                incrementUse();
-              }}
+              onClick={onClick}
             >
               {p.isPrepping ? "Prep" : "Cast"}
             </Button>
@@ -85,7 +46,7 @@ export function Spell(p: {
         </div>
       }
     >
-      <SpellInfo spell={spellInfo} />
+      <SpellInfo spell={p.spellEntry} />
     </EntityDisclosure>
   );
 }

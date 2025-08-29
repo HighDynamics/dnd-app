@@ -18,7 +18,17 @@ declare global {
     misc: number;
     ability: Ability;
   };
-  type DNDClass = { name: string; level: number };
+  type DNDClass = {
+    name: string;
+    level: number;
+    magic?: {
+      spellcastingAbility: Ability;
+      casterLevel: number;
+      spellRefs: ISpellRef[];
+      slotsPerDay: number[];
+      slotsUsed: number[];
+    };
+  };
 
   type Skill = {
     name: string;
@@ -35,12 +45,15 @@ declare global {
   type MagicRef = { id: string; level: number };
 
   type ISpellRef = MagicRef & {
-    innate: boolean;
+    spontaneous: boolean;
+    prepped?: number;
+    numUsed?: number;
   };
 
   type ISpellLikeAbilityRef = MagicRef & {
     uses: number;
     frequency: string;
+    numUsed: number;
   };
 
   type IItemRef = {
@@ -129,22 +142,13 @@ declare global {
       primary: Ability;
     };
     speed: { land: number; fly: number; swim: number; burrow: number };
-    class: DNDClass[];
+    classes: DNDClass[];
     skills: Skill[];
     characterAbilities: {
       active: SpecialAbilities[];
       passive: SpecialAbilities[];
     };
-    magic: {
-      casterLevel: number;
-      type: {
-        arcane: boolean;
-        divine: boolean;
-      };
-      slaRefs: ISpellLikeAbilityRef[];
-      spellRefs: ISpellRef[];
-      spellsPerDay: number[];
-    };
+    slaRefs: ISpellLikeAbilityRef[];
     itemRefs: IItemRef[];
   };
 }

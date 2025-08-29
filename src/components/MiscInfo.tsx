@@ -78,7 +78,7 @@ export function MiscInfo() {
         <div className="flex flex-col">
           <span className="text-label">Classes</span>
           <div className="grid grid-cols-2 gap-2">
-            {character.class.map((c) => (
+            {character.classes.map((c) => (
               <span key={c.name} className="text-lg">
                 {c.name} ({c.level})
               </span>
