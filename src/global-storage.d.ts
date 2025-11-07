@@ -2,6 +2,95 @@
 import characters from "./server/characters";
 
 declare global {
+  type Ability =
+    | "strength"
+    | "dexterity"
+    | "constitution"
+    | "intelligence"
+    | "wisdom"
+    | "charisma";
+
+  type EnergyResistance = { [name: string]: number | null };
+
+  type Save = {
+    base: number;
+    magic: number;
+    misc: number;
+    ability: Ability;
+  };
+  type DNDClass = {
+    name: string;
+    level: number;
+    magic?: {
+      spellcastingAbility: Ability;
+      casterLevel: number;
+      spellRefs: ISpellRef[];
+      slotsPerDay: number[];
+      slotsUsed: number[];
+    };
+  };
+
+  type Skill = {
+    name: string;
+    ability: Ability;
+    ranks: number;
+    miscModifier: number;
+    classSkill: boolean;
+    armorCheck: boolean;
+    display: boolean;
+  };
+
+  type SpecialAbilities = { name: string; type: string };
+
+  type MagicRef = { id: string; level: number };
+
+  type ISpellRef = MagicRef & {
+    spontaneous: boolean;
+    prepped?: number;
+    numUsed?: number;
+  };
+
+  type ISpellLikeAbilityRef = MagicRef & {
+    uses: number;
+    frequency: string;
+    numUsed: number;
+  };
+
+  type IItemRef = {
+    id: string;
+  };
+
+  type IItem = {
+    id: string;
+    isSrd: boolean;
+    name: string;
+    weight?: number;
+    casterLevel?: number;
+    price?: string;
+    description: string;
+  };
+
+  type ISpell = {
+    id: string;
+    isSrd: boolean;
+    name: string;
+    school: string;
+    level: string;
+    description: string;
+    subSchool?: string;
+    descriptor?: string;
+    components?: string;
+    castingTime?: string;
+    range?: string;
+    target?: string;
+    effect?: string;
+    area?: string;
+    targetOrArea?: string;
+    duration?: string;
+    savingThrow?: string;
+    spellResistance?: string;
+  };
+
   type ICharacter = {
     id: string;
     name: string;
@@ -9,7 +98,10 @@ declare global {
     hitPoints: {
       dieSize: number;
       total: number;
+      damage: number;
+      temporary: number;
     };
+    initiative: { misc: number };
     armorClass: {
       armor: number;
       shield: number;
@@ -19,24 +111,22 @@ declare global {
       deflection: number;
       misc: number;
     };
-    defense: {
-      damageReduction: {
-        amount: number;
-        weakness: string;
-      };
-      spellResistance: number;
-      energyResistance: {
-        acid: number | null;
-        cold: number | null;
-        electricity: number | null;
-        fire: number | null;
-        sonic: number | null;
-      };
-      saves: {
-        fortitude: Save;
-        reflex: Save;
-        will: Save;
-      };
+    damageReduction: {
+      amount: number;
+      weakness: string;
+    };
+    spellResistance: number;
+    energyResistance: {
+      acid: number | null;
+      cold: number | null;
+      electricity: number | null;
+      fire: number | null;
+      sonic: number | null;
+    };
+    saves: {
+      fortitude: Save;
+      reflex: Save;
+      will: Save;
     };
     size: string;
     alignment: string;
@@ -49,101 +139,16 @@ declare global {
         wisdom: number | null;
         charisma: number | null;
       };
-      primary:
-        | "strength"
-        | "dexterity"
-        | "constitution"
-        | "intelligence"
-        | "wisdom"
-        | "charisma";
+      primary: Ability;
     };
-    speed: number;
-    class: DNDClass[];
+    speed: { land: number; fly: number; swim: number; burrow: number };
+    classes: DNDClass[];
     skills: Skill[];
     characterAbilities: {
       active: SpecialAbilities[];
       passive: SpecialAbilities[];
     };
-    spellcaster: boolean;
-    magic: {
-      casterLevel: number;
-      type: {
-        arcane: boolean;
-        divine: boolean;
-      };
-      slaRefs: ISLARef[];
-      spellRefs: ISpellRef[];
-      spellsPerDay: {
-        [level: string]: number;
-      };
-    };
+    slaRefs: ISpellLikeAbilityRef[];
     itemRefs: IItemRef[];
-  };
-
-  namespace ICharacter {
-    type EnergyResistance = { [name: string]: number | null };
-    type Save = {
-      base: number;
-      magic: number;
-      misc: number;
-    };
-    type DNDClass = { name: string; level: number };
-    type Skill = {
-      name: string;
-      ability: string;
-      ranks: number;
-      miscModifier: number;
-      classSkill: boolean;
-      armorCheck: boolean;
-      display: boolean;
-    };
-    type SpecialAbilities = { name: string; type: string };
-  }
-
-  type ISpellRef = {
-    id: string;
-    level: number;
-    innate: boolean;
-  };
-  type ISLARef = {
-    id: string;
-    level: number;
-    uses: number;
-    frequency: string;
-  };
-  type IItemRef = {
-    id: string;
-  };
-  type IItem = {
-    id: string;
-    isSrd: boolean;
-    name: string;
-    weight?: number;
-    casterLevel?: number;
-    price?: string;
-    description: string;
-  };
-  type ISpell = {
-    id: string;
-    isSrd: boolean;
-    name: string;
-    school: string;
-    subSchool?: string;
-    descriptor?: string;
-    level: string;
-    components?: string;
-    castingTime?: string;
-    range?: string;
-    target?: string;
-    effect?: string;
-    area?: string;
-    targetOrArea?: string;
-    duration?: string;
-    savingThrow?: string;
-    spellResistance?: string;
-    description: string;
-  };
-  type ICompendium = {
-    [key: string]: ISpell[] | IItem[];
   };
 }

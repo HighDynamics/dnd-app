@@ -1,11 +1,14 @@
-const Zachariah = {
+const Zachariah: ICharacter = {
   id: "3",
   name: "Zachariah Asalam",
   type: ["Silverbrow Human"],
   hitPoints: {
     dieSize: 4,
     total: 5,
+    damage: 0,
+    temporary: 0,
   },
+  initiative: { misc: 0 },
   armorClass: {
     armor: 0,
     shield: 0,
@@ -15,35 +18,36 @@ const Zachariah = {
     deflection: 0,
     misc: 0,
   },
-  defense: {
-    damageReduction: {
-      amount: 0,
-      weakness: "",
+  damageReduction: {
+    amount: 0,
+    weakness: "",
+  },
+  spellResistance: 0,
+  energyResistance: {
+    acid: 0,
+    cold: 0,
+    electricity: 0,
+    fire: 0,
+    sonic: 0,
+  },
+  saves: {
+    fortitude: {
+      base: 0,
+      magic: 0,
+      misc: 2,
+      ability: "constitution",
     },
-    spellResistance: 0,
-    energyResistance: {
-      acid: 0,
-      cold: 0,
-      electricity: 0,
-      fire: 0,
-      sonic: 0,
+    reflex: {
+      base: 0,
+      magic: 0,
+      misc: 0,
+      ability: "dexterity",
     },
-    saves: {
-      fortitude: {
-        base: 0,
-        magic: 0,
-        misc: 2,
-      },
-      reflex: {
-        base: 0,
-        magic: 0,
-        misc: 0,
-      },
-      will: {
-        base: 2,
-        magic: 0,
-        misc: 0,
-      },
+    will: {
+      base: 2,
+      magic: 0,
+      misc: 0,
+      ability: "wisdom",
     },
   },
   size: "Medium",
@@ -65,7 +69,7 @@ const Zachariah = {
       | "wisdom"
       | "charisma",
   },
-  speed: 30,
+  speed: { land: 30, fly: 30, swim: 0, burrow: 0 },
   class: [{ name: "Wizard", level: 1 }],
   skills: [
     {
@@ -387,9 +391,8 @@ const Zachariah = {
   ],
   characterAbilities: {
     active: [],
-    passive: ["Spontaneous Dispelling"],
+    passive: [],
   },
-  spellcaster: true,
   magic: {
     casterLevel: 1,
     type: {
@@ -433,18 +436,7 @@ const Zachariah = {
       { id: "151", level: 1, innate: false },
       { id: "152", level: 1, innate: false },
     ],
-    spellsPerDay: {
-      zero: 3,
-      one: 1,
-      two: 0,
-      three: 0,
-      four: 0,
-      five: 0,
-      six: 0,
-      seven: 0,
-      eight: 0,
-      nine: 0,
-    },
+    spellsPerDay: [3, 1, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   itemRefs: [],
 };

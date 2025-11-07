@@ -1,6 +1,5 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-
-import { modalTypeState, characterState } from "../../recoilState";
+import { useCharacter } from "../../store/recoilState";
+import { EntityDisclosure } from "../EntityDisclosure";
 import "./ActiveAndPassiveAbilities.css";
 
 function formatType(type: string) {
@@ -14,45 +13,50 @@ function formatType(type: string) {
   }
 }
 
-const nameToClassName = (name: string) => name.replace(/ /g, "_");
-
-const KnownAbility = (props: { name: string; type: string }) => {
-  const setModalType = useSetRecoilState(modalTypeState);
-  const { name, type } = props;
-  const buttonAndSpellClass = "spellButtons " + nameToClassName(name);
+const ActiveAndPassiveAbilities = () => {
+  const character = useCharacter();
   return (
-    <button
-      className={buttonAndSpellClass}
-      onClick={() => setModalType("Abilities")}
-    >
-      {name} {formatType(type)}
-    </button>
-  );
-};
+    <div className="mt-12 flex flex-col gap-12 px-4">
+      <div>
+        <h2 className="mb-4 text-5xl font-bold opacity-90">
+          Passive Abilities
+        </h2>
+        <div className="flex flex-col gap-4">
+          {character.characterAbilities.passive.map((ability) => (
+            <EntityDisclosure
+              key={ability.name}
+              buttonChildren={
+                <div className="text-lg">
+                  {ability.name} {formatType(ability.type)}
+                </div>
+              }
+              // TODO: replace with actual description from data source
+            >
+              A description of this ability goes here
+            </EntityDisclosure>
+          ))}
+        </div>
+      </div>
 
-const Abilities = (props: { type: "active" | "passive" }) => {
-  const character = useRecoilValue(characterState);
-  const abilities = character.characterAbilities[props.type].map((a) => (
-    <KnownAbility key={a.name} name={a.name} type={a.type} />
-  ));
-  return (
-    <div className="abilitiesContainer">
-      <div className="spellItems">
-        <p className="spellList">{abilities}</p>
+      <div>
+        <h2 className="mb-4 text-5xl font-bold opacity-90">Active Abilities</h2>
+        <div className="flex flex-col gap-4">
+          {character.characterAbilities.active.map((ability) => (
+            <EntityDisclosure
+              key={ability.name}
+              buttonChildren={
+                <div className="text-lg">
+                  {ability.name} {formatType(ability.type)}
+                </div>
+              }
+              // TODO: replace with actual description from data source
+            >
+              A description of this ability goes here
+            </EntityDisclosure>
+          ))}
+        </div>
       </div>
     </div>
-  );
-};
-
-const ActiveAndPassiveAbilities = () => {
-  return (
-    <>
-      <h2 className="abilityHeader">Passive Abilities</h2>
-      <Abilities type="passive" />
-
-      <h2 className="abilityHeader">ActiveAbilities</h2>
-      <Abilities type="active" />
-    </>
   );
 };
 
