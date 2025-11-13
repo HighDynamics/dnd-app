@@ -18,7 +18,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/dnd-app/",
+  "scope": "/dnd-app/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
