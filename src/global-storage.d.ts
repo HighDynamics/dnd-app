@@ -152,3 +152,15 @@ declare global {
     itemRefs: IItemRef[];
   };
 }
+
+// Vite's import.meta.env typing for TypeScript
+interface ImportMetaEnv {
+  readonly MODE: string;
+  readonly BASE_URL: string;
+  readonly PROD?: boolean;
+  // add other env vars if used
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
