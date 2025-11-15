@@ -6,7 +6,7 @@ import { useUpdateCharacter } from "../store/server";
 import { useToast } from "./ActionToast/useToast";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
-import { Input } from "./Input";
+import { NumericInput } from "./Input/NumericInput";
 
 function getTextColor(current: number, expected: number) {
   return current > expected
@@ -99,10 +99,8 @@ export const HitPointInfo = () => {
           </span>
         </div>
       </div>
-      <Input
+      <NumericInput
         className="w-full text-3xl text-center py-2 my-4"
-        inputMode="numeric"
-        pattern="[0-9]*"
         value={value}
         onChange={handleChange}
       />
