@@ -34,3 +34,8 @@ export function abbreviateAbility(ability: Ability): string {
       return "";
   }
 }
+
+/* Replaces all non-numeric characters in a string, allows for decimals */
+export function rejectNonDigit(input: string): string {
+  return input.replace(/[^0-9.]/g, "");
+}
