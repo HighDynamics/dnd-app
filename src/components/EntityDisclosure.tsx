@@ -7,12 +7,13 @@ export function EntityDisclosure(
   p: {
     containerClassName?: string;
     buttonChildren?: React.ReactNode;
+    defaultOpen?: boolean;
   } & React.PropsWithChildren,
 ) {
   const [animate] = useAutoAnimate({ duration: 500 });
 
   return (
-    <Disclosure>
+    <Disclosure defaultOpen={p.defaultOpen}>
       {({ close }) => (
         <div
           ref={animate}
