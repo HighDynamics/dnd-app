@@ -8,6 +8,7 @@ import {
   useSetSpellCompendium,
   useSetAllCharacters,
   characterAtom,
+  useSetSkillCompendium,
 } from "../store/recoilState";
 import { ActionToast } from "./ActionToast";
 import { CharacterSelector } from "./CharacterSelector";
@@ -54,6 +55,7 @@ const LoadApp = () => {
   const characters = useSetAllCharacters();
   const itemCompendium = useSetItemCompendium();
   const spellCompendium = useSetSpellCompendium();
+  const skillCompendium = useSetSkillCompendium();
   const [character, setCharacter] = useRecoilState(characterAtom);
 
   useEffect(
@@ -67,7 +69,14 @@ const LoadApp = () => {
     [characters, setCharacter],
   );
 
-  if (!character || !itemCompendium || !spellCompendium) return <>Loading...</>;
+  if (
+    !character.name ||
+    !itemCompendium.at(0) ||
+    !spellCompendium?.at(0) ||
+    !skillCompendium?.skills ||
+    !skillCompendium?.skillSynergies
+  )
+    return <div className="text-white">Loading...</div>;
 
   return <App />;
 };

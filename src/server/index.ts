@@ -1,7 +1,9 @@
 import { Server, Model, RestSerializer, Response } from "miragejs";
+
 import characters from "./characters";
-import spells from "./spells";
 import items from "./items";
+import { skills, skillSynergies } from "./skills";
+import spells from "./spells";
 
 // Any @ts-expected-errors below are probably because the authors of mirage
 // don't understand TS
@@ -14,6 +16,8 @@ export function makeServer({ environment = "test" } = {}) {
       character: Model,
       spell: Model,
       items: Model,
+      skill: Model,
+      skillSynergy: Model,
     },
 
     serializers: {
@@ -25,6 +29,10 @@ export function makeServer({ environment = "test" } = {}) {
       characters.forEach((char) => server.create("character", char));
       spells.forEach((spell) => server.create("spell", spell));
       items.forEach((item) => server.create("item", item));
+      skills.forEach((skill) => server.create("skill", skill));
+      skillSynergies.forEach((synergy) =>
+        server.create("skillSynergy", synergy),
+      );
     },
 
     routes() {
@@ -46,6 +54,14 @@ export function makeServer({ environment = "test" } = {}) {
         // @ts-expect-error
         return schema.items.all();
       });
+      this.get("/skills", (schema) => {
+        // @ts-expect-error
+        return schema.skills.all();
+      });
+      this.get("/skill-synergies", (schema) => {
+        // @ts-expect-error
+        return schema.skillSynergies.all();
+      });
 
       this.put("/characters/:charId", (schema, request) => {
         const character = schema.find("character", request.params.charId);
@@ -54,8 +70,32 @@ export function makeServer({ environment = "test" } = {}) {
         character.save();
         return { character };
       });
+      this.put("/skills/:skillId", (schema, request) => {
+        const skill = schema.find("skill", request.params.skillId);
+        if (!skill) return new Response(404);
+        skill.attrs = JSON.parse(request.requestBody);
+        skill.save();
+        return { skill };
+      });
+      this.put("/skill-synergies/:synergyId", (schema, request) => {
+        const synergy = schema.find("skillSynergy", request.params.synergyId);
+        if (!synergy) return new Response(404);
+        synergy.attrs = JSON.parse(request.requestBody);
+        synergy.save();
+        return { synergy };
+      });
+
       this.post("/spells", (schema, request) =>
-        schema.create("spell", JSON.parse(request.requestBody))
+        schema.create("spell", JSON.parse(request.requestBody)),
+      );
+      this.post("/skills", (schema, request) =>
+        schema.create("skill", {
+          ...JSON.parse(request.requestBody),
+          id: crypto.randomUUID(),
+        }),
+      );
+      this.post("/synergies", (schema, request) =>
+        schema.create("skillSynergy", JSON.parse(request.requestBody)),
       );
     },
   });
@@ -83,6 +123,30 @@ declare global {
 
     namespace GetItems {
       type Response = { items: IItem[] };
+    }
+
+    namespace GetSkills {
+      type Response = { skills: CompendiumSkill[] };
+    }
+    namespace PutSkill {
+      type Request = CompendiumSkill;
+      type Response = { skill: CompendiumSkill };
+    }
+    namespace PostSkill {
+      type Request = Omit<CompendiumSkill, "id">;
+      type Response = { skill: CompendiumSkill };
+    }
+
+    namespace GetSkillSynergies {
+      type Response = { skillSynergies: CompendiumSkillSynergy[] };
+    }
+    namespace PutSkillSynergy {
+      type Request = CompendiumSkillSynergy;
+      type Response = { synergy: CompendiumSkillSynergy };
+    }
+    namespace PostSkillSynergy {
+      type Request = Omit<CompendiumSkillSynergy, "id">;
+      type Response = { synergy: CompendiumSkillSynergy };
     }
   }
 }

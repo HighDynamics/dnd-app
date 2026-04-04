@@ -5,21 +5,33 @@ import {
   useCharacter,
   useAbilityScore,
   useDiceRoll,
+  useCharacterSkills,
+  type EnrichedSkill,
+  useSkillCompendium,
 } from "../../store/recoilState";
-import { useUpdateCharacter } from "../../store/server";
+import {
+  useAddSkill,
+  useUpdateCharacter,
+  useUpdateSkill,
+} from "../../store/server";
+import { useToast } from "../ActionToast/useToast";
 import { Button } from "../Button";
+import { Combobox } from "../Combobox";
 import { DiceRollButton } from "../DiceRollButton";
 import { EntityDisclosure } from "../EntityDisclosure";
 import { FadedSeparator } from "../FadedSeparator";
 import { Heading } from "../Heading";
 import { Input } from "../Input/Input";
 import { NumericInput } from "../Input/NumericInput";
+import { Select } from "../Select";
 
-const emptySkill: Skill = {
+const emptySkill: EnrichedSkill = {
+  id: "",
   name: "",
   ability: "strength",
   ranks: 0,
   miscModifier: 0,
+  synergies: { unconditionalBonus: 0, conditionalBonus: 0, synergiesList: [] },
   classSkill: false,
   armorCheck: false,
 };
@@ -27,7 +39,7 @@ const emptySkill: Skill = {
 function ValueChange(p: { original: number; updated: number }) {
   const diff = p.updated - p.original;
   if (diff === 0) {
-    return null;
+    return <div className="h-8" />;
   }
 
   const sign = diff > 0 ? "+" : "";
@@ -35,13 +47,9 @@ function ValueChange(p: { original: number; updated: number }) {
 
   return (
     <span
-      className={c("ml-2 font-mono", colorClass)}
+      className={c("font-mono h-8 pt-2", colorClass)}
     >{`(${sign}${diff})`}</span>
   );
-}
-
-function formatSkillName(name: string) {
-  return name.replace("Knowledge", "Know:");
 }
 
 function DeleteConfirmation(p: {
@@ -70,43 +78,57 @@ function DeleteConfirmation(p: {
 }
 
 function SkillsListItem(p: {
-  skill: Skill;
-  setIsAddingSkill?: (isAdding: boolean) => void;
+  skill: EnrichedSkill;
+  setSkillToAdd?: (skill: EnrichedSkill | null) => void;
 }) {
   const { skill } = p;
-  const isAddingSkill = !!p.setIsAddingSkill;
-  const { modifier: skillAbilityMod } = useAbilityScore(skill.ability);
-  const [isEditing, setIsEditing] = useState(skill.name === "" ? true : false);
+  const isAddingSkill = !!p.setSkillToAdd;
+  const [isEditing, setIsEditing] = useState(isAddingSkill);
   const [name, setName] = useState(skill.name);
   const [ranks, setRanks] = useState(skill.ranks.toString());
   const [miscMod, setMiscMod] = useState(skill.miscModifier.toString());
+  const [skillAbility, setSkillAbility] = useState(skill.ability);
   const [isClassSkill, setIsClassSkill] = useState(skill.classSkill);
   const [hasArmorCheckPenalty, setHasArmorCheckPenalty] = useState(
     skill.armorCheck,
   );
+  const skillAbilityMod = useAbilityScore(skillAbility).modifier || 0;
   const [isDeleting, setIsDeleting] = useState(false);
   const character = useCharacter();
   const updateCharacter = useUpdateCharacter();
-  const roll20 = useDiceRoll(20);
+  const updateSkill = useUpdateSkill();
+  const addSkill = useAddSkill();
+  const toast = useToast();
 
-  const skillPoints = skill.ranks + skill.miscModifier + (skillAbilityMod || 0);
+  const conditions = skill.synergies.synergiesList
+    .filter((s) => s.active && s.condition)
+    .map((s) => `+${s.bonus} ${s.condition}`);
 
-  const userHasChanges =
+  const roll20 = useDiceRoll(20, conditions);
+
+  const skillPoints =
+    skill.ranks +
+    skill.miscModifier +
+    skill.synergies.unconditionalBonus +
+    skillAbilityMod;
+
+  const hasGlobalChanges =
+    hasArmorCheckPenalty !== skill.armorCheck || name.trim() !== skill.name;
+
+  const hasCharacterChanges =
     ranks !== skill.ranks.toString() ||
     miscMod !== skill.miscModifier.toString() ||
-    isClassSkill !== skill.classSkill ||
-    hasArmorCheckPenalty !== skill.armorCheck ||
-    name.trim() !== skill.name;
+    isClassSkill !== skill.classSkill;
 
   function onFinishEditing() {
-    if (p.setIsAddingSkill) {
-      p.setIsAddingSkill(false);
+    if (p.setSkillToAdd) {
+      p.setSkillToAdd(null);
     }
     setIsEditing(false);
   }
 
   const onSubmit = () => {
-    const updatedSkill: Skill = {
+    const updatedSkill: EnrichedSkill = {
       ...skill,
       name: name.trim(),
       ranks: parseInt(ranks) || 0,
@@ -115,18 +137,57 @@ function SkillsListItem(p: {
       armorCheck: hasArmorCheckPenalty,
     };
 
-    const existingSkillIndex = character.skills.findIndex(
-      (s) => s.name === skill.name,
-    );
-
-    const updatedSkills = [...character.skills];
-    if (existingSkillIndex >= 0) {
-      updatedSkills[existingSkillIndex] = updatedSkill;
-    } else {
-      updatedSkills.push(updatedSkill);
+    if (!skill.id) {
+      return addSkill({
+        id: "",
+        name: updatedSkill.name,
+        ability: updatedSkill.ability,
+        armorCheck: updatedSkill.armorCheck,
+        isDefault: false,
+      }).then(({ skill: newSkill }) => {
+        updateCharacter({
+          ...character,
+          skillRefs: [
+            ...character.skillRefs,
+            {
+              id: newSkill.id,
+              ranks: 0,
+              miscModifier: 0,
+              classSkill: false,
+            },
+          ],
+        }).then(() =>
+          toast(
+            `Skill "${skill.name}" has been added to ${character.name}'s skill list and your skill compendium`,
+          ),
+        );
+      });
     }
 
-    updateCharacter({ ...character, skills: updatedSkills });
+    const existingSkillRefIdx = character.skillRefs.findIndex(
+      (s) => s.id === skill.id,
+    );
+
+    const updatedSkillRefs = [...character.skillRefs];
+    if (existingSkillRefIdx >= 0) {
+      updatedSkillRefs[existingSkillRefIdx] = updatedSkill;
+    } else {
+      updatedSkillRefs.push({
+        id: updatedSkill.id,
+        ranks: updatedSkill.ranks,
+        miscModifier: updatedSkill.miscModifier,
+        classSkill: updatedSkill.classSkill,
+      });
+    }
+
+    updateSkill({
+      id: updatedSkill.id,
+      ability: updatedSkill.ability,
+      name: updatedSkill.name,
+      armorCheck: updatedSkill.armorCheck,
+      isDefault: false,
+    });
+    updateCharacter({ ...character, skillRefs: updatedSkillRefs });
     setName(updatedSkill.name);
     setRanks(updatedSkill.ranks.toString());
     setMiscMod(updatedSkill.miscModifier.toString());
@@ -146,20 +207,25 @@ function SkillsListItem(p: {
           className="flex items-center justify-between"
           onClick={(e) => isEditing && e.stopPropagation()}
         >
-          {isEditing ? (
+          {isEditing && !isAddingSkill ? (
             <Input
               value={name}
               className="text-lg"
               onChange={(e) => setName(e.currentTarget.value)}
             />
           ) : (
-            <span className="text-lg">{formatSkillName(skill.name)}</span>
+            <span className="text-lg">{skill.name}</span>
           )}
           <div className="flex items-center gap-2">
+            {skill.synergies.conditionalBonus > 0 && (
+              <span className="font-mono opacity-50 italic">
+                (+{skill.synergies.conditionalBonus}?)
+              </span>
+            )}
             <span className="font-mono">+{skillPoints}</span>
             <DiceRollButton
               className="flex size-8 items-center justify-center cursor-pointer"
-              onClick={() => roll20(skillPoints, formatSkillName(skill.name))}
+              onClick={() => roll20(skillPoints, skill.name)}
             >
               <i className="fas fa-dice-d20 opacity-70 duration-100 group-active:opacity-100" />
             </DiceRollButton>
@@ -176,59 +242,89 @@ function SkillsListItem(p: {
           <DeleteConfirmation
             skillName={skill.name}
             onConfirm={() => {
-              const updatedSkills = character.skills.filter(
-                (s) => s.name !== skill.name,
+              const updatedSkillRefs = character.skillRefs.filter(
+                (s) => s.id !== skill.id,
               );
-              updateCharacter({ ...character, skills: updatedSkills });
+              updateCharacter({ ...character, skillRefs: updatedSkillRefs });
             }}
             onCancel={() => setIsDeleting(false)}
           />
         )}
         <FadedSeparator className="my-2" />
         <div className="flex justify-between">
-          <div className="flex flex-col gap-2">
-            <div className="h-8 flex items-center gap-1">
-              <span className="w-26">Ranks:</span>
-              {isEditing ? (
-                <div className="flex items-center gap-1">
-                  <NumericInput
-                    className="w-[7ch]"
-                    value={ranks}
-                    onChange={(e) => setRanks(e.currentTarget.value)}
+          <div className="w-full flex flex-col gap-4">
+            <div className="flex max-w-96 m-auto items-center justify-between w-full">
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-sans text-stone-500">Ranks</span>
+                {isEditing ? (
+                  <>
+                    <NumericInput
+                      className="w-[5ch] text-3xl text-center"
+                      value={ranks}
+                      onChange={(e) => setRanks(e.currentTarget.value)}
+                    />
+                    <ValueChange
+                      original={skill.ranks}
+                      updated={parseInt(ranks) || 0}
+                    />
+                  </>
+                ) : (
+                  <span className="text-3xl min-w-[5ch] text-center">
+                    {skill.ranks}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-sm font-sans text-stone-500">
+                  Misc Modifiers
+                </span>
+                {isEditing ? (
+                  <>
+                    <NumericInput
+                      className="w-[5ch] text-3xl text-center"
+                      value={miscMod}
+                      onChange={(e) => setMiscMod(e.currentTarget.value)}
+                    />
+                    <ValueChange
+                      original={skill.miscModifier}
+                      updated={parseInt(miscMod) || 0}
+                    />
+                  </>
+                ) : (
+                  <span className="text-3xl min-w-[5ch] text-center">
+                    {skill.miscModifier}
+                  </span>
+                )}
+              </div>
+              <div
+                className={c(
+                  "flex flex-col items-center",
+                  isEditing && "mb-10",
+                )}
+              >
+                {isEditing ? (
+                  <Select
+                    options={[
+                      { id: "strength", name: "Strength" },
+                      { id: "constitution", name: "Constitution" },
+                      { id: "dexterity", name: "Dexterity" },
+                      { id: "wisdom", name: "Wisdom" },
+                      { id: "intelligence", name: "Intelligence" },
+                      { id: "charisma", name: "Charisma" },
+                    ]}
                   />
-                  <ValueChange
-                    original={skill.ranks}
-                    updated={parseInt(ranks) || 0}
-                  />
-                </div>
-              ) : (
-                <span className="ml-2">{skill.ranks}</span>
-              )}
-            </div>
-            <div className="h-8 flex items-center gap-1">
-              <span className="w-26">Modifiers:</span>
-              {isEditing ? (
-                <div className="flex items-center gap-1">
-                  <NumericInput
-                    className="w-[7ch]"
-                    value={miscMod}
-                    onChange={(e) => setMiscMod(e.currentTarget.value)}
-                  />
-                  <ValueChange
-                    original={skill.miscModifier}
-                    updated={parseInt(miscMod) || 0}
-                  />
-                </div>
-              ) : (
-                <span className="ml-2">{skill.miscModifier}</span>
-              )}
-            </div>
-            <div className="capitalize h-8 flex items-center gap-1">
-              <span className="w-26">{skill.ability}:</span>{" "}
-              <span className="ml-2">{skillAbilityMod}</span>
+                ) : (
+                  <span className="text-sm font-sans text-stone-500 capitalize">
+                    {skill.ability}
+                  </span>
+                )}
+                <span className="text-3xl min-w-[5ch] text-center">
+                  {skillAbilityMod}
+                </span>
+              </div>
             </div>
             {isEditing && (
-              <>
+              <div>
                 <label
                   htmlFor={`class-skill-${skill.name}`}
                   className="flex gap-1 items-center"
@@ -255,7 +351,45 @@ function SkillsListItem(p: {
                   />
                   Armor Check Penalty
                 </label>
-              </>
+              </div>
+            )}
+            {skill.synergies.synergiesList.length > 0 && (
+              <div>
+                <div className="flex gap-2 items-center">
+                  <span className="text-label opacity-80">Synergies</span>
+                  <FadedSeparator className="grow from-white" />
+                </div>
+                {skill.synergies.synergiesList
+                  .filter((syn) => syn.active)
+                  .map((synergy) => (
+                    <div key={synergy.id} className="mb-6">
+                      <div className="text-sm font-sans text-stone-500">
+                        {synergy.ranksRequired} or more ranks in{" "}
+                        {synergy.fromSkillName}
+                      </div>
+                      <div>
+                        +{synergy.bonus}{" "}
+                        {synergy.condition &&
+                          `(on checks ${synergy.condition})`}{" "}
+                      </div>
+                    </div>
+                  ))}
+                {skill.synergies.synergiesList
+                  .filter((syn) => !syn.active)
+                  .map((synergy) => (
+                    <div key={synergy.id} className="mb-6">
+                      <div className="text-sm font-sans text-stone-500">
+                        {synergy.id}: {synergy.ranksRequired} or more ranks in{" "}
+                        {synergy.fromSkillName} (not enough ranks)
+                      </div>
+                      <div className="opacity-50 line-through">
+                        +{synergy.bonus}{" "}
+                        {synergy.condition &&
+                          `(on checks ${synergy.condition})`}{" "}
+                      </div>
+                    </div>
+                  ))}
+              </div>
             )}
           </div>
           <div className="self-end">
@@ -280,7 +414,9 @@ function SkillsListItem(p: {
                   </Button>
                 )}
                 <Button
-                  disabled={!userHasChanges}
+                  disabled={
+                    !isAddingSkill && !hasGlobalChanges && !hasCharacterChanges
+                  }
                   onClick={() => {
                     onSubmit();
                     onFinishEditing();
@@ -307,30 +443,68 @@ function SkillsListItem(p: {
 }
 
 export function Skills() {
+  const skills = useCharacterSkills();
   const character = useCharacter();
-  const [isAddingSkill, setIsAddingSkill] = useState(false);
+  const updateCharacter = useUpdateCharacter();
+  const addSkill = useAddSkill();
+  const unusedSkills = useSkillCompendium()
+    .skills.filter((compSkill) => skills.every((s) => s.id !== compSkill.id))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
-  const sortedSkills = [...character.skills].sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+  const [query, setQuery] = useState("");
+  const [isAddingSkill, setIsAddingSkill] = useState(false);
+  const [skillToAdd, setSkillToAdd] = useState<EnrichedSkill | null>(null);
+
+  const toast = useToast();
+
+  const sortedSkills = [...skills].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <section className="mt-12">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-8">
         <Heading>Skills</Heading>
-        <Button
-          className="size-8 mr-1 bg-transparent hover:bg-fuchsia-900/50"
-          onClick={() => setIsAddingSkill(true)}
-        >
-          <i className="fas fa-plus"></i>
-        </Button>
+        <div className="flex items-center grow justify-end">
+          {isAddingSkill && (
+            <>
+              <Combobox
+                options={unusedSkills}
+                optionUnit="Skill"
+                query={query}
+                setQuery={setQuery}
+                useQueryAsNewOptionName={true}
+                placeholder="Skill Name"
+                onChange={(skill: CompendiumSkill) => {
+                  setQuery("");
+                  setIsAddingSkill(false);
+
+                  const enrichedSkill = {
+                    ...emptySkill,
+                    id: skill.id,
+                    name: skill.name,
+                  };
+
+                  setSkillToAdd(enrichedSkill);
+                }}
+                className="w-full"
+              />
+              <div className="border border-stone-800 w-2 h-px" />
+            </>
+          )}
+          <Button
+            className="size-8 mr-1 bg-transparent hover:bg-fuchsia-900/50"
+            onClick={() => setIsAddingSkill(!isAddingSkill)}
+          >
+            {isAddingSkill ? (
+              <i className="fas fa-minus"></i>
+            ) : (
+              <i className="fas fa-plus"></i>
+            )}
+          </Button>
+        </div>
       </div>
       <div className="flex flex-col gap-2">
-        {isAddingSkill && (
-          <SkillsListItem
-            skill={emptySkill}
-            setIsAddingSkill={setIsAddingSkill}
-          />
+        {skillToAdd?.name && (
+          <SkillsListItem skill={skillToAdd} setSkillToAdd={setSkillToAdd} />
         )}
         {sortedSkills.map((s) => (
           <SkillsListItem key={s.name} skill={s} />

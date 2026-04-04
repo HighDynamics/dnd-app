@@ -7,7 +7,38 @@ import {
   useSetRecoilState,
 } from "recoil";
 
-import { useGetCharacters, useGetItems, useGetSpells } from "./server";
+import {
+  useGetCharacters,
+  useGetSkills,
+  useGetItems,
+  useGetSpells,
+  useGetSkillSynergies,
+} from "./server";
+
+export const skillCompendiumAtom = atom<SkillCompendium>({
+  key: "skillCompendiumAtom",
+  default: {} as SkillCompendium,
+});
+
+export function useSetSkillCompendium() {
+  const [skillCompendium, setSkillCompendium] =
+    useRecoilState(skillCompendiumAtom);
+  const fetchedSkills = useGetSkills();
+  const fetchedSkillSynergies = useGetSkillSynergies();
+
+  useEffect(() => {
+    if (fetchedSkills && fetchedSkillSynergies) {
+      setSkillCompendium({
+        skills: fetchedSkills,
+        skillSynergies: fetchedSkillSynergies,
+      });
+    }
+  }, [fetchedSkills, fetchedSkillSynergies, setSkillCompendium]);
+
+  return skillCompendium;
+}
+
+export const useSkillCompendium = () => useRecoilValue(skillCompendiumAtom);
 
 const allCharactersAtom = atom<ICharacter[]>({
   key: "allCharactersAtom",
@@ -77,6 +108,91 @@ export function useAbilityScore(ability: Ability) {
   const scores = useRecoilValue(abilityScores);
   return scores[ability];
 }
+
+type EnrichedSkillSynergy = Omit<CompendiumSkillSynergy, "isDefault"> & {
+  fromSkillName: string;
+  active: boolean;
+};
+
+type CharacterSkill = SkillRef & Omit<CompendiumSkill, "isDefault">;
+export type EnrichedSkill = CharacterSkill & {
+  synergies: {
+    conditionalBonus: number;
+    unconditionalBonus: number;
+    synergiesList: EnrichedSkillSynergy[];
+  };
+};
+
+const characterSkills = selector({
+  key: "characterSkills",
+  get: ({ get }) => {
+    const { skills, skillSynergies } = get(skillCompendiumAtom);
+    const { skillRefs, skillSynergyRefs } = get(characterAtom);
+
+    const characterSkills = skillRefs
+      .map((skillRef) => {
+        const compendiumSkill = skills.find((s) => s.id === skillRef.id);
+        if (!compendiumSkill) return;
+
+        return {
+          ...skillRef,
+          name: compendiumSkill.name || "Unknown Skill",
+          ability: compendiumSkill.ability || "strength",
+          armorCheck: compendiumSkill.armorCheck || false,
+        };
+      })
+      .filter(Boolean) as CharacterSkill[];
+
+    const characterSkillSynergies = skillSynergyRefs
+      .map((synergyId) => skillSynergies.find((s) => s.id === synergyId))
+      .filter(Boolean) as CompendiumSkillSynergy[];
+
+    const enrichedSkills = characterSkills.map((skill) => {
+      const synergies = characterSkillSynergies
+        .map((synergy) => {
+          if (synergy.toSkillId !== skill.id) return;
+
+          const fromSkill = characterSkills.find(
+            (skill) => skill.id === synergy.fromSkillId,
+          );
+
+          if (!fromSkill) return;
+
+          return {
+            ...synergy,
+            fromSkillName: fromSkill.name,
+            active: fromSkill.ranks >= synergy.ranksRequired,
+          };
+        })
+        .filter(Boolean) as EnrichedSkillSynergy[];
+
+      const activeSynergies = synergies.filter((synergy) => synergy.active);
+
+      let conditionalBonus = 0;
+      let unconditionalBonus = 0;
+
+      activeSynergies.forEach((synergy) => {
+        if (synergy.condition) {
+          conditionalBonus += synergy.bonus;
+        } else {
+          unconditionalBonus += synergy.bonus;
+        }
+      });
+
+      return {
+        ...skill,
+        synergies: {
+          conditionalBonus,
+          unconditionalBonus,
+          synergiesList: synergies,
+        },
+      };
+    });
+    return enrichedSkills;
+  },
+});
+
+export const useCharacterSkills = () => useRecoilValue(characterSkills);
 
 export const itemCompendiumAtom = atom<IItem[]>({
   key: "itemCompendiumAtom",
@@ -241,17 +357,18 @@ export const diceRollAtom = atom<{
   size: number;
   mod: number;
   use: string;
+  conditions: string[];
 } | null>({
   key: "diceRollState",
   default: null,
 });
 
-export function useDiceRoll(size: number) {
+export function useDiceRoll(size: number, conditions: string[] = []) {
   const setRollResult = useSetRecoilState(diceRollAtom);
   return (mod: number, use: string) => {
     const result = Math.floor(Math.random() * size + 1);
 
-    setRollResult({ result, mod, size, use });
+    setRollResult({ result, mod, size, use, conditions });
   };
 }
 

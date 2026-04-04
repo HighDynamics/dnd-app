@@ -56,6 +56,18 @@ export function RollContainer() {
             <span className="text-3xl">{roll.mod + roll.result}</span>
           </div>
         </div>
+        {roll.conditions.length > 0 && (
+          <div className="mt-2 text-sm">
+            <div className="font-sans text-stone-500">
+              Additional conditional bonuses
+            </div>
+            {roll.conditions.map((condition, i) => (
+              <div key={i + condition} className="italic opacity-80">
+                ({condition})
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
