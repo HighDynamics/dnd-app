@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 
 import {
   useCharacter,
+  useSetAbilityCompendium,
   useSetItemCompendium,
   useSetSpellCompendium,
   useSetAllCharacters,
@@ -53,6 +54,7 @@ const App = () => {
 
 const LoadApp = () => {
   const characters = useSetAllCharacters();
+  const abilityCompendium = useSetAbilityCompendium();
   const itemCompendium = useSetItemCompendium();
   const spellCompendium = useSetSpellCompendium();
   const skillCompendium = useSetSkillCompendium();
@@ -71,6 +73,7 @@ const LoadApp = () => {
 
   if (
     !character.name ||
+    !abilityCompendium.at(0) ||
     !itemCompendium.at(0) ||
     !spellCompendium?.at(0) ||
     !skillCompendium?.skills ||

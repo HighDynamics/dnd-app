@@ -344,10 +344,7 @@ const NewCharacter: ICharacter = {
       display: true,
     },
   ],
-  characterAbilities: {
-    active: [],
-    passive: [],
-  },
+  abilityRefs: [],
   magic: {
     casterLevel: 0,
     type: {

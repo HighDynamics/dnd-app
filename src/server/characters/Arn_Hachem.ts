@@ -401,15 +401,13 @@ const Arn: ICharacter = {
     "24",
     "25",
   ],
-  characterAbilities: {
-    active: [
-      { name: "Light Ray", type: "supernatural" },
-      { name: "Paralyzing Touch", type: "supernatural" },
-      { name: "Positive Energy Touch", type: "supernatural" },
-      { name: "Turn Undead", type: "supernatural" },
-    ],
-    passive: [{ name: "Aura Of Menace", type: "supernatural" }],
-  },
+  abilityRefs: [
+    { id: "1", uses: 0, frequency: "", numUsed: 0 },
+    { id: "2", uses: 0, frequency: "", numUsed: 0 },
+    { id: "3", uses: 0, frequency: "", numUsed: 0 },
+    { id: "4", uses: 0, frequency: "", numUsed: 0 },
+    { id: "5", uses: 0, frequency: "", numUsed: 0 },
+  ],
   slaRefs: [
     { id: "14", level: 1, uses: 4, frequency: "day", numUsed: 0 },
     { id: "15", level: 2, uses: 4, frequency: "day", numUsed: 0 },

@@ -8,6 +8,7 @@ import {
 } from "recoil";
 
 import {
+  useGetAbilities,
   useGetCharacters,
   useGetSkills,
   useGetItems,
@@ -193,6 +194,47 @@ const characterSkills = selector({
 });
 
 export const useCharacterSkills = () => useRecoilValue(characterSkills);
+
+export const abilityCompendiumAtom = atom<CompendiumAbility[]>({
+  key: "abilityCompendiumAtom",
+  default: [],
+});
+
+export function useSetAbilityCompendium() {
+  const abilities = useGetAbilities();
+  const [abilityCompendium, setAbilityCompendium] =
+    useRecoilState(abilityCompendiumAtom);
+
+  useEffect(() => {
+    if (abilities) {
+      setAbilityCompendium(abilities);
+    }
+  }, [abilities, setAbilityCompendium]);
+
+  return abilityCompendium;
+}
+
+export type EnrichedAbility = AbilityRef & { entry: CompendiumAbility };
+
+const characterAbilities = selector({
+  key: "characterAbilities",
+  get: ({ get }) => {
+    const abilityCompendium = get(abilityCompendiumAtom);
+    const abilityRefs = get(characterAtom).abilityRefs;
+
+    if (!abilityRefs || abilityRefs.length === 0) return [];
+
+    return abilityRefs
+      .map((ref) => {
+        const entry = abilityCompendium.find((a) => a.id === ref.id);
+        if (!entry) return;
+        return { ...ref, entry };
+      })
+      .filter(Boolean) as EnrichedAbility[];
+  },
+});
+
+export const useCharacterAbilities = () => useRecoilValue(characterAbilities);
 
 export const itemCompendiumAtom = atom<IItem[]>({
   key: "itemCompendiumAtom",

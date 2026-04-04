@@ -1,5 +1,6 @@
 import { Server, Model, RestSerializer, Response } from "miragejs";
 
+import abilities from "./abilities";
 import characters from "./characters";
 import items from "./items";
 import { skills, skillSynergies } from "./skills";
@@ -13,6 +14,7 @@ export function makeServer({ environment = "test" } = {}) {
     environment,
 
     models: {
+      ability: Model,
       character: Model,
       spell: Model,
       items: Model,
@@ -26,6 +28,7 @@ export function makeServer({ environment = "test" } = {}) {
 
     seeds(server) {
       // set up all the starting data
+      abilities.forEach((ability) => server.create("ability", ability));
       characters.forEach((char) => server.create("character", char));
       spells.forEach((spell) => server.create("spell", spell));
       items.forEach((item) => server.create("item", item));
@@ -39,6 +42,11 @@ export function makeServer({ environment = "test" } = {}) {
       this.namespace = "api";
 
       // Here is where you add the server endpoints for your app:
+
+      this.get("/abilities", (schema) => {
+        // @ts-expect-error
+        return schema.abilities.all();
+      });
 
       this.get("/characters", (schema) => {
         // @ts-expect-error
@@ -105,6 +113,10 @@ export function makeServer({ environment = "test" } = {}) {
 
 declare global {
   namespace IServer {
+    namespace GetAbilities {
+      type Response = { abilities: CompendiumAbility[] };
+    }
+
     namespace GetCharacters {
       type Response = { characters: ICharacter[] };
     }
