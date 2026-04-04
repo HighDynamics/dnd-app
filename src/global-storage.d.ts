@@ -20,6 +20,12 @@ declare global {
     isDefault: boolean;
   };
 
+  type CompendiumAbility = {
+    id: string;
+    name: string;
+    description: string;
+  };
+
   type SkillCompendium = {
     skills: CompendiumSkill[];
     skillSynergies: CompendiumSkillSynergy[];
@@ -58,6 +64,13 @@ declare global {
     ranks: number;
     miscModifier: number;
     classSkill: boolean;
+  };
+
+  type AbilityRef = {
+    id: string;
+    uses: number;
+    frequency: string;
+    numUsed: number;
   };
 
   type SpecialAbilities = { name: string; type: string };
@@ -165,10 +178,7 @@ declare global {
     classes: DNDClass[];
     skillRefs: SkillRef[];
     skillSynergyRefs: string[];
-    characterAbilities: {
-      active: SpecialAbilities[];
-      passive: SpecialAbilities[];
-    };
+    abilityRefs: AbilityRef[];
     slaRefs: ISpellLikeAbilityRef[];
     itemRefs: IItemRef[];
   };

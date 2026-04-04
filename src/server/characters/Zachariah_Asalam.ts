@@ -389,10 +389,7 @@ const Zachariah: ICharacter = {
       display: true,
     },
   ],
-  characterAbilities: {
-    active: [],
-    passive: [],
-  },
+  abilityRefs: [],
   magic: {
     casterLevel: 1,
     type: {

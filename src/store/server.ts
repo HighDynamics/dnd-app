@@ -126,3 +126,9 @@ export function useGetItems() {
   if (resp.error) throw new Error("Failed to fetch items");
   return resp.data?.items;
 }
+
+export function useGetAbilities() {
+  const resp = useSWR<IServer.GetAbilities.Response>("/api/abilities");
+  if (resp.error) throw new Error("Failed to fetch abilities");
+  return resp.data?.abilities;
+}

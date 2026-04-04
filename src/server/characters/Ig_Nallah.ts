@@ -433,17 +433,13 @@ const Ig: ICharacter = {
       display: true,
     },
   ],
-  characterAbilities: {
-    active: [
-      { name: "Light Ray", type: "supernatural" },
-      { name: "Break Enchantment", type: "supernatural" },
-      { name: "Bite of the King", type: "supernatural" },
-    ],
-    passive: [
-      { name: "Aura Of Menace", type: "supernatural" },
-      { name: "Automatic Action", type: "divine" },
-    ],
-  },
+  abilityRefs: [
+    { id: "1", uses: 0, frequency: "", numUsed: 0 },
+    { id: "6", uses: 0, frequency: "", numUsed: 0 },
+    { id: "7", uses: 0, frequency: "", numUsed: 0 },
+    { id: "5", uses: 0, frequency: "", numUsed: 0 },
+    { id: "8", uses: 0, frequency: "", numUsed: 0 },
+  ],
   magic: {
     casterLevel: 22,
     type: {
