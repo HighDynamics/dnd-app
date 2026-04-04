@@ -1,7 +1,82 @@
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 
-import { characterAtom } from "./recoilState";
+import { characterAtom, skillCompendiumAtom } from "./recoilState";
+
+export function useGetSkills() {
+  const resp = useSWR<IServer.GetSkills.Response>("/api/skills");
+  if (resp.error) throw new Error("Failed to fetch skill compendium");
+  return resp.data?.skills;
+}
+
+function addSkill(newSkill: CompendiumSkill) {
+  return fetch(`/api/skills`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSkill),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Failed to add skill");
+    }
+    return response.json();
+  });
+}
+
+export function useAddSkill() {
+  const [skillCompendium, setSkillCompendium] =
+    useRecoilState(skillCompendiumAtom);
+  return (newSkill: CompendiumSkill) => {
+    return addSkill(newSkill).then((response) => {
+      setSkillCompendium({
+        ...skillCompendium,
+        skills: [...skillCompendium.skills, response.skill],
+      });
+      return response;
+    });
+  };
+}
+
+function updateSkill(updatedSkill: CompendiumSkill) {
+  return fetch(`/api/skills/${updatedSkill.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedSkill),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Failed to update skill");
+    }
+    return response.json();
+  });
+}
+
+export function useUpdateSkill() {
+  const [skillCompendium, setSkillCompendium] =
+    useRecoilState(skillCompendiumAtom);
+  return (updatedSkill: CompendiumSkill) => {
+    return updateSkill(updatedSkill).then((response) => {
+      const updatedSkills = skillCompendium.skills.map((skill) =>
+        skill.id === updatedSkill.id ? response.skill : skill,
+      );
+      setSkillCompendium({
+        ...skillCompendium,
+        skills: updatedSkills,
+      });
+      return response;
+    });
+  };
+}
+
+export function useGetSkillSynergies() {
+  const resp = useSWR<IServer.GetSkillSynergies.Response>(
+    "/api/skill-synergies",
+  );
+  if (resp.error) throw new Error("Failed to fetch skill synergies");
+  return resp.data?.skillSynergies;
+}
 
 export function useGetCharacters() {
   const resp = useSWR<IServer.GetCharacters.Response>("/api/characters");

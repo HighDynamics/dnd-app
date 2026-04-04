@@ -2,6 +2,29 @@
 import characters from "./server/characters";
 
 declare global {
+  type CompendiumSkillSynergy = {
+    id: string;
+    fromSkillId: string;
+    toSkillId: string;
+    ranksRequired: number;
+    bonus: number;
+    condition?: string;
+    isDefault: boolean;
+  };
+
+  type CompendiumSkill = {
+    id: string;
+    name: string;
+    ability: Ability;
+    armorCheck: boolean;
+    isDefault: boolean;
+  };
+
+  type SkillCompendium = {
+    skills: CompendiumSkill[];
+    skillSynergies: CompendiumSkillSynergy[];
+  };
+
   type Ability =
     | "strength"
     | "dexterity"
@@ -30,14 +53,11 @@ declare global {
     };
   };
 
-  type Skill = {
-    name: string;
-    ability: Ability;
+  type SkillRef = {
+    id: string;
     ranks: number;
     miscModifier: number;
     classSkill: boolean;
-    armorCheck: boolean;
-    display: boolean;
   };
 
   type SpecialAbilities = { name: string; type: string };
@@ -143,7 +163,8 @@ declare global {
     };
     speed: { land: number; fly: number; swim: number; burrow: number };
     classes: DNDClass[];
-    skills: Skill[];
+    skillRefs: SkillRef[];
+    skillSynergyRefs: string[];
     characterAbilities: {
       active: SpecialAbilities[];
       passive: SpecialAbilities[];
