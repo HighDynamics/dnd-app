@@ -177,13 +177,15 @@ function SkillsListItem(p: {
       });
     }
 
-    updateSkill({
-      id: updatedSkill.id,
-      ability: updatedSkill.ability,
-      name: updatedSkill.name,
-      armorCheck: updatedSkill.armorCheck,
-      isDefault: false,
-    });
+    if (hasGlobalChanges) {
+      updateSkill({
+        id: updatedSkill.id,
+        ability: updatedSkill.ability,
+        name: updatedSkill.name,
+        armorCheck: updatedSkill.armorCheck,
+        isDefault: false,
+      }).catch(() => toast(`"${skill.name}" is a shared skill and can't be edited`));
+    }
     updateCharacter({ ...character, skillRefs: updatedSkillRefs });
     setName(updatedSkill.name);
     setRanks(updatedSkill.ranks.toString());
