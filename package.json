@@ -1,9 +1,9 @@
 {
-  "name": "dnd",
+  "name": "herofolio",
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "homepage": "https://highdynamics.github.io/dnd-app",
+  "homepage": "https://highdynamics.github.io/herofolio",
   "scripts": {
     "mobile-url": "ifconfig | grep 192.168 | awk '{print \"http://\"$2\":3000\"}'",
     "start": "vite --host",

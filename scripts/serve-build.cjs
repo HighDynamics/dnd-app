@@ -5,7 +5,7 @@ const fs = require("fs");
 
 const BUILD_DIR = path.join(__dirname, "..", "build");
 const PORT = process.env.PORT ? Number(process.env.PORT) : 5100;
-const BASE = process.env.BASE_PATH || "/dnd-app/";
+const BASE = process.env.BASE_PATH || "/herofolio/";
 
 function sendFile(res, filePath, contentType) {
   fs.readFile(filePath, (err, data) => {

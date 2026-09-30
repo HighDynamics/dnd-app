@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Herofolio",
+  "name": "Herofolio",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/dnd-app/",
-  "scope": "/dnd-app/",
+  "start_url": "/herofolio/",
+  "scope": "/herofolio/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

@@ -1,4 +1,4 @@
-const CACHE_NAME = "dnd-app-v1";
+const CACHE_NAME = "herofolio-v1";
 const ASSETS_TO_CACHE = ["/", "/index.html"];
 
 self.addEventListener("install", (event) => {
