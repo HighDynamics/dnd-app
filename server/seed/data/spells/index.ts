@@ -1839,7 +1839,7 @@ const spellCompendium: ISpell[] = [
   },
   //Dancing Lights
   {
-    id: "118",
+    id: "155",
     isSrd: true,
     name: "Dancing Lights",
     school: "Evocation",
@@ -2170,7 +2170,7 @@ const spellCompendium: ISpell[] = [
   },
   //Launch Item
   {
-    id: "145",
+    id: "153",
     isSrd: false,
     name: "Launch Item",
     school: "Transmutation",
@@ -2295,7 +2295,7 @@ const spellCompendium: ISpell[] = [
   },
   //No Light
   {
-    id: "146",
+    id: "154",
     isSrd: false,
     name: "No Light",
     school: "Transmutation",
