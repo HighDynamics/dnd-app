@@ -3,9 +3,8 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from "vite";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
   return {
-    base: mode === "production" ? "/herofolio/" : "/",
     build: { outDir: "build" },
     plugins: [
       react(),
@@ -16,8 +15,8 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'Herofolio',
           short_name: 'Herofolio',
-          start_url: '/herofolio/',
-          scope: '/herofolio/',
+          start_url: '/',
+          scope: '/',
           display: 'standalone',
           theme_color: '#000000',
           background_color: '#ffffff',
