@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter, Routes, Route } from "react-router";
+import { RouterProvider, createBrowserRouter } from "react-router";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 
@@ -16,6 +16,20 @@ import "./index.css";
 import { registerSW } from 'virtual:pwa-register';
 
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LoadApp />,
+    children: [
+      { path: "main", element: <Main /> },
+      { path: "skills", element: <Skills /> },
+      { path: "items", element: <Items /> },
+      { path: "spells", element: <Spells /> },
+      { path: "abilities", element: <ActiveAndPassiveAbilities /> },
+    ],
+  },
+]);
+
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
@@ -28,17 +42,7 @@ root.render(
             fetch(...args).then((res) => res.json()),
         }}
       >
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<LoadApp />}>
-              <Route path="main" element={<Main />} />
-              <Route path="skills" element={<Skills />} />
-              <Route path="items" element={<Items />} />
-              <Route path="spells" element={<Spells />} />
-              <Route path="abilities" element={<ActiveAndPassiveAbilities />} />
-            </Route>
-          </Routes>
-        </HashRouter>
+        <RouterProvider router={router} />
       </SWRConfig>
     </RecoilRoot>
   </StrictMode>,
