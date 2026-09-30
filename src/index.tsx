@@ -1,12 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 
 import ActiveAndPassiveAbilities from "./components/ActiveAndPassiveAbilities/ActiveAndPassiveAbilities";
 import { Items } from "./components/Items";
 import { Main } from "./components/Main";
+import { NotFound } from "./components/NotFound";
 import { Skills } from "./components/Skills/Skills";
 import { Spells } from "./components/Spells";
 import LoadApp from "./components/App";
@@ -21,11 +22,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <LoadApp />,
     children: [
+      { index: true, element: <Navigate to="/main" replace /> },
       { path: "main", element: <Main /> },
       { path: "skills", element: <Skills /> },
       { path: "items", element: <Items /> },
       { path: "spells", element: <Spells /> },
       { path: "abilities", element: <ActiveAndPassiveAbilities /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
