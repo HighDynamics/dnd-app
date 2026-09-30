@@ -9,7 +9,7 @@ import { Items } from "./components/Items";
 import { Main } from "./components/Main";
 import { Skills } from "./components/Skills/Skills";
 import { Spells } from "./components/Spells";
-import LoadApp from "./components/dnd";
+import LoadApp from "./components/App";
 
 import "./index.css";
 import { makeServer } from "./server";
