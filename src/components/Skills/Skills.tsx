@@ -31,6 +31,7 @@ const emptySkill: EnrichedSkill = {
   ability: "strength",
   ranks: 0,
   miscModifier: 0,
+  total: 0,
   synergies: { unconditionalBonus: 0, conditionalBonus: 0, synergiesList: [] },
   classSkill: false,
   armorCheck: false,
@@ -106,11 +107,7 @@ function SkillsListItem(p: {
 
   const roll20 = useDiceRoll(20, conditions);
 
-  const skillPoints =
-    skill.ranks +
-    skill.miscModifier +
-    skill.synergies.unconditionalBonus +
-    skillAbilityMod;
+  const skillPoints = skill.total + skill.synergies.unconditionalBonus;
 
   const hasGlobalChanges =
     hasArmorCheckPenalty !== skill.armorCheck || name.trim() !== skill.name;

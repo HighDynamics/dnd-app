@@ -1,7 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import characters from "./server/characters";
+import type { ActiveSource, EffectDef } from "./store/stats/types";
 
 declare global {
+  type BonusType =
+    | "alchemical"
+    | "armor"
+    | "circumstance" // always stacks
+    | "competence"
+    | "deflection"
+    | "dodge" // always stacks
+    | "enhancement"
+    | "insight"
+    | "luck"
+    | "morale"
+    | "naturalArmor"
+    | "profane"
+    | "racial"
+    | "resistance"
+    | "sacred"
+    | "shield"
+    | "size"
+    | "untyped"; // always stacks
+
+  type SourceRef = { kind: "item" | "spell" | "ability"; id: string };
+
   type CompendiumSkillSynergy = {
     id: string;
     fromSkillId: string;
@@ -24,6 +47,7 @@ declare global {
     id: string;
     name: string;
     description: string;
+    effects?: EffectDef[];
   };
 
   type SkillCompendium = {
@@ -101,6 +125,7 @@ declare global {
     casterLevel?: number;
     price?: string;
     description: string;
+    effects?: EffectDef[];
   };
 
   type ISpell = {
@@ -122,6 +147,7 @@ declare global {
     duration?: string;
     savingThrow?: string;
     spellResistance?: string;
+    effects?: EffectDef[];
   };
 
   type ICharacter = {
@@ -181,6 +207,7 @@ declare global {
     abilityRefs: AbilityRef[];
     slaRefs: ISpellLikeAbilityRef[];
     itemRefs: IItemRef[];
+    activeSources: ActiveSource[];
   };
 }
 

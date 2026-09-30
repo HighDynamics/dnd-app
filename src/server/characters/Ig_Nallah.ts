@@ -457,6 +457,7 @@ const Ig: ICharacter = {
     spellsPerDay: [4, 5, 5, 5, 5, 5, 5, 4, 4],
   },
   itemRefs: [],
+  activeSources: [],
 };
 
 export default Ig;

@@ -436,6 +436,7 @@ const Zachariah: ICharacter = {
     spellsPerDay: [3, 1, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   itemRefs: [],
+  activeSources: [],
 };
 
 export default Zachariah;

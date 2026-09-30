@@ -413,6 +413,7 @@ const Arn: ICharacter = {
     { id: "15", level: 2, uses: 4, frequency: "day", numUsed: 0 },
   ],
   itemRefs: [{ id: "1" }],
+  activeSources: [],
 };
 
 export default Arn;
