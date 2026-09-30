@@ -1,6 +1,6 @@
-# DnD App
+# Herofolio
 
-A D&D character management app built with React, TypeScript, Vite, Tailwind CSS v4, and Recoil for state management. Has a mock server via MirageJS.
+A D&D 3.5 character management app built with React, TypeScript, Vite, Tailwind CSS v4, and Recoil for state management. Has a mock server via MirageJS.
 
 ## Tech Stack
 

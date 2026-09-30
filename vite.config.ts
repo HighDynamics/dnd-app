@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: mode === "production" ? "/dnd-app/" : "/",
+    base: mode === "production" ? "/herofolio/" : "/",
     build: { outDir: "build" },
     plugins: [
       react(),
@@ -14,10 +14,10 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'logo192.png', 'logo512.png'],
         manifest: {
-          name: 'dnd',
-          short_name: 'dnd',
-          start_url: '/dnd-app/',
-          scope: '/dnd-app/',
+          name: 'Herofolio',
+          short_name: 'Herofolio',
+          start_url: '/herofolio/',
+          scope: '/herofolio/',
           display: 'standalone',
           theme_color: '#000000',
           background_color: '#ffffff',

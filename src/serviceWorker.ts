@@ -29,7 +29,7 @@ type Config = {
 export function register(config?: Config) {
   // import.meta.env.MODE is provided by Vite
   if (import.meta.env.MODE === "production" && "serviceWorker" in navigator) {
-    // The base URL that Vite sets at build time (e.g. '/dnd-app/')
+    // The base URL that Vite sets at build time (e.g. '/herofolio/')
     const publicUrl = new URL(
       import.meta.env.BASE_URL || "/",
       window.location.href,
