@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { combine as c } from "../lib";
-import { useCharacter } from "../store/recoilState";
+import { useCharacter, useStat } from "../store/recoilState";
 import { useUpdateCharacter } from "../store/server";
 import { useToast } from "./ActionToast/useToast";
 import { Button } from "./Button";
@@ -19,11 +19,13 @@ function getTextColor(current: number, expected: number) {
 export const HitPointInfo = () => {
   const character = useCharacter();
   const toast = useToast();
-  const { total, temporary, damage } = character.hitPoints;
+  const { temporary, damage } = character.hitPoints;
+  const total = useStat("hp.max").total;
+  const temporaryTotal = useStat("hp.temp").total;
   const updateCharacter = useUpdateCharacter();
   const [value, setValue] = useState("");
 
-  const currentHP = total + temporary - damage;
+  const currentHP = total + temporaryTotal - damage;
   const textColorClass = getTextColor(currentHP, total);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -92,10 +94,10 @@ export const HitPointInfo = () => {
           <span
             className={c(
               "text-2xl tabular-nums",
-              temporary > 0 ? "text-emerald-400" : "opacity-50",
+              temporaryTotal > 0 ? "text-emerald-400" : "opacity-50",
             )}
           >
-            {temporary}
+            {temporaryTotal}
           </span>
         </div>
       </div>

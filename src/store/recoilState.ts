@@ -14,7 +14,20 @@ import {
   useGetItems,
   useGetSpells,
   useGetSkillSynergies,
+  useUpdateCharacter,
 } from "./server";
+import {
+  characterContributions,
+  sourceContributions,
+  type SourceLookup,
+} from "./stats/contributions";
+import {
+  abilityModifierOf,
+  createStatEngine,
+  resolveArmorClass,
+  type StatEngine,
+} from "./stats/engine";
+import type { ActiveSource, StatKey } from "./stats/types";
 
 export const skillCompendiumAtom = atom<SkillCompendium>({
   key: "skillCompendiumAtom",
@@ -84,18 +97,96 @@ export function useSetFirstCharacter() {
 
 export const useCharacter = () => useRecoilValue(characterAtom);
 
+// ─── Stats ────────────────────────────────────────────────────────────────────
+
+const statEngineSelector = selector<StatEngine>({
+  key: "statEngine",
+  // The engine memoizes resolved stats internally.
+  dangerouslyAllowMutability: true,
+  get: ({ get }) => {
+    const character = get(characterAtom);
+    const skills = get(skillCompendiumAtom).skills ?? [];
+    const items = get(itemCompendiumAtom);
+    const spells = get(spellCompendiumAtom);
+    const abilities = get(abilityCompendiumAtom);
+
+    const lookup: SourceLookup = (ref) => {
+      if (ref.kind === "item") {
+        const item = items.find((i) => i.id === ref.id);
+        return (
+          item && {
+            label: item.name,
+            effects: item.effects ?? [],
+            casterLevel: item.casterLevel,
+          }
+        );
+      }
+      const entry =
+        ref.kind === "spell"
+          ? spells.find((s) => s.id === ref.id)
+          : abilities.find((a) => a.id === ref.id);
+      return entry && { label: entry.name, effects: entry.effects ?? [] };
+    };
+
+    return createStatEngine([
+      ...characterContributions(character, skills),
+      ...sourceContributions(character, character.activeSources ?? [], lookup),
+    ]);
+  },
+});
+
+export const useStat = (key: StatKey) =>
+  useRecoilValue(statEngineSelector).resolve(key);
+
+export const useArmorClass = () =>
+  resolveArmorClass(useRecoilValue(statEngineSelector));
+
+export const useActiveSources = () =>
+  useRecoilValue(characterAtom).activeSources ?? [];
+
+export function useActivateSource() {
+  const character = useRecoilValue(characterAtom);
+  const updateCharacter = useUpdateCharacter();
+  return (source: Omit<ActiveSource, "instanceId">) =>
+    updateCharacter({
+      ...character,
+      activeSources: [
+        ...(character.activeSources ?? []),
+        { ...source, instanceId: crypto.randomUUID() },
+      ],
+    });
+}
+
+export function useDeactivateSource() {
+  const character = useRecoilValue(characterAtom);
+  const updateCharacter = useUpdateCharacter();
+  return (instanceId: string) =>
+    updateCharacter({
+      ...character,
+      activeSources: (character.activeSources ?? []).filter(
+        (s) => s.instanceId !== instanceId,
+      ),
+    });
+}
+
 const abilityScores = selector({
   key: "abilityScores",
   get: ({ get }) => {
-    const abilityScores = get(characterAtom).abilities.score;
-    return Object.entries(abilityScores).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        [key]: {
-          score: value,
-          modifier: value ? Math.floor((value - 10) / 2) : null,
-        },
-      }),
+    const engine = get(statEngineSelector);
+    const abilities = Object.keys(
+      get(characterAtom).abilities.score,
+    ) as Ability[];
+    return abilities.reduce(
+      (acc, ability) => {
+        const stat = engine.resolve(`ability.${ability}`);
+        return {
+          ...acc,
+          [ability]: {
+            score: stat.hasBase ? stat.total : null,
+            modifier: abilityModifierOf(engine, ability),
+          },
+        };
+      },
       {} as Record<Ability, { score: number | null; modifier: number | null }>,
     );
   },
@@ -117,6 +208,7 @@ type EnrichedSkillSynergy = Omit<CompendiumSkillSynergy, "isDefault"> & {
 
 type CharacterSkill = SkillRef & Omit<CompendiumSkill, "isDefault">;
 export type EnrichedSkill = CharacterSkill & {
+  total: number;
   synergies: {
     conditionalBonus: number;
     unconditionalBonus: number;
@@ -129,6 +221,7 @@ const characterSkills = selector({
   get: ({ get }) => {
     const { skills, skillSynergies } = get(skillCompendiumAtom);
     const { skillRefs, skillSynergyRefs } = get(characterAtom);
+    const engine = get(statEngineSelector);
 
     const characterSkills = skillRefs
       .map((skillRef) => {
@@ -182,6 +275,7 @@ const characterSkills = selector({
 
       return {
         ...skill,
+        total: engine.resolve(`skill.${skill.id}`).total,
         synergies: {
           conditionalBonus,
           unconditionalBonus,
@@ -221,6 +315,7 @@ const characterAbilities = selector({
   get: ({ get }) => {
     const abilityCompendium = get(abilityCompendiumAtom);
     const abilityRefs = get(characterAtom).abilityRefs;
+    const engine = get(statEngineSelector);
 
     if (!abilityRefs || abilityRefs.length === 0) return [];
 
@@ -228,7 +323,7 @@ const characterAbilities = selector({
       .map((ref) => {
         const entry = abilityCompendium.find((a) => a.id === ref.id);
         if (!entry) return;
-        return { ...ref, entry };
+        return { ...ref, uses: engine.resolve(`uses.${ref.id}`).total, entry };
       })
       .filter(Boolean) as EnrichedAbility[];
   },

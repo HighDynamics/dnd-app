@@ -356,6 +356,7 @@ const NewCharacter: ICharacter = {
     spellsPerDay: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   itemRefs: [],
+  activeSources: [],
 };
 
 export default NewCharacter;

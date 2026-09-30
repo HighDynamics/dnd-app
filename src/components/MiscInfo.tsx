@@ -1,22 +1,24 @@
-import {
-  useAbilityScore,
-  useCharacter,
-  useDiceRoll,
-} from "../store/recoilState";
+import { useCharacter, useDiceRoll, useStat } from "../store/recoilState";
 import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { FadedSeparator } from "./FadedSeparator";
 import { Heading } from "./Heading";
+import { StatBreakdown } from "./StatBreakdown";
 
 export function MiscInfo() {
   const character = useCharacter();
-  const dexMod = useAbilityScore("dexterity").modifier || 0;
-  const initiative = character.initiative.misc + dexMod;
+  const initiativeStat = useStat("initiative");
+  const initiative = initiativeStat.total;
   const roll20 = useDiceRoll(20);
 
-  const speeds = Object.entries(character.speed).filter(
-    ([_, value]) => value > 0,
-  );
+  const speeds = (
+    [
+      ["land", useStat("speed.land").total],
+      ["fly", useStat("speed.fly").total],
+      ["swim", useStat("speed.swim").total],
+      ["burrow", useStat("speed.burrow").total],
+    ] as const
+  ).filter(([_, value]) => value > 0);
   return (
     <section>
       <Heading>Misc</Heading>
@@ -35,16 +37,7 @@ export function MiscInfo() {
           }
         >
           <FadedSeparator className="my-2" />
-          <div className="flex justify-between flex-wrap gap-y-4">
-            <div className="flex flex-col w-1/2">
-              <span className="text-label text-sm">Dexterity</span>
-              <span className="tabular-nums">{dexMod}</span>
-            </div>
-            <div className="flex flex-col w-1/2">
-              <span className="text-label text-sm">Misc</span>
-              <span className="tabular-nums">{character.initiative.misc}</span>
-            </div>
-          </div>
+          <StatBreakdown stat={initiativeStat} />
         </EntityDisclosure>
 
         {speeds.length > 1 && <div className="text-label mt-6">Speed</div>}
