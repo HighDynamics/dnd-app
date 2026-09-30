@@ -36,6 +36,10 @@ export default defineConfig(({ mode }) => {
         }
       })
     ],
-    server: { port: 3000 },
+    server: {
+      port: 3000,
+      // The API runs separately on 4002 in development (npm run start:server).
+      proxy: { "/api": "http://localhost:4002" },
+    },
   };
 });

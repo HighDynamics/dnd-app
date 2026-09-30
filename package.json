@@ -5,8 +5,14 @@
   "private": true,
   "homepage": "https://highdynamics.github.io/herofolio",
   "scripts": {
+    "start": "concurrently -k -n web,api -c magenta,cyan \"npm:start:web\" \"npm:start:server\"",
+    "start:web": "vite --host",
+    "start:server": "PORT=4002 tsx watch server/server.ts",
+    "migrate": "tsx server/db/migrate.ts",
+    "migrate:rollback": "tsx server/db/migrate.ts rollback",
+    "seed": "tsx server/seed/seed.ts",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p server",
     "mobile-url": "ifconfig | grep 192.168 | awk '{print \"http://\"$2\":3000\"}'",
-    "start": "vite --host",
     "build": "vite build",
     "serve": "vite preview",
     "serve:build": "node scripts/serve-build.cjs",
@@ -31,22 +37,32 @@
     "@tailwindcss/vite": "^4.1.11",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
+    "compression": "^1.8.2",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "helmet": "^8.3.0",
+    "knex": "^3.3.0",
+    "pg": "^8.23.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router": "^7.7.1",
     "recoil": "0.7.7",
-    "swr": "2.2.4"
+    "swr": "2.2.4",
+    "tsx": "^4.23.15"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.3",
     "@vitejs/plugin-react": "^4.7.0",
-    "vite-plugin-pwa": "^1.1.0",
+    "concurrently": "^10.0.5",
     "gh-pages": "6.1.1",
     "json-loader": "0.5.7",
-    "miragejs": "0.1.48",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.11",
     "typescript": "5.3.3",
-    "vite": "^7.0.6"
+    "vite": "^7.0.6",
+    "vite-plugin-pwa": "^1.1.0"
   }
 }

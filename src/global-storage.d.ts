@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import characters from "./server/characters";
 import type { ActiveSource, EffectDef } from "./store/stats/types";
 
 declare global {
