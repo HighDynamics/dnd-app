@@ -1,9 +1,6 @@
 import { combine as c } from "../lib";
-import {
-  useAbilityScore,
-  useCharacter,
-  useDiceRoll,
-} from "../store/recoilState";
+import { useAbilityScore, useCharacter } from "../store/character";
+import { useDiceRoll } from "../store/ui";
 import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { Heading } from "./Heading";

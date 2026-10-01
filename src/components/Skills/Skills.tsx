@@ -1,19 +1,15 @@
 import { useState } from "react";
 
 import { combine as c } from "../../lib";
+import { useAddSkill, useUpdateCharacter, useUpdateSkill } from "../../store/api";
 import {
   useCharacter,
   useAbilityScore,
-  useDiceRoll,
   useCharacterSkills,
   type EnrichedSkill,
   useSkillCompendium,
-} from "../../store/recoilState";
-import {
-  useAddSkill,
-  useUpdateCharacter,
-  useUpdateSkill,
-} from "../../store/server";
+} from "../../store/character";
+import { useDiceRoll } from "../../store/ui";
 import { useToast } from "../ActionToast/useToast";
 import { Button } from "../Button";
 import { Combobox } from "../Combobox";
@@ -136,7 +132,6 @@ function SkillsListItem(p: {
 
     if (!skill.id) {
       return addSkill({
-        id: "",
         name: updatedSkill.name,
         ability: updatedSkill.ability,
         armorCheck: updatedSkill.armorCheck,

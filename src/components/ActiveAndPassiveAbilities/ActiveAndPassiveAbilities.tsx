@@ -1,4 +1,4 @@
-import { useCharacterAbilities } from "../../store/recoilState";
+import { useCharacterAbilities } from "../../store/character";
 import { EntityDisclosure } from "../EntityDisclosure";
 
 const ActiveAndPassiveAbilities = () => {

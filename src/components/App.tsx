@@ -1,20 +1,14 @@
-import { useEffect } from "react";
-import { Outlet } from "react-router";
-import { useRecoilState } from "recoil";
+import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
+import { Suspense, useEffect } from "react";
+import { Navigate, Outlet } from "react-router";
 
-import {
-  useCharacter,
-  useSetAbilityCompendium,
-  useSetItemCompendium,
-  useSetSpellCompendium,
-  useSetAllCharacters,
-  characterAtom,
-  useSetSkillCompendium,
-} from "../store/recoilState";
+import { queries } from "../store/api";
+import { useCharacter, useCharacterId } from "../store/character";
 import { ActionToast } from "./ActionToast";
 import { CharacterSelector } from "./CharacterSelector";
 import { FadedSeparator } from "./FadedSeparator";
 import { Nav } from "./Nav";
+import { PageMessage } from "./PageMessage";
 import { RollContainer } from "./RollContainer";
 
 const App = () => {
@@ -24,7 +18,7 @@ const App = () => {
     function setDocTitle() {
       document.title = character.name;
     },
-    [character],
+    [character.name],
   );
 
   return (
@@ -52,36 +46,50 @@ const App = () => {
   );
 };
 
-const LoadApp = () => {
-  const characters = useSetAllCharacters();
-  const abilityCompendium = useSetAbilityCompendium();
-  const itemCompendium = useSetItemCompendium();
-  const spellCompendium = useSetSpellCompendium();
-  const skillCompendium = useSetSkillCompendium();
-  const [character, setCharacter] = useRecoilState(characterAtom);
+const Loading = () => <div className="text-white">Loading...</div>;
 
-  useEffect(
-    function setFirstCharacter() {
-      if (character.id) return; // If character is already set, do nothing
-
-      const firstCharacter = characters?.at(0);
-      if (!firstCharacter) return;
-      setCharacter(firstCharacter);
-    },
-    [characters, setCharacter],
-  );
-
-  if (
-    !character.name ||
-    !abilityCompendium.at(0) ||
-    !itemCompendium.at(0) ||
-    !spellCompendium?.at(0) ||
-    !skillCompendium?.skills ||
-    !skillCompendium?.skillSynergies
-  )
-    return <div className="text-white">Loading...</div>;
-
+function LoadCharacter() {
+  // Fetch everything the sheet needs in parallel, before any of it renders.
+  useSuspenseQueries({
+    queries: [
+      queries.character(useCharacterId()),
+      queries.characters,
+      queries.skills,
+      queries.skillSynergies,
+      queries.abilities,
+      queries.items,
+      queries.spells,
+    ],
+  });
   return <App />;
-};
+}
 
-export default LoadApp;
+/** Layout for /characters/:characterId and its tabs. */
+export function CharacterLayout() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <LoadCharacter />
+    </Suspense>
+  );
+}
+
+function RedirectToFirstCharacter() {
+  const first = useSuspenseQuery(queries.characters).data.at(0);
+  if (!first) {
+    return (
+      <PageMessage title="No characters yet">
+        Characters you create will show up here.
+      </PageMessage>
+    );
+  }
+  return <Navigate to={`/characters/${first.id}`} replace />;
+}
+
+/** The root path sends you to your first character. */
+export function Home() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <RedirectToFirstCharacter />
+    </Suspense>
+  );
+}

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { combine as c } from "../lib";
-import { useCharacter, useStat } from "../store/recoilState";
-import { useUpdateCharacter } from "../store/server";
+import { useUpdateCharacter } from "../store/api";
+import { useCharacter, useStat } from "../store/character";
 import { useToast } from "./ActionToast/useToast";
 import { Button } from "./Button";
 import { Heading } from "./Heading";

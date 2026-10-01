@@ -1,5 +1,6 @@
 import { combine as c } from "../lib";
-import { useCharacter, useDiceRollResult } from "../store/recoilState";
+import { useCharacter } from "../store/character";
+import { useDiceRollResult } from "../store/ui";
 
 const containerClassName =
   "bg-black text-center min-h-[100px] py-2 border border-stone-700 rounded-sm";

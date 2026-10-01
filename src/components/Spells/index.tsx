@@ -6,9 +6,12 @@ import {
   incrementSpellPrep,
   incrementSpellSlots,
 } from "../../lib/character";
-import { useAbilityScores, useCharacter } from "../../store/recoilState";
-import { useMagicByClassByLevel } from "../../store/recoilState";
-import { useUpdateCharacter } from "../../store/server";
+import { useUpdateCharacter } from "../../store/api";
+import {
+  useAbilityScores,
+  useCharacter,
+  useMagicByClassByLevel,
+} from "../../store/character";
 import { Button } from "../Button";
 import { Heading } from "../Heading";
 import { Spell } from "./Spell";

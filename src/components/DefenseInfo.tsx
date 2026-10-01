@@ -1,9 +1,5 @@
-import {
-  useArmorClass,
-  useCharacter,
-  useDiceRoll,
-  useStat,
-} from "../store/recoilState";
+import { useArmorClass, useCharacter, useStat } from "../store/character";
+import { useDiceRoll } from "../store/ui";
 import type { EnergyType } from "../store/stats/types";
 import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";

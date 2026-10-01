@@ -1,4 +1,4 @@
-import { useCharacterItems } from "../store/recoilState";
+import { useCharacterItems } from "../store/character";
 import { EntityDisclosure } from "./EntityDisclosure";
 
 export function Items() {
