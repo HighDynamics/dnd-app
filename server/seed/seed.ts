@@ -1,5 +1,6 @@
-// Replaces all compendium and character data with the files in ./data.
-// Usage: npm run seed (set SEED_CONFIRM=1 to overwrite existing data)
+// Loads ./data: the shared SRD compendium, plus Arn and the non-SRD entries
+// owned by BOOTSTRAP_USER_EMAIL. Other users' data is left alone.
+// Usage: npm run seed (set SEED_CONFIRM=1 to replace the seed account's data)
 import { db } from "../db";
 import abilities from "./data/abilities";
 import characters from "./data/characters";
@@ -18,57 +19,83 @@ if (!email) {
 }
 
 try {
-  const [{ count }] = await db("characters").count({ count: "*" });
+  const existingOwner = await db("users")
+    .whereRaw("lower(email) = lower(?)", [email])
+    .first();
+  const [{ count }] = existingOwner
+    ? await db("characters").where({ ownerId: existingOwner.id }).count({ count: "*" })
+    : [{ count: 0 }];
   if (Number(count) > 0 && process.env.SEED_CONFIRM !== "1") {
     console.error(
-      `Refusing to seed: ${count} character(s) already exist and would be deleted. ` +
+      `Refusing to seed: ${email} has ${count} character(s) that would be replaced. ` +
         "Rerun with SEED_CONFIRM=1 to overwrite.",
     );
     process.exit(1);
   }
 
-  await db.transaction(async (trx) => {
+  const owner = await db.transaction(async (trx) => {
+    const owner =
+      existingOwner ?? (await trx("users").insert({ email }).returning("*"))[0];
+    const ownerIf = (isOwned: boolean) => (isOwned ? owner.id : null);
+    const json = (value: unknown) => value && JSON.stringify(value);
+
+    // Only the seed account's rows are replaced. Other users' characters and
+    // private entries are never touched.
     for (const table of [
       "characters",
-      "skill_synergies",
+      "skillSynergies",
       "skills",
       "abilities",
       "items",
       "spells",
     ]) {
-      await trx(table).del();
+      await trx(table).where({ ownerId: owner.id }).del();
     }
 
-    const owner =
-      (await trx("users").whereRaw("lower(email) = lower(?)", [email]).first()) ??
-      (await trx("users").insert({ email }).returning("*"))[0];
-    const ownerIf = (isOwned: boolean) => (isOwned ? owner.id : null);
+    // Skills go before the synergies that reference them.
+    const compendium: [string, { id: string }[]][] = [
+      [
+        "skills",
+        skills.map((s) => ({ ...s, ownerId: ownerIf(NON_SRD_SKILLS.has(s.name)) })),
+      ],
+      [
+        "abilities",
+        abilities.map(({ effects, ...a }) => ({
+          ...a,
+          ownerId: owner.id,
+          effects: json(effects),
+        })),
+      ],
+      [
+        "items",
+        items.map(({ isSrd, effects, ...i }) => ({
+          ...i,
+          ownerId: ownerIf(!isSrd),
+          effects: json(effects),
+        })),
+      ],
+      [
+        "spells",
+        spells.map(({ isSrd, effects, ...s }) => ({
+          ...s,
+          ownerId: ownerIf(!isSrd),
+          effects: json(effects),
+        })),
+      ],
+      ["skillSynergies", skillSynergies.map((s) => ({ ...s, ownerId: null }))],
+    ];
 
-    await trx("skills").insert(
-      skills.map((s) => ({ ...s, ownerId: ownerIf(NON_SRD_SKILLS.has(s.name)) })),
-    );
-    await trx("skillSynergies").insert(skillSynergies.map((s) => ({ ...s })));
-    await trx("abilities").insert(
-      abilities.map(({ effects, ...a }) => ({
-        ...a,
-        ownerId: owner.id,
-        effects: effects && JSON.stringify(effects),
-      })),
-    );
-    await trx("items").insert(
-      items.map(({ isSrd, effects, ...i }) => ({
-        ...i,
-        ownerId: ownerIf(!isSrd),
-        effects: effects && JSON.stringify(effects),
-      })),
-    );
-    await trx("spells").insert(
-      spells.map(({ isSrd, effects, ...s }) => ({
-        ...s,
-        ownerId: ownerIf(!isSrd),
-        effects: effects && JSON.stringify(effects),
-      })),
-    );
+    for (const [table, rows] of compendium) {
+      // SRD rows are updated in place rather than deleted and re-added, so
+      // other users' rows that reference them (like synergies) survive.
+      await trx(table).insert(rows).onConflict("id").merge();
+      // Drop SRD rows that are no longer in the seed data.
+      await trx(table)
+        .whereNull("ownerId")
+        .whereNotIn("id", rows.map((r) => r.id))
+        .del();
+    }
+
     await trx("characters").insert(
       characters.map(({ id, name, ...data }) => ({
         id,
@@ -77,14 +104,17 @@ try {
         data: JSON.stringify(data),
       })),
     );
+    return owner;
   });
 
   const counts = await Promise.all(
     ["skills", "skill_synergies", "abilities", "items", "spells", "characters"].map(
       async (table) => {
-        const [{ total, owned }] = await db(table)
-          .select(db.raw("count(*)::int as total"), db.raw("count(owner_id)::int as owned"));
-        return `${table}: ${total} (${owned} owned by ${email})`;
+        const [{ srd, owned }] = await db(table).select(
+          db.raw("count(*) filter (where owner_id is null)::int as srd"),
+          db.raw("count(*) filter (where owner_id = ?)::int as owned", [owner.id]),
+        );
+        return `${table}: ${srd} SRD, ${owned} owned by ${email}`;
       },
     ),
   );
