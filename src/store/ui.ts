@@ -1,4 +1,4 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { atom, getDefaultStore, useAtomValue, useSetAtom } from "jotai";
 
 type DiceRoll = {
   result: number;
@@ -24,3 +24,16 @@ export function useResetDiceRoll() {
 }
 
 export const useDiceRollResult = () => useAtomValue(diceRollAtom);
+
+const toastMessageAtom = atom<string | null>(null);
+
+export const useToastMessage = () => useAtomValue(toastMessageAtom);
+
+/** Shows a message as a toast for a few seconds. Works outside React too. */
+export function showToast(msg: string) {
+  const store = getDefaultStore();
+  store.set(toastMessageAtom, msg);
+  setTimeout(() => {
+    if (store.get(toastMessageAtom) === msg) store.set(toastMessageAtom, null);
+  }, 3000);
+}

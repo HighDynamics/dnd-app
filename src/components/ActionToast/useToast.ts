@@ -1,20 +1,11 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { showToast } from "../../store/ui";
 
-const toastMessageAtom = atom<string | null>(null);
-
-export const useToastMessage = () => useAtomValue(toastMessageAtom);
+export { useToastMessage } from "../../store/ui";
 
 /**
  * Returns a function that sets a message, triggering a toast-like
  * notification.
  */
 export function useToast() {
-  const setMessage = useSetAtom(toastMessageAtom);
-
-  function renderConfirmation(msg: string) {
-    setMessage(msg);
-    setTimeout(() => setMessage(null), 3000);
-  }
-
-  return renderConfirmation;
+  return showToast;
 }
