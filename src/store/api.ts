@@ -1,9 +1,12 @@
 import {
+  MutationCache,
   QueryClient,
   queryOptions,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+
+import { showToast } from "./ui";
 
 export class ApiError extends Error {
   constructor(
@@ -27,6 +30,10 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const queryClient = new QueryClient({
+  // Failed saves roll back, so say so instead of silently reverting.
+  mutationCache: new MutationCache({
+    onError: (error) => showToast(`Couldn't save: ${error.message}`),
+  }),
   defaultOptions: {
     queries: {
       staleTime: 30_000,
