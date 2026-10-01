@@ -1,6 +1,6 @@
 import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense, useEffect } from "react";
-import { Navigate, Outlet } from "react-router";
+import { Link, Navigate, Outlet } from "react-router";
 
 import { queries } from "../store/api";
 import { useCharacter, useCharacterId } from "../store/character";
@@ -48,6 +48,15 @@ const App = () => {
 
 const Loading = () => <div className="text-white">Loading...</div>;
 
+/** Root layout: shows a loading state while any page fetches its data. */
+export function Root() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Outlet />
+    </Suspense>
+  );
+}
+
 function LoadCharacter() {
   // Fetch everything the sheet needs in parallel, before any of it renders.
   useSuspenseQueries({
@@ -78,7 +87,10 @@ function RedirectToFirstCharacter() {
   if (!first) {
     return (
       <PageMessage title="No characters yet">
-        Characters you create will show up here.
+        <p>Characters you create will show up here.</p>
+        <Link to="/account" className="text-fuchsia-400 underline">
+          Account
+        </Link>
       </PageMessage>
     );
   }

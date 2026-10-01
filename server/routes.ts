@@ -1,28 +1,15 @@
-import express, { type RequestHandler } from "express";
+import express from "express";
 import type { Knex } from "knex";
 
+import {
+  changePassword,
+  login,
+  logout,
+  me,
+  requireAuth,
+  signUp,
+} from "./auth";
 import { db } from "./db";
-
-declare module "express-serve-static-core" {
-  interface Request {
-    userId: string;
-  }
-}
-
-// TODO(accounts): replace with session auth. Until then every request acts as
-// the seed user, so the app shows what that user will see once they sign in.
-const actAsSeedUser: RequestHandler = async (req, res, next) => {
-  const email = process.env.SEED_USER_EMAIL;
-  const user =
-    email &&
-    (await db("users").whereRaw("lower(email) = lower(?)", [email]).first());
-  if (!user) {
-    res.status(500).json({ error: "SEED_USER_EMAIL is unset or not seeded" });
-    return;
-  }
-  req.userId = user.id;
-  next();
-};
 
 // SRD entries (no owner) plus the user's own.
 const visibleTo = (userId: string) => (qb: Knex.QueryBuilder) =>
@@ -41,7 +28,15 @@ function toCharacter({ id, name, data }: Record<string, any>): ICharacter {
 
 export const api = express.Router();
 
-api.use(actAsSeedUser);
+// Sign-in endpoints sit in front of requireAuth so you can reach them signed out.
+api.post("/auth/signup", signUp);
+api.post("/auth/login", login);
+api.post("/auth/logout", logout);
+api.get("/auth/me", me);
+
+api.use(requireAuth);
+
+api.post("/auth/password", changePassword);
 
 for (const [path, table, key, orderBy] of [
   ["/abilities", "abilities", "abilities", "name"],

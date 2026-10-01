@@ -10,7 +10,11 @@ import { NotFound } from "./components/NotFound";
 import { RouteError } from "./components/RouteError";
 import { Skills } from "./components/Skills/Skills";
 import { Spells } from "./components/Spells";
-import { CharacterLayout, Home } from "./components/App";
+import { CharacterLayout, Home, Root } from "./components/App";
+import { Account } from "./components/Auth/Account";
+import { Login } from "./components/Auth/Login";
+import { RequireAuth } from "./components/Auth/RequireAuth";
+import { SignUp } from "./components/Auth/SignUp";
 
 import "./index.css";
 import { queryClient } from "./store/api";
@@ -19,20 +23,34 @@ import { registerSW } from 'virtual:pwa-register';
 
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home />, errorElement: <RouteError /> },
   {
-    path: "/characters/:characterId",
-    element: <CharacterLayout />,
+    path: "/",
+    element: <Root />,
     errorElement: <RouteError />,
     children: [
-      { index: true, element: <Main /> },
-      { path: "skills", element: <Skills /> },
-      { path: "items", element: <Items /> },
-      { path: "spells", element: <Spells /> },
-      { path: "abilities", element: <ActiveAndPassiveAbilities /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
+      {
+        element: <RequireAuth />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "account", element: <Account /> },
+          {
+            path: "characters/:characterId",
+            element: <CharacterLayout />,
+            children: [
+              { index: true, element: <Main /> },
+              { path: "skills", element: <Skills /> },
+              { path: "items", element: <Items /> },
+              { path: "spells", element: <Spells /> },
+              { path: "abilities", element: <ActiveAndPassiveAbilities /> },
+            ],
+          },
+        ],
+      },
+      { path: "*", element: <NotFound /> },
     ],
   },
-  { path: "*", element: <NotFound /> },
 ]);
 
 const container = document.getElementById("root");

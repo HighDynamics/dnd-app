@@ -9,3 +9,5 @@
 4. Build the schema: `npm run migrate`
 5. Load the seed data: `npm run seed`
 6. Run the app: `npm start` (Vite on :3000, API on :4002)
+7. Sign in as `BOOTSTRAP_USER_EMAIL` with the password whose hash you put in
+   `BOOTSTRAP_USER_PASSWORD_HASH`. Others can sign up with `SIGNUP_INVITE_CODE`.

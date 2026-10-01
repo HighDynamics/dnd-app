@@ -1,4 +1,4 @@
-import { Link, useRouteError } from "react-router";
+import { Link, Navigate, useRouteError } from "react-router";
 
 import { ApiError } from "../store/api";
 import { NotFound } from "./NotFound";
@@ -8,6 +8,9 @@ export function RouteError() {
   const error = useRouteError();
 
   if (error instanceof ApiError && error.status === 404) return <NotFound />;
+  if (error instanceof ApiError && error.status === 401) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <PageMessage title="Something went wrong">

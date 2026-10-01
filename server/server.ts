@@ -2,6 +2,7 @@ import compression from "compression";
 import express, { type ErrorRequestHandler } from "express";
 import helmet from "helmet";
 
+import { ensureBootstrapUser, sessionMiddleware } from "./auth";
 import { api } from "./routes";
 
 const PORT = Number(process.env.PORT) || 4002;
@@ -14,6 +15,7 @@ if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
 app.use(helmet());
 app.use(compression());
 app.use(express.json());
+app.use(sessionMiddleware);
 
 // In development Vite proxies /api here, so the browser stays same-origin.
 app.use("/api", api);
@@ -23,6 +25,8 @@ const handleError: ErrorRequestHandler = (err, _req, res, _next) => {
   res.status(500).json({ error: "Internal server error" });
 };
 app.use(handleError);
+
+await ensureBootstrapUser();
 
 app.listen(PORT, () => {
   console.log(`API listening on http://localhost:${PORT}`);

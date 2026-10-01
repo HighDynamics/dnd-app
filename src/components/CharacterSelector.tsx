@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import { useCharacter, useCharacters } from "../store/character";
 import { useResetDiceRoll } from "../store/ui";
@@ -15,15 +15,24 @@ export function CharacterSelector() {
 
   return (
     <div className="bg-indigo-950">
-      <button
-        className="flex justify-between items-center w-full px-4 py-2"
-        onClick={() => setToggle(!toggle)}
-      >
-        <span className="text-lg">{currentCharacter.name}</span>
-        {characters.length > 1 && (
-          <i className="fas fa-solid fa-chevron-down" />
-        )}
-      </button>
+      <div className="flex items-center">
+        <button
+          className="flex grow justify-between items-center px-4 py-2"
+          onClick={() => setToggle(!toggle)}
+        >
+          <span className="text-lg">{currentCharacter.name}</span>
+          {characters.length > 1 && (
+            <i className="fas fa-solid fa-chevron-down" />
+          )}
+        </button>
+        <Link
+          to="/account"
+          aria-label="Account"
+          className="px-4 py-2 opacity-70 hover:opacity-100"
+        >
+          <i className="fas fa-solid fa-user" />
+        </Link>
+      </div>
       {toggle && characters.length > 1 && (
         <div>
           {characters

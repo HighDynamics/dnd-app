@@ -55,3 +55,12 @@ declare global {
     }
   }
 }
+
+declare module "@tanstack/react-query" {
+  interface Register {
+    mutationMeta: {
+      // Set by mutations that show their own errors instead of the global toast.
+      handlesOwnErrors?: boolean;
+    };
+  }
+}
