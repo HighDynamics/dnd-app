@@ -58,17 +58,25 @@ export function Account() {
         <SubmitButton pending={changePassword.isPending}>Change password</SubmitButton>
       </form>
 
-      <button
-        type="button"
-        className="mt-12 cursor-pointer text-fuchsia-400 underline"
-        onClick={() =>
-          logout.mutate(undefined, {
-            onSuccess: () => navigate("/login", { replace: true }),
-          })
-        }
-      >
-        Sign out
-      </button>
+      <div className="mt-12 flex flex-col gap-2 items-start">
+        <button
+          type="button"
+          disabled={logout.isPending}
+          className="cursor-pointer text-fuchsia-400 underline disabled:cursor-wait disabled:opacity-50"
+          onClick={() =>
+            logout.mutate(undefined, {
+              onSuccess: () => navigate("/login", { replace: true }),
+            })
+          }
+        >
+          {logout.isPending ? "Signing out..." : "Sign out"}
+        </button>
+        {logout.error && (
+          <p role="alert" className="text-red-400">
+            Couldn't sign out: {logout.error.message}. You're still signed in.
+          </p>
+        )}
+      </div>
     </AuthPage>
   );
 }
