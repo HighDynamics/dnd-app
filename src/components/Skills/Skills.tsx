@@ -160,16 +160,18 @@ function SkillsListItem(p: {
       (s) => s.id === skill.id,
     );
 
+    // Save only the character's own fields, not the derived display data.
+    const updatedSkillRef: SkillRef = {
+      id: updatedSkill.id,
+      ranks: updatedSkill.ranks,
+      miscModifier: updatedSkill.miscModifier,
+      classSkill: updatedSkill.classSkill,
+    };
     const updatedSkillRefs = [...character.skillRefs];
     if (existingSkillRefIdx >= 0) {
-      updatedSkillRefs[existingSkillRefIdx] = updatedSkill;
+      updatedSkillRefs[existingSkillRefIdx] = updatedSkillRef;
     } else {
-      updatedSkillRefs.push({
-        id: updatedSkill.id,
-        ranks: updatedSkill.ranks,
-        miscModifier: updatedSkill.miscModifier,
-        classSkill: updatedSkill.classSkill,
-      });
+      updatedSkillRefs.push(updatedSkillRef);
     }
 
     if (hasGlobalChanges) {
