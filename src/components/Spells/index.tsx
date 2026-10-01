@@ -61,10 +61,9 @@ export function Spells() {
   }
 
   function updateClasses(updatedClass: DNDClass) {
-    return [
-      ...character.classes.filter((c) => c.name !== updatedClass.name),
-      updatedClass,
-    ];
+    return character.classes.map((c) =>
+      c.name === updatedClass.name ? updatedClass : c,
+    );
   }
 
   function mutateCharacterSpellSlots(classData: DNDClass, spellLevel: number) {
