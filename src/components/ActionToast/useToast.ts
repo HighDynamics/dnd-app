@@ -1,17 +1,19 @@
-import { useSetRecoilState } from "recoil";
+import { atom, useAtomValue, useSetAtom } from "jotai";
 
-import { confirmationMsg } from "../../store/recoilState";
+const toastMessageAtom = atom<string | null>(null);
+
+export const useToastMessage = () => useAtomValue(toastMessageAtom);
 
 /**
  * Returns a function that sets a message, triggering a toast-like
  * notification.
  */
 export function useToast() {
-  const setConfirmationMsg = useSetRecoilState(confirmationMsg);
+  const setMessage = useSetAtom(toastMessageAtom);
 
   function renderConfirmation(msg: string) {
-    setConfirmationMsg(msg);
-    setTimeout(() => setConfirmationMsg(null), 3000);
+    setMessage(msg);
+    setTimeout(() => setMessage(null), 3000);
   }
 
   return renderConfirmation;

@@ -1,7 +1,6 @@
 // Request/response shapes for the /api routes (server/routes.ts).
 export {};
 
-
 declare global {
   namespace IServer {
     namespace GetAbilities {
@@ -10,6 +9,9 @@ declare global {
 
     namespace GetCharacters {
       type Response = { characters: ICharacter[] };
+    }
+    namespace GetCharacter {
+      type Response = { character: ICharacter };
     }
     namespace PutCharacter {
       type Request = ICharacter;

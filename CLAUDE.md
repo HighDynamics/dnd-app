@@ -1,15 +1,15 @@
 # Herofolio
 
-A D&D 3.5 character management app built with React, TypeScript, Vite, Tailwind CSS v4, and Recoil for state management. An Express API serves data from Postgres.
+A D&D 3.5 character management app built with React, TypeScript, Vite, and Tailwind CSS v4, using TanStack Query for server data and Jotai for client state. An Express API serves data from Postgres.
 
 ## Tech Stack
 
 - **React 18** with TypeScript
 - **Vite** for bundling
 - **Tailwind CSS v4** (via `@tailwindcss/vite`)
-- **Recoil** for global state
-- **SWR** for data fetching
-- **React Router v7**
+- **TanStack Query** for server data (fetching, caching, mutations)
+- **Jotai** for client-only state (dice rolls, toasts)
+- **React Router v7** (`createBrowserRouter`; the character is in the URL: `/characters/:characterId/...`)
 - **Express 5 + Knex** API over **Postgres**, run with `tsx`
 
 ## Commands
@@ -26,7 +26,10 @@ npm run serve      # Preview production build
 ## Project Structure
 
 - `src/components/` — React UI components
-- `src/store/` — Recoil atoms, server state, and the stat engine (`src/store/stats/`)
+- `src/store/api.ts` — API client, query definitions, and mutations
+- `src/store/character.ts` — hooks for the character in the URL and its derived data
+- `src/store/ui.ts` — Jotai atoms for client state
+- `src/store/stats/` — the stat engine
 - `server/` — Express API (`routes.ts`), Knex config, migrations (`db/migrations/`)
 - `server/seed/data/` — seed data: Arn and the SRD compendiums
 

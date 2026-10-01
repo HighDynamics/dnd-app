@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useLocation, useNavigate } from "react-router";
 
-import {
-  characterAtom,
-  useAllCharacters,
-  useResetDiceRoll,
-} from "../store/recoilState";
+import { useCharacter, useCharacters } from "../store/character";
+import { useResetDiceRoll } from "../store/ui";
 import { FadedSeparator } from "./FadedSeparator";
 
 export function CharacterSelector() {
-  const [currentCharacter, setCurrentCharacter] = useRecoilState(characterAtom);
-  const characters = useAllCharacters();
+  const currentCharacter = useCharacter();
+  const characters = useCharacters();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const resetDiceRoll = useResetDiceRoll();
   const [toggle, setToggle] = useState(false);
 
@@ -34,7 +33,13 @@ export function CharacterSelector() {
                 key={character.id}
                 className="flex justify-between items-center w-full py-2 px-4 hover:bg-indigo-700"
                 onClick={() => {
-                  setCurrentCharacter(character);
+                  // Stay on the same tab for the new character.
+                  navigate(
+                    pathname.replace(
+                      `/characters/${currentCharacter.id}`,
+                      `/characters/${character.id}`,
+                    ),
+                  );
                   setToggle(false);
                   resetDiceRoll();
                 }}

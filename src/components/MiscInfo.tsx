@@ -1,4 +1,5 @@
-import { useCharacter, useDiceRoll, useStat } from "../store/recoilState";
+import { useCharacter, useStat } from "../store/character";
+import { useDiceRoll } from "../store/ui";
 import { DiceRollButton } from "./DiceRollButton";
 import { EntityDisclosure } from "./EntityDisclosure";
 import { FadedSeparator } from "./FadedSeparator";

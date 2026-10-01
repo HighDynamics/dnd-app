@@ -2,29 +2,30 @@ import { NavLink } from "react-router";
 
 import { combine as c } from "../lib";
 
+// Relative to the current character, e.g. /characters/:characterId/skills.
 const links = [
   {
-    to: "/skills",
+    to: "skills",
     label: "Skills",
     icon: <i className="fas fa-solid fa-bolt"></i>,
   },
   {
-    to: "/items",
+    to: "items",
     label: "Items",
     icon: <i className="fas fa-solid fa-suitcase"></i>,
   },
   {
-    to: "/main",
+    to: ".",
     label: "Main",
     icon: <i className="fas fa-solid fa-heart"></i>,
   },
   {
-    to: "/spells",
+    to: "spells",
     label: "Spells",
     icon: <i className="fas fa-hand-sparkles"></i>,
   },
   {
-    to: "/abilities",
+    to: "abilities",
     label: "Abilities",
     icon: <i className="fas fa-solid fa-star"></i>,
   },
@@ -37,6 +38,7 @@ export function Nav() {
         <NavLink
           key={link.to}
           to={link.to}
+          end
           className={({ isActive }) =>
             c(
               "text-white flex flex-col items-center justify-center font-sans py-2 px-3 rounded-sm opacity-50",

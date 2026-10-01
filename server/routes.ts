@@ -63,6 +63,17 @@ api.get("/characters", async (req, res) => {
   res.json({ characters: rows.map(toCharacter) });
 });
 
+api.get("/characters/:id", async (req, res) => {
+  const row = await db("characters")
+    .where({ id: req.params.id, ownerId: req.userId })
+    .first();
+  if (!row) {
+    res.status(404).json({ error: "Character not found" });
+    return;
+  }
+  res.json({ character: toCharacter(row) });
+});
+
 api.put("/characters/:id", async (req, res) => {
   const { id: _id, name, ...data } = req.body as ICharacter;
   const [row] = await db("characters")
