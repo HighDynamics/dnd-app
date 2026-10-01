@@ -2,7 +2,11 @@ import compression from "compression";
 import express, { type ErrorRequestHandler } from "express";
 import helmet from "helmet";
 
-import { ensureBootstrapUser, sessionMiddleware } from "./auth";
+import {
+  ensureBootstrapUser,
+  refreshSession,
+  sessionMiddleware,
+} from "./auth";
 import { api } from "./routes";
 
 const PORT = Number(process.env.PORT) || 4002;
@@ -16,6 +20,7 @@ app.use(helmet());
 app.use(compression());
 app.use(express.json());
 app.use(sessionMiddleware);
+app.use(refreshSession);
 
 // In development Vite proxies /api here, so the browser stays same-origin.
 app.use("/api", api);
