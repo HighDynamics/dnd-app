@@ -1,5 +1,6 @@
 import {
   MutationCache,
+  QueryCache,
   QueryClient,
   queryOptions,
   useMutation,
@@ -29,10 +30,32 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json();
 }
 
+const isSignedOut = (error: unknown) =>
+  error instanceof ApiError && error.status === 401;
+
+// A 401 means the session ended. Forgetting the user sends every signed-in
+// page to the login screen.
+function handleSignedOut() {
+  queryClient.setQueryData(queries.me.queryKey, null);
+}
+
 export const queryClient = new QueryClient({
-  // Failed saves roll back, so say so instead of silently reverting.
+  queryCache: new QueryCache({
+    onError: (error) => isSignedOut(error) && handleSignedOut(),
+  }),
   mutationCache: new MutationCache({
-    onError: (error) => showToast(`Couldn't save: ${error.message}`),
+    onError: (error, _variables, _context, mutation) => {
+      // A wrong password at sign-in is also a 401; forgetting the user there
+      // is harmless, since nobody is signed in yet.
+      if (isSignedOut(error)) handleSignedOut();
+      if (mutation.meta?.handlesOwnErrors) return;
+      if (isSignedOut(error)) {
+        showToast("You've been signed out. Sign in to keep going.");
+        return;
+      }
+      // Failed saves roll back, so say so instead of silently reverting.
+      showToast(`Couldn't save: ${error.message}`);
+    },
   }),
   defaultOptions: {
     queries: {
@@ -46,7 +69,16 @@ export const queryClient = new QueryClient({
 
 // ─── Queries ──────────────────────────────────────────────────────────────────
 
+export type User = { id: string; email: string; name: string | null };
+
 export const queries = {
+  // The signed-in user, or null when signed out.
+  me: queryOptions({
+    queryKey: ["me"],
+    queryFn: () =>
+      apiFetch<{ user: User | null }>("/auth/me").then((r) => r.user),
+    staleTime: Infinity,
+  }),
   characters: queryOptions({
     queryKey: ["characters"],
     queryFn: () =>
@@ -159,3 +191,43 @@ export function useUpdateSkill() {
   });
   return mutateAsync;
 }
+
+// ─── Accounts ─────────────────────────────────────────────────────────────────
+
+// Signing in or out starts from an empty cache, so no data from one account
+// is ever shown to another.
+function useSessionChange<Vars>(request: (vars: Vars) => Promise<User | null>) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: request,
+    meta: { handlesOwnErrors: true },
+    onSuccess: (user) => {
+      client.clear();
+      client.setQueryData(queries.me.queryKey, user);
+    },
+  });
+}
+
+const post = <T>(path: string, body?: unknown) =>
+  apiFetch<T>(path, { method: "POST", body: JSON.stringify(body ?? {}) });
+
+export const useLogin = () =>
+  useSessionChange((vars: { email: string; password: string }) =>
+    post<{ user: User }>("/auth/login", vars).then((r) => r.user),
+  );
+
+export const useSignUp = () =>
+  useSessionChange(
+    (vars: { email: string; password: string; name: string; inviteCode: string }) =>
+      post<{ user: User }>("/auth/signup", vars).then((r) => r.user),
+  );
+
+export const useLogout = () =>
+  useSessionChange(() => post("/auth/logout").then(() => null));
+
+export const useChangePassword = () =>
+  useMutation({
+    mutationFn: (vars: { currentPassword: string; newPassword: string }) =>
+      post<{ ok: true }>("/auth/password", vars),
+    meta: { handlesOwnErrors: true },
+  });

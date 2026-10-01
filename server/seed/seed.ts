@@ -11,9 +11,9 @@ import spells from "./data/spells";
 // belongs to the seed user.
 const NON_SRD_SKILLS = new Set(["Perception", "Stealth"]);
 
-const email = process.env.SEED_USER_EMAIL;
+const email = process.env.BOOTSTRAP_USER_EMAIL;
 if (!email) {
-  console.error("Set SEED_USER_EMAIL to the account that should own the seed data.");
+  console.error("Set BOOTSTRAP_USER_EMAIL to the account that should own the seed data.");
   process.exit(1);
 }
 

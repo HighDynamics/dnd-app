@@ -39,3 +39,11 @@ npm run serve      # Preview production build
 - Compendium rows with a null `owner_id` are SRD content everyone sees. Rows with an owner are that user's private additions. Only SRD content ships as shared data.
 - Characters store everything except id, owner, and name in a `data` jsonb column.
 - Knex converts camelCase in queries to snake_case columns, and rows back to camelCase.
+
+## Accounts
+
+- Cookie sessions (express-session, stored in the `herofolio.session` table), 30-day rolling, bcrypt password hashes. See `server/auth.ts`.
+- Sign-up requires `SIGNUP_INVITE_CODE`; leaving it unset turns sign-up off. Login and sign-up failures are rate-limited per IP.
+- Every `/api` route except `/api/auth/*` requires a session and only returns the signed-in user's data (plus SRD compendium entries).
+- `BOOTSTRAP_USER_EMAIL` owns Arn and the non-SRD seed data. On boot, the API gives that account `BOOTSTRAP_USER_PASSWORD_HASH` if it has no password yet.
+- In the client, `queries.me` holds the signed-in user (null when signed out); any 401 clears it, which sends signed-in pages to `/login`.
